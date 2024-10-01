@@ -21,6 +21,7 @@ import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.PopeOfDeath;
 import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.models.Character;
+import com.example.dreadful.utils.SetupCharacter;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,10 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView yourImage, enemyImage;
     private Button backButton, startButton;
 
-    private ArrayList<Character> characters = new ArrayList<>();
     private Character yourCharacter, enemyCharacter;
-    private Random random = new Random();
     private GameMechanics gameMechanics;
+    private SetupCharacter setupCharacter;
 
     private void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -62,103 +62,32 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
     }
 
-    private void initCharacters() {
-        characters.clear();
-        characters.add(new Dreath());
-        characters.add(new PopeOfDeath());
+    private void startConfiguration()
+    {
+        setupCharacter = new SetupCharacter(this,
+                yourName, yourHealth, yourHealthText, yourImage,
+                enemyName, enemyHealth, enemyHealthText, enemyImage,
+                yourCharacter, enemyCharacter);
+
+        setupCharacter.initializeYourViews();
+        setupCharacter.initializeEnemyViews();
+        yourCharacter = setupCharacter.returnYourCharacter();
+        enemyCharacter = setupCharacter.returnEnemyCharacter();
+
+        gameMechanics = new GameMechanics(this,
+                yourName, yourHealth, yourHealthText, yourImage,
+                enemyName, enemyHealth, enemyHealthText, enemyImage,
+                yourCharacter, enemyCharacter);
     }
 
-    private void initializeYourCharacter() {
-        yourImage.setScaleX(1);
-
-        initCharacters();
-        yourCharacter = characters.get(random.nextInt(characters.size()));
-
-        yourName.setText(yourCharacter.getName());
-        yourHealthText.setText(String.valueOf(yourCharacter.getHealth()));
-        yourHealth.setMax(yourCharacter.getHealth());
-        yourHealth.setProgress(yourCharacter.getHealth());
-        yourImage.setImageResource(getResources().getIdentifier(yourCharacter.getImage(), "drawable", getPackageName()));
-
-        if (yourCharacter.getImageDirection().equals("right")) {
-            yourImage.setScaleX(-1);
+    private void invisibleButtons(Boolean invisible) {
+        if (invisible)
+        {
+            backButton.setVisibility(View.GONE);
         }
-
-        if (yourCharacter.getSize().equals("average")) {
-            ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
-
-            int widthInDp = 150; // Desired width in dp
-            int heightInDp = 150; // Desired height in dp
-
-            float scale = getResources().getDisplayMetrics().density;
-            int widthInPixels = (int) (widthInDp * scale + 0.5f);
-            int heightInPixels = (int) (heightInDp * scale + 0.5f);
-
-            layoutParams.width = widthInPixels;
-            layoutParams.height = heightInPixels;
-
-            yourImage.setLayoutParams(layoutParams);
-        } else {
-            ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
-
-            int widthInDp = 210; // Desired width in dp
-            int heightInDp = 210; // Desired height in dp
-
-            float scale = getResources().getDisplayMetrics().density;
-            int widthInPixels = (int) (widthInDp * scale + 0.5f);
-            int heightInPixels = (int) (heightInDp * scale + 0.5f);
-
-            layoutParams.width = widthInPixels;
-            layoutParams.height = heightInPixels;
-
-            yourImage.setLayoutParams(layoutParams);
-        }
-    }
-
-    private void initializeEnemyCharacter() {
-        enemyImage.setScaleX(1);
-
-        initCharacters();
-        enemyCharacter = characters.get(random.nextInt(characters.size()));
-
-        enemyName.setText(enemyCharacter.getName());
-        enemyHealthText.setText(String.valueOf(enemyCharacter.getHealth()));
-        enemyHealth.setMax(enemyCharacter.getHealth());
-        enemyHealth.setProgress(enemyCharacter.getHealth());
-        enemyImage.setImageResource(getResources().getIdentifier(enemyCharacter.getImage(), "drawable", getPackageName()));
-
-        if (enemyCharacter.getImageDirection().equals("left")) {
-            enemyImage.setScaleX(-1);
-        }
-
-        if (enemyCharacter.getSize().equals("average")) {
-            ViewGroup.LayoutParams layoutParams = enemyImage.getLayoutParams();
-
-            int widthInDp = 150; // Desired width in dp
-            int heightInDp = 150; // Desired height in dp
-
-            float scale = getResources().getDisplayMetrics().density;
-            int widthInPixels = (int) (widthInDp * scale + 0.5f);
-            int heightInPixels = (int) (heightInDp * scale + 0.5f);
-
-            layoutParams.width = widthInPixels;
-            layoutParams.height = heightInPixels;
-
-            enemyImage.setLayoutParams(layoutParams);
-        } else {
-            ViewGroup.LayoutParams layoutParams = enemyImage.getLayoutParams();
-
-            int widthInDp = 210; // Desired width in dp
-            int heightInDp = 210; // Desired height in dp
-
-            float scale = getResources().getDisplayMetrics().density;
-            int widthInPixels = (int) (widthInDp * scale + 0.5f);
-            int heightInPixels = (int) (heightInDp * scale + 0.5f);
-
-            layoutParams.width = widthInPixels;
-            layoutParams.height = heightInPixels;
-
-            enemyImage.setLayoutParams(layoutParams);
+        else
+        {
+            backButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -169,19 +98,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-        initializeYourCharacter();
-        initializeEnemyCharacter();
-        gameMechanics = new GameMechanics(this,
-                yourName, yourHealth, yourHealthText, yourImage,
-                enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourCharacter, enemyCharacter);
+        startConfiguration();
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initCharacters();
-                initializeYourCharacter();
-                initializeEnemyCharacter();
+                startConfiguration();
             }
         });
 
@@ -189,11 +111,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (startButton.getText().toString().equals(getString(R.string.start_button))) {
-                    gameMechanics.battleLoop();
+                    invisibleButtons(true);
                     startButton.setText("Stop");
+                    gameMechanics.battleLoop();
                 } else {
-                    gameMechanics.stopBattleLoop();
+                    invisibleButtons(false);
                     startButton.setText(getString(R.string.start_button));
+                    gameMechanics.stopBattleLoop();
                 }
             }
         });
@@ -204,36 +128,4 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
-
-//    private void updateHealthBars() {
-//        yourHealthText.setText(String.valueOf(yourCharacter.getHealth()));
-//        enemyHealthText.setText(String.valueOf(enemyCharacter.getHealth()));
-//        yourHealth.setProgress(yourCharacter.getHealth());
-//        enemyHealth.setProgress(enemyCharacter.getHealth());
-//    }
-//
-//    private void battleLoop() {
-//        battleDelay.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (yourCharacter.getHealth() <= 0 && enemyCharacter.getHealth() <= 0) {
-//                    Toast.makeText(MainActivity.this, "Draw", Toast.LENGTH_SHORT).show();
-//                } else if (yourCharacter.getHealth() <= 0) {
-//                    Toast.makeText(MainActivity.this, enemyCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
-//                } else if (enemyCharacter.getHealth() <= 0) {
-//                    Toast.makeText(MainActivity.this, yourCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    int attacker = random.nextInt(2);
-//                    if (attacker == 0) {
-//                        yourCharacter.basicAttack(yourCharacter, enemyCharacter);
-//                    } else {
-//                        enemyCharacter.basicAttack(enemyCharacter, yourCharacter);
-//                    }
-//
-//                    updateHealthBars();
-//                    battleLoop();
-//                }
-//            }
-//        }, 1000);
-//    }
 }
