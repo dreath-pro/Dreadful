@@ -1,5 +1,7 @@
 package com.example.dreadful.characters;
 
+import android.widget.Toast;
+
 import com.example.dreadful.R;
 import com.example.dreadful.models.Character;
 

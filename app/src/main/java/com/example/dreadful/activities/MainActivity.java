@@ -1,6 +1,7 @@
 package com.example.dreadful.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Character> characters = new ArrayList<>();
     private Character yourCharacter, enemyCharacter;
-
     private Random random = new Random();
+    private Handler battleDelay = new Handler();
 
     private void initViews()
     {
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     {
         yourImage.setScaleX(1);
 
+        initCharacters();
         yourCharacter = characters.get(random.nextInt(characters.size()));
 
         yourName.setText(yourCharacter.getName());
@@ -122,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
     {
         enemyImage.setScaleX(1);
 
+        initCharacters();
         enemyCharacter = characters.get(random.nextInt(characters.size()));
 
         enemyName.setText(enemyCharacter.getName());
@@ -175,21 +178,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         
         initViews();
-        initCharacters();
         initializeYourCharacter();
         initializeEnemyCharacter();
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Hahaha back!", Toast.LENGTH_SHORT).show();
+                initCharacters();
+                initializeYourCharacter();
+                initializeEnemyCharacter();
             }
         });
         
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Hahaha started!", Toast.LENGTH_SHORT).show();
+                if(startButton.getText().toString().equals(getString(R.string.start_button)))
+                {
+                    battleLoop();
+                    startButton.setText("Stop");
+                }else
+                {
+                    battleDelay.removeCallbacksAndMessages(null);
+                    startButton.setText(getString(R.string.start_button));
+                }
             }
         });
 
@@ -198,5 +210,45 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void updateHealthBars()
+    {
+        yourHealthText.setText(String.valueOf(yourCharacter.getHealth()));
+        enemyHealthText.setText(String.valueOf(enemyCharacter.getHealth()));
+        yourHealth.setProgress(yourCharacter.getHealth());
+        enemyHealth.setProgress(enemyCharacter.getHealth());
+    }
+
+    private void battleLoop()
+    {
+        battleDelay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(yourCharacter.getHealth() <= 0 && enemyCharacter.getHealth() <= 0)
+                {
+                    Toast.makeText(MainActivity.this, "Draw", Toast.LENGTH_SHORT).show();
+                }else if(yourCharacter.getHealth() <= 0)
+                {
+                    Toast.makeText(MainActivity.this, enemyCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
+                }else if(enemyCharacter.getHealth() <= 0)
+                {
+                    Toast.makeText(MainActivity.this, yourCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
+                }else
+                {
+                    int attacker = random.nextInt(2);
+                    if(attacker == 0)
+                    {
+                        yourCharacter.basicAttack(yourCharacter, enemyCharacter);
+                    }else
+                    {
+                        enemyCharacter.basicAttack(enemyCharacter, yourCharacter);
+                    }
+
+                    updateHealthBars();
+                    battleLoop();
+                }
+            }
+        }, 1000);
     }
 }

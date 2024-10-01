@@ -59,9 +59,9 @@ public class Character {
         hitter.setAttack(temporaryAttack);
     }
 
-    protected void basicAttack(Character hitter, Character target)
+    public void basicAttack(Character hitter, Character target)
     {
-        target.receiveHit(target, hitter);
+        target.receiveHit(hitter, target);
     }
 
     public int getId() {
