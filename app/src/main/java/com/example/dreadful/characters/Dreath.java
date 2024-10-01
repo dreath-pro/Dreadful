@@ -1,5 +1,6 @@
 package com.example.dreadful.characters;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dreadful.R;
@@ -21,30 +22,28 @@ public class Dreath extends Character {
     @Override
     public void receiveHit(Character hitter, Character target)
     {
-        int temporaryAttack = hitter.getAttack();
-
-        hitter.setAttack(getDefense());
+        hitter.setAttack(hitter.getAttack() - getDefense());
         setHealth(getHealth() - hitter.getAttack());
-
-        hitter.setAttack(temporaryAttack);
+        hitter.setAttack(hitter.getMaxAttack());
 
         if(getHealth() <= 0)
         {
-            setHealth(88070);
+            setHealth(getMaxHealth());
 
             int maxHealth = hitter.getHealth();
             int percentage = 50;
-            int newHealth = (maxHealth * percentage) / 100;
-            hitter.setHealth(newHealth);
+            int damage = (maxHealth * percentage) / 100;
+
+            setAttack(damage);
+            hitter.receiveHit(hitter, target);
+            setAttack(getMaxAttack());
         }
     }
 
     @Override
     public void basicAttack(Character hitter, Character target) {
-        int antiDodge = random.nextInt(100) + 1;
-        if (antiDodge <= target.getDodge())
-            return;
-
-        target.setHealth(target.getHealth() - getAttack());
+        target.setDefense(0);
+        target.receiveHit(hitter, target);
+        target.setDefense(target.getMaxDefense());
     }
 }

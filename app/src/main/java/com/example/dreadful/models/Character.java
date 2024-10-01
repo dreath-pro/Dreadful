@@ -1,5 +1,8 @@
 package com.example.dreadful.models;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.Random;
 
 public class Character {
@@ -10,6 +13,7 @@ public class Character {
     private String size; // average, titan
     private String[] transformation;
     private int health, attack, defense, dodge;
+    private int maxHealth, maxAttack, maxDefense, maxDodge;
 
     private Random random = new Random();
 
@@ -29,6 +33,10 @@ public class Character {
         this.attack = attack;
         this.defense = defense;
         this.dodge = dodge;
+        this.maxHealth = health;
+        this.maxAttack = attack;
+        this.maxDefense = defense;
+        this.maxDodge = dodge;
     }
 
     public Character(int id, String name, String image, String imageDirection, String size, String[] transformation, int health, int attack, int defense, int dodge)
@@ -43,20 +51,21 @@ public class Character {
         this.attack = attack;
         this.defense = defense;
         this.dodge = dodge;
+        this.maxHealth = health;
+        this.maxAttack = attack;
+        this.maxDefense = defense;
+        this.maxDodge = dodge;
     }
 
-    protected void receiveHit(Character hitter, Character target)
+    public void receiveHit(Character hitter, Character target)
     {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return;
 
-        int temporaryAttack = hitter.getAttack();
-
         hitter.setAttack(hitter.getAttack() - getDefense());
         setHealth(getHealth() - hitter.getAttack());
-
-        hitter.setAttack(temporaryAttack);
+        hitter.setAttack(hitter.getMaxAttack());
     }
 
     public void basicAttack(Character hitter, Character target)
@@ -158,5 +167,21 @@ public class Character {
             dodge = 0;
         }
         this.dodge = dodge;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public int getMaxAttack() {
+        return maxAttack;
+    }
+
+    public int getMaxDefense() {
+        return maxDefense;
+    }
+
+    public int getMaxDodge() {
+        return maxDodge;
     }
 }

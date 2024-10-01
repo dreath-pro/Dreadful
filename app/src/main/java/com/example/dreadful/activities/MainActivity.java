@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.dreadful.R;
 import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.PopeOfDeath;
+import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.models.Character;
 
 import java.util.ArrayList;
@@ -42,10 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Character> characters = new ArrayList<>();
     private Character yourCharacter, enemyCharacter;
     private Random random = new Random();
-    private Handler battleDelay = new Handler();
+    private GameMechanics gameMechanics;
 
-    private void initViews()
-    {
+    private void initViews() {
         yourName = findViewById(R.id.yourName);
         enemyName = findViewById(R.id.enemyName);
 
@@ -62,15 +62,13 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
     }
 
-    private void initCharacters()
-    {
+    private void initCharacters() {
         characters.clear();
         characters.add(new Dreath());
         characters.add(new PopeOfDeath());
     }
 
-    private void initializeYourCharacter()
-    {
+    private void initializeYourCharacter() {
         yourImage.setScaleX(1);
 
         initCharacters();
@@ -82,13 +80,11 @@ public class MainActivity extends AppCompatActivity {
         yourHealth.setProgress(yourCharacter.getHealth());
         yourImage.setImageResource(getResources().getIdentifier(yourCharacter.getImage(), "drawable", getPackageName()));
 
-        if(yourCharacter.getImageDirection().equals("right"))
-        {
+        if (yourCharacter.getImageDirection().equals("right")) {
             yourImage.setScaleX(-1);
         }
 
-        if(yourCharacter.getSize().equals("average"))
-        {
+        if (yourCharacter.getSize().equals("average")) {
             ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
 
             int widthInDp = 150; // Desired width in dp
@@ -102,8 +98,7 @@ public class MainActivity extends AppCompatActivity {
             layoutParams.height = heightInPixels;
 
             yourImage.setLayoutParams(layoutParams);
-        }else
-        {
+        } else {
             ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
 
             int widthInDp = 210; // Desired width in dp
@@ -120,8 +115,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initializeEnemyCharacter()
-    {
+    private void initializeEnemyCharacter() {
         enemyImage.setScaleX(1);
 
         initCharacters();
@@ -133,13 +127,11 @@ public class MainActivity extends AppCompatActivity {
         enemyHealth.setProgress(enemyCharacter.getHealth());
         enemyImage.setImageResource(getResources().getIdentifier(enemyCharacter.getImage(), "drawable", getPackageName()));
 
-        if(enemyCharacter.getImageDirection().equals("left"))
-        {
+        if (enemyCharacter.getImageDirection().equals("left")) {
             enemyImage.setScaleX(-1);
         }
 
-        if(enemyCharacter.getSize().equals("average"))
-        {
+        if (enemyCharacter.getSize().equals("average")) {
             ViewGroup.LayoutParams layoutParams = enemyImage.getLayoutParams();
 
             int widthInDp = 150; // Desired width in dp
@@ -153,8 +145,7 @@ public class MainActivity extends AppCompatActivity {
             layoutParams.height = heightInPixels;
 
             enemyImage.setLayoutParams(layoutParams);
-        }else
-        {
+        } else {
             ViewGroup.LayoutParams layoutParams = enemyImage.getLayoutParams();
 
             int widthInDp = 210; // Desired width in dp
@@ -176,10 +167,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        
+
         initViews();
         initializeYourCharacter();
         initializeEnemyCharacter();
+        gameMechanics = new GameMechanics(this,
+                yourName, yourHealth, yourHealthText, yourImage,
+                enemyName, enemyHealth, enemyHealthText, enemyImage,
+                yourCharacter, enemyCharacter);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,17 +184,15 @@ public class MainActivity extends AppCompatActivity {
                 initializeEnemyCharacter();
             }
         });
-        
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(startButton.getText().toString().equals(getString(R.string.start_button)))
-                {
-                    battleLoop();
+                if (startButton.getText().toString().equals(getString(R.string.start_button))) {
+                    gameMechanics.battleLoop();
                     startButton.setText("Stop");
-                }else
-                {
-                    battleDelay.removeCallbacksAndMessages(null);
+                } else {
+                    gameMechanics.stopBattleLoop();
                     startButton.setText(getString(R.string.start_button));
                 }
             }
@@ -212,43 +205,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void updateHealthBars()
-    {
-        yourHealthText.setText(String.valueOf(yourCharacter.getHealth()));
-        enemyHealthText.setText(String.valueOf(enemyCharacter.getHealth()));
-        yourHealth.setProgress(yourCharacter.getHealth());
-        enemyHealth.setProgress(enemyCharacter.getHealth());
-    }
-
-    private void battleLoop()
-    {
-        battleDelay.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(yourCharacter.getHealth() <= 0 && enemyCharacter.getHealth() <= 0)
-                {
-                    Toast.makeText(MainActivity.this, "Draw", Toast.LENGTH_SHORT).show();
-                }else if(yourCharacter.getHealth() <= 0)
-                {
-                    Toast.makeText(MainActivity.this, enemyCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
-                }else if(enemyCharacter.getHealth() <= 0)
-                {
-                    Toast.makeText(MainActivity.this, yourCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
-                }else
-                {
-                    int attacker = random.nextInt(2);
-                    if(attacker == 0)
-                    {
-                        yourCharacter.basicAttack(yourCharacter, enemyCharacter);
-                    }else
-                    {
-                        enemyCharacter.basicAttack(enemyCharacter, yourCharacter);
-                    }
-
-                    updateHealthBars();
-                    battleLoop();
-                }
-            }
-        }, 1000);
-    }
+//    private void updateHealthBars() {
+//        yourHealthText.setText(String.valueOf(yourCharacter.getHealth()));
+//        enemyHealthText.setText(String.valueOf(enemyCharacter.getHealth()));
+//        yourHealth.setProgress(yourCharacter.getHealth());
+//        enemyHealth.setProgress(enemyCharacter.getHealth());
+//    }
+//
+//    private void battleLoop() {
+//        battleDelay.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (yourCharacter.getHealth() <= 0 && enemyCharacter.getHealth() <= 0) {
+//                    Toast.makeText(MainActivity.this, "Draw", Toast.LENGTH_SHORT).show();
+//                } else if (yourCharacter.getHealth() <= 0) {
+//                    Toast.makeText(MainActivity.this, enemyCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
+//                } else if (enemyCharacter.getHealth() <= 0) {
+//                    Toast.makeText(MainActivity.this, yourCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    int attacker = random.nextInt(2);
+//                    if (attacker == 0) {
+//                        yourCharacter.basicAttack(yourCharacter, enemyCharacter);
+//                    } else {
+//                        enemyCharacter.basicAttack(enemyCharacter, yourCharacter);
+//                    }
+//
+//                    updateHealthBars();
+//                    battleLoop();
+//                }
+//            }
+//        }, 1000);
+//    }
 }

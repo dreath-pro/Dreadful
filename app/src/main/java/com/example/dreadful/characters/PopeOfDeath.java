@@ -17,11 +17,8 @@ public class PopeOfDeath extends Character{
 
     @Override
     public void basicAttack(Character hitter, Character target) {
-        int temporaryAttack = getAttack();
-
-        setAttack(getAttack() - target.getDefense());
-        target.setHealth(target.getHealth() - getAttack());
-
-        setAttack(temporaryAttack);
+        target.setDodge(0);
+        target.receiveHit(hitter, target);
+        target.setDodge(target.getMaxDodge());
     }
 }
