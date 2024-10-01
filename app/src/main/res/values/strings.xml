@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Dreadful</string>
+
+<!--    textview labels-->
+    <string name="player_name">Dreath</string>
+    <string name="opponent_name">Pope of Death</string>
+    <string name="health_text">0</string>
+
+<!--    button labels-->
+    <string name="start_button">Start</string>
+    <string name="back_button">Back</string>
+</resources>
