@@ -17,8 +17,41 @@ public class PopeOfDeath extends Character {
     public PopeOfDeath() {
         super("Pope of Death", "character_pope_of_death", "left", "titan", null,
                 120000, 2888, 0, 0,
-                new String[]{"Dark Bolt", "Spectral Judgement", "Reverse Prayer"},
-                new int[]{0, 4, 6}, new int[]{0, 0, 0});
+                new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution"},
+                new int[]{0, 4, 5, 4}, new int[]{0, 0, 0, 0});
+    }
+
+    /**
+     * everytime an attacker hits pope of death, they will be mark with sin, and every attack it will add
+     * 10 mark of sin
+     */
+    @Override
+    public void receiveHit(Character hitter, Character target) {
+        int antiDodge = random.nextInt(100) + 1;
+        if (antiDodge <= getDodge())
+            return;
+
+        hitter.setAttack(hitter.getAttack() - getDefense());
+        setHealth(getHealth() - hitter.getAttack());
+        hitter.setAttack(hitter.getMaxAttack());
+
+        boolean withSin = false;
+        int sinIndex = 0;
+        for (int i = 0; i <= hitter.getDebuffs().size() - 1; i++) {
+            if (hitter.getDebuffs().get(i).equals("Mark of Sin")) {
+                withSin = true;
+                sinIndex = i;
+            }
+        }
+
+        if(!withSin)
+        {
+            hitter.getDebuffs().add("Mark of Sin");
+            hitter.getDebuffsValue().add(10);
+        }else
+        {
+            hitter.getDebuffsValue().set(sinIndex, hitter.getDebuffsValue().get(sinIndex) + 10);
+        }
     }
 
     /**
@@ -62,6 +95,9 @@ public class PopeOfDeath extends Character {
             case 2:
                 skill2(hitter, target);
                 break;
+            case 3:
+                skill3(hitter, target);
+                break;
         }
 
         for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
@@ -94,5 +130,22 @@ public class PopeOfDeath extends Character {
     private void skill2(Character hitter, Character target) {
         getDamageOverTime().add(3500);
         getDamageOverTimeValue().add(9);
+    }
+
+    //retribution for sinner hitter/attacker, base on the value of the "mark of sin"
+    //additional 50% of your base damage
+    private void skill3(Character hitter, Character target)
+    {
+        target.receiveHit(hitter, target);
+
+        for(int i = 0; i <= target.getDebuffs().size() - 1; i++)
+        {
+            if(target.getDebuffs().get(i).equals("Mark of Sin") && target.getDebuffsValue().get(i) >= 50)
+            {
+                setAttack(getAttack() + (getAttack() * (target.getDebuffsValue().get(i) / 100)));
+                target.receiveHit(hitter, target);
+                setAttack(getMaxAttack());
+            }
+        }
     }
 }

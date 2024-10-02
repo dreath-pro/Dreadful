@@ -20,8 +20,8 @@ public abstract class Character {
     private int[] maxSkillCooldowns, skillCooldowns;
     private ArrayList<Integer> healOverTime = new ArrayList<>(), healOverTimeValue = new ArrayList<>();
     private ArrayList<Integer> damageOverTime = new ArrayList<>(), damageOverTimeValue = new ArrayList<>();
-    private ArrayList<String> buffs = new ArrayList<>(), buffsValue = new ArrayList<>();
-    private ArrayList<String> debuffs = new ArrayList<>(), debuffsValue = new ArrayList<>();
+    private ArrayList<String> buffs = new ArrayList<>(), debuffs = new ArrayList<>();
+    private ArrayList<Integer> buffsValue = new ArrayList<>(), debuffsValue = new ArrayList<>();
 
     private Random random = new Random();
 
@@ -290,11 +290,11 @@ public abstract class Character {
         this.buffs = buffs;
     }
 
-    public ArrayList<String> getBuffsValue() {
+    public ArrayList<Integer> getBuffsValue() {
         return buffsValue;
     }
 
-    public void setBuffsValue(ArrayList<String> buffsValue) {
+    public void setBuffsValue(ArrayList<Integer> buffsValue) {
         this.buffsValue = buffsValue;
     }
 
@@ -306,11 +306,11 @@ public abstract class Character {
         this.debuffs = debuffs;
     }
 
-    public ArrayList<String> getDebuffsValue() {
+    public ArrayList<Integer> getDebuffsValue() {
         return debuffsValue;
     }
 
-    public void setDebuffsValue(ArrayList<String> debuffsValue) {
+    public void setDebuffsValue(ArrayList<Integer> debuffsValue) {
         this.debuffsValue = debuffsValue;
     }
 }
