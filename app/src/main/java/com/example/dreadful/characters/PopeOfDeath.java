@@ -17,8 +17,8 @@ public class PopeOfDeath extends Character {
     public PopeOfDeath() {
         super("Pope of Death", "character_pope_of_death", "left", "titan", null,
                 120000, 2888, 0, 0,
-                new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution"},
-                new int[]{0, 4, 5, 4}, new int[]{0, 0, 0, 0});
+                new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
+                new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
     }
 
     /**
@@ -98,6 +98,9 @@ public class PopeOfDeath extends Character {
             case 3:
                 skill3(hitter, target);
                 break;
+            case 4:
+                skill4(hitter, target);
+                break;
         }
 
         for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
@@ -126,14 +129,20 @@ public class PopeOfDeath extends Character {
         setAttack(getMaxAttack());
     }
 
-    //coming soon, enemy healing will be reverse and convert to damage
+    //enemy healing will be reverse and convert to damage
     private void skill2(Character hitter, Character target) {
-        getDamageOverTime().add(3500);
-        getDamageOverTimeValue().add(9);
+        int allHeal = 0;
+        for(int i = 0; i <= target.getHealOverTime().size() - 1; i++)
+        {
+            allHeal += target.getHealOverTime().get(i);
+        }
+
+        target.getDamageOverTime().add(allHeal);
+        target.getDamageOverTimeValue().add(15);
     }
 
     //retribution for sinner hitter/attacker, base on the value of the "mark of sin"
-    //additional 50% of your base damage
+    //reduce 50% of attacker current health
     private void skill3(Character hitter, Character target)
     {
         target.receiveHit(hitter, target);
@@ -142,9 +151,30 @@ public class PopeOfDeath extends Character {
         {
             if(target.getDebuffs().get(i).equals("Mark of Sin") && target.getDebuffsValue().get(i) >= 50)
             {
-                setAttack(getAttack() + (getAttack() * (target.getDebuffsValue().get(i) / 100)));
+                int maxHealth = target.getHealth();
+                int percentage = target.getDebuffsValue().get(i);
+                int damage = (maxHealth * percentage) / 100;
+
+                setAttack(damage);
                 target.receiveHit(hitter, target);
                 setAttack(getMaxAttack());
+            }
+        }
+    }
+
+    //heal over time for a short turn, base on the value of the "mark of sin"
+    private void skill4(Character hitter, Character target)
+    {
+        for(int i = 0; i <= target.getDebuffs().size() - 1; i++)
+        {
+            if(target.getDebuffs().get(i).equals("Mark of Sin") && target.getDebuffsValue().get(i) >= 50)
+            {
+                int maxHealth = 1200;
+                int percentage = target.getDebuffsValue().get(i);
+                int heal = (maxHealth * percentage) / 100;
+
+                getDamageOverTime().add(heal);
+                getDamageOverTimeValue().add(9);
             }
         }
     }
