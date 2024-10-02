@@ -15,11 +15,12 @@ public class PopeOfDeath extends Character{
     public PopeOfDeath() {
         super("Pope of Death", "character_pope_of_death", "left", "titan", null,
                 120000, 2888, 0, 0,
-                new String[]{"Dark Bolt", "Abyssal Hym"});
+                new String[]{"Dark Bolt", "Abyssal Hym"},
+                new int[]{0, 4}, new int[]{0, 0});
     }
 
     public void useRandomAttack(Character hitter, Character target) {
-        int skillIndex = random.nextInt(getSkillNames().length + 1);
+        int skillIndex = random.nextInt(getSkillNames().length);
 
         switch (skillIndex) {
             case 0:
@@ -39,7 +40,7 @@ public class PopeOfDeath extends Character{
     }
 
     private void skill1(Character hitter, Character target) {
-        setAttack(getAttack() + 8000);
+        setAttack(getAttack() + 15000);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }

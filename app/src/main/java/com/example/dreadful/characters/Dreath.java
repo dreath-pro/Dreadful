@@ -17,7 +17,8 @@ public class Dreath extends Character {
     public Dreath() {
         super("Dreath", "character_dreath", "left", "average", null,
                 88070, 2580, 880, 0,
-                new String[]{"Butcher", "Amputate", "Doom", "Hand Gun Piercing", "Carnage"});
+                new String[]{"Butcher", "Amputate", "Doom", "Hand Gun Piercing", "Carnage"},
+                new int[]{0, 8, 4, 5, 4}, new int[]{0, 0, 0, 0, 0});
     }
 
     @Override
@@ -40,7 +41,11 @@ public class Dreath extends Character {
     }
 
     public void useRandomAttack(Character hitter, Character target) {
-        int skillIndex = random.nextInt(getSkillNames().length + 1);
+        int skillIndex = random.nextInt(getSkillNames().length);
+
+        while (getSkillCooldowns()[skillIndex] > 0) {
+            skillIndex = random.nextInt(getSkillNames().length);
+        }
 
         switch (skillIndex) {
             case 0:
@@ -59,6 +64,16 @@ public class Dreath extends Character {
                 skill4(hitter, target);
                 break;
         }
+
+        for (int i = 0; i < getSkillCooldowns().length; i++) {
+            if (getSkillCooldowns()[i] > 0) {
+                getSkillCooldowns()[i]--;
+                if (getSkillCooldowns()[i] <= 0) {
+                    getSkillCooldowns()[i] = 0;
+                }
+            }
+        }
+        getSkillCooldowns()[skillIndex] = getMaxSkillCooldowns()[skillIndex];
     }
 
     @Override
@@ -71,25 +86,33 @@ public class Dreath extends Character {
     }
 
     private void skill1(Character hitter, Character target) {
+        //prevent enemy from using all skills
+
         setAttack(getAttack() + 8000);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }
 
     private void skill2(Character hitter, Character target) {
-        setAttack(getAttack() + 8000);
+        //enemy cannot dodge all incoming attacks
+
+        setAttack(getAttack() + 9000);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }
 
     private void skill3(Character hitter, Character target) {
-        setAttack(getAttack() + 8000);
+        //high burst
+
+        setAttack(getAttack() + 8870);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }
 
     private void skill4(Character hitter, Character target) {
-        setAttack(getAttack() + 8000);
+        //heal and increase damage
+
+        setAttack(getAttack() + 11000);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }

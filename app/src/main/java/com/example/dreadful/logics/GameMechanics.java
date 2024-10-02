@@ -56,7 +56,7 @@ public class GameMechanics {
                     if (attacker == 0) {
                         yourCharacter.useRandomAttack(yourCharacter, enemyCharacter);
                     } else {
-                        enemyCharacter.basicAttack(enemyCharacter, yourCharacter);
+                        enemyCharacter.useRandomAttack(enemyCharacter, yourCharacter);
                     }
 
                     updateHealthBars();

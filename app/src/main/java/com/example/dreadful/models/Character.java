@@ -15,16 +15,17 @@ public abstract class Character {
     private int health, attack, defense, dodge;
     private int maxHealth, maxAttack, maxDefense, maxDodge;
     private String[] skillNames;
+    private int[] maxSkillCooldowns;
+    private int[] skillCooldowns;
 
     private Random random = new Random();
 
-    public Character()
-    {
+    public Character() {
 
     }
 
-    public Character(String name, String image, String imageDirection, String size, String[] transformation, int health, int attack, int defense, int dodge, String[] skillNames)
-    {
+    public Character(String name, String image, String imageDirection, String size, String[] transformation,
+                     int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -39,10 +40,13 @@ public abstract class Character {
         this.maxDefense = defense;
         this.maxDodge = dodge;
         this.skillNames = skillNames;
+        this.maxSkillCooldowns = maxSkillCooldowns;
+        this.skillCooldowns = skillCooldowns;
     }
 
-    public Character(int id, String name, String image, String imageDirection, String size, String[] transformation, int health, int attack, int defense, int dodge, String[] skillNames)
-    {
+    public Character(int id, String name, String image, String imageDirection, String size,
+                     String[] transformation, int health, int attack, int defense, int dodge,
+                     String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -58,10 +62,11 @@ public abstract class Character {
         this.maxDefense = defense;
         this.maxDodge = dodge;
         this.skillNames = skillNames;
+        this.maxSkillCooldowns = maxSkillCooldowns;
+        this.skillCooldowns = skillCooldowns;
     }
 
-    public void receiveHit(Character hitter, Character target)
-    {
+    public void receiveHit(Character hitter, Character target) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return;
@@ -73,8 +78,7 @@ public abstract class Character {
 
     public abstract void useRandomAttack(Character hitter, Character target);
 
-    public void basicAttack(Character hitter, Character target)
-    {
+    public void basicAttack(Character hitter, Character target) {
         target.receiveHit(hitter, target);
     }
 
@@ -131,8 +135,7 @@ public abstract class Character {
     }
 
     public void setHealth(int health) {
-        if(health <= 0)
-        {
+        if (health <= 0) {
             health = 0;
         }
         this.health = health;
@@ -143,8 +146,7 @@ public abstract class Character {
     }
 
     public void setAttack(int attack) {
-        if(attack <= 0)
-        {
+        if (attack <= 0) {
             attack = 0;
         }
         this.attack = attack;
@@ -155,8 +157,7 @@ public abstract class Character {
     }
 
     public void setDefense(int defense) {
-        if(defense <= 0)
-        {
+        if (defense <= 0) {
             defense = 0;
         }
         this.defense = defense;
@@ -167,8 +168,7 @@ public abstract class Character {
     }
 
     public void setDodge(int dodge) {
-        if(dodge <= 0)
-        {
+        if (dodge <= 0) {
             dodge = 0;
         }
         this.dodge = dodge;
@@ -192,5 +192,17 @@ public abstract class Character {
 
     public String[] getSkillNames() {
         return skillNames;
+    }
+
+    public int[] getSkillCooldowns() {
+        return skillCooldowns;
+    }
+
+    public void setSkillCooldowns(int[] skillCooldowns) {
+        this.skillCooldowns = skillCooldowns;
+    }
+
+    public int[] getMaxSkillCooldowns() {
+        return maxSkillCooldowns;
     }
 }
