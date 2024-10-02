@@ -19,7 +19,9 @@ public class GameMechanics {
     private ImageView yourImage, enemyImage;
     private Character yourCharacter, enemyCharacter;
 
-    private Handler battleDelay = new Handler();
+    private Handler turnDelay = new Handler();
+    private Handler promptDelay = new Handler();
+    private Handler hitDelay = new Handler();
     private Random random = new Random();
 
     public GameMechanics(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
@@ -41,33 +43,72 @@ public class GameMechanics {
         this.enemyCharacter = enemyCharacter;
     }
 
+    private void receiveTimeHp() {
+        yourCharacter.receiveTimeHp();
+        enemyCharacter.receiveTimeHp();
+        updateHealthBars();
+    }
+
     public void battleLoop() {
-        battleDelay.postDelayed(new Runnable() {
+        turnDelay.postDelayed(new Runnable() {
             @Override
             public void run() {
+                if (yourCharacter.getHealth() > 0 && enemyCharacter.getHealth() > 0) {
+                    int attacker = random.nextInt(2);
+                    receiveTimeHp();
+                    promptDelay(attacker);
+                }
+
                 if (yourCharacter.getHealth() <= 0 && enemyCharacter.getHealth() <= 0) {
                     Toast.makeText(context, "Draw", Toast.LENGTH_SHORT).show();
                 } else if (yourCharacter.getHealth() <= 0) {
                     Toast.makeText(context, enemyCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
                 } else if (enemyCharacter.getHealth() <= 0) {
                     Toast.makeText(context, yourCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
-                } else {
-                    int attacker = random.nextInt(2);
-                    if (attacker == 0) {
-                        yourCharacter.useRandomAttack(yourCharacter, enemyCharacter);
-                    } else {
-                        enemyCharacter.useRandomAttack(enemyCharacter, yourCharacter);
-                    }
-
-                    updateHealthBars();
-                    battleLoop();
                 }
             }
         }, 1000);
     }
 
+    private void promptDelay(int attacker) {
+        promptDelay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                if(attacker == 0)
+//                {
+//                    Toast.makeText(context, yourCharacter.getName() + "'s Turn", Toast.LENGTH_SHORT).show();
+//                }else
+//                {
+//                    Toast.makeText(context, enemyCharacter.getName() + "'s Turn", Toast.LENGTH_SHORT).show();
+//                }
+
+                receiveTimeHp();
+                hitDelay(attacker);
+            }
+        }, 1000);
+    }
+
+    private void hitDelay(int attacker) {
+        hitDelay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (attacker == 0) {
+                    yourCharacter.useRandomAttack(yourCharacter, enemyCharacter);
+                } else {
+                    enemyCharacter.useRandomAttack(enemyCharacter, yourCharacter);
+                }
+                updateHealthBars();
+
+                receiveTimeHp();
+                battleLoop();
+            }
+        }, 3000);
+    }
+
     public void stopBattleLoop() {
-        battleDelay.removeCallbacksAndMessages(null);
+        turnDelay.removeCallbacksAndMessages(null);
+        promptDelay.removeCallbacksAndMessages(null);
+        hitDelay.removeCallbacksAndMessages(null);
     }
 
     public void updateHealthBars() {

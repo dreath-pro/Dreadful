@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     //person with spiky armor covered with dark liquid, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
 
     //experimental
-    //inside the cathedral, hd, splash art, minimalist, detailed cartoon, dark fantasy theme, background, red, gray, black, dark-red, crimson-red
+    //altar of cathedral background, hd, minimalist cartoon, dark fantasy theme, background, red, gray, black, dark-red, crimson-red
 
     //two swords clashing, simple icon, digital art, dark fantasy theme, vibrant shading, white background, red, crimson-red, black, dark-red
 
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
     }
 
-    private void startConfiguration()
-    {
+    private void startConfiguration() {
         setupCharacter = new SetupCharacter(this,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
@@ -81,12 +80,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void invisibleButtons(Boolean invisible) {
-        if (invisible)
-        {
+        if (invisible) {
             backButton.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             backButton.setVisibility(View.VISIBLE);
         }
     }

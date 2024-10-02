@@ -3,6 +3,8 @@ package com.example.dreadful.models;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public abstract class Character {
@@ -15,8 +17,11 @@ public abstract class Character {
     private int health, attack, defense, dodge;
     private int maxHealth, maxAttack, maxDefense, maxDodge;
     private String[] skillNames;
-    private int[] maxSkillCooldowns;
-    private int[] skillCooldowns;
+    private int[] maxSkillCooldowns, skillCooldowns;
+    private ArrayList<Integer> healOverTime = new ArrayList<>(), healOverTimeValue = new ArrayList<>();
+    private ArrayList<Integer> damageOverTime = new ArrayList<>(), damageOverTimeValue = new ArrayList<>();
+    private ArrayList<String> buffs = new ArrayList<>(), buffsValue = new ArrayList<>();
+    private ArrayList<String> debuffs = new ArrayList<>(), debuffsValue = new ArrayList<>();
 
     private Random random = new Random();
 
@@ -74,6 +79,41 @@ public abstract class Character {
         hitter.setAttack(hitter.getAttack() - getDefense());
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
+    }
+
+    public void receiveTimeHp() {
+        ArrayList<Integer> tempHot = new ArrayList<>();
+        ArrayList<Integer> tempHotValue = new ArrayList<>();
+
+        for (int i = 0; i <= getHealOverTime().size() - 1; i++) {
+            if (healOverTimeValue.get(i) > 0) {
+                setHealth(getHealth() + getHealOverTime().get(i));
+                healOverTimeValue.set(i, healOverTimeValue.get(i) - 1);
+
+                tempHot.add(healOverTime.get(i));
+                tempHotValue.add(healOverTimeValue.get(i));
+            }
+        }
+
+        setHealOverTime(tempHot);
+        setHealOverTimeValue(tempHotValue);
+
+
+        ArrayList<Integer> tempDot = new ArrayList<>();
+        ArrayList<Integer> tempDotValue = new ArrayList<>();
+
+        for (int i = 0; i <= getDamageOverTime().size() - 1; i++) {
+            if (damageOverTimeValue.get(i) > 0) {
+                setHealth(getHealth() - getDamageOverTime().get(i));
+                damageOverTimeValue.set(i, damageOverTimeValue.get(i) - 1);
+
+                tempDot.add(damageOverTime.get(i));
+                tempDotValue.add(damageOverTimeValue.get(i));
+            }
+        }
+
+        setDamageOverTime(tempDot);
+        setDamageOverTimeValue(tempDotValue);
     }
 
     public abstract void useRandomAttack(Character hitter, Character target);
@@ -137,6 +177,10 @@ public abstract class Character {
     public void setHealth(int health) {
         if (health <= 0) {
             health = 0;
+        }
+
+        if (health > getMaxHealth()) {
+            health = getMaxHealth();
         }
         this.health = health;
     }
@@ -204,5 +248,69 @@ public abstract class Character {
 
     public int[] getMaxSkillCooldowns() {
         return maxSkillCooldowns;
+    }
+
+    public ArrayList<Integer> getHealOverTime() {
+        return healOverTime;
+    }
+
+    public void setHealOverTime(ArrayList<Integer> healOverTime) {
+        this.healOverTime = healOverTime;
+    }
+
+    public ArrayList<Integer> getHealOverTimeValue() {
+        return healOverTimeValue;
+    }
+
+    public void setHealOverTimeValue(ArrayList<Integer> healOverTimeValue) {
+        this.healOverTimeValue = healOverTimeValue;
+    }
+
+    public ArrayList<Integer> getDamageOverTime() {
+        return damageOverTime;
+    }
+
+    public void setDamageOverTime(ArrayList<Integer> damageOverTime) {
+        this.damageOverTime = damageOverTime;
+    }
+
+    public ArrayList<Integer> getDamageOverTimeValue() {
+        return damageOverTimeValue;
+    }
+
+    public void setDamageOverTimeValue(ArrayList<Integer> damageOverTimeValue) {
+        this.damageOverTimeValue = damageOverTimeValue;
+    }
+
+    public ArrayList<String> getBuffs() {
+        return buffs;
+    }
+
+    public void setBuffs(ArrayList<String> buffs) {
+        this.buffs = buffs;
+    }
+
+    public ArrayList<String> getBuffsValue() {
+        return buffsValue;
+    }
+
+    public void setBuffsValue(ArrayList<String> buffsValue) {
+        this.buffsValue = buffsValue;
+    }
+
+    public ArrayList<String> getDebuffs() {
+        return debuffs;
+    }
+
+    public void setDebuffs(ArrayList<String> debuffs) {
+        this.debuffs = debuffs;
+    }
+
+    public ArrayList<String> getDebuffsValue() {
+        return debuffsValue;
+    }
+
+    public void setDebuffsValue(ArrayList<String> debuffsValue) {
+        this.debuffsValue = debuffsValue;
     }
 }

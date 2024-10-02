@@ -18,7 +18,7 @@ public class Dreath extends Character {
         super("Dreath", "character_dreath", "left", "average", null,
                 88070, 2580, 880, 0,
                 new String[]{"Butcher", "Amputate", "Doom", "Hand Gun Piercing", "Carnage"},
-                new int[]{0, 8, 4, 5, 4}, new int[]{0, 0, 0, 0, 0});
+                new int[]{0, 11, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
     }
 
     @Override
@@ -65,7 +65,7 @@ public class Dreath extends Character {
                 break;
         }
 
-        for (int i = 0; i < getSkillCooldowns().length; i++) {
+        for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
             if (getSkillCooldowns()[i] > 0) {
                 getSkillCooldowns()[i]--;
                 if (getSkillCooldowns()[i] <= 0) {
@@ -88,7 +88,11 @@ public class Dreath extends Character {
     private void skill1(Character hitter, Character target) {
         //prevent enemy from using all skills
 
-        setAttack(getAttack() + 8000);
+        for (int i = 1; i <= target.getMaxSkillCooldowns().length - 1; i++) {
+            target.getSkillCooldowns()[i] = 8;
+        }
+
+        setAttack(getAttack() + 6500);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }
@@ -96,9 +100,11 @@ public class Dreath extends Character {
     private void skill2(Character hitter, Character target) {
         //enemy cannot dodge all incoming attacks
 
-        setAttack(getAttack() + 9000);
+        target.setDodge(0);
+        setAttack(getAttack() + 5000);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
+        target.setDodge(target.getMaxDodge());
     }
 
     private void skill3(Character hitter, Character target) {
@@ -112,6 +118,7 @@ public class Dreath extends Character {
     private void skill4(Character hitter, Character target) {
         //heal and increase damage
 
+        setHealth(getHealth() + 10000);
         setAttack(getAttack() + 11000);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
