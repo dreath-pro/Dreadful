@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dreadful.models.Character;
+
 import java.util.Random;
 
 public class GameMechanics {
@@ -53,7 +54,7 @@ public class GameMechanics {
                 } else {
                     int attacker = random.nextInt(2);
                     if (attacker == 0) {
-                        yourCharacter.basicAttack(yourCharacter, enemyCharacter);
+                        yourCharacter.useRandomAttack(yourCharacter, enemyCharacter);
                     } else {
                         enemyCharacter.basicAttack(enemyCharacter, yourCharacter);
                     }

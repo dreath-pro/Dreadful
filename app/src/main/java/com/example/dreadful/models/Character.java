@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class Character {
+public abstract class Character {
     private int id;
     private String name;
     private String image;
@@ -14,6 +14,7 @@ public class Character {
     private String[] transformation;
     private int health, attack, defense, dodge;
     private int maxHealth, maxAttack, maxDefense, maxDodge;
+    private String[] skillNames;
 
     private Random random = new Random();
 
@@ -22,7 +23,7 @@ public class Character {
 
     }
 
-    public Character(String name, String image, String imageDirection, String size, String[] transformation, int health, int attack, int defense, int dodge)
+    public Character(String name, String image, String imageDirection, String size, String[] transformation, int health, int attack, int defense, int dodge, String[] skillNames)
     {
         this.name = name;
         this.image = image;
@@ -37,9 +38,10 @@ public class Character {
         this.maxAttack = attack;
         this.maxDefense = defense;
         this.maxDodge = dodge;
+        this.skillNames = skillNames;
     }
 
-    public Character(int id, String name, String image, String imageDirection, String size, String[] transformation, int health, int attack, int defense, int dodge)
+    public Character(int id, String name, String image, String imageDirection, String size, String[] transformation, int health, int attack, int defense, int dodge, String[] skillNames)
     {
         this.id = id;
         this.name = name;
@@ -55,6 +57,7 @@ public class Character {
         this.maxAttack = attack;
         this.maxDefense = defense;
         this.maxDodge = dodge;
+        this.skillNames = skillNames;
     }
 
     public void receiveHit(Character hitter, Character target)
@@ -67,6 +70,8 @@ public class Character {
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
     }
+
+    public abstract void useRandomAttack(Character hitter, Character target);
 
     public void basicAttack(Character hitter, Character target)
     {
@@ -183,5 +188,9 @@ public class Character {
 
     public int getMaxDodge() {
         return maxDodge;
+    }
+
+    public String[] getSkillNames() {
+        return skillNames;
     }
 }
