@@ -44,8 +44,8 @@ public class GameMechanics {
     }
 
     private void receiveTimeHp() {
-        yourCharacter.receiveTimeHp();
-        enemyCharacter.receiveTimeHp();
+        yourCharacter.receiveTimeHp(yourCharacter, enemyCharacter);
+        enemyCharacter.receiveTimeHp(enemyCharacter, yourCharacter);
         updateHealthBars();
     }
 
@@ -102,7 +102,7 @@ public class GameMechanics {
                 receiveTimeHp();
                 battleLoop();
             }
-        }, 3000);
+        }, 1500);
     }
 
     public void stopBattleLoop() {

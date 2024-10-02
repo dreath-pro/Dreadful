@@ -81,7 +81,7 @@ public abstract class Character {
         hitter.setAttack(hitter.getMaxAttack());
     }
 
-    public void receiveTimeHp() {
+    public void receiveTimeHp(Character hitter, Character target) {
         ArrayList<Integer> tempHot = new ArrayList<>();
         ArrayList<Integer> tempHotValue = new ArrayList<>();
 

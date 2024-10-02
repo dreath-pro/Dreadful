@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.dreadful.characters.Dreath;
+import com.example.dreadful.characters.KumoNingyo;
 import com.example.dreadful.characters.PopeOfDeath;
 import com.example.dreadful.models.Character;
 
@@ -46,6 +47,7 @@ public class SetupCharacter {
         characters.clear();
         characters.add(new Dreath());
         characters.add(new PopeOfDeath());
+        characters.add(new KumoNingyo());
     }
 
     public Character returnYourCharacter()
@@ -70,7 +72,7 @@ public class SetupCharacter {
         yourHealth.setProgress(yourCharacter.getHealth());
         yourImage.setImageResource(context.getResources().getIdentifier(yourCharacter.getImage(), "drawable", context.getPackageName()));
 
-        if (yourCharacter.getImageDirection().equals("right")) {
+        if (yourCharacter.getImageDirection().equals("left")) {
             yourImage.setScaleX(-1);
         }
 
@@ -117,7 +119,7 @@ public class SetupCharacter {
         enemyHealth.setProgress(enemyCharacter.getHealth());
         enemyImage.setImageResource(context.getResources().getIdentifier(enemyCharacter.getImage(), "drawable", context.getPackageName()));
 
-        if (enemyCharacter.getImageDirection().equals("left")) {
+        if (enemyCharacter.getImageDirection().equals("right")) {
             enemyImage.setScaleX(-1);
         }
 
