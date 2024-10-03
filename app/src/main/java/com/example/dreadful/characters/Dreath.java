@@ -16,7 +16,7 @@ public class Dreath extends Character {
     private int[] dimension = {};
 
     public Dreath() {
-        super("Dreath", "character_dreath", "right", "average", null,
+        super("Dreath", "character_dreath", "left", 150, null,
                 88070, 2580, 880, 0,
                 new String[]{"Butcher", "Amputate", "Shock Gore", "Dismember", "Evisceration"},
                 new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});

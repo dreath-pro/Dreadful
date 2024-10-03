@@ -13,7 +13,7 @@ public class KumoNingyo extends Character {
     private int[] dimension = {};
 
     public KumoNingyo() {
-        super("Kumo Ningyō", "character_kumo_ningyo", "left", "titan", null,
+        super("Kumo Ningyō", "character_kumo_ningyo", "left", 210, null,
                 20000, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage"},
                 new int[]{0, 3, 3, 3}, new int[]{0, 0, 0, 0});

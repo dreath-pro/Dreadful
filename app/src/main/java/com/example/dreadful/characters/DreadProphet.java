@@ -13,7 +13,7 @@ public class DreadProphet extends Character {
     private int[] dimension = {};
 
     public DreadProphet() {
-        super("Dread Prophet", "character_dread_prophet", "left", "titan", null,
+        super("Dread Prophet", "character_dread_prophet", "left", 210, null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});

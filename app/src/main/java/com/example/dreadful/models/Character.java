@@ -12,7 +12,7 @@ public abstract class Character {
     private String name;
     private String image;
     private String imageDirection;
-    private String size; // average, huge, titan
+    private int size; // average = 150, huge = 170, titan = 210
     private String[] transformation;
     private int health, attack, defense, dodge;
     private int maxHealth, maxAttack, maxDefense, maxDodge;
@@ -29,7 +29,7 @@ public abstract class Character {
 
     }
 
-    public Character(String name, String image, String imageDirection, String size, String[] transformation,
+    public Character(String name, String image, String imageDirection, int size, String[] transformation,
                      int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
@@ -49,7 +49,7 @@ public abstract class Character {
         this.skillCooldowns = skillCooldowns;
     }
 
-    public Character(int id, String name, String image, String imageDirection, String size,
+    public Character(int id, String name, String image, String imageDirection, int size,
                      String[] transformation, int health, int attack, int defense, int dodge,
                      String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.id = id;
@@ -186,11 +186,11 @@ public abstract class Character {
         this.imageDirection = imageDirection;
     }
 
-    public String getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(int size) {
         this.size = size;
     }
 

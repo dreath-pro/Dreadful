@@ -75,23 +75,8 @@ public class SetupCharacter {
         }
 
         ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
-        int widthInDp = 0; // Desired width in dp
-        int heightInDp = 0; // Desired height in dp
-
-        switch (yourCharacter.getSize()) {
-            case "average":
-                widthInDp = 150;
-                heightInDp = 150;
-                break;
-            case "huge":
-                widthInDp = 170;
-                heightInDp = 170;
-                break;
-            case "titan":
-                widthInDp = 210;
-                heightInDp = 210;
-                break;
-        }
+        int widthInDp = yourCharacter.getSize(); // Desired width in dp
+        int heightInDp = yourCharacter.getSize(); // Desired height in dp
 
         float scale = context.getResources().getDisplayMetrics().density;
         int widthInPixels = (int) (widthInDp * scale + 0.5f);
@@ -121,23 +106,8 @@ public class SetupCharacter {
 
 
         ViewGroup.LayoutParams layoutParams = enemyImage.getLayoutParams();
-        int widthInDp = 0; // Desired width in dp
-        int heightInDp = 0; // Desired height in dp
-
-        switch (enemyCharacter.getSize()) {
-            case "average":
-                widthInDp = 150;
-                heightInDp = 150;
-                break;
-            case "huge":
-                widthInDp = 170;
-                heightInDp = 170;
-                break;
-            case "titan":
-                widthInDp = 210;
-                heightInDp = 210;
-                break;
-        }
+        int widthInDp = enemyCharacter.getSize(); // Desired width in dp
+        int heightInDp = enemyCharacter.getSize(); // Desired height in dp
 
         float scale = context.getResources().getDisplayMetrics().density;
         int widthInPixels = (int) (widthInDp * scale + 0.5f);
