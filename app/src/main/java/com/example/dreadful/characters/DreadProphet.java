@@ -60,13 +60,15 @@ public class DreadProphet extends Character {
         setDamageOverTimeValue(tempDotValue);
     }
 
-    public void useRandomAttack(Character hitter, Character target) {
+    public String useRandomAttack(Character hitter, Character target) {
+        String skillName;
         int skillIndex = random.nextInt(getSkillNames().length);
 
         while (getSkillCooldowns()[skillIndex] > 0) {
             skillIndex = random.nextInt(getSkillNames().length);
         }
 
+        skillName = getSkillNames()[skillIndex];
         switch (skillIndex) {
             case 0:
                 basicAttack(hitter, target);
@@ -94,6 +96,7 @@ public class DreadProphet extends Character {
             }
         }
         getSkillCooldowns()[skillIndex] = getMaxSkillCooldowns()[skillIndex];
+        return skillName;
     }
 
     //this attack is undodgeable but can be reduce by opponent's defense

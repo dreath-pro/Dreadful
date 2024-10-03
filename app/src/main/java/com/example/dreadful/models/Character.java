@@ -148,7 +148,7 @@ public abstract class Character {
         setDamageOverTimeValue(tempDotValue);
     }
 
-    public abstract void useRandomAttack(Character hitter, Character target);
+    public abstract String useRandomAttack(Character hitter, Character target);
 
     public void basicAttack(Character hitter, Character target) {
         target.receiveHit(hitter, target);

@@ -77,7 +77,7 @@ public class GameMechanics {
                     Toast.makeText(context, yourCharacter.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, 1000);
+        }, 1800);
     }
 
     private void hitDelay(int attacker) {
@@ -85,17 +85,16 @@ public class GameMechanics {
             @Override
             public void run() {
                 if (attacker == 0) {
-                    yourCharacter.useRandomAttack(yourCharacter, enemyCharacter);
+                    promptView.setText(yourCharacter.getName() + " uses \"" + yourCharacter.useRandomAttack(yourCharacter, enemyCharacter) + "\"");
                 } else {
-                    enemyCharacter.useRandomAttack(enemyCharacter, yourCharacter);
+                    promptView.setText(enemyCharacter.getName() + " uses \"" + enemyCharacter.useRandomAttack(enemyCharacter, yourCharacter) + "\"");
                 }
-                promptView.setText("");
                 updateHealthBars();
 
                 receiveTimeHp();
                 battleLoop();
             }
-        }, 1500);
+        }, 3000);
     }
 
     public void stopBattleLoop() {
