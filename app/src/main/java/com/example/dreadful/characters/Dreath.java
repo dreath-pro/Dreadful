@@ -18,7 +18,7 @@ public class Dreath extends Character {
     public Dreath() {
         super("Dreath", "character_dreath", "right", "average", null,
                 88070, 2580, 880, 0,
-                new String[]{"Butcher", "Amputate", "Shock Gore", "Ravage Axe", "Carnage"},
+                new String[]{"Butcher", "Amputate", "Shock Gore", "Dismember", "Evisceration"},
                 new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
     }
 
@@ -35,6 +35,7 @@ public class Dreath extends Character {
         receiveBuffDebuff(target, "Rage", 10);
         if(!hasBuffDebuff(target, "Rage", 50).isEmpty())
         {
+            int index = Integer.parseInt(hasBuffDebuff(target, "Rage", 50));
             if (getHealth() <= 0) {
                 setHealth(35700);
                 setAttack(9000);
@@ -44,6 +45,7 @@ public class Dreath extends Character {
 
                 hitter.setDodge(hitter.getMaxDodge());
                 setAttack(getMaxAttack());
+                getBuffDebuffValue().set(index, getBuffDebuffValue().get(index) - 50);
             }
         }
     }
@@ -80,6 +82,7 @@ public class Dreath extends Character {
 
                 if(!hasBuffDebuff(target, "Rage", 50).isEmpty())
                 {
+                    int index = Integer.parseInt(hasBuffDebuff(target, "Rage", 50));
                     if (getHealth() <= 0) {
                         setHealth(35700);
                         setAttack(9000);
@@ -89,6 +92,7 @@ public class Dreath extends Character {
 
                         hitter.setDodge(hitter.getMaxDodge());
                         setAttack(getMaxAttack());
+                        getBuffDebuffValue().set(index, getBuffDebuffValue().get(index) - 50);
                     }
                 }
 
