@@ -132,35 +132,31 @@ public class DreadProphet extends Character {
     {
         target.receiveHit(hitter, target);
 
-        for(int i = 0; i <= target.getBuffDebuff().size() - 1; i++)
+        if(!hasBuffDebuff(target, "Mark of Sin", 50).isEmpty())
         {
-            if(target.getBuffDebuff().get(i).equals("Mark of Sin") && target.getBuffDebuffValue().get(i) >= 50)
-            {
-                int maxHealth = target.getHealth();
-                int percentage = target.getBuffDebuffValue().get(i);
-                int damage = (maxHealth * percentage) / 100;
+            int index = Integer.parseInt(hasBuffDebuff(target, "Mark of Sin", 50));
+            int maxHealth = target.getHealth();
+            int percentage = target.getBuffDebuffValue().get(index);
+            int damage = (maxHealth * percentage) / 100;
 
-                setAttack(damage);
-                target.receiveHit(hitter, target);
-                setAttack(getMaxAttack());
-            }
+            setAttack(damage);
+            target.receiveHit(hitter, target);
+            setAttack(getMaxAttack());
         }
     }
 
     //heal over time for a short turn, base on the value of the "mark of sin"
     private void skill4(Character hitter, Character target)
     {
-        for(int i = 0; i <= target.getBuffDebuff().size() - 1; i++)
+        if(!hasBuffDebuff(target, "Mark of Sin", 50).isEmpty())
         {
-            if(target.getBuffDebuff().get(i).equals("Mark of Sin") && target.getBuffDebuffValue().get(i) >= 50)
-            {
-                int maxHealth = 1200;
-                int percentage = target.getBuffDebuffValue().get(i);
-                int heal = (maxHealth * percentage) / 100;
+            int index = Integer.parseInt(hasBuffDebuff(target, "Mark of Sin", 50));
+            int maxHealth = 1200;
+            int percentage = target.getBuffDebuffValue().get(index);
+            int heal = (maxHealth * percentage) / 100;
 
-                getDamageOverTime().add(heal);
-                getDamageOverTimeValue().add(9);
-            }
+            getDamageOverTime().add(heal);
+            getDamageOverTimeValue().add(9);
         }
     }
 }

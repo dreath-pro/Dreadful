@@ -90,10 +90,10 @@ public class KumoNingyo extends Character {
 
     //recovers 1000 health and multiply by the value of the lost limbs buff
     private void skill2(Character hitter, Character target) {
-        for (int i = 0; i <= getBuffDebuff().size() - 1; i++) {
-            if (getBuffDebuff().get(i).equals("Lost Limbs")) {
-                setHealth(getHealth() + (1000 * getBuffDebuffValue().get(i)));
-            }
+        if(!hasBuffDebuff(hitter, "Lost Limbs", 1).isEmpty())
+        {
+            int index = Integer.parseInt(hasBuffDebuff(target, "Lost Limbs", 1));
+            setHealth(getHealth() + (1000 * getBuffDebuffValue().get(index)));
         }
     }
 

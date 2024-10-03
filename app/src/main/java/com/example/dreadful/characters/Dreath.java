@@ -33,19 +33,17 @@ public class Dreath extends Character {
         hitter.setAttack(hitter.getMaxAttack());
 
         receiveBuffDebuff(target, "Rage", 10);
+        if(!hasBuffDebuff(target, "Rage", 50).isEmpty())
+        {
+            if (getHealth() <= 0) {
+                setHealth(35700);
+                setAttack(9000);
+                hitter.setDodge(0);
 
-        for (int i = 0; i <= getBuffDebuff().size() - 1; i++) {
-            if (getBuffDebuff().get(i).equals("Rage") && getBuffDebuffValue().get(i) >= 50) {
-                if (getHealth() <= 0) {
-                    setHealth(35700);
-                    setAttack(9000);
-                    hitter.setDodge(0);
+                hitter.receiveHit(hitter, target);
 
-                    hitter.receiveHit(hitter, target);
-
-                    hitter.setDodge(hitter.getMaxDodge());
-                    setAttack(getMaxAttack());
-                }
+                hitter.setDodge(hitter.getMaxDodge());
+                setAttack(getMaxAttack());
             }
         }
     }
@@ -80,21 +78,20 @@ public class Dreath extends Character {
             if (getDamageOverTimeValue().get(i) > 0) {
                 setHealth(getHealth() - getDamageOverTime().get(i));
 
-                for (int j = 0; j <= getBuffDebuff().size() - 1; j++) {
-                    if (getBuffDebuff().get(j).equals("Rage") && getBuffDebuffValue().get(j) >= 50) {
-                        if (getHealth() <= 0) {
-                            setHealth(35700);
-                            setAttack(9000);
-                            hitter.setDodge(0);
+                if(!hasBuffDebuff(target, "Rage", 50).isEmpty())
+                {
+                    if (getHealth() <= 0) {
+                        setHealth(35700);
+                        setAttack(9000);
+                        hitter.setDodge(0);
 
-                            hitter.receiveHit(hitter, target);
+                        hitter.receiveHit(hitter, target);
 
-                            hitter.setDodge(hitter.getMaxDodge());
-                            setAttack(getMaxAttack());
-                        }
+                        hitter.setDodge(hitter.getMaxDodge());
+                        setAttack(getMaxAttack());
                     }
                 }
-                
+
                 getDamageOverTimeValue().set(i, getDamageOverTimeValue().get(i) - 1);
 
                 tempDot.add(getDamageOverTime().get(i));

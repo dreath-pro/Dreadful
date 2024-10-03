@@ -91,6 +91,18 @@ public abstract class Character {
         }
     }
 
+    public String hasBuffDebuff(Character target, String buffDebuffName, int buffDebuffValue)
+    {
+        String hasBuffDebuff = "";
+        for (int i = 0; i <= target.getBuffDebuff().size() - 1; i++) {
+            if (target.getBuffDebuff().get(i).equals(buffDebuffName) && target.getBuffDebuffValue().get(i) >= buffDebuffValue) {
+                hasBuffDebuff = Integer.toString(i);
+            }
+        }
+
+        return hasBuffDebuff;
+    }
+
     public void receiveHit(Character hitter, Character target) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
