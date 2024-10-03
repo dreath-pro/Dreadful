@@ -21,7 +21,7 @@ public class KumoNingyo extends Character {
 
     /**
      * everytime an attacker hit, kumo ningyo will be mark with lost limb buff and healing effects
-     * will increases significantly base on the lost limbs buff
+     * will increase significantly base on the lost limbs buff
      */
     @Override
     public void receiveHit(Character hitter, Character target) {

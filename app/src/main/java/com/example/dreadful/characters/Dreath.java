@@ -23,8 +23,8 @@ public class Dreath extends Character {
     }
 
     /**
-     * the way he receive a hit, when his health drop 0, he will go to instant rage and reset his hp to max
-     * and reduce the opponent's current health by 50%
+     * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
+     * and the opponent will receive a 9000 hit and can not be dodge
      */
     @Override
     public void receiveHit(Character hitter, Character target) {
@@ -32,16 +32,21 @@ public class Dreath extends Character {
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
 
-        if (getHealth() <= 0) {
-            setHealth(getMaxHealth());
+        receiveBuffDebuff(target, "Rage", 10);
 
-            int maxHealth = hitter.getHealth();
-            int percentage = 50;
-            int damage = (maxHealth * percentage) / 100;
+        for (int i = 0; i <= getBuffDebuff().size() - 1; i++) {
+            if (getBuffDebuff().get(i).equals("Rage") && getBuffDebuffValue().get(i) >= 50) {
+                if (getHealth() <= 0) {
+                    setHealth(35700);
+                    setAttack(9000);
+                    hitter.setDodge(0);
 
-            setAttack(damage);
-            hitter.receiveHit(hitter, target);
-            setAttack(getMaxAttack());
+                    hitter.receiveHit(hitter, target);
+
+                    hitter.setDodge(hitter.getMaxDodge());
+                    setAttack(getMaxAttack());
+                }
+            }
         }
     }
 
@@ -75,17 +80,21 @@ public class Dreath extends Character {
             if (getDamageOverTimeValue().get(i) > 0) {
                 setHealth(getHealth() - getDamageOverTime().get(i));
 
-                if (getHealth() <= 0) {
-                    setHealth(getMaxHealth());
+                for (int j = 0; j <= getBuffDebuff().size() - 1; j++) {
+                    if (getBuffDebuff().get(j).equals("Rage") && getBuffDebuffValue().get(j) >= 50) {
+                        if (getHealth() <= 0) {
+                            setHealth(35700);
+                            setAttack(9000);
+                            hitter.setDodge(0);
 
-                    int maxHealth = hitter.getHealth();
-                    int percentage = 50;
-                    int damage = (maxHealth * percentage) / 100;
+                            hitter.receiveHit(hitter, target);
 
-                    setAttack(damage);
-                    hitter.receiveHit(hitter, target);
-                    setAttack(getMaxAttack());
+                            hitter.setDodge(hitter.getMaxDodge());
+                            setAttack(getMaxAttack());
+                        }
+                    }
                 }
+                
                 getDamageOverTimeValue().set(i, getDamageOverTimeValue().get(i) - 1);
 
                 tempDot.add(getDamageOverTime().get(i));

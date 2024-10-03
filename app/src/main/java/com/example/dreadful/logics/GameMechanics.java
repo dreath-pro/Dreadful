@@ -111,7 +111,7 @@ public class GameMechanics {
         hitDelay.removeCallbacksAndMessages(null);
     }
 
-    public void updateHealthBars() {
+    private void updateHealthBars() {
         yourHealthText.setText(String.valueOf(yourCharacter.getHealth()));
         enemyHealthText.setText(String.valueOf(enemyCharacter.getHealth()));
         yourHealth.setProgress(yourCharacter.getHealth());
