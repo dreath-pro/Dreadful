@@ -5,6 +5,7 @@
     <string name="player_name">Dreath</string>
     <string name="opponent_name">Pope of Death</string>
     <string name="health_text">0</string>
+    <string name="prompt_view">Dreath makes a move</string>
 
 <!--    button labels-->
     <string name="start_button">Start</string>

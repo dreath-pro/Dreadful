@@ -92,7 +92,7 @@ public class KumoNingyo extends Character {
     private void skill2(Character hitter, Character target) {
         if(!hasBuffDebuff(hitter, "Lost Limbs", 1).isEmpty())
         {
-            int index = Integer.parseInt(hasBuffDebuff(target, "Lost Limbs", 1));
+            int index = Integer.parseInt(hasBuffDebuff(hitter, "Lost Limbs", 1));
             setHealth(getHealth() + (1000 * getBuffDebuffValue().get(index)));
         }
     }

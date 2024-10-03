@@ -18,15 +18,15 @@ public class GameMechanics {
     private TextView yourHealthText, enemyHealthText;
     private ImageView yourImage, enemyImage;
     private Character yourCharacter, enemyCharacter;
+    private TextView promptView;
 
     private Handler turnDelay = new Handler();
-    private Handler promptDelay = new Handler();
     private Handler hitDelay = new Handler();
     private Random random = new Random();
 
     public GameMechanics(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                          TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
-                         Character yourCharacter, Character enemyCharacter) {
+                         Character yourCharacter, Character enemyCharacter, TextView promptView) {
 
         this.context = context;
         this.yourName = yourName;
@@ -41,6 +41,7 @@ public class GameMechanics {
 
         this.yourCharacter = yourCharacter;
         this.enemyCharacter = enemyCharacter;
+        this.promptView = promptView;
     }
 
     private void receiveTimeHp() {
@@ -55,8 +56,17 @@ public class GameMechanics {
             public void run() {
                 if (yourCharacter.getHealth() > 0 && enemyCharacter.getHealth() > 0) {
                     int attacker = random.nextInt(2);
+
+                    if(attacker == 0)
+                    {
+                        promptView.setText(yourCharacter.getName() + " makes a move!");
+                    }else
+                    {
+                        promptView.setText(enemyCharacter.getName() + " makes a move!");
+                    }
+
                     receiveTimeHp();
-                    promptDelay(attacker);
+                    hitDelay(attacker);
                 }
 
                 if (yourCharacter.getHealth() <= 0 && enemyCharacter.getHealth() <= 0) {
@@ -70,24 +80,6 @@ public class GameMechanics {
         }, 1000);
     }
 
-    private void promptDelay(int attacker) {
-        promptDelay.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                if(attacker == 0)
-//                {
-//                    Toast.makeText(context, yourCharacter.getName() + "'s Turn", Toast.LENGTH_SHORT).show();
-//                }else
-//                {
-//                    Toast.makeText(context, enemyCharacter.getName() + "'s Turn", Toast.LENGTH_SHORT).show();
-//                }
-
-                receiveTimeHp();
-                hitDelay(attacker);
-            }
-        }, 1000);
-    }
-
     private void hitDelay(int attacker) {
         hitDelay.postDelayed(new Runnable() {
             @Override
@@ -97,6 +89,7 @@ public class GameMechanics {
                 } else {
                     enemyCharacter.useRandomAttack(enemyCharacter, yourCharacter);
                 }
+                promptView.setText("");
                 updateHealthBars();
 
                 receiveTimeHp();
@@ -107,7 +100,6 @@ public class GameMechanics {
 
     public void stopBattleLoop() {
         turnDelay.removeCallbacksAndMessages(null);
-        promptDelay.removeCallbacksAndMessages(null);
         hitDelay.removeCallbacksAndMessages(null);
     }
 

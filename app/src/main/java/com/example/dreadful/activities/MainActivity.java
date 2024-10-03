@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView yourHealthText, enemyHealthText;
     private ImageView yourImage, enemyImage;
     private Button backButton, startButton;
+    private ImageView promptButton;
+    private TextView promptView;
 
     private Character yourCharacter, enemyCharacter;
     private GameMechanics gameMechanics;
@@ -53,9 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.backButton);
         startButton = findViewById(R.id.startButton);
+        promptButton = findViewById(R.id.promptButton);
+        promptView = findViewById(R.id.promptView);
     }
 
     private void startConfiguration() {
+        promptView.setText("");
+
         setupCharacter = new SetupCharacter(this,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
@@ -69,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         gameMechanics = new GameMechanics(this,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourCharacter, enemyCharacter);
+                yourCharacter, enemyCharacter, promptView);
     }
 
     private void invisibleButtons(Boolean invisible) {
@@ -108,6 +115,13 @@ public class MainActivity extends AppCompatActivity {
                     startButton.setText(getString(R.string.start_button));
                     gameMechanics.stopBattleLoop();
                 }
+            }
+        });
+        
+        promptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
             }
         });
 

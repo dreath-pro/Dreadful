@@ -14,7 +14,7 @@
         android:layout_height="255dp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonLayout"
+        app:layout_constraintBottom_toTopOf="@id/promptView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="bottom|center"
@@ -122,12 +122,30 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/promptView"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:background="@color/white"
+        android:text="@string/prompt_view"
+        android:ellipsize="end"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playersLayout"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLayout"/>
+
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/playersLayout"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/promptView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -151,6 +169,16 @@
             android:textColor="@color/white"
             android:backgroundTint="#A60606"
             android:layout_marginEnd="30dp"/>
+
+        <ImageView
+            android:id="@+id/promptButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:background="#A60606"
+            android:src="@drawable/icon_message"
+            app:tint="@color/white" />
 
     </LinearLayout>
 
