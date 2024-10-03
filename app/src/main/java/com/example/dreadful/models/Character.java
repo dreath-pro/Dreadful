@@ -12,7 +12,7 @@ public abstract class Character {
     private String name;
     private String image;
     private String imageDirection;
-    private String size; // average, titan
+    private String size; // average, huge, titan
     private String[] transformation;
     private int health, attack, defense, dodge;
     private int maxHealth, maxAttack, maxDefense, maxDodge;

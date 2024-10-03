@@ -22,7 +22,7 @@ import com.example.dreadful.utils.SetupCharacter;
 public class MainActivity extends AppCompatActivity {
     //armored crocodile golem, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view
     //person with spiky armor covered with dark liquid, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
-    //evolved glowing humanoid mutant with no face but only white teeth and with a tentacle back and root hands, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, violet, dark-violet, blue-violet
+    //humanoid void mutant with no face but only white teeth and with a tentacle back and root hands, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, violet, dark-violet, blue-violet, dark-blue
 
     //experimental
     //altar of cathedral background, hd, minimalist cartoon, dark fantasy theme, background, red, gray, black, dark-red, crimson-red
