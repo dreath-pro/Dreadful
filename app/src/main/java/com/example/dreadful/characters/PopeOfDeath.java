@@ -35,23 +35,7 @@ public class PopeOfDeath extends Character {
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
 
-        boolean withSin = false;
-        int sinIndex = 0;
-        for (int i = 0; i <= hitter.getDebuffs().size() - 1; i++) {
-            if (hitter.getDebuffs().get(i).equals("Mark of Sin")) {
-                withSin = true;
-                sinIndex = i;
-            }
-        }
-
-        if(!withSin)
-        {
-            hitter.getDebuffs().add("Mark of Sin");
-            hitter.getDebuffsValue().add(10);
-        }else
-        {
-            hitter.getDebuffsValue().set(sinIndex, hitter.getDebuffsValue().get(sinIndex) + 10);
-        }
+        receiveBuffDebuff(hitter, "Mark of Sin", 10);
     }
 
     /**
@@ -137,6 +121,9 @@ public class PopeOfDeath extends Character {
             allHeal += target.getHealOverTime().get(i);
         }
 
+        target.getHealOverTime().clear();
+        target.getHealOverTimeValue().clear();
+
         target.getDamageOverTime().add(allHeal);
         target.getDamageOverTimeValue().add(15);
     }
@@ -147,12 +134,12 @@ public class PopeOfDeath extends Character {
     {
         target.receiveHit(hitter, target);
 
-        for(int i = 0; i <= target.getDebuffs().size() - 1; i++)
+        for(int i = 0; i <= target.getBuffDebuff().size() - 1; i++)
         {
-            if(target.getDebuffs().get(i).equals("Mark of Sin") && target.getDebuffsValue().get(i) >= 50)
+            if(target.getBuffDebuff().get(i).equals("Mark of Sin") && target.getBuffDebuffValue().get(i) >= 50)
             {
                 int maxHealth = target.getHealth();
-                int percentage = target.getDebuffsValue().get(i);
+                int percentage = target.getBuffDebuffValue().get(i);
                 int damage = (maxHealth * percentage) / 100;
 
                 setAttack(damage);
@@ -165,12 +152,12 @@ public class PopeOfDeath extends Character {
     //heal over time for a short turn, base on the value of the "mark of sin"
     private void skill4(Character hitter, Character target)
     {
-        for(int i = 0; i <= target.getDebuffs().size() - 1; i++)
+        for(int i = 0; i <= target.getBuffDebuff().size() - 1; i++)
         {
-            if(target.getDebuffs().get(i).equals("Mark of Sin") && target.getDebuffsValue().get(i) >= 50)
+            if(target.getBuffDebuff().get(i).equals("Mark of Sin") && target.getBuffDebuffValue().get(i) >= 50)
             {
                 int maxHealth = 1200;
-                int percentage = target.getDebuffsValue().get(i);
+                int percentage = target.getBuffDebuffValue().get(i);
                 int heal = (maxHealth * percentage) / 100;
 
                 getDamageOverTime().add(heal);

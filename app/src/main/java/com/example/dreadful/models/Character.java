@@ -20,8 +20,8 @@ public abstract class Character {
     private int[] maxSkillCooldowns, skillCooldowns;
     private ArrayList<Integer> healOverTime = new ArrayList<>(), healOverTimeValue = new ArrayList<>();
     private ArrayList<Integer> damageOverTime = new ArrayList<>(), damageOverTimeValue = new ArrayList<>();
-    private ArrayList<String> buffs = new ArrayList<>(), debuffs = new ArrayList<>();
-    private ArrayList<Integer> buffsValue = new ArrayList<>(), debuffsValue = new ArrayList<>();
+    private ArrayList<String> buffDebuff = new ArrayList<>();
+    private ArrayList<Integer> buffDebuffValue = new ArrayList<>();
 
     private Random random = new Random();
 
@@ -69,6 +69,26 @@ public abstract class Character {
         this.skillNames = skillNames;
         this.maxSkillCooldowns = maxSkillCooldowns;
         this.skillCooldowns = skillCooldowns;
+    }
+
+    public void receiveBuffDebuff(Character target, String buffDebuffName, int buffDebuffValue) {
+        boolean withBuffDebuff = false;
+        int buffDebuffIndex = 0;
+        for (int i = 0; i <= target.getBuffDebuff().size() - 1; i++) {
+            if (target.getBuffDebuff().get(i).equals(buffDebuffName)) {
+                withBuffDebuff = true;
+                buffDebuffIndex = i;
+            }
+        }
+
+        if (!withBuffDebuff)
+        {
+            target.getBuffDebuff().add(buffDebuffName);
+            target.getBuffDebuffValue().add(buffDebuffValue);
+        }else
+        {
+            target.getBuffDebuffValue().set(buffDebuffIndex, target.getBuffDebuffValue().get(buffDebuffIndex) + buffDebuffValue);
+        }
     }
 
     public void receiveHit(Character hitter, Character target) {
@@ -282,35 +302,19 @@ public abstract class Character {
         this.damageOverTimeValue = damageOverTimeValue;
     }
 
-    public ArrayList<String> getBuffs() {
-        return buffs;
+    public ArrayList<String> getBuffDebuff() {
+        return buffDebuff;
     }
 
-    public void setBuffs(ArrayList<String> buffs) {
-        this.buffs = buffs;
+    public void setBuffDebuff(ArrayList<String> buffDebuff) {
+        this.buffDebuff = buffDebuff;
     }
 
-    public ArrayList<Integer> getBuffsValue() {
-        return buffsValue;
+    public ArrayList<Integer> getBuffDebuffValue() {
+        return buffDebuffValue;
     }
 
-    public void setBuffsValue(ArrayList<Integer> buffsValue) {
-        this.buffsValue = buffsValue;
-    }
-
-    public ArrayList<String> getDebuffs() {
-        return debuffs;
-    }
-
-    public void setDebuffs(ArrayList<String> debuffs) {
-        this.debuffs = debuffs;
-    }
-
-    public ArrayList<Integer> getDebuffsValue() {
-        return debuffsValue;
-    }
-
-    public void setDebuffsValue(ArrayList<Integer> debuffsValue) {
-        this.debuffsValue = debuffsValue;
+    public void setBuffDebuffValue(ArrayList<Integer> buffDebuffValue) {
+        this.buffDebuffValue = buffDebuffValue;
     }
 }
