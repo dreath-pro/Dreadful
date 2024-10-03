@@ -116,7 +116,7 @@
                 android:layout_height="210dp"
                 android:scaleX="-1"
                 android:scaleType="fitXY"
-                android:src="@drawable/character_pope_of_death"/>
+                android:src="@drawable/character_dread_prophet"/>
 
         </LinearLayout>
 

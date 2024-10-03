@@ -16,9 +16,13 @@ public class KumoNingyo extends Character {
         super("Kumo Ningyō", "character_kumo_ningyo", "left", "titan", null,
                 20000, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage"},
-                new int[]{0, 3, 3, 6}, new int[]{0, 0, 0, 0});
+                new int[]{0, 3, 3, 3}, new int[]{0, 0, 0, 0});
     }
 
+    /**
+     * everytime an attacker hit, kumo ningyo will be mark with lost limb buff and healing effects
+     * will increases significantly base on the lost limbs buff
+     */
     @Override
     public void receiveHit(Character hitter, Character target) {
         int antiDodge = random.nextInt(100) + 1;
@@ -30,6 +34,7 @@ public class KumoNingyo extends Character {
         hitter.setAttack(hitter.getMaxAttack());
 
         receiveBuffDebuff(target, "Lost Limbs", 1);
+        setDodge(getMaxDodge());
     }
 
     public void useRandomAttack(Character hitter, Character target) {
@@ -92,7 +97,12 @@ public class KumoNingyo extends Character {
         }
     }
 
+    //simple basic attack and add 60% dodge for the hitter's next attack
     private void skill3(Character hitter, Character target) {
-        setDodge(getDodge() + 50);
+        target.receiveHit(hitter, target);
+        target.getDamageOverTime().add(10);
+        target.getDamageOverTimeValue().add(30);
+
+        setDodge(getDodge() + 60);
     }
 }

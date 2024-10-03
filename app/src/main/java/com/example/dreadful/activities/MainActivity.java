@@ -1,14 +1,11 @@
 package com.example.dreadful.activities;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,14 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.characters.Dreath;
-import com.example.dreadful.characters.PopeOfDeath;
 import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.models.Character;
 import com.example.dreadful.utils.SetupCharacter;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     //armored crocodile golem, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view

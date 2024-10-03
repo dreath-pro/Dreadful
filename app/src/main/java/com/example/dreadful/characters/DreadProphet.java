@@ -1,28 +1,26 @@
 package com.example.dreadful.characters;
 
-import android.util.Log;
-
 import com.example.dreadful.R;
 import com.example.dreadful.models.Character;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PopeOfDeath extends Character {
+public class DreadProphet extends Character {
     private Random random = new Random();
-    private int imageView = R.drawable.character_pope_of_death;
+    private int imageView = R.drawable.character_dread_prophet;
     private int[] transformationView = {};
     private int[] dimension = {};
 
-    public PopeOfDeath() {
-        super("Pope of Death", "character_pope_of_death", "left", "titan", null,
+    public DreadProphet() {
+        super("Dread Prophet", "character_dread_prophet", "left", "titan", null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
     }
 
     /**
-     * everytime an attacker hits pope of death, they will be mark with sin, and every attack it will add
+     * everytime an attacker hits dread prophet, they will be mark with sin, and every attack it will add
      * 10 mark of sin
      */
     @Override

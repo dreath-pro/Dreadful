@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.KumoNingyo;
-import com.example.dreadful.characters.PopeOfDeath;
+import com.example.dreadful.characters.DreadProphet;
 import com.example.dreadful.models.Character;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class SetupCharacter {
     private void initCharacters() {
         characters.clear();
         characters.add(new Dreath());
-        characters.add(new PopeOfDeath());
+        characters.add(new DreadProphet());
         characters.add(new KumoNingyo());
     }
 
