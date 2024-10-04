@@ -1,5 +1,10 @@
 package com.example.dreadful.characters;
 
+import android.content.Context;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+
 import com.example.dreadful.R;
 import com.example.dreadful.models.Character;
 
@@ -12,11 +17,17 @@ public class DreadProphet extends Character {
     private int[] transformationView = {};
     private int[] dimension = {};
 
-    public DreadProphet() {
-        super("Dread Prophet", "character_dread_prophet", "left", 210, null,
+    private Animation shakeAnimation;
+    private ImageView yourImage;
+
+    public DreadProphet(Context context, ImageView yourImage) {
+        super(context, yourImage, "Dread Prophet", "character_dread_prophet", "left", 210, null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
+
+        this.yourImage = yourImage;
+        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     /**
@@ -32,6 +43,7 @@ public class DreadProphet extends Character {
         hitter.setAttack(hitter.getAttack() - getDefense());
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
+        yourImage.startAnimation(shakeAnimation);
 
         receiveBuffDebuff(hitter, "Mark of Sin", 10);
     }

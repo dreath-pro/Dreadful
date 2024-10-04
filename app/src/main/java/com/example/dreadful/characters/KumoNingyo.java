@@ -1,5 +1,10 @@
 package com.example.dreadful.characters;
 
+import android.content.Context;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+
 import com.example.dreadful.R;
 import com.example.dreadful.models.Character;
 
@@ -12,11 +17,17 @@ public class KumoNingyo extends Character {
     private int[] transformationView = {};
     private int[] dimension = {};
 
-    public KumoNingyo() {
-        super("Kumo Ningyō", "character_kumo_ningyo", "left", 210, null,
+    private Animation shakeAnimation;
+    private ImageView yourImage;
+
+    public KumoNingyo(Context context, ImageView yourImage) {
+        super(context, yourImage, "Kumo Ningyō", "character_kumo_ningyo", "left", 210, null,
                 20000, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage"},
                 new int[]{0, 3, 3, 3}, new int[]{0, 0, 0, 0});
+
+        this.yourImage = yourImage;
+        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     /**
@@ -32,6 +43,7 @@ public class KumoNingyo extends Character {
         hitter.setAttack(hitter.getAttack() - getDefense());
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
+        yourImage.startAnimation(shakeAnimation);
 
         receiveBuffDebuff(target, "Lost Limbs", 1);
         setDodge(getMaxDodge());

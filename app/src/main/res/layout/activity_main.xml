@@ -30,8 +30,13 @@
 
             <TextView
                 android:id="@+id/yourName"
-                android:layout_width="wrap_content"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
+                android:background="#400000"
+                android:padding="1dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAlignment="center"
                 android:text="@string/player_name"
                 android:textSize="15sp"
                 android:textColor="@color/white"/>
@@ -79,8 +84,13 @@
 
             <TextView
                 android:id="@+id/enemyName"
-                android:layout_width="wrap_content"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
+                android:background="#400000"
+                android:padding="1dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAlignment="center"
                 android:text="@string/opponent_name"
                 android:textSize="15sp"
                 android:textColor="@color/white"/>
@@ -126,14 +136,14 @@
         android:id="@+id/promptView"
         android:layout_width="300dp"
         android:layout_height="20dp"
-        android:background="@color/white"
+        android:background="#210909"
         android:text="@string/prompt_view"
         android:ellipsize="end"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playersLayout"

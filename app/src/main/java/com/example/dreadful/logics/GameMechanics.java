@@ -2,11 +2,14 @@ package com.example.dreadful.logics;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dreadful.R;
 import com.example.dreadful.models.Character;
 
 import java.util.Random;

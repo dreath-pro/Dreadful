@@ -1,6 +1,10 @@
 package com.example.dreadful.characters;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.dreadful.R;
@@ -15,11 +19,17 @@ public class Dreath extends Character {
     private int[] transformationView = {};
     private int[] dimension = {};
 
-    public Dreath() {
-        super("Dreath", "character_dreath", "left", 150, null,
+    private Animation shakeAnimation;
+    private ImageView yourImage;
+
+    public Dreath(Context context, ImageView yourImage) {
+        super(context, yourImage, "Dreath", "character_dreath", "left", 150, null,
                 88070, 2580, 880, 0,
                 new String[]{"Butcher", "Amputate", "Shock Gore", "Dismember", "Evisceration"},
                 new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
+
+        this.yourImage = yourImage;
+        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     /**
@@ -31,6 +41,7 @@ public class Dreath extends Character {
         hitter.setAttack(hitter.getAttack() - getDefense());
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
+        yourImage.startAnimation(shakeAnimation);
 
         receiveBuffDebuff(target, "Rage", 10);
         if(!hasBuffDebuff(target, "Rage", 50).isEmpty())

@@ -43,11 +43,11 @@ public class SetupCharacter {
         this.enemyCharacter = enemyCharacter;
     }
 
-    private void initCharacters() {
+    private void initCharacters(ImageView playerImage) {
         characters.clear();
-        characters.add(new Dreath());
-        characters.add(new DreadProphet());
-        characters.add(new KumoNingyo());
+        characters.add(new Dreath(context, playerImage));
+        characters.add(new DreadProphet(context, playerImage));
+        characters.add(new KumoNingyo(context, playerImage));
     }
 
     public Character returnYourCharacter() {
@@ -61,7 +61,7 @@ public class SetupCharacter {
     public void initializeYourViews() {
         yourImage.setScaleX(1);
 
-        initCharacters();
+        initCharacters(yourImage);
         yourCharacter = characters.get(random.nextInt(characters.size()));
 
         yourName.setText(yourCharacter.getName());
@@ -91,7 +91,7 @@ public class SetupCharacter {
     public void initializeEnemyViews() {
         enemyImage.setScaleX(1);
 
-        initCharacters();
+        initCharacters(enemyImage);
         enemyCharacter = characters.get(random.nextInt(characters.size()));
 
         enemyName.setText(enemyCharacter.getName());

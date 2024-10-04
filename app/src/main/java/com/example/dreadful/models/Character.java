@@ -1,7 +1,13 @@
 package com.example.dreadful.models;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.dreadful.R;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,13 +29,16 @@ public abstract class Character {
     private ArrayList<String> buffDebuff = new ArrayList<>();
     private ArrayList<Integer> buffDebuffValue = new ArrayList<>();
 
+    private ImageView yourImage;
+    private Animation shakeAnimation;
+
     private Random random = new Random();
 
     public Character() {
 
     }
 
-    public Character(String name, String image, String imageDirection, int size, String[] transformation,
+    public Character(Context context, ImageView yourImage, String name, String image, String imageDirection, int size, String[] transformation,
                      int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
@@ -47,9 +56,11 @@ public abstract class Character {
         this.skillNames = skillNames;
         this.maxSkillCooldowns = maxSkillCooldowns;
         this.skillCooldowns = skillCooldowns;
+        this.yourImage = yourImage;
+        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
-    public Character(int id, String name, String image, String imageDirection, int size,
+    public Character(int id, Context context, ImageView yourImage, String name, String image, String imageDirection, int size,
                      String[] transformation, int health, int attack, int defense, int dodge,
                      String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.id = id;
@@ -69,6 +80,8 @@ public abstract class Character {
         this.skillNames = skillNames;
         this.maxSkillCooldowns = maxSkillCooldowns;
         this.skillCooldowns = skillCooldowns;
+        this.yourImage = yourImage;
+        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     public void receiveBuffDebuff(Character target, String buffDebuffName, int buffDebuffValue) {
@@ -111,6 +124,7 @@ public abstract class Character {
         hitter.setAttack(hitter.getAttack() - getDefense());
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
+        yourImage.startAnimation(shakeAnimation);
     }
 
     public void receiveTimeHp(Character hitter, Character target) {
