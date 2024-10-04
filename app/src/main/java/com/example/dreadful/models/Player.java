@@ -1,19 +1,16 @@
 package com.example.dreadful.models;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.dreadful.R;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
-public abstract class Character {
+public abstract class Player {
     private int id;
     private String name;
     private String image;
@@ -34,12 +31,12 @@ public abstract class Character {
 
     private Random random = new Random();
 
-    public Character() {
+    public Player() {
 
     }
 
-    public Character(Context context, ImageView yourImage, String name, String image, String imageDirection, int size, String[] transformation,
-                     int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
+    public Player(Context context, ImageView yourImage, String name, String image, String imageDirection, int size, String[] transformation,
+                  int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -60,9 +57,9 @@ public abstract class Character {
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
-    public Character(int id, Context context, ImageView yourImage, String name, String image, String imageDirection, int size,
-                     String[] transformation, int health, int attack, int defense, int dodge,
-                     String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
+    public Player(int id, Context context, ImageView yourImage, String name, String image, String imageDirection, int size,
+                  String[] transformation, int health, int attack, int defense, int dodge,
+                  String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -84,7 +81,7 @@ public abstract class Character {
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
-    public void receiveStatus(Character target, String statusName, int statusValue) {
+    public void receiveStatus(Player target, String statusName, int statusValue) {
         boolean withStatus = false;
         int statusIndex = 0;
         for (int i = 0; i <= target.getStatus().size() - 1; i++) {
@@ -104,7 +101,7 @@ public abstract class Character {
         }
     }
 
-    public String hasStatus(Character target, String statusName, int statusValue)
+    public String hasStatus(Player target, String statusName, int statusValue)
     {
         String hasStatus = "";
         for (int i = 0; i <= target.getStatus().size() - 1; i++) {
@@ -116,7 +113,7 @@ public abstract class Character {
         return hasStatus;
     }
 
-    public void receiveHit(Character hitter, Character target) {
+    public void receiveHit(Player hitter, Player target) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return;
@@ -127,7 +124,7 @@ public abstract class Character {
         yourImage.startAnimation(shakeAnimation);
     }
 
-    public void receiveTimeHp(Character hitter, Character target) {
+    public void receiveTimeHp(Player hitter, Player target) {
         ArrayList<Integer> tempHot = new ArrayList<>();
         ArrayList<Integer> tempHotValue = new ArrayList<>();
 
@@ -162,9 +159,9 @@ public abstract class Character {
         setDamageOverTimeValue(tempDotValue);
     }
 
-    public abstract String useRandomAttack(Character hitter, Character target);
+    public abstract String useRandomAttack(Player hitter, Player target);
 
-    public void basicAttack(Character hitter, Character target) {
+    public void basicAttack(Player hitter, Player target) {
         target.receiveHit(hitter, target);
     }
 

@@ -15,10 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
+import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.logics.GameMechanics;
-import com.example.dreadful.models.Character;
+import com.example.dreadful.models.Player;
 import com.example.dreadful.utils.SetupCharacter;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,9 +30,11 @@ public class MainActivity extends AppCompatActivity {
     //humanoid void mutant with no face but only white teeth and with a tentacle back and root hands, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, violet, dark-violet, blue-violet, dark-blue
 
     //experimental
-    //altar of cathedral background, hd, minimalist cartoon, dark fantasy theme, background, red, gray, black, dark-red, crimson-red
+    //altar of cathedral background, hd, minimalist cartoon, dark fantasy theme, red, gray, black, dark-red, crimson-red
 
     //two swords clashing, simple icon, digital art, dark fantasy theme, vibrant shading, white background, red, crimson-red, black, dark-red
+
+    //curse, minimalist icon, dark fantasy theme, vibrant shading, red, crimson-red, dark-red, black
 
     private TextView yourName, enemyName;
     private ProgressBar yourHealth, enemyHealth;
@@ -38,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private Button backButton, startButton;
     private ImageView promptButton;
     private TextView promptView;
-    private LinearLayout yourPlayer, enemyPlayer;
+    private LinearLayout yourPlayerLayout, enemyPlayerLayout;
 
-    private Character yourCharacter, enemyCharacter;
+    private Player yourPlayer, enemyPlayer;
     private GameMechanics gameMechanics;
     private SetupCharacter setupCharacter;
 
@@ -57,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
         yourImage = findViewById(R.id.yourImage);
         enemyImage = findViewById(R.id.enemyImage);
 
-        yourPlayer = findViewById(R.id.yourPlayer);
-        enemyPlayer = findViewById(R.id.enemyPlayer);
+        yourPlayerLayout = findViewById(R.id.yourPlayerLayout);
+        enemyPlayerLayout = findViewById(R.id.enemyPlayerLayout);
 
         backButton = findViewById(R.id.backButton);
         startButton = findViewById(R.id.startButton);
@@ -72,17 +77,17 @@ public class MainActivity extends AppCompatActivity {
         setupCharacter = new SetupCharacter(this,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourCharacter, enemyCharacter);
+                yourPlayer, enemyPlayer);
 
         setupCharacter.initializeYourViews();
         setupCharacter.initializeEnemyViews();
-        yourCharacter = setupCharacter.returnYourCharacter();
-        enemyCharacter = setupCharacter.returnEnemyCharacter();
+        yourPlayer = setupCharacter.returnYourCharacter();
+        enemyPlayer = setupCharacter.returnEnemyCharacter();
 
         gameMechanics = new GameMechanics(this,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourCharacter, enemyCharacter, promptView);
+                yourPlayer, enemyPlayer, promptView);
     }
 
     private void invisibleButtons(Boolean invisible) {
@@ -102,17 +107,17 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         startConfiguration();
 
-        yourPlayer.setOnClickListener(new View.OnClickListener() {
+        yourPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCharacterDetails(yourCharacter);
+                showCharacterDetails(yourPlayer);
             }
         });
 
-        enemyPlayer.setOnClickListener(new View.OnClickListener() {
+        enemyPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCharacterDetails(enemyCharacter);
+                showCharacterDetails(enemyPlayer);
             }
         });
 
@@ -152,12 +157,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showCharacterDetails(Character player) {
+    private void showCharacterDetails(Player player) {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_character_details);
 
         TextView playerName = dialog.findViewById(R.id.playerName);
         ImageView playerImage = dialog.findViewById(R.id.playerImage);
+        RecyclerView statusList = dialog.findViewById(R.id.statusList);
 
         playerName.setText(player.getName());
         playerImage.setImageResource(getResources().getIdentifier(player.getImage(), "drawable", getPackageName()));
@@ -166,6 +172,11 @@ public class MainActivity extends AppCompatActivity {
         {
             playerImage.setScaleX(-1);
         }
+
+        GridLayoutManager statusLayoutManager = new GridLayoutManager(this, 2);
+        statusList.setLayoutManager(statusLayoutManager);
+        ViewStatus viewStatus = new ViewStatus(this, player);
+        statusList.setAdapter(viewStatus);
 
         dialog.show();
     }

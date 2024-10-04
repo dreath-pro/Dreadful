@@ -6,12 +6,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.dreadful.R;
-import com.example.dreadful.models.Character;
+import com.example.dreadful.models.Player;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DreadProphet extends Character {
+public class DreadProphet extends Player {
     private Random random = new Random();
     private int imageView = R.drawable.character_dread_prophet;
     private int[] transformationView = {};
@@ -35,7 +35,7 @@ public class DreadProphet extends Character {
      * 10 mark of sin
      */
     @Override
-    public void receiveHit(Character hitter, Character target) {
+    public void receiveHit(Player hitter, Player target) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return;
@@ -54,7 +54,7 @@ public class DreadProphet extends Character {
      * the heal overtime he receive will be useless and be ignore, only damage over time is his way of healing
      */
     @Override
-    public void receiveTimeHp(Character hitter, Character target) {
+    public void receiveTimeHp(Player hitter, Player target) {
         ArrayList<Integer> tempDot = new ArrayList<>();
         ArrayList<Integer> tempDotValue = new ArrayList<>();
 
@@ -72,7 +72,7 @@ public class DreadProphet extends Character {
         setDamageOverTimeValue(tempDotValue);
     }
 
-    public String useRandomAttack(Character hitter, Character target) {
+    public String useRandomAttack(Player hitter, Player target) {
         String skillName;
         int skillIndex = random.nextInt(getSkillNames().length);
 
@@ -113,21 +113,21 @@ public class DreadProphet extends Character {
 
     //this attack is undodgeable but can be reduce by opponent's defense
     @Override
-    public void basicAttack(Character hitter, Character target) {
+    public void basicAttack(Player hitter, Player target) {
         target.setDodge(0);
         target.receiveHit(hitter, target);
         target.setDodge(target.getMaxDodge());
     }
 
     //simple burst attack
-    private void skill1(Character hitter, Character target) {
+    private void skill1(Player hitter, Player target) {
         setAttack(getAttack() + 8450);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }
 
     //enemy healing will be reverse and convert to damage
-    private void skill2(Character hitter, Character target) {
+    private void skill2(Player hitter, Player target) {
         int allHeal = 0;
         for(int i = 0; i <= target.getHealOverTime().size() - 1; i++)
         {
@@ -143,7 +143,7 @@ public class DreadProphet extends Character {
 
     //retribution for sinner hitter/attacker, base on the value of the "mark of sin"
     //reduce 50% of attacker current health
-    private void skill3(Character hitter, Character target)
+    private void skill3(Player hitter, Player target)
     {
         target.receiveHit(hitter, target);
 
@@ -161,7 +161,7 @@ public class DreadProphet extends Character {
     }
 
     //heal over time for a short turn, base on the value of the "mark of sin"
-    private void skill4(Character hitter, Character target)
+    private void skill4(Player hitter, Player target)
     {
         if(!hasStatus(target, "Mark of Sin", 50).isEmpty())
         {

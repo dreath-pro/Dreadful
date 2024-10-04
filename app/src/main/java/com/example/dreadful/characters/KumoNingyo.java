@@ -6,12 +6,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.dreadful.R;
-import com.example.dreadful.models.Character;
+import com.example.dreadful.models.Player;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-public class KumoNingyo extends Character {
+public class KumoNingyo extends Player {
     private Random random = new Random();
     private int imageView = R.drawable.character_kumo_ningyo;
     private int[] transformationView = {};
@@ -35,7 +34,7 @@ public class KumoNingyo extends Character {
      * will increase significantly base on the lost limbs buff
      */
     @Override
-    public void receiveHit(Character hitter, Character target) {
+    public void receiveHit(Player hitter, Player target) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return;
@@ -49,7 +48,7 @@ public class KumoNingyo extends Character {
         setDodge(getMaxDodge());
     }
 
-    public String useRandomAttack(Character hitter, Character target) {
+    public String useRandomAttack(Player hitter, Player target) {
         String skillName;
         int skillIndex = random.nextInt(getSkillNames().length);
 
@@ -87,14 +86,14 @@ public class KumoNingyo extends Character {
 
     //every attack has poison effect that last 10 turns
     @Override
-    public void basicAttack(Character hitter, Character target) {
+    public void basicAttack(Player hitter, Player target) {
         target.receiveHit(hitter, target);
         target.getDamageOverTime().add(10);
         target.getDamageOverTimeValue().add(30);
     }
 
     //uses base damage 3 times and same poison effect
-    private void skill1(Character hitter, Character target) {
+    private void skill1(Player hitter, Player target) {
         setAttack(getAttack() * 3);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
@@ -104,7 +103,7 @@ public class KumoNingyo extends Character {
     }
 
     //recovers 1000 health and multiply by the value of the lost limbs buff
-    private void skill2(Character hitter, Character target) {
+    private void skill2(Player hitter, Player target) {
         if(!hasStatus(hitter, "Lost Limbs", 1).isEmpty())
         {
             int index = Integer.parseInt(hasStatus(hitter, "Lost Limbs", 1));
@@ -113,7 +112,7 @@ public class KumoNingyo extends Character {
     }
 
     //simple basic attack and add 60% dodge for the hitter's next attack
-    private void skill3(Character hitter, Character target) {
+    private void skill3(Player hitter, Player target) {
         target.receiveHit(hitter, target);
         target.getDamageOverTime().add(10);
         target.getDamageOverTimeValue().add(30);

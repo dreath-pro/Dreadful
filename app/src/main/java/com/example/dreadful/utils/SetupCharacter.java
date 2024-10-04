@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.KumoNingyo;
 import com.example.dreadful.characters.DreadProphet;
-import com.example.dreadful.models.Character;
+import com.example.dreadful.models.Player;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,13 +20,13 @@ public class SetupCharacter {
     private ProgressBar yourHealth, enemyHealth;
     private TextView yourHealthText, enemyHealthText;
     private ImageView yourImage, enemyImage;
-    private Character yourCharacter, enemyCharacter;
-    private ArrayList<Character> characters = new ArrayList<>();
+    private Player yourPlayer, enemyPlayer;
+    private ArrayList<Player> players = new ArrayList<>();
     private Random random = new Random();
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
-                          Character yourCharacter, Character enemyCharacter) {
+                          Player yourPlayer, Player enemyPlayer) {
 
         this.context = context;
         this.yourName = yourName;
@@ -39,44 +39,44 @@ public class SetupCharacter {
         this.enemyHealthText = enemyHealthText;
         this.enemyImage = enemyImage;
 
-        this.yourCharacter = yourCharacter;
-        this.enemyCharacter = enemyCharacter;
+        this.yourPlayer = yourPlayer;
+        this.enemyPlayer = enemyPlayer;
     }
 
     private void initCharacters(ImageView playerImage) {
-        characters.clear();
-        characters.add(new Dreath(context, playerImage));
-        characters.add(new DreadProphet(context, playerImage));
-        characters.add(new KumoNingyo(context, playerImage));
+        players.clear();
+        players.add(new Dreath(context, playerImage));
+        players.add(new DreadProphet(context, playerImage));
+        players.add(new KumoNingyo(context, playerImage));
     }
 
-    public Character returnYourCharacter() {
-        return yourCharacter;
+    public Player returnYourCharacter() {
+        return yourPlayer;
     }
 
-    public Character returnEnemyCharacter() {
-        return enemyCharacter;
+    public Player returnEnemyCharacter() {
+        return enemyPlayer;
     }
 
     public void initializeYourViews() {
         yourImage.setScaleX(1);
 
         initCharacters(yourImage);
-        yourCharacter = characters.get(random.nextInt(characters.size()));
+        yourPlayer = players.get(random.nextInt(players.size()));
 
-        yourName.setText(yourCharacter.getName());
-        yourHealthText.setText(String.valueOf(yourCharacter.getHealth()));
-        yourHealth.setMax(yourCharacter.getHealth());
-        yourHealth.setProgress(yourCharacter.getHealth());
-        yourImage.setImageResource(context.getResources().getIdentifier(yourCharacter.getImage(), "drawable", context.getPackageName()));
+        yourName.setText(yourPlayer.getName());
+        yourHealthText.setText(String.valueOf(yourPlayer.getHealth()));
+        yourHealth.setMax(yourPlayer.getHealth());
+        yourHealth.setProgress(yourPlayer.getHealth());
+        yourImage.setImageResource(context.getResources().getIdentifier(yourPlayer.getImage(), "drawable", context.getPackageName()));
 
-        if (yourCharacter.getImageDirection().equals("left")) {
+        if (yourPlayer.getImageDirection().equals("left")) {
             yourImage.setScaleX(-1);
         }
 
         ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
-        int widthInDp = yourCharacter.getSize(); // Desired width in dp
-        int heightInDp = yourCharacter.getSize(); // Desired height in dp
+        int widthInDp = yourPlayer.getSize(); // Desired width in dp
+        int heightInDp = yourPlayer.getSize(); // Desired height in dp
 
         float scale = context.getResources().getDisplayMetrics().density;
         int widthInPixels = (int) (widthInDp * scale + 0.5f);
@@ -92,22 +92,22 @@ public class SetupCharacter {
         enemyImage.setScaleX(1);
 
         initCharacters(enemyImage);
-        enemyCharacter = characters.get(random.nextInt(characters.size()));
+        enemyPlayer = players.get(random.nextInt(players.size()));
 
-        enemyName.setText(enemyCharacter.getName());
-        enemyHealthText.setText(String.valueOf(enemyCharacter.getHealth()));
-        enemyHealth.setMax(enemyCharacter.getHealth());
-        enemyHealth.setProgress(enemyCharacter.getHealth());
-        enemyImage.setImageResource(context.getResources().getIdentifier(enemyCharacter.getImage(), "drawable", context.getPackageName()));
+        enemyName.setText(enemyPlayer.getName());
+        enemyHealthText.setText(String.valueOf(enemyPlayer.getHealth()));
+        enemyHealth.setMax(enemyPlayer.getHealth());
+        enemyHealth.setProgress(enemyPlayer.getHealth());
+        enemyImage.setImageResource(context.getResources().getIdentifier(enemyPlayer.getImage(), "drawable", context.getPackageName()));
 
-        if (enemyCharacter.getImageDirection().equals("right")) {
+        if (enemyPlayer.getImageDirection().equals("right")) {
             enemyImage.setScaleX(-1);
         }
 
 
         ViewGroup.LayoutParams layoutParams = enemyImage.getLayoutParams();
-        int widthInDp = enemyCharacter.getSize(); // Desired width in dp
-        int heightInDp = enemyCharacter.getSize(); // Desired height in dp
+        int widthInDp = enemyPlayer.getSize(); // Desired width in dp
+        int heightInDp = enemyPlayer.getSize(); // Desired height in dp
 
         float scale = context.getResources().getDisplayMetrics().density;
         int widthInPixels = (int) (widthInDp * scale + 0.5f);

@@ -1,19 +1,17 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.dreadful.R;
-import com.example.dreadful.models.Character;
+import com.example.dreadful.models.Player;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Dreath extends Character {
+public class Dreath extends Player {
     private Random random = new Random();
     private int imageView = R.drawable.character_dreath;
     private int[] transformationView = {};
@@ -37,7 +35,7 @@ public class Dreath extends Character {
      * and the opponent will receive a 9000 hit and can not be dodge
      */
     @Override
-    public void receiveHit(Character hitter, Character target) {
+    public void receiveHit(Player hitter, Player target) {
         hitter.setAttack(hitter.getAttack() - getDefense());
         setHealth(getHealth() - hitter.getAttack());
         hitter.setAttack(hitter.getMaxAttack());
@@ -66,7 +64,7 @@ public class Dreath extends Character {
      * even if its direct attack
      */
     @Override
-    public void receiveTimeHp(Character hitter, Character target) {
+    public void receiveTimeHp(Player hitter, Player target) {
         ArrayList<Integer> tempHot = new ArrayList<>();
         ArrayList<Integer> tempHotValue = new ArrayList<>();
 
@@ -118,7 +116,7 @@ public class Dreath extends Character {
         setDamageOverTimeValue(tempDotValue);
     }
 
-    public String useRandomAttack(Character hitter, Character target) {
+    public String useRandomAttack(Player hitter, Player target) {
         String skillName;
         int skillIndex = random.nextInt(getSkillNames().length);
 
@@ -159,14 +157,14 @@ public class Dreath extends Character {
 
     //attack that will ignore defense
     @Override
-    public void basicAttack(Character hitter, Character target) {
+    public void basicAttack(Player hitter, Player target) {
         target.setDefense(0);
         target.receiveHit(hitter, target);
         target.setDefense(target.getMaxDefense());
     }
 
     //prevent enemy from using all skills
-    private void skill1(Character hitter, Character target) {
+    private void skill1(Player hitter, Player target) {
         for (int i = 1; i <= target.getMaxSkillCooldowns().length - 1; i++) {
             target.getSkillCooldowns()[i] += 5;
         }
@@ -177,7 +175,7 @@ public class Dreath extends Character {
     }
 
     //enemy cannot dodge all incoming attacks
-    private void skill2(Character hitter, Character target) {
+    private void skill2(Player hitter, Player target) {
         target.setDodge(0);
         setAttack(getAttack() + 5000);
         target.receiveHit(hitter, target);
@@ -186,14 +184,14 @@ public class Dreath extends Character {
     }
 
     //high burst
-    private void skill3(Character hitter, Character target) {
+    private void skill3(Player hitter, Player target) {
         setAttack(getAttack() + 8870);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }
 
     //heal and increase damage
-    private void skill4(Character hitter, Character target) {
+    private void skill4(Player hitter, Player target) {
         setHealth(getHealth() + 10000);
         setAttack(getAttack() + 11000);
         target.receiveHit(hitter, target);

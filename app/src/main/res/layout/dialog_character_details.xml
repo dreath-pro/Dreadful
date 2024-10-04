@@ -20,16 +20,22 @@
             android:fontFamily="@font/swamp_witch"
             android:text="@string/player_name"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="28sp" />
 
         <ImageView
             android:id="@+id/playerImage"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_gravity="center_horizontal"
             android:background="#7E7E7E"
             android:scaleType="fitXY"
-            android:src="@drawable/character_dreath" />
+            android:src="@drawable/character_dreath"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/statusList"
+            android:layout_width="180dp"
+            android:layout_height="100dp"/>
     </LinearLayout>
 
 </RelativeLayout>
