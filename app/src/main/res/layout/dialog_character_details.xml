@@ -32,18 +32,56 @@
             android:src="@drawable/character_dreath"
             android:layout_marginBottom="10dp"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/status_label"
-            android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:background="#520808"
-            android:id="@+id/statusList"
-            android:layout_width="120dp"
-            android:layout_height="80dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/skill_label"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:background="#520808"
+                    android:id="@+id/skillList"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status_label"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:background="#520808"
+                    android:id="@+id/statusList"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

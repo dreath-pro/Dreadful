@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
+import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.models.Player;
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         TextView playerName = dialog.findViewById(R.id.playerName);
         ImageView playerImage = dialog.findViewById(R.id.playerImage);
         RecyclerView statusList = dialog.findViewById(R.id.statusList);
+        RecyclerView skillList = dialog.findViewById(R.id.skillList);
 
         playerName.setText(player.getName());
         playerImage.setImageResource(getResources().getIdentifier(player.getImage(), "drawable", getPackageName()));
@@ -178,6 +180,11 @@ public class MainActivity extends AppCompatActivity {
         statusList.setLayoutManager(statusLayoutManager);
         ViewStatus viewStatus = new ViewStatus(this, player);
         statusList.setAdapter(viewStatus);
+
+        LinearLayoutManager skillLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        skillList.setLayoutManager(skillLayoutManager);
+        ViewSkill viewSkill = new ViewSkill(this, player);
+        skillList.setAdapter(viewSkill);
 
         dialog.show();
     }
