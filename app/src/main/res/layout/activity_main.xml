@@ -5,41 +5,41 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity"
-    android:background="@drawable/background_cathedral">
+    android:background="@drawable/background_cathedral"
+    tools:context=".activities.MainActivity">
 
     <LinearLayout
         android:id="@+id/playersLayout"
         android:layout_width="560dp"
         android:layout_height="255dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/promptView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:gravity="bottom|center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/promptView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/yourPlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginEnd="30dp"
             android:gravity="center"
-            android:layout_marginEnd="30dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/yourName"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:background="#400000"
-                android:padding="1dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textAlignment="center"
+                android:padding="1dp"
                 android:text="@string/player_name"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
             <RelativeLayout
                 android:id="@+id/yourHealthLayout"
@@ -52,8 +52,8 @@
                     android:layout_width="160dp"
                     android:layout_height="15dp"
                     android:layout_centerInParent="true"
-                    android:progressDrawable="@drawable/code_health_bar"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:progressDrawable="@drawable/code_health_bar" />
 
                 <TextView
                     android:id="@+id/yourHealthText"
@@ -71,7 +71,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/character_dreath"/>
+                android:src="@drawable/character_dreath" />
 
         </LinearLayout>
 
@@ -79,21 +79,21 @@
             android:id="@+id/enemyPlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/enemyName"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:background="#400000"
-                android:padding="1dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textAlignment="center"
+                android:padding="1dp"
                 android:text="@string/opponent_name"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
             <RelativeLayout
                 android:id="@+id/enemyHealthLayout"
@@ -106,8 +106,8 @@
                     android:layout_width="160dp"
                     android:layout_height="15dp"
                     android:layout_centerInParent="true"
-                    android:progressDrawable="@drawable/code_health_bar"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:progressDrawable="@drawable/code_health_bar" />
 
                 <TextView
                     android:id="@+id/enemyHealthText"
@@ -124,9 +124,9 @@
                 android:id="@+id/enemyImage"
                 android:layout_width="210dp"
                 android:layout_height="210dp"
-                android:scaleX="-1"
                 android:scaleType="fitXY"
-                android:src="@drawable/character_dread_prophet"/>
+                android:scaleX="-1"
+                android:src="@drawable/character_dread_prophet" />
 
         </LinearLayout>
 
@@ -137,56 +137,58 @@
         android:layout_width="300dp"
         android:layout_height="20dp"
         android:background="#210909"
-        android:text="@string/prompt_view"
         android:ellipsize="end"
+        android:maxLines="1"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:maxLines="1"
-        android:textSize="16sp"
+        android:text="@string/prompt_view"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playersLayout"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLayout"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playersLayout" />
 
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/promptView"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/promptView">
 
         <Button
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/back_button"
-            android:textSize="15sp"
-            android:textColor="@color/white"
+            android:layout_marginEnd="30dp"
             android:backgroundTint="#A60606"
-            android:layout_marginEnd="30dp"/>
+            android:fontFamily="@font/horroroid"
+            android:text="@string/back_button"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/startButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/start_button"
-            android:textSize="15sp"
-            android:textColor="@color/white"
+            android:layout_marginEnd="30dp"
             android:backgroundTint="#A60606"
-            android:layout_marginEnd="30dp"/>
+            android:fontFamily="@font/horroroid"
+            android:text="@string/start_button"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/promptButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:background="#A60606"
             android:padding="5dp"
             android:scaleType="fitXY"
-            android:background="#A60606"
             android:src="@drawable/icon_message"
             app:tint="@color/white" />
 

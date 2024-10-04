@@ -1,9 +1,11 @@
 package com.example.dreadful.activities;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button backButton, startButton;
     private ImageView promptButton;
     private TextView promptView;
+    private LinearLayout yourPlayer, enemyPlayer;
 
     private Character yourCharacter, enemyCharacter;
     private GameMechanics gameMechanics;
@@ -53,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
         yourImage = findViewById(R.id.yourImage);
         enemyImage = findViewById(R.id.enemyImage);
+
+        yourPlayer = findViewById(R.id.yourPlayer);
+        enemyPlayer = findViewById(R.id.enemyPlayer);
 
         backButton = findViewById(R.id.backButton);
         startButton = findViewById(R.id.startButton);
@@ -96,6 +102,20 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         startConfiguration();
 
+        yourPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCharacterDetails(yourCharacter);
+            }
+        });
+
+        enemyPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCharacterDetails(enemyCharacter);
+            }
+        });
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        
+
         promptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,5 +150,18 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void showCharacterDetails(Character player) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_character_details);
+
+        TextView playerName = dialog.findViewById(R.id.playerName);
+        ImageView playerImage = dialog.findViewById(R.id.playerImage);
+
+        playerName.setText(player.getName());
+        playerImage.setImageResource(getResources().getIdentifier(player.getImage(), "drawable", getPackageName()));
+
+        dialog.show();
     }
 }
