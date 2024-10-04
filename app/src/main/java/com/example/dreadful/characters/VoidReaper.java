@@ -1,6 +1,7 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ public class VoidReaper extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
     private ConstraintLayout backgroundImage;
+    private Context context;
 
     public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
         super(context, yourImage, backgroundImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
@@ -26,6 +28,9 @@ public class VoidReaper extends Player {
                 60000, 1200, 500, 15,
                 new String[]{"Slash", "The Void", "Dimension Shift"},
                 new int[]{0, 2, 3}, new int[]{0, 0, 0});
+
+        //exclusive for void reaper and will change in the future
+        this.context = context;
 
         this.yourImage = yourImage;
         this.backgroundImage = backgroundImage;
@@ -111,6 +116,23 @@ public class VoidReaper extends Player {
     private void skill2(Player hitter, Player target) {
         backgroundImage.setBackgroundResource(hitter.getDimension()[random.nextInt(hitter.getDimension().length)]);
         yourImage.setImageResource(hitter.getTransformation()[0]);
+
+
+
+        ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
+        int widthInDp = 185; // Desired width in dp
+        int heightInDp = 185; // Desired height in dp
+
+        float scale = context.getResources().getDisplayMetrics().density;
+        int widthInPixels = (int) (widthInDp * scale + 0.5f);
+        int heightInPixels = (int) (heightInDp * scale + 0.5f);
+
+        layoutParams.width = widthInPixels;
+        layoutParams.height = heightInPixels;
+
+        yourImage.setLayoutParams(layoutParams);
+
+
 
         hitter.setAttack(12500);
         target.receiveHit(hitter, target);
