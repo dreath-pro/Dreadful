@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             playerImage.setScaleX(-1);
         }
 
-        GridLayoutManager statusLayoutManager = new GridLayoutManager(this, 2);
+        LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         statusList.setLayoutManager(statusLayoutManager);
         ViewStatus viewStatus = new ViewStatus(this, player);
         statusList.setAdapter(viewStatus);

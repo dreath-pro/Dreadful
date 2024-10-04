@@ -30,7 +30,7 @@ public class ViewStatus extends RecyclerView.Adapter<ViewStatus.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewStatus.MyViewHolder holder, int position) {
-        holder.statusValue.setText(player.getStatusValue().get(position));
+        holder.statusValue.setText(player.getStatusValue().get(position) + "");
         holder.statusName.setText(player.getStatus().get(position));
     }
 
