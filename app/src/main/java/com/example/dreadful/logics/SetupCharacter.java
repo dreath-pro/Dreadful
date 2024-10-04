@@ -68,7 +68,7 @@ public class SetupCharacter {
         yourHealthText.setText(String.valueOf(yourPlayer.getHealth()));
         yourHealth.setMax(yourPlayer.getHealth());
         yourHealth.setProgress(yourPlayer.getHealth());
-        yourImage.setImageResource(context.getResources().getIdentifier(yourPlayer.getImage(), "drawable", context.getPackageName()));
+        yourImage.setImageResource(yourPlayer.getImage());
 
         if (yourPlayer.getImageDirection().equals("left")) {
             yourImage.setScaleX(-1);
@@ -98,7 +98,7 @@ public class SetupCharacter {
         enemyHealthText.setText(String.valueOf(enemyPlayer.getHealth()));
         enemyHealth.setMax(enemyPlayer.getHealth());
         enemyHealth.setProgress(enemyPlayer.getHealth());
-        enemyImage.setImageResource(context.getResources().getIdentifier(enemyPlayer.getImage(), "drawable", context.getPackageName()));
+        enemyImage.setImageResource(enemyPlayer.getImage());
 
         if (enemyPlayer.getImageDirection().equals("right")) {
             enemyImage.setScaleX(-1);

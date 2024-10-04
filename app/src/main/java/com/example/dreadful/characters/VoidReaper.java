@@ -11,16 +11,17 @@ import com.example.dreadful.models.Player;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Dreath extends Player {
+public class VoidReaper extends Player {
     private Random random = new Random();
     private Animation shakeAnimation;
     private ImageView yourImage;
 
-    public Dreath(Context context, ImageView yourImage) {
-        super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
-                null, null,
-                88070, 2580, 880, 0,
-                new String[]{"Butcher", "Amputate", "Shock Gore", "Dismember", "Evisceration"},
+    public VoidReaper(Context context, ImageView yourImage) {
+        super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
+                new int[]{R.drawable.character_void_reaper_2},
+                new int[]{R.drawable.background_void_1},
+                60000, 580, 0, 0,
+                new String[]{"Slash", "The Void", "Dimension Shift", "Reverse Time", "Forward Time"},
                 new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
 
         this.yourImage = yourImage;
@@ -53,62 +54,6 @@ public class Dreath extends Player {
                 getStatusValue().set(index, getStatusValue().get(index) - 50);
             }
         }
-    }
-
-    /**
-     * Override parent class' receiveTimeHp method so that his own unique receiveHit will still have effect
-     * even if its direct attack
-     */
-    @Override
-    public void receiveTimeHp(Player hitter, Player target) {
-        ArrayList<Integer> tempHot = new ArrayList<>();
-        ArrayList<Integer> tempHotValue = new ArrayList<>();
-
-        for (int i = 0; i <= getHealOverTime().size() - 1; i++) {
-            if (getHealOverTimeValue().get(i) > 0) {
-                setHealth(getHealth() + getHealOverTime().get(i));
-                getHealOverTimeValue().set(i, getHealOverTimeValue().get(i) - 1);
-
-                tempHot.add(getHealOverTime().get(i));
-                tempHotValue.add(getHealOverTimeValue().get(i));
-            }
-        }
-
-        setHealOverTime(tempHot);
-        setHealOverTimeValue(tempHotValue);
-
-
-        ArrayList<Integer> tempDot = new ArrayList<>();
-        ArrayList<Integer> tempDotValue = new ArrayList<>();
-
-        for (int i = 0; i <= getDamageOverTime().size() - 1; i++) {
-            if (getDamageOverTimeValue().get(i) > 0) {
-                setHealth(getHealth() - getDamageOverTime().get(i));
-
-                if (!hasStatus(target, "Rage", 50).isEmpty()) {
-                    int index = Integer.parseInt(hasStatus(target, "Rage", 50));
-                    if (getHealth() <= 0) {
-                        setHealth(35700);
-                        setAttack(9000);
-                        hitter.setDodge(0);
-
-                        hitter.receiveHit(hitter, target);
-
-                        hitter.setDodge(hitter.getMaxDodge());
-                        setAttack(getMaxAttack());
-                        getStatusValue().set(index, getStatusValue().get(index) - 50);
-                    }
-                }
-
-                getDamageOverTimeValue().set(i, getDamageOverTimeValue().get(i) - 1);
-
-                tempDot.add(getDamageOverTime().get(i));
-                tempDotValue.add(getDamageOverTimeValue().get(i));
-            }
-        }
-
-        setDamageOverTime(tempDot);
-        setDamageOverTimeValue(tempDotValue);
     }
 
     public String useRandomAttack(Player hitter, Player target) {

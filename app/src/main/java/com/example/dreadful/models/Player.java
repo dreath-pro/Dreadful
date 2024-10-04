@@ -13,11 +13,11 @@ import java.util.Random;
 public abstract class Player {
     private int id;
     private String name;
-    private String image;
+    private int image;
     private String imageDirection;
     private int size; // average = 150, huge = 170, titan = 210
-    private String[] transformation;
-    private String[] dimension;
+    private int[] transformation;
+    private int[] dimension;
     private int health, attack, defense, dodge;
     private int maxHealth, maxAttack, maxDefense, maxDodge;
     private String[] skillNames;
@@ -36,8 +36,8 @@ public abstract class Player {
 
     }
 
-    public Player(Context context, ImageView yourImage, String name, String image, String imageDirection, int size, String[] transformation,
-                  String[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
+    public Player(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
+                  int[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -59,8 +59,8 @@ public abstract class Player {
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
-    public Player(int id, Context context, ImageView yourImage, String name, String image, String imageDirection, int size,
-                  String[] transformation, String[] dimension, int health, int attack, int defense, int dodge,
+    public Player(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
+                  int[] transformation, int[] dimension, int health, int attack, int defense, int dodge,
                   String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.id = id;
         this.name = name;
@@ -184,11 +184,11 @@ public abstract class Player {
         this.name = name;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
@@ -208,19 +208,19 @@ public abstract class Player {
         this.size = size;
     }
 
-    public String[] getTransformation() {
+    public int[] getTransformation() {
         return transformation;
     }
 
-    public void setTransformation(String[] transformation) {
+    public void setTransformation(int[] transformation) {
         this.transformation = transformation;
     }
 
-    public String[] getDimension() {
+    public int[] getDimension() {
         return dimension;
     }
 
-    public void setDimension(String[] dimension) {
+    public void setDimension(int[] dimension) {
         this.dimension = dimension;
     }
 

@@ -13,15 +13,12 @@ import java.util.Random;
 
 public class DreadProphet extends Player {
     private Random random = new Random();
-    private int imageView = R.drawable.character_dread_prophet;
-    private int[] transformationView = {};
-    private int[] dimensionView = {};
-
     private Animation shakeAnimation;
     private ImageView yourImage;
 
     public DreadProphet(Context context, ImageView yourImage) {
-        super(context, yourImage, "Dread Prophet", "character_dread_prophet", "left", 210, null, null,
+        super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
+                null, null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
@@ -129,8 +126,7 @@ public class DreadProphet extends Player {
     //enemy healing will be reverse and convert to damage
     private void skill2(Player hitter, Player target) {
         int allHeal = 0;
-        for(int i = 0; i <= target.getHealOverTime().size() - 1; i++)
-        {
+        for (int i = 0; i <= target.getHealOverTime().size() - 1; i++) {
             allHeal += target.getHealOverTime().get(i);
         }
 
@@ -143,12 +139,10 @@ public class DreadProphet extends Player {
 
     //retribution for sinner hitter/attacker, base on the value of the "mark of sin"
     //reduce 50% of attacker current health
-    private void skill3(Player hitter, Player target)
-    {
+    private void skill3(Player hitter, Player target) {
         target.receiveHit(hitter, target);
 
-        if(!hasStatus(target, "Mark of Sin", 50).isEmpty())
-        {
+        if (!hasStatus(target, "Mark of Sin", 50).isEmpty()) {
             int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
             int maxHealth = target.getHealth();
             int percentage = target.getStatusValue().get(index);
@@ -161,10 +155,8 @@ public class DreadProphet extends Player {
     }
 
     //heal over time for a short turn, base on the value of the "mark of sin"
-    private void skill4(Player hitter, Player target)
-    {
-        if(!hasStatus(target, "Mark of Sin", 50).isEmpty())
-        {
+    private void skill4(Player hitter, Player target) {
+        if (!hasStatus(target, "Mark of Sin", 50).isEmpty()) {
             int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
             int maxHealth = 1200;
             int percentage = target.getStatusValue().get(index);

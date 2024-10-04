@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView skillList = dialog.findViewById(R.id.skillList);
 
         playerName.setText(player.getName());
-        playerImage.setImageResource(getResources().getIdentifier(player.getImage(), "drawable", getPackageName()));
+        playerImage.setImageResource(player.getImage());
 
         if(player.getImageDirection().equals("left"))
         {
