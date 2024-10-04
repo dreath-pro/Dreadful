@@ -5,6 +5,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.dreadful.R;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public abstract class Player {
     private ArrayList<Integer> statusValue = new ArrayList<>();
 
     private ImageView yourImage;
+    private ConstraintLayout backgroundImage;
     private Animation shakeAnimation;
 
     private Random random = new Random();
@@ -36,7 +39,7 @@ public abstract class Player {
 
     }
 
-    public Player(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
+    public Player(Context context, ImageView yourImage, ConstraintLayout backgroundImage, String name, int image, String imageDirection, int size, int[] transformation,
                   int[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
@@ -56,10 +59,11 @@ public abstract class Player {
         this.maxSkillCooldowns = maxSkillCooldowns;
         this.skillCooldowns = skillCooldowns;
         this.yourImage = yourImage;
+        this.backgroundImage = backgroundImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
-    public Player(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
+    public Player(int id, Context context, ImageView yourImage, ConstraintLayout backgroundImage, String name, int image, String imageDirection, int size,
                   int[] transformation, int[] dimension, int health, int attack, int defense, int dodge,
                   String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.id = id;
@@ -81,6 +85,7 @@ public abstract class Player {
         this.maxSkillCooldowns = maxSkillCooldowns;
         this.skillCooldowns = skillCooldowns;
         this.yourImage = yourImage;
+        this.backgroundImage = backgroundImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 

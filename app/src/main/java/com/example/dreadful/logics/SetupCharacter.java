@@ -6,9 +6,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.KumoNingyo;
 import com.example.dreadful.characters.DreadProphet;
+import com.example.dreadful.characters.VoidReaper;
 import com.example.dreadful.models.Player;
 
 import java.util.ArrayList;
@@ -20,13 +23,14 @@ public class SetupCharacter {
     private ProgressBar yourHealth, enemyHealth;
     private TextView yourHealthText, enemyHealthText;
     private ImageView yourImage, enemyImage;
+    private ConstraintLayout backgroundImage;
     private Player yourPlayer, enemyPlayer;
     private ArrayList<Player> players = new ArrayList<>();
     private Random random = new Random();
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
-                          Player yourPlayer, Player enemyPlayer) {
+                          Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage) {
 
         this.context = context;
         this.yourName = yourName;
@@ -39,15 +43,18 @@ public class SetupCharacter {
         this.enemyHealthText = enemyHealthText;
         this.enemyImage = enemyImage;
 
+        this.backgroundImage = backgroundImage;
+
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
     }
 
     private void initCharacters(ImageView playerImage) {
         players.clear();
-        players.add(new Dreath(context, playerImage));
-        players.add(new DreadProphet(context, playerImage));
-        players.add(new KumoNingyo(context, playerImage));
+        players.add(new Dreath(context, playerImage, backgroundImage));
+        players.add(new DreadProphet(context, playerImage, backgroundImage));
+        players.add(new KumoNingyo(context, playerImage, backgroundImage));
+        players.add(new VoidReaper(context, playerImage, backgroundImage));
     }
 
     public Player returnYourCharacter() {

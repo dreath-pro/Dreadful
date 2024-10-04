@@ -5,6 +5,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.dreadful.R;
 import com.example.dreadful.models.Player;
 
@@ -14,15 +16,17 @@ public class KumoNingyo extends Player {
     private Random random = new Random();
     private Animation shakeAnimation;
     private ImageView yourImage;
+    private ConstraintLayout backgroundImage;
 
-    public KumoNingyo(Context context, ImageView yourImage) {
-        super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
+    public KumoNingyo(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
+        super(context, yourImage, backgroundImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
                 null, null,
                 20000, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage"},
                 new int[]{0, 3, 3, 3}, new int[]{0, 0, 0, 0});
 
         this.yourImage = yourImage;
+        this.backgroundImage = backgroundImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 

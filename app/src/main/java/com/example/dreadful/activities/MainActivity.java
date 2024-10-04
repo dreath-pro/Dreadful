@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     //curse, minimalist icon, dark fantasy theme, vibrant shading, red, crimson-red, dark-red, black
 
+    private ConstraintLayout backgroundImage;
     private TextView yourName, enemyName;
     private ProgressBar yourHealth, enemyHealth;
     private TextView yourHealthText, enemyHealthText;
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         yourPlayerLayout = findViewById(R.id.yourPlayerLayout);
         enemyPlayerLayout = findViewById(R.id.enemyPlayerLayout);
 
+        backgroundImage = findViewById(R.id.main);
+
         backButton = findViewById(R.id.backButton);
         startButton = findViewById(R.id.startButton);
         promptButton = findViewById(R.id.promptButton);
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         setupCharacter = new SetupCharacter(this,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourPlayer, enemyPlayer);
+                yourPlayer, enemyPlayer, backgroundImage);
 
         setupCharacter.initializeYourViews();
         setupCharacter.initializeEnemyViews();
