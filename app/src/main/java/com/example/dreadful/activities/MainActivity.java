@@ -162,6 +162,11 @@ public class MainActivity extends AppCompatActivity {
         playerName.setText(player.getName());
         playerImage.setImageResource(getResources().getIdentifier(player.getImage(), "drawable", getPackageName()));
 
+        if(player.getImageDirection().equals("left"))
+        {
+            playerImage.setScaleX(-1);
+        }
+
         dialog.show();
     }
 }

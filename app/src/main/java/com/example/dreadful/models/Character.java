@@ -26,8 +26,8 @@ public abstract class Character {
     private int[] maxSkillCooldowns, skillCooldowns;
     private ArrayList<Integer> healOverTime = new ArrayList<>(), healOverTimeValue = new ArrayList<>();
     private ArrayList<Integer> damageOverTime = new ArrayList<>(), damageOverTimeValue = new ArrayList<>();
-    private ArrayList<String> buffDebuff = new ArrayList<>();
-    private ArrayList<Integer> buffDebuffValue = new ArrayList<>();
+    private ArrayList<String> status = new ArrayList<>();
+    private ArrayList<Integer> statusValue = new ArrayList<>();
 
     private ImageView yourImage;
     private Animation shakeAnimation;
@@ -84,36 +84,36 @@ public abstract class Character {
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
-    public void receiveBuffDebuff(Character target, String buffDebuffName, int buffDebuffValue) {
-        boolean withBuffDebuff = false;
-        int buffDebuffIndex = 0;
-        for (int i = 0; i <= target.getBuffDebuff().size() - 1; i++) {
-            if (target.getBuffDebuff().get(i).equals(buffDebuffName)) {
-                withBuffDebuff = true;
-                buffDebuffIndex = i;
+    public void receiveStatus(Character target, String statusName, int statusValue) {
+        boolean withStatus = false;
+        int statusIndex = 0;
+        for (int i = 0; i <= target.getStatus().size() - 1; i++) {
+            if (target.getStatus().get(i).equals(statusName)) {
+                withStatus = true;
+                statusIndex = i;
             }
         }
 
-        if (!withBuffDebuff)
+        if (!withStatus)
         {
-            target.getBuffDebuff().add(buffDebuffName);
-            target.getBuffDebuffValue().add(buffDebuffValue);
+            target.getStatus().add(statusName);
+            target.getStatusValue().add(statusValue);
         }else
         {
-            target.getBuffDebuffValue().set(buffDebuffIndex, target.getBuffDebuffValue().get(buffDebuffIndex) + buffDebuffValue);
+            target.getStatusValue().set(statusIndex, target.getStatusValue().get(statusIndex) + statusValue);
         }
     }
 
-    public String hasBuffDebuff(Character target, String buffDebuffName, int buffDebuffValue)
+    public String hasStatus(Character target, String statusName, int statusValue)
     {
-        String hasBuffDebuff = "";
-        for (int i = 0; i <= target.getBuffDebuff().size() - 1; i++) {
-            if (target.getBuffDebuff().get(i).equals(buffDebuffName) && target.getBuffDebuffValue().get(i) >= buffDebuffValue) {
-                hasBuffDebuff = Integer.toString(i);
+        String hasStatus = "";
+        for (int i = 0; i <= target.getStatus().size() - 1; i++) {
+            if (target.getStatus().get(i).equals(statusName) && target.getStatusValue().get(i) >= statusValue) {
+                hasStatus = Integer.toString(i);
             }
         }
 
-        return hasBuffDebuff;
+        return hasStatus;
     }
 
     public void receiveHit(Character hitter, Character target) {
@@ -328,19 +328,19 @@ public abstract class Character {
         this.damageOverTimeValue = damageOverTimeValue;
     }
 
-    public ArrayList<String> getBuffDebuff() {
-        return buffDebuff;
+    public ArrayList<String> getStatus() {
+        return status;
     }
 
-    public void setBuffDebuff(ArrayList<String> buffDebuff) {
-        this.buffDebuff = buffDebuff;
+    public void setStatus(ArrayList<String> status) {
+        this.status = status;
     }
 
-    public ArrayList<Integer> getBuffDebuffValue() {
-        return buffDebuffValue;
+    public ArrayList<Integer> getStatusValue() {
+        return statusValue;
     }
 
-    public void setBuffDebuffValue(ArrayList<Integer> buffDebuffValue) {
-        this.buffDebuffValue = buffDebuffValue;
+    public void setStatusValue(ArrayList<Integer> statusValue) {
+        this.statusValue = statusValue;
     }
 }

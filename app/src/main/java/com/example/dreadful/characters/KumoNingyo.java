@@ -45,7 +45,7 @@ public class KumoNingyo extends Character {
         hitter.setAttack(hitter.getMaxAttack());
         yourImage.startAnimation(shakeAnimation);
 
-        receiveBuffDebuff(target, "Lost Limbs", 1);
+        receiveStatus(target, "Lost Limbs", 1);
         setDodge(getMaxDodge());
     }
 
@@ -105,10 +105,10 @@ public class KumoNingyo extends Character {
 
     //recovers 1000 health and multiply by the value of the lost limbs buff
     private void skill2(Character hitter, Character target) {
-        if(!hasBuffDebuff(hitter, "Lost Limbs", 1).isEmpty())
+        if(!hasStatus(hitter, "Lost Limbs", 1).isEmpty())
         {
-            int index = Integer.parseInt(hasBuffDebuff(hitter, "Lost Limbs", 1));
-            setHealth(getHealth() + (1000 * getBuffDebuffValue().get(index)));
+            int index = Integer.parseInt(hasStatus(hitter, "Lost Limbs", 1));
+            setHealth(getHealth() + (1000 * getStatusValue().get(index)));
         }
     }
 

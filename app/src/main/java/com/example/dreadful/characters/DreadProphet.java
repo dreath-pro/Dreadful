@@ -45,7 +45,7 @@ public class DreadProphet extends Character {
         hitter.setAttack(hitter.getMaxAttack());
         yourImage.startAnimation(shakeAnimation);
 
-        receiveBuffDebuff(hitter, "Mark of Sin", 10);
+        receiveStatus(hitter, "Mark of Sin", 10);
     }
 
     /**
@@ -147,11 +147,11 @@ public class DreadProphet extends Character {
     {
         target.receiveHit(hitter, target);
 
-        if(!hasBuffDebuff(target, "Mark of Sin", 50).isEmpty())
+        if(!hasStatus(target, "Mark of Sin", 50).isEmpty())
         {
-            int index = Integer.parseInt(hasBuffDebuff(target, "Mark of Sin", 50));
+            int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
             int maxHealth = target.getHealth();
-            int percentage = target.getBuffDebuffValue().get(index);
+            int percentage = target.getStatusValue().get(index);
             int damage = (maxHealth * percentage) / 100;
 
             setAttack(damage);
@@ -163,11 +163,11 @@ public class DreadProphet extends Character {
     //heal over time for a short turn, base on the value of the "mark of sin"
     private void skill4(Character hitter, Character target)
     {
-        if(!hasBuffDebuff(target, "Mark of Sin", 50).isEmpty())
+        if(!hasStatus(target, "Mark of Sin", 50).isEmpty())
         {
-            int index = Integer.parseInt(hasBuffDebuff(target, "Mark of Sin", 50));
+            int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
             int maxHealth = 1200;
-            int percentage = target.getBuffDebuffValue().get(index);
+            int percentage = target.getStatusValue().get(index);
             int heal = (maxHealth * percentage) / 100;
 
             getDamageOverTime().add(heal);

@@ -43,10 +43,10 @@ public class Dreath extends Character {
         hitter.setAttack(hitter.getMaxAttack());
         yourImage.startAnimation(shakeAnimation);
 
-        receiveBuffDebuff(target, "Rage", 10);
-        if(!hasBuffDebuff(target, "Rage", 50).isEmpty())
+        receiveStatus(target, "Rage", 10);
+        if(!hasStatus(target, "Rage", 50).isEmpty())
         {
-            int index = Integer.parseInt(hasBuffDebuff(target, "Rage", 50));
+            int index = Integer.parseInt(hasStatus(target, "Rage", 50));
             if (getHealth() <= 0) {
                 setHealth(35700);
                 setAttack(9000);
@@ -56,7 +56,7 @@ public class Dreath extends Character {
 
                 hitter.setDodge(hitter.getMaxDodge());
                 setAttack(getMaxAttack());
-                getBuffDebuffValue().set(index, getBuffDebuffValue().get(index) - 50);
+                getStatusValue().set(index, getStatusValue().get(index) - 50);
             }
         }
     }
@@ -91,9 +91,9 @@ public class Dreath extends Character {
             if (getDamageOverTimeValue().get(i) > 0) {
                 setHealth(getHealth() - getDamageOverTime().get(i));
 
-                if(!hasBuffDebuff(target, "Rage", 50).isEmpty())
+                if(!hasStatus(target, "Rage", 50).isEmpty())
                 {
-                    int index = Integer.parseInt(hasBuffDebuff(target, "Rage", 50));
+                    int index = Integer.parseInt(hasStatus(target, "Rage", 50));
                     if (getHealth() <= 0) {
                         setHealth(35700);
                         setAttack(9000);
@@ -103,7 +103,7 @@ public class Dreath extends Character {
 
                         hitter.setDodge(hitter.getMaxDodge());
                         setAttack(getMaxAttack());
-                        getBuffDebuffValue().set(index, getBuffDebuffValue().get(index) - 50);
+                        getStatusValue().set(index, getStatusValue().get(index) - 50);
                     }
                 }
 
