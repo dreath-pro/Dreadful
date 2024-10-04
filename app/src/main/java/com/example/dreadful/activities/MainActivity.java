@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,15 +23,15 @@ import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.models.Player;
-import com.example.dreadful.utils.SetupCharacter;
+import com.example.dreadful.logics.SetupCharacter;
 
 public class MainActivity extends AppCompatActivity {
     //armored crocodile golem, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view
     //person with spiky armor covered with dark liquid, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
     //humanoid void mutant with no face but only white teeth and with a tentacle back and root hands, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, violet, dark-violet, blue-violet, dark-blue
 
-    //experimental
     //altar of cathedral background, hd, minimalist cartoon, dark fantasy theme, red, gray, black, dark-red, crimson-red
+    //galactic valley with the ground as a space, hd landscape, minimalist cartoon, dark fantasy theme, violet, light-violet, dark-violet, purple
 
     //two swords clashing, simple icon, digital art, dark fantasy theme, vibrant shading, white background, red, crimson-red, black, dark-red
 

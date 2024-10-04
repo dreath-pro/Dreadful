@@ -1,4 +1,4 @@
-package com.example.dreadful.utils;
+package com.example.dreadful.logics;
 
 import android.content.Context;
 import android.view.ViewGroup;

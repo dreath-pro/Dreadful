@@ -15,13 +15,13 @@ public class DreadProphet extends Player {
     private Random random = new Random();
     private int imageView = R.drawable.character_dread_prophet;
     private int[] transformationView = {};
-    private int[] dimension = {};
+    private int[] dimensionView = {};
 
     private Animation shakeAnimation;
     private ImageView yourImage;
 
     public DreadProphet(Context context, ImageView yourImage) {
-        super(context, yourImage, "Dread Prophet", "character_dread_prophet", "left", 210, null,
+        super(context, yourImage, "Dread Prophet", "character_dread_prophet", "left", 210, null, null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});

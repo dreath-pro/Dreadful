@@ -14,13 +14,13 @@ public class KumoNingyo extends Player {
     private Random random = new Random();
     private int imageView = R.drawable.character_kumo_ningyo;
     private int[] transformationView = {};
-    private int[] dimension = {};
+    private int[] dimensionView = {};
 
     private Animation shakeAnimation;
     private ImageView yourImage;
 
     public KumoNingyo(Context context, ImageView yourImage) {
-        super(context, yourImage, "Kumo Ningyō", "character_kumo_ningyo", "left", 210, null,
+        super(context, yourImage, "Kumo Ningyō", "character_kumo_ningyo", "left", 210, null, null,
                 20000, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage"},
                 new int[]{0, 3, 3, 3}, new int[]{0, 0, 0, 0});

@@ -17,6 +17,7 @@ public abstract class Player {
     private String imageDirection;
     private int size; // average = 150, huge = 170, titan = 210
     private String[] transformation;
+    private String[] dimension;
     private int health, attack, defense, dodge;
     private int maxHealth, maxAttack, maxDefense, maxDodge;
     private String[] skillNames;
@@ -36,12 +37,13 @@ public abstract class Player {
     }
 
     public Player(Context context, ImageView yourImage, String name, String image, String imageDirection, int size, String[] transformation,
-                  int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
+                  String[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
         this.size = size;
         this.transformation = transformation;
+        this.dimension = dimension;
         this.health = health;
         this.attack = attack;
         this.defense = defense;
@@ -58,7 +60,7 @@ public abstract class Player {
     }
 
     public Player(int id, Context context, ImageView yourImage, String name, String image, String imageDirection, int size,
-                  String[] transformation, int health, int attack, int defense, int dodge,
+                  String[] transformation, String[] dimension, int health, int attack, int defense, int dodge,
                   String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.id = id;
         this.name = name;
@@ -66,6 +68,7 @@ public abstract class Player {
         this.imageDirection = imageDirection;
         this.size = size;
         this.transformation = transformation;
+        this.dimension = dimension;
         this.health = health;
         this.attack = attack;
         this.defense = defense;
@@ -211,6 +214,14 @@ public abstract class Player {
 
     public void setTransformation(String[] transformation) {
         this.transformation = transformation;
+    }
+
+    public String[] getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(String[] dimension) {
+        this.dimension = dimension;
     }
 
     public int getHealth() {
