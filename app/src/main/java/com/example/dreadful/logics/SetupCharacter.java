@@ -27,6 +27,7 @@ public class SetupCharacter {
     private Player yourPlayer, enemyPlayer;
     private ArrayList<Player> players = new ArrayList<>();
     private Random random = new Random();
+    private ResizeImage resizeImage;
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
@@ -47,6 +48,8 @@ public class SetupCharacter {
 
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
+
+        this.resizeImage = new ResizeImage(context);
     }
 
     private void initCharacters(ImageView playerImage) {
@@ -81,18 +84,7 @@ public class SetupCharacter {
             yourImage.setScaleX(-1);
         }
 
-        ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
-        int widthInDp = yourPlayer.getSize(); // Desired width in dp
-        int heightInDp = yourPlayer.getSize(); // Desired height in dp
-
-        float scale = context.getResources().getDisplayMetrics().density;
-        int widthInPixels = (int) (widthInDp * scale + 0.5f);
-        int heightInPixels = (int) (heightInDp * scale + 0.5f);
-
-        layoutParams.width = widthInPixels;
-        layoutParams.height = heightInPixels;
-
-        yourImage.setLayoutParams(layoutParams);
+        resizeImage.scale(yourImage, yourPlayer.getSize());
     }
 
     public void initializeEnemyViews() {

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
 
 import java.util.ArrayList;
@@ -19,19 +20,17 @@ public class VoidReaper extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
     private ConstraintLayout backgroundImage;
-    private Context context;
+    private ResizeImage resizeImage;
 
     public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
         super(context, yourImage, backgroundImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1},
-                60000, 1200, 500, 15,
-                new String[]{"Slash", "The Void", "Dimension Shift"},
+                60000, 1800, 500, 15,
+                new String[]{"Chrono Reap", "The Void", "Dimension Shift"},
                 new int[]{0, 2, 3}, new int[]{0, 0, 0});
 
-        //exclusive for void reaper and will change in the future
-        this.context = context;
-
+        this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.backgroundImage = backgroundImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
@@ -116,23 +115,7 @@ public class VoidReaper extends Player {
     private void skill2(Player hitter, Player target) {
         backgroundImage.setBackgroundResource(hitter.getDimension()[random.nextInt(hitter.getDimension().length)]);
         yourImage.setImageResource(hitter.getTransformation()[0]);
-
-
-
-        ViewGroup.LayoutParams layoutParams = yourImage.getLayoutParams();
-        int widthInDp = 185; // Desired width in dp
-        int heightInDp = 185; // Desired height in dp
-
-        float scale = context.getResources().getDisplayMetrics().density;
-        int widthInPixels = (int) (widthInDp * scale + 0.5f);
-        int heightInPixels = (int) (heightInDp * scale + 0.5f);
-
-        layoutParams.width = widthInPixels;
-        layoutParams.height = heightInPixels;
-
-        yourImage.setLayoutParams(layoutParams);
-
-
+        resizeImage.scale(yourImage, 185);
 
         hitter.setAttack(12500);
         target.receiveHit(hitter, target);
