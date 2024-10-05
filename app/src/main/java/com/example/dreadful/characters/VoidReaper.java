@@ -21,6 +21,7 @@ public class VoidReaper extends Player {
     private ImageView yourImage;
     private ConstraintLayout backgroundImage;
     private ResizeImage resizeImage;
+    private int voidTime = 0;
 
     public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
@@ -28,7 +29,7 @@ public class VoidReaper extends Player {
                 new int[]{R.drawable.background_void_1},
                 60000, 1800, 500, 15,
                 new String[]{"Chrono Reap", "The Void", "Dimension Shift"},
-                new int[]{0, 5, 3}, new int[]{0, 0, 0});
+                new int[]{0, 5, 5}, new int[]{0, 0, 0});
 
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
@@ -52,6 +53,17 @@ public class VoidReaper extends Player {
         yourImage.startAnimation(shakeAnimation);
 
         receiveStatus(target, "Time Passed", 1);
+    }
+
+    public void receiveTimeEffect(Player hitter, Player target) {
+        voidTime--;
+        if(voidTime <= 0)
+        {
+            backgroundImage.setBackgroundResource(R.drawable.background_cathedral);
+            yourImage.setImageResource(getImage());
+            resizeImage.scale(yourImage, getSize());
+            voidTime = 0;
+        }
     }
 
     public String useRandomAttack(Player hitter, Player target) {
@@ -87,20 +99,22 @@ public class VoidReaper extends Player {
         return skillName;
     }
 
-    //if there is the void mark, the void reaper reduces his cooldown with each attack he deals
-    @Override
-    public void basicAttack(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
-        if(!hasStatus(target, "The Void", 1).isEmpty())
-        {
+    private void reduceCoolDown(Player hitter, Player target) {
+        if (!hasStatus(target, "The Void", 1).isEmpty()) {
             for (int i = 1; i <= hitter.getMaxSkillCooldowns().length - 1; i++) {
                 hitter.getSkillCooldowns()[i] -= 1;
-                if(hitter.getSkillCooldowns()[i] <= 0)
-                {
+                if (hitter.getSkillCooldowns()[i] <= 0) {
                     hitter.getSkillCooldowns()[i] = 0;
                 }
             }
         }
+    }
+
+    //if there is the void mark, the void reaper reduces his cooldown with each attack he deals
+    @Override
+    public void basicAttack(Player hitter, Player target) {
+        target.receiveHit(hitter, target);
+        reduceCoolDown(hitter, target);
     }
 
     //stuns the enemy and burst them
@@ -112,25 +126,18 @@ public class VoidReaper extends Player {
         target.setStun(3);
     }
 
-    //the enemy will be teleported to a different dimension and void reaper will transform
+    //the enemy will be teleported to a different dimension and void reaper will transform, after that
+    //he will burst the target
     private void skill2(Player hitter, Player target) {
         backgroundImage.setBackgroundResource(hitter.getDimension()[random.nextInt(hitter.getDimension().length)]);
         yourImage.setImageResource(hitter.getTransformation()[0]);
         resizeImage.scale(yourImage, 185);
+        voidTime = 9;
 
         hitter.setAttack(12500);
         target.receiveHit(hitter, target);
         hitter.setAttack(hitter.getMaxAttack());
 
-        if(!hasStatus(target, "The Void", 1).isEmpty())
-        {
-            for (int i = 1; i <= hitter.getMaxSkillCooldowns().length - 1; i++) {
-                hitter.getSkillCooldowns()[i] -= 1;
-                if(hitter.getSkillCooldowns()[i] <= 0)
-                {
-                    hitter.getSkillCooldowns()[i] = 0;
-                }
-            }
-        }
+        reduceCoolDown(hitter, target);
     }
 }

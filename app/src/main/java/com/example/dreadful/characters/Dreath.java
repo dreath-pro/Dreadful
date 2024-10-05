@@ -113,6 +113,10 @@ public class Dreath extends Player {
         setDamageOverTimeValue(tempDotValue);
     }
 
+    public void receiveTimeEffect(Player hitter, Player target) {
+
+    }
+
     public String useRandomAttack(Player hitter, Player target) {
         String skillName;
         int skillIndex = random.nextInt(getSkillNames().length);

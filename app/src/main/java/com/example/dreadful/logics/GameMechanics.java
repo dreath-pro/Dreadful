@@ -43,9 +43,13 @@ public class GameMechanics {
         this.enemyStunText = enemyStunText;
     }
 
-    private void receiveTimeHp() {
-        yourPlayer.receiveTimeHp(yourPlayer, enemyPlayer);
-        enemyPlayer.receiveTimeHp(enemyPlayer, yourPlayer);
+    private void receiveTimeEffect() {
+        yourPlayer.receiveTimeHp(enemyPlayer, yourPlayer);
+        enemyPlayer.receiveTimeHp(yourPlayer, enemyPlayer);
+
+        yourPlayer.receiveTimeEffect(enemyPlayer, yourPlayer);
+        enemyPlayer.receiveTimeEffect(yourPlayer, enemyPlayer);
+
         updateHealthBars();
     }
 
@@ -70,7 +74,7 @@ public class GameMechanics {
                         promptView.setText(enemyPlayer.getName() + " makes a move!");
                     }
 
-                    receiveTimeHp();
+                    receiveTimeEffect();
                     hitDelay(attacker);
                 }
 
@@ -98,7 +102,7 @@ public class GameMechanics {
                 enemyPlayer.setStun(enemyPlayer.getStun() - 1);
                 updateHealthBars();
 
-                receiveTimeHp();
+                receiveTimeEffect();
                 battleLoop();
             }
         }, 3000);

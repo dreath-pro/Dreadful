@@ -47,6 +47,10 @@ public class KumoNingyo extends Player {
         setDodge(getMaxDodge());
     }
 
+    public void receiveTimeEffect(Player hitter, Player target) {
+
+    }
+
     public String useRandomAttack(Player hitter, Player target) {
         String skillName;
         int skillIndex = random.nextInt(getSkillNames().length);

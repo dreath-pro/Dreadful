@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
 import com.example.dreadful.R;
 
 import java.util.ArrayList;
@@ -96,18 +97,15 @@ public abstract class Player {
             }
         }
 
-        if (!withStatus)
-        {
+        if (!withStatus) {
             target.getStatus().add(statusName);
             target.getStatusValue().add(statusValue);
-        }else
-        {
+        } else {
             target.getStatusValue().set(statusIndex, target.getStatusValue().get(statusIndex) + statusValue);
         }
     }
 
-    public String hasStatus(Player target, String statusName, int statusValue)
-    {
+    public String hasStatus(Player target, String statusName, int statusValue) {
         String hasStatus = "";
         for (int i = 0; i <= target.getStatus().size() - 1; i++) {
             if (target.getStatus().get(i).equals(statusName) && target.getStatusValue().get(i) >= statusValue) {
@@ -163,6 +161,8 @@ public abstract class Player {
         setDamageOverTime(tempDot);
         setDamageOverTimeValue(tempDotValue);
     }
+
+    public abstract void receiveTimeEffect(Player hitter, Player target);
 
     public abstract String useRandomAttack(Player hitter, Player target);
 
@@ -359,8 +359,7 @@ public abstract class Player {
     }
 
     public void setStun(int stun) {
-        if(stun <= 0)
-        {
+        if (stun <= 0) {
             stun = 0;
         }
         this.stun = stun;

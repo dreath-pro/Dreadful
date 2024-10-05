@@ -71,6 +71,10 @@ public class DreadProphet extends Player {
         setDamageOverTimeValue(tempDotValue);
     }
 
+    public void receiveTimeEffect(Player hitter, Player target) {
+
+    }
+
     public String useRandomAttack(Player hitter, Player target) {
         String skillName;
         int skillIndex = random.nextInt(getSkillNames().length);
@@ -158,12 +162,18 @@ public class DreadProphet extends Player {
 
     //heal over time for a short turn, base on the value of the "mark of sin"
     private void skill4(Player hitter, Player target) {
-        int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
-        int maxHealth = 1200;
-        int percentage = target.getStatusValue().get(index);
-        int heal = (maxHealth * percentage) / 100;
+        if (!hasStatus(target, "Mark of Sin", 50).isEmpty()) {
+            int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
+            int maxHealth = 2100;
+            int percentage = target.getStatusValue().get(index);
+            int heal = (maxHealth * percentage) / 100;
 
-        getDamageOverTime().add(heal);
-        getDamageOverTimeValue().add(9);
+            getDamageOverTime().add(heal);
+            getDamageOverTimeValue().add(9);
+        }else
+        {
+            getDamageOverTime().add(1800);
+            getDamageOverTimeValue().add(9);
+        }
     }
 }
