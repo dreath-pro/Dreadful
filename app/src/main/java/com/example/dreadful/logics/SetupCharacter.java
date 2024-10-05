@@ -34,6 +34,7 @@ public class SetupCharacter {
                           Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage) {
 
         this.context = context;
+
         this.yourName = yourName;
         this.yourHealth = yourHealth;
         this.yourHealthText = yourHealthText;
@@ -45,11 +46,10 @@ public class SetupCharacter {
         this.enemyImage = enemyImage;
 
         this.backgroundImage = backgroundImage;
+        this.resizeImage = new ResizeImage(context);
 
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
-
-        this.resizeImage = new ResizeImage(context);
     }
 
     private void initCharacters(ImageView playerImage) {

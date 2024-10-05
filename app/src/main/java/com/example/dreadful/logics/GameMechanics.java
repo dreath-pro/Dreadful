@@ -9,14 +9,14 @@ import android.widget.Toast;
 
 import com.example.dreadful.models.Player;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameMechanics {
     private Context context;
-    private TextView yourName, enemyName;
     private ProgressBar yourHealth, enemyHealth;
     private TextView yourHealthText, enemyHealthText;
-    private ImageView yourImage, enemyImage;
+    private TextView yourStunText, enemyStunText;
     private Player yourPlayer, enemyPlayer;
     private TextView promptView;
 
@@ -24,24 +24,23 @@ public class GameMechanics {
     private Handler hitDelay = new Handler();
     private Random random = new Random();
 
-    public GameMechanics(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
-                         TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
-                         Player yourPlayer, Player enemyPlayer, TextView promptView) {
+    public GameMechanics(Context context, ProgressBar yourHealth, TextView yourHealthText, ProgressBar enemyHealth,
+                         TextView enemyHealthText, Player yourPlayer, Player enemyPlayer, TextView promptView, TextView yourStunText, TextView enemyStunText) {
 
         this.context = context;
-        this.yourName = yourName;
+
         this.yourHealth = yourHealth;
         this.yourHealthText = yourHealthText;
-        this.yourImage = yourImage;
 
-        this.enemyName = enemyName;
         this.enemyHealth = enemyHealth;
         this.enemyHealthText = enemyHealthText;
-        this.enemyImage = enemyImage;
 
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
         this.promptView = promptView;
+
+        this.yourStunText = yourStunText;
+        this.enemyStunText = enemyStunText;
     }
 
     private void receiveTimeHp() {
@@ -57,13 +56,20 @@ public class GameMechanics {
                 if (yourPlayer.getHealth() > 0 && enemyPlayer.getHealth() > 0) {
                     int attacker = random.nextInt(2);
 
-                    if(attacker == 0)
-                    {
+                    ArrayList<Player> players = new ArrayList<>();
+                    players.add(yourPlayer);
+                    players.add(enemyPlayer);
+
+                    while (players.get(attacker).getStun() > 0) {
+                        attacker = random.nextInt(2);
+                    }
+
+                    if (attacker == 0) {
                         promptView.setText(yourPlayer.getName() + " makes a move!");
-                    }else
-                    {
+                    } else {
                         promptView.setText(enemyPlayer.getName() + " makes a move!");
                     }
+                    players.get(attacker).setStun(players.get(attacker).getStun() - 1);
 
                     receiveTimeHp();
                     hitDelay(attacker);
@@ -107,5 +113,7 @@ public class GameMechanics {
         enemyHealthText.setText(String.valueOf(enemyPlayer.getHealth()));
         yourHealth.setProgress(yourPlayer.getHealth());
         enemyHealth.setProgress(enemyPlayer.getHealth());
+        yourStunText.setText(String.valueOf(yourPlayer.getStun()));
+        enemyStunText.setText(String.valueOf(enemyPlayer.getStun()));
     }
 }

@@ -4,9 +4,6 @@ import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.example.dreadful.R;
 
 import java.util.ArrayList;
@@ -28,9 +25,9 @@ public abstract class Player {
     private ArrayList<Integer> damageOverTime = new ArrayList<>(), damageOverTimeValue = new ArrayList<>();
     private ArrayList<String> status = new ArrayList<>();
     private ArrayList<Integer> statusValue = new ArrayList<>();
+    private int stun;
 
     private ImageView yourImage;
-    private ConstraintLayout backgroundImage;
     private Animation shakeAnimation;
 
     private Random random = new Random();
@@ -39,7 +36,7 @@ public abstract class Player {
 
     }
 
-    public Player(Context context, ImageView yourImage, ConstraintLayout backgroundImage, String name, int image, String imageDirection, int size, int[] transformation,
+    public Player(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
                   int[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
@@ -59,11 +56,11 @@ public abstract class Player {
         this.maxSkillCooldowns = maxSkillCooldowns;
         this.skillCooldowns = skillCooldowns;
         this.yourImage = yourImage;
-        this.backgroundImage = backgroundImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.stun = 0;
     }
 
-    public Player(int id, Context context, ImageView yourImage, ConstraintLayout backgroundImage, String name, int image, String imageDirection, int size,
+    public Player(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
                   int[] transformation, int[] dimension, int health, int attack, int defense, int dodge,
                   String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.id = id;
@@ -85,8 +82,8 @@ public abstract class Player {
         this.maxSkillCooldowns = maxSkillCooldowns;
         this.skillCooldowns = skillCooldowns;
         this.yourImage = yourImage;
-        this.backgroundImage = backgroundImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.stun = 0;
     }
 
     public void receiveStatus(Player target, String statusName, int statusValue) {
@@ -355,5 +352,17 @@ public abstract class Player {
 
     public void setStatusValue(ArrayList<Integer> statusValue) {
         this.statusValue = statusValue;
+    }
+
+    public int getStun() {
+        return stun;
+    }
+
+    public void setStun(int stun) {
+        if(stun <= 0)
+        {
+            stun = 0;
+        }
+        this.stun = stun;
     }
 }

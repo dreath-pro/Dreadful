@@ -17,17 +17,15 @@ public class DreadProphet extends Player {
     private Random random = new Random();
     private Animation shakeAnimation;
     private ImageView yourImage;
-    private ConstraintLayout backgroundImage;
 
     public DreadProphet(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
-        super(context, yourImage, backgroundImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
+        super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
                 null, null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
 
         this.yourImage = yourImage;
-        this.backgroundImage = backgroundImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 

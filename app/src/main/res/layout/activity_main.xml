@@ -28,43 +28,83 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/yourName"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:background="#400000"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:padding="1dp"
-                android:text="@string/player_name"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-            <RelativeLayout
-                android:id="@+id/yourHealthLayout"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <ProgressBar
-                    android:id="@+id/yourHealth"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="160dp"
-                    android:layout_height="15dp"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    android:progressDrawable="@drawable/code_health_bar" />
-
-                <TextView
-                    android:id="@+id/yourHealthText"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/health_text"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/yourName"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:background="#400000"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:padding="1dp"
+                        android:text="@string/player_name"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/yourStunIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_immobilize" />
+
+                        <TextView
+                            android:id="@+id/yourStunText"
+                            android:background="#383838"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/health_text"
+                            android:layout_alignEnd="@+id/yourStunIcon"
+                            android:layout_alignBottom="@+id/yourStunIcon"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/yourHealthLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/yourHealth"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="160dp"
+                        android:layout_height="15dp"
+                        android:layout_centerInParent="true"
+                        android:layout_weight="1"
+                        android:progressDrawable="@drawable/code_health_bar" />
+
+                    <TextView
+                        android:id="@+id/yourHealthText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/health_text"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/yourImage"
@@ -82,43 +122,84 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/enemyName"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:background="#400000"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:padding="1dp"
-                android:text="@string/opponent_name"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-            <RelativeLayout
-                android:id="@+id/enemyHealthLayout"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <ProgressBar
-                    android:id="@+id/enemyHealth"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="160dp"
-                    android:layout_height="15dp"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    android:progressDrawable="@drawable/code_health_bar" />
 
-                <TextView
-                    android:id="@+id/enemyHealthText"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/health_text"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/enemyName"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:background="#400000"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:padding="1dp"
+                        android:text="@string/opponent_name"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/enemyStunIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_immobilize" />
+
+                        <TextView
+                            android:id="@+id/enemyStunText"
+                            android:background="#383838"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/health_text"
+                            android:layout_alignEnd="@+id/enemyStunIcon"
+                            android:layout_alignBottom="@+id/enemyStunIcon"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/enemyHealthLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/enemyHealth"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="160dp"
+                        android:layout_height="15dp"
+                        android:layout_centerInParent="true"
+                        android:layout_weight="1"
+                        android:progressDrawable="@drawable/code_health_bar" />
+
+                    <TextView
+                        android:id="@+id/enemyHealthText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/health_text"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/enemyImage"

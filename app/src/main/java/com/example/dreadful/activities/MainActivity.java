@@ -27,16 +27,14 @@ import com.example.dreadful.models.Player;
 import com.example.dreadful.logics.SetupCharacter;
 
 public class MainActivity extends AppCompatActivity {
-    //armored crocodile golem, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view
     //person with spiky armor covered with dark liquid, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
-    //humanoid void mutant with no face but only white teeth and with a tentacle back and root hands, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, violet, dark-violet, blue-violet, dark-blue
+    //long hair man riding a armored horse with long sword, hd detailed 2d cartoon, horror theme, white background, facing right, standing full view, red, black, gray, white, dark-red
 
-    //altar of cathedral background, hd, minimalist cartoon, dark fantasy theme, red, gray, black, dark-red, crimson-red
-    //galactic valley with the ground as a space, hd landscape, minimalist cartoon, dark fantasy theme, violet, light-violet, dark-violet, purple
+    //mossy old ruins building, landscape, hd detailed 2d cartoon, horror theme, blue, unfocused
+    //altar of cathedral, landscape, hd detailed 2d cartoon, horror theme, blue, unfocused, red, crimson-red, black
 
     //two swords clashing, simple icon, digital art, dark fantasy theme, vibrant shading, white background, red, crimson-red, black, dark-red
-
-    //curse, minimalist icon, dark fantasy theme, vibrant shading, red, crimson-red, dark-red, black
+    //immobilize, minimalist icon, horror theme, vibrant shading, red, crimson-red, dark-red, black
 
     private ConstraintLayout backgroundImage;
     private TextView yourName, enemyName;
@@ -46,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Button backButton, startButton;
     private ImageView promptButton;
     private TextView promptView;
+    private TextView yourStunText, enemyStunText;
     private LinearLayout yourPlayerLayout, enemyPlayerLayout;
 
     private Player yourPlayer, enemyPlayer;
@@ -74,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         promptButton = findViewById(R.id.promptButton);
         promptView = findViewById(R.id.promptView);
+
+        yourStunText = findViewById(R.id.yourStunText);
+        enemyStunText = findViewById(R.id.enemyStunText);
     }
 
     private void startConfiguration() {
@@ -89,10 +91,8 @@ public class MainActivity extends AppCompatActivity {
         yourPlayer = setupCharacter.returnYourCharacter();
         enemyPlayer = setupCharacter.returnEnemyCharacter();
 
-        gameMechanics = new GameMechanics(this,
-                yourName, yourHealth, yourHealthText, yourImage,
-                enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourPlayer, enemyPlayer, promptView);
+        gameMechanics = new GameMechanics(this, yourHealth, yourHealthText, enemyHealth,
+                enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText);
     }
 
     private void invisibleButtons(Boolean invisible) {

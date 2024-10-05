@@ -23,7 +23,7 @@ public class VoidReaper extends Player {
     private ResizeImage resizeImage;
 
     public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
-        super(context, yourImage, backgroundImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
+        super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1},
                 60000, 1800, 500, 15,
@@ -103,12 +103,13 @@ public class VoidReaper extends Player {
         }
     }
 
-    //stuns the enemy coming soon
+    //stuns the enemy and burst them
     private void skill1(Player hitter, Player target) {
         hitter.setAttack(8500);
         target.receiveHit(hitter, target);
         hitter.setAttack(hitter.getMaxAttack());
         receiveStatus(target, "The Void", 1);
+        target.setStun(3);
     }
 
     //the enemy will be teleported to a different dimension and void reaper will transform
