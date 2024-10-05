@@ -28,7 +28,7 @@ public class VoidReaper extends Player {
                 new int[]{R.drawable.background_void_1},
                 60000, 1800, 500, 15,
                 new String[]{"Chrono Reap", "The Void", "Dimension Shift"},
-                new int[]{0, 2, 3}, new int[]{0, 0, 0});
+                new int[]{0, 5, 3}, new int[]{0, 0, 0});
 
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;

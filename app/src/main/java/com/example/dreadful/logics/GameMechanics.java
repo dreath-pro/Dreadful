@@ -69,7 +69,6 @@ public class GameMechanics {
                     } else {
                         promptView.setText(enemyPlayer.getName() + " makes a move!");
                     }
-                    players.get(attacker).setStun(players.get(attacker).getStun() - 1);
 
                     receiveTimeHp();
                     hitDelay(attacker);
@@ -95,6 +94,8 @@ public class GameMechanics {
                 } else {
                     promptView.setText(enemyPlayer.getName() + " uses \"" + enemyPlayer.useRandomAttack(enemyPlayer, yourPlayer) + "\"");
                 }
+                yourPlayer.setStun(yourPlayer.getStun() - 1);
+                enemyPlayer.setStun(enemyPlayer.getStun() - 1);
                 updateHealthBars();
 
                 receiveTimeHp();

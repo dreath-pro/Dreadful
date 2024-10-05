@@ -158,14 +158,12 @@ public class DreadProphet extends Player {
 
     //heal over time for a short turn, base on the value of the "mark of sin"
     private void skill4(Player hitter, Player target) {
-        if (!hasStatus(target, "Mark of Sin", 50).isEmpty()) {
-            int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
-            int maxHealth = 1200;
-            int percentage = target.getStatusValue().get(index);
-            int heal = (maxHealth * percentage) / 100;
+        int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
+        int maxHealth = 1200;
+        int percentage = target.getStatusValue().get(index);
+        int heal = (maxHealth * percentage) / 100;
 
-            getDamageOverTime().add(heal);
-            getDamageOverTimeValue().add(9);
-        }
+        getDamageOverTime().add(heal);
+        getDamageOverTimeValue().add(9);
     }
 }
