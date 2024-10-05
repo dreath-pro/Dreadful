@@ -29,6 +29,8 @@ public class SetupCharacter {
     private Random random = new Random();
     private ResizeImage resizeImage;
 
+    private int firstPlayerSelected, secondPlayerSelected;
+
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
                           Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage) {
@@ -50,6 +52,8 @@ public class SetupCharacter {
 
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
+        this.firstPlayerSelected = 0;
+        this.secondPlayerSelected = 0;
     }
 
     private void initCharacters(ImageView playerImage) {
@@ -72,7 +76,8 @@ public class SetupCharacter {
         yourImage.setScaleX(1);
 
         initCharacters(yourImage);
-        yourPlayer = players.get(random.nextInt(players.size()));
+        firstPlayerSelected = random.nextInt(players.size());
+        yourPlayer = players.get(firstPlayerSelected);
 
         yourName.setText(yourPlayer.getName());
         yourHealthText.setText(String.valueOf(yourPlayer.getHealth()));
@@ -91,7 +96,12 @@ public class SetupCharacter {
         enemyImage.setScaleX(1);
 
         initCharacters(enemyImage);
-        enemyPlayer = players.get(random.nextInt(players.size()));
+        do {
+            secondPlayerSelected = random.nextInt(players.size());
+        } while (firstPlayerSelected == secondPlayerSelected);
+        enemyPlayer = players.get(secondPlayerSelected);
+
+        players.clear();
 
         enemyName.setText(enemyPlayer.getName());
         enemyHealthText.setText(String.valueOf(enemyPlayer.getHealth()));
