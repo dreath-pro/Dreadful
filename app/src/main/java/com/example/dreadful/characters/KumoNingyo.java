@@ -20,11 +20,12 @@ public class KumoNingyo extends Player {
     private ProgressBar yourHealthBar;
     private int poison = 10;
     private int creepyStalkerTime = 0;
+    private int limbTwitch = 6, maxLimbTwitch = 6;
 
     public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
                 null, null,
-                5000, 180, 0, 20,
+                5800, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage", "Ito no Tami"},
                 new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
 
@@ -52,6 +53,35 @@ public class KumoNingyo extends Player {
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        limbTwitch--;
+        if (limbTwitch <= 0) {
+            limbTwitch = maxLimbTwitch;
+
+            if (!hasStatus(target, "Lost Limbs", 1).isEmpty()) {
+                int index = Integer.parseInt(hasStatus(target, "Lost Limbs", 1));
+                bypassSetHealth(getHealth() + (1000 * getStatusValue().get(index)));
+
+                if(getHealth() > getMaxHealth())
+                {
+                    bypassSetMaxHealth(getHealth());
+                    yourHealthBar.setMax(getMaxHealth());
+                }
+
+                poison *= getStatusValue().get(index);
+            }else
+            {
+                bypassSetHealth(getHealth() + 1000);
+
+                if(getHealth() > getMaxHealth())
+                {
+                    bypassSetMaxHealth(getHealth());
+                    yourHealthBar.setMax(getMaxHealth());
+                }
+
+                poison += 10;
+            }
+        }
+
         creepyStalkerTime--;
         if (creepyStalkerTime <= 0) {
             setDodge(getMaxDodge());
@@ -127,7 +157,7 @@ public class KumoNingyo extends Player {
     private void skill2(Player hitter, Player target) {
         if (!hasStatus(hitter, "Lost Limbs", 1).isEmpty()) {
             int index = Integer.parseInt(hasStatus(hitter, "Lost Limbs", 1));
-            bypassSetHealth(800 * getStatusValue().get(index));
+            bypassSetHealth(getHealth() + (1000 * getStatusValue().get(index)));
 
             if(getHealth() > getMaxHealth())
             {
@@ -135,14 +165,25 @@ public class KumoNingyo extends Player {
                 yourHealthBar.setMax(getMaxHealth());
             }
 
-            poison = 10 * getStatusValue().get(index);
+            poison *= getStatusValue().get(index);
 
             getStatus().remove(index);
             getStatusValue().remove(index);
+        }else
+        {
+            bypassSetHealth(getHealth() + 1000);
+
+            if(getHealth() > getMaxHealth())
+            {
+                bypassSetMaxHealth(getHealth());
+                yourHealthBar.setMax(getMaxHealth());
+            }
+
+            poison += 10;
         }
     }
 
-    //burst attack with poison and add 60% dodge for the hitter's next attack
+    //burst attack with poison and add 60% dodge for the hitter's next attack with the same poison effect
     private void skill3(Player hitter, Player target) {
         hitter.setAttack(4500);
         target.receiveHit(hitter, target);
