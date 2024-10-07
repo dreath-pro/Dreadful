@@ -101,10 +101,10 @@ public class VoidReaper extends Player {
 
     private void reduceCoolDown(Player hitter, Player target) {
         if (!hasStatus(target, "The Void", 1).isEmpty()) {
-            for (int i = 1; i <= hitter.getMaxSkillCooldowns().length - 1; i++) {
-                hitter.getSkillCooldowns()[i] -= 1;
-                if (hitter.getSkillCooldowns()[i] <= 0) {
-                    hitter.getSkillCooldowns()[i] = 0;
+            for (int i = 1; i <= getMaxSkillCooldowns().length - 1; i++) {
+                getSkillCooldowns()[i] -= 1;
+                if (getSkillCooldowns()[i] <= 0) {
+                    getSkillCooldowns()[i] = 0;
                 }
             }
         }

@@ -22,6 +22,7 @@ public class SetupCharacter {
     private TextView yourName, enemyName;
     private ProgressBar yourHealth, enemyHealth;
     private TextView yourHealthText, enemyHealthText;
+    private TextView yourStunText, enemyStunText;
     private ImageView yourImage, enemyImage;
     private ConstraintLayout backgroundImage;
     private Player yourPlayer, enemyPlayer;
@@ -33,7 +34,7 @@ public class SetupCharacter {
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
-                          Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage) {
+                          Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText) {
 
         this.context = context;
 
@@ -46,6 +47,9 @@ public class SetupCharacter {
         this.enemyHealth = enemyHealth;
         this.enemyHealthText = enemyHealthText;
         this.enemyImage = enemyImage;
+
+        this.yourStunText = yourStunText;
+        this.enemyStunText = enemyStunText;
 
         this.backgroundImage = backgroundImage;
         this.resizeImage = new ResizeImage(context);
@@ -85,6 +89,8 @@ public class SetupCharacter {
         yourHealth.setProgress(yourPlayer.getHealth());
         yourImage.setImageResource(yourPlayer.getImage());
 
+        yourStunText.setText(yourPlayer.getStun() + "");
+
         if (yourPlayer.getImageDirection().equals("left")) {
             yourImage.setScaleX(-1);
         }
@@ -109,22 +115,12 @@ public class SetupCharacter {
         enemyHealth.setProgress(enemyPlayer.getHealth());
         enemyImage.setImageResource(enemyPlayer.getImage());
 
+        enemyStunText.setText(enemyPlayer.getStun() + "");
+
         if (enemyPlayer.getImageDirection().equals("right")) {
             enemyImage.setScaleX(-1);
         }
 
-
-        ViewGroup.LayoutParams layoutParams = enemyImage.getLayoutParams();
-        int widthInDp = enemyPlayer.getSize(); // Desired width in dp
-        int heightInDp = enemyPlayer.getSize(); // Desired height in dp
-
-        float scale = context.getResources().getDisplayMetrics().density;
-        int widthInPixels = (int) (widthInDp * scale + 0.5f);
-        int heightInPixels = (int) (heightInDp * scale + 0.5f);
-
-        layoutParams.width = widthInPixels;
-        layoutParams.height = heightInPixels;
-
-        enemyImage.setLayoutParams(layoutParams);
+        resizeImage.scale(enemyImage, enemyPlayer.getSize());
     }
 }

@@ -26,6 +26,8 @@ import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.logics.SetupCharacter;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
     //person with spiky armor covered with dark liquid, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
     //long hair man riding a armored horse with long sword, hd detailed 2d cartoon, horror theme, white background, facing right, standing full view, red, black, gray, white, dark-red
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     private Player yourPlayer, enemyPlayer;
     private GameMechanics gameMechanics;
     private SetupCharacter setupCharacter;
+    private Random random = new Random();
+
+    //new temporary background image
+    private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_ruins};
 
     private void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -80,11 +86,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void startConfiguration() {
         promptView.setText("");
+        backgroundImage.setBackgroundResource(backgroundList[random.nextInt(backgroundList.length)]);
 
         setupCharacter = new SetupCharacter(this,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourPlayer, enemyPlayer, backgroundImage);
+                yourPlayer, enemyPlayer, backgroundImage, yourStunText, enemyStunText);
 
         setupCharacter.initializeYourViews();
         setupCharacter.initializeEnemyViews();
