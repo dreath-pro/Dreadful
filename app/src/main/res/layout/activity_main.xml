@@ -253,6 +253,17 @@
             android:textSize="15sp" />
 
         <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#A60606"
+            android:fontFamily="@font/horroroid"
+            android:text="@string/reset_button"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
             android:id="@+id/startButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

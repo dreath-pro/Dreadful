@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar yourHealth, enemyHealth;
     private TextView yourHealthText, enemyHealthText;
     private ImageView yourImage, enemyImage;
-    private Button backButton, startButton;
+    private Button backButton, startButton, resetButton;
     private ImageView promptButton;
     private TextView promptView;
     private TextView yourStunText, enemyStunText;
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.backButton);
         startButton = findViewById(R.id.startButton);
+        resetButton = findViewById(R.id.resetButton);
         promptButton = findViewById(R.id.promptButton);
         promptView = findViewById(R.id.promptView);
 
@@ -99,14 +100,16 @@ public class MainActivity extends AppCompatActivity {
         enemyPlayer = setupCharacter.returnEnemyCharacter();
 
         gameMechanics = new GameMechanics(this, yourHealth, yourHealthText, enemyHealth,
-                enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText);
+                enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton);
     }
 
     private void invisibleButtons(Boolean invisible) {
         if (invisible) {
             backButton.setVisibility(View.GONE);
+            resetButton.setVisibility(View.GONE);
         } else {
             backButton.setVisibility(View.VISIBLE);
+            resetButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -134,6 +137,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Coming Soon!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startConfiguration();

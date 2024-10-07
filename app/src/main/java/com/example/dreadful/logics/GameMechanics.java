@@ -2,6 +2,7 @@ package com.example.dreadful.logics;
 
 import android.content.Context;
 import android.os.Handler;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,13 +20,15 @@ public class GameMechanics {
     private TextView yourStunText, enemyStunText;
     private Player yourPlayer, enemyPlayer;
     private TextView promptView;
+    private Button startButton;
 
     private Handler turnDelay = new Handler();
     private Handler hitDelay = new Handler();
     private Random random = new Random();
 
     public GameMechanics(Context context, ProgressBar yourHealth, TextView yourHealthText, ProgressBar enemyHealth,
-                         TextView enemyHealthText, Player yourPlayer, Player enemyPlayer, TextView promptView, TextView yourStunText, TextView enemyStunText) {
+                         TextView enemyHealthText, Player yourPlayer, Player enemyPlayer, TextView promptView,
+                         TextView yourStunText, TextView enemyStunText, Button startButton) {
 
         this.context = context;
 
@@ -38,6 +41,8 @@ public class GameMechanics {
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
         this.promptView = promptView;
+
+        this.startButton = startButton;
 
         this.yourStunText = yourStunText;
         this.enemyStunText = enemyStunText;
@@ -80,10 +85,13 @@ public class GameMechanics {
 
                 if (yourPlayer.getHealth() <= 0 && enemyPlayer.getHealth() <= 0) {
                     Toast.makeText(context, "Draw", Toast.LENGTH_SHORT).show();
+                    startButton.performClick();
                 } else if (yourPlayer.getHealth() <= 0) {
                     Toast.makeText(context, enemyPlayer.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
+                    startButton.performClick();
                 } else if (enemyPlayer.getHealth() <= 0) {
                     Toast.makeText(context, yourPlayer.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
+                    startButton.performClick();
                 }
             }
         }, 1800);
