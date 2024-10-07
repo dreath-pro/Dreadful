@@ -17,7 +17,7 @@ public class KumoNingyo extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
 
-    public KumoNingyo(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
+    public KumoNingyo(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
                 null, null,
                 20000, 180, 0, 20,

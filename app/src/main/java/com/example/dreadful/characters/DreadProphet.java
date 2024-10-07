@@ -18,7 +18,7 @@ public class DreadProphet extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
 
-    public DreadProphet(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
+    public DreadProphet(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground) {
         super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
                 null, null,
                 120000, 2888, 0, 0,

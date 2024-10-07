@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.dreadful.R;
 import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.KumoNingyo;
 import com.example.dreadful.characters.DreadProphet;
@@ -30,11 +31,15 @@ public class SetupCharacter {
     private Random random = new Random();
     private ResizeImage resizeImage;
 
+    private int[] backgroundList;
+    private int selectedBackground = 0;
+
     private int firstPlayerSelected, secondPlayerSelected;
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
-                          Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText) {
+                          Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText,
+                          int[] backgroundList, int selectedBackground) {
 
         this.context = context;
 
@@ -54,6 +59,9 @@ public class SetupCharacter {
         this.backgroundImage = backgroundImage;
         this.resizeImage = new ResizeImage(context);
 
+        this.backgroundList = backgroundList;
+        this.selectedBackground = selectedBackground;
+
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
         this.firstPlayerSelected = 0;
@@ -62,10 +70,10 @@ public class SetupCharacter {
 
     private void initCharacters(ImageView playerImage) {
         players.clear();
-        players.add(new Dreath(context, playerImage, backgroundImage));
-        players.add(new DreadProphet(context, playerImage, backgroundImage));
-        players.add(new KumoNingyo(context, playerImage, backgroundImage));
-        players.add(new VoidReaper(context, playerImage, backgroundImage));
+        players.add(new Dreath(context, playerImage, backgroundImage, backgroundList, selectedBackground));
+        players.add(new DreadProphet(context, playerImage, backgroundImage, backgroundList, selectedBackground));
+        players.add(new KumoNingyo(context, playerImage, backgroundImage, backgroundList, selectedBackground));
+        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground));
     }
 
     public Player returnYourCharacter() {

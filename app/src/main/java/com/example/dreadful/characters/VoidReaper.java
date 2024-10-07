@@ -20,10 +20,12 @@ public class VoidReaper extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
     private ConstraintLayout backgroundImage;
+    private int[] backgroundList;
+    private int selectedBackground = 0;
     private ResizeImage resizeImage;
     private int voidTime = 0;
 
-    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage) {
+    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1},
@@ -34,6 +36,8 @@ public class VoidReaper extends Player {
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.backgroundImage = backgroundImage;
+        this.backgroundList = backgroundList;
+        this.selectedBackground = selectedBackground;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
@@ -59,7 +63,7 @@ public class VoidReaper extends Player {
         voidTime--;
         if(voidTime <= 0)
         {
-            backgroundImage.setBackgroundResource(R.drawable.background_cathedral);
+            backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
             yourImage.setImageResource(getImage());
             resizeImage.scale(yourImage, getSize());
             voidTime = 0;

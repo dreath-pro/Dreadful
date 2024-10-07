@@ -53,9 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private GameMechanics gameMechanics;
     private SetupCharacter setupCharacter;
     private Random random = new Random();
-
-    //new temporary background image
     private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_ruins};
+    private int selectedBackground = 0;
 
     private void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -86,12 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void startConfiguration() {
         promptView.setText("");
-        backgroundImage.setBackgroundResource(backgroundList[random.nextInt(backgroundList.length)]);
+        selectedBackground = random.nextInt(backgroundList.length);
+        backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
 
         setupCharacter = new SetupCharacter(this,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourPlayer, enemyPlayer, backgroundImage, yourStunText, enemyStunText);
+                yourPlayer, enemyPlayer, backgroundImage, yourStunText, enemyStunText, backgroundList, selectedBackground);
 
         setupCharacter.initializeYourViews();
         setupCharacter.initializeEnemyViews();
@@ -181,8 +181,7 @@ public class MainActivity extends AppCompatActivity {
         playerName.setText(player.getName());
         playerImage.setImageResource(player.getImage());
 
-        if(player.getImageDirection().equals("left"))
-        {
+        if (player.getImageDirection().equals("left")) {
             playerImage.setScaleX(-1);
         }
 
