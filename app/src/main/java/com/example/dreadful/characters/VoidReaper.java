@@ -61,8 +61,7 @@ public class VoidReaper extends Player {
 
     public void receiveTimeEffect(Player hitter, Player target) {
         voidTime--;
-        if(voidTime <= 0)
-        {
+        if (voidTime <= 0) {
             backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
             yourImage.setImageResource(getImage());
             resizeImage.scale(yourImage, getSize());
@@ -110,7 +109,7 @@ public class VoidReaper extends Player {
     }
 
     private void reduceCoolDown(Player hitter, Player target) {
-        if (!hasStatus(target, "The Void", 1).isEmpty()) {
+        if (!hasStatus(hitter, "The Void", 1).isEmpty()) {
             for (int i = 1; i <= getMaxSkillCooldowns().length - 1; i++) {
                 getSkillCooldowns()[i] -= 1;
                 if (getSkillCooldowns()[i] <= 0) {
@@ -119,8 +118,7 @@ public class VoidReaper extends Player {
             }
         }
 
-        if(!hasStatus(target, "Endless Void", 20).isEmpty())
-        {
+        if (!hasStatus(target, "Endless Void", 20).isEmpty()) {
             for (int i = 1; i <= getMaxSkillCooldowns().length - 1; i++) {
                 getSkillCooldowns()[i] = 0;
             }
@@ -134,7 +132,7 @@ public class VoidReaper extends Player {
         reduceCoolDown(hitter, target);
     }
 
-    //stuns the enemy and burst them
+    //stuns the enemy and burst them and applies "the void" status to the target
     private void skill1(Player hitter, Player target) {
         hitter.setAttack(8500);
         target.receiveHit(hitter, target);
