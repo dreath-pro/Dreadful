@@ -33,13 +33,14 @@ public class SetupCharacter {
 
     private int[] backgroundList;
     private int selectedBackground = 0;
+    private ProgressBar yourHealthBar, enemyHealthBar;
 
     private int firstPlayerSelected, secondPlayerSelected;
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
                           Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText,
-                          int[] backgroundList, int selectedBackground) {
+                          int[] backgroundList, int selectedBackground, ProgressBar yourHealthBar, ProgressBar enemyHealthBar) {
 
         this.context = context;
 
@@ -61,6 +62,8 @@ public class SetupCharacter {
 
         this.backgroundList = backgroundList;
         this.selectedBackground = selectedBackground;
+        this.yourHealthBar = yourHealthBar;
+        this.enemyHealthBar = enemyHealthBar;
 
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
@@ -68,11 +71,11 @@ public class SetupCharacter {
         this.secondPlayerSelected = 0;
     }
 
-    private void initCharacters(ImageView playerImage) {
+    private void initCharacters(ImageView playerImage, ProgressBar playerHealthBar) {
         players.clear();
-        players.add(new Dreath(context, playerImage, backgroundImage, backgroundList, selectedBackground));
-        players.add(new DreadProphet(context, playerImage, backgroundImage, backgroundList, selectedBackground));
-        players.add(new KumoNingyo(context, playerImage, backgroundImage, backgroundList, selectedBackground));
+        players.add(new Dreath(context, playerImage));
+        players.add(new DreadProphet(context, playerImage));
+        players.add(new KumoNingyo(context, playerImage, playerHealthBar));
         players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground));
     }
 
@@ -87,7 +90,7 @@ public class SetupCharacter {
     public void initializeYourViews(boolean newViews) {
         yourImage.setScaleX(1);
 
-        initCharacters(yourImage);
+        initCharacters(yourImage, yourHealthBar);
         if(newViews)
         {
             firstPlayerSelected = random.nextInt(players.size());
@@ -112,7 +115,7 @@ public class SetupCharacter {
     public void initializeEnemyViews(boolean newViews) {
         enemyImage.setScaleX(1);
 
-        initCharacters(enemyImage);
+        initCharacters(enemyImage, enemyHealthBar);
         if(newViews)
         {
             secondPlayerSelected = random.nextInt(players.size());

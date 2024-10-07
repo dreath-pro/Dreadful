@@ -364,4 +364,14 @@ public abstract class Player {
         }
         this.stun = stun;
     }
+
+    public void bypassSetHealth(int health)
+    {
+        this.health = health;
+    }
+
+    public void bypassSetMaxHealth(int maxHealth)
+    {
+        this.maxHealth = health;
+    }
 }

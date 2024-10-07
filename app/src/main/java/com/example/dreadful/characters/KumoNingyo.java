@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -16,15 +17,19 @@ public class KumoNingyo extends Player {
     private Random random = new Random();
     private Animation shakeAnimation;
     private ImageView yourImage;
+    private ProgressBar yourHealthBar;
+    private int poison = 10;
+    private int creepyStalkerTime = 0;
 
-    public KumoNingyo(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground) {
+    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
                 null, null,
-                20000, 180, 0, 20,
-                new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage"},
-                new int[]{0, 3, 3, 3}, new int[]{0, 0, 0, 0});
+                5000, 180, 0, 20,
+                new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage", "Ito no Tami"},
+                new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
 
         this.yourImage = yourImage;
+        this.yourHealthBar = yourHealthBar;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
@@ -44,11 +49,20 @@ public class KumoNingyo extends Player {
         yourImage.startAnimation(shakeAnimation);
 
         receiveStatus(target, "Lost Limbs", 1);
-        setDodge(getMaxDodge());
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        creepyStalkerTime--;
+        if (creepyStalkerTime <= 0) {
+            setDodge(getMaxDodge());
+            creepyStalkerTime = 0;
 
+            if (!hasStatus(target, "Creepy Stalker", 1).isEmpty()) {
+                int index = Integer.parseInt(hasStatus(target, "Creepy Stalker", 1));
+                getStatusValue().remove(index);
+                getStatus().remove(index);
+            }
+        }
     }
 
     public String useRandomAttack(Player hitter, Player target) {
@@ -73,6 +87,9 @@ public class KumoNingyo extends Player {
             case 3:
                 skill3(hitter, target);
                 break;
+            case 4:
+                skill4(hitter, target);
+                break;
         }
 
         for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
@@ -91,7 +108,7 @@ public class KumoNingyo extends Player {
     @Override
     public void basicAttack(Player hitter, Player target) {
         target.receiveHit(hitter, target);
-        target.getDamageOverTime().add(10);
+        target.getDamageOverTime().add(poison);
         target.getDamageOverTimeValue().add(30);
     }
 
@@ -101,24 +118,47 @@ public class KumoNingyo extends Player {
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
 
-        target.getDamageOverTime().add(10 * 3);
+        target.getDamageOverTime().add(poison * 3);
         target.getDamageOverTimeValue().add(30 * 3);
     }
 
-    //recovers 1000 health and multiply by the value of the lost limbs buff
+    //recovers 800 health and multiply by the value of the lost limbs buff and bypasses the max health rewriting it
+    //also removes the lost limbs buff, while also increasing the poison effect permanently
     private void skill2(Player hitter, Player target) {
         if (!hasStatus(hitter, "Lost Limbs", 1).isEmpty()) {
             int index = Integer.parseInt(hasStatus(hitter, "Lost Limbs", 1));
-            setHealth(getHealth() + (1000 * getStatusValue().get(index)));
+            bypassSetHealth(800 * getStatusValue().get(index));
+
+            if(getHealth() > getMaxHealth())
+            {
+                bypassSetMaxHealth(getHealth());
+                yourHealthBar.setMax(getMaxHealth());
+            }
+
+            poison = 10 * getStatusValue().get(index);
+
+            getStatus().remove(index);
+            getStatusValue().remove(index);
         }
     }
 
-    //simple basic attack and add 60% dodge for the hitter's next attack
+    //burst attack with poison and add 60% dodge for the hitter's next attack
     private void skill3(Player hitter, Player target) {
+        hitter.setAttack(4500);
         target.receiveHit(hitter, target);
-        target.getDamageOverTime().add(10);
+        hitter.setAttack(hitter.getMaxAttack());
+
+        target.getDamageOverTime().add(poison);
         target.getDamageOverTimeValue().add(30);
 
+        creepyStalkerTime = 5;
+        receiveStatus(hitter, "Creepy Stalker", 1);
         setDodge(getDodge() + 60);
+    }
+
+    //stuns the target
+    private void skill4(Player hitter, Player target)
+    {
+        target.setStun(4);
     }
 }

@@ -21,7 +21,7 @@ public class VoidReaper extends Player {
     private ImageView yourImage;
     private ConstraintLayout backgroundImage;
     private int[] backgroundList;
-    private int selectedBackground = 0;
+    private int selectedBackground;
     private ResizeImage resizeImage;
     private int voidTime = 0;
 

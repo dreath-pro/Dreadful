@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     //person with spiky armor covered with dark liquid, hd detailed cartoon, dark fantasy theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
     //long hair man riding a armored horse with long sword, hd detailed 2d cartoon, horror theme, white background, facing right, standing full view, red, black, gray, white, dark-red
 
-    //mossy old ruins building, landscape, hd detailed 2d cartoon, horror theme, blue, unfocused
-    //altar of cathedral, landscape, hd detailed 2d cartoon, horror theme, blue, unfocused, red, crimson-red, black
+    //mossy old ruins building, landscape, hd detailed 2d cartoon, horror theme, blur, unfocused
+    //altar of cathedral, landscape, hd detailed 2d cartoon, horror theme, blur, unfocused, red, crimson-red, black
 
     //two swords clashing, simple icon, digital art, dark fantasy theme, vibrant shading, white background, red, crimson-red, black, dark-red
     //immobilize, minimalist icon, horror theme, vibrant shading, red, crimson-red, dark-red, black
@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private GameMechanics gameMechanics;
     private SetupCharacter setupCharacter;
     private Random random = new Random();
-    private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_ruins};
+    private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
+            R.drawable.background_graveyard};
     private int selectedBackground = 0;
 
     private void initViews() {
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     yourName, yourHealth, yourHealthText, yourImage,
                     enemyName, enemyHealth, enemyHealthText, enemyImage,
                     yourPlayer, enemyPlayer, backgroundImage, yourStunText,
-                    enemyStunText, backgroundList, selectedBackground);
+                    enemyStunText, backgroundList, selectedBackground, yourHealth, enemyHealth);
         }
 
         setupCharacter.initializeYourViews(newViews);

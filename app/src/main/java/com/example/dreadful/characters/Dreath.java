@@ -18,7 +18,7 @@ public class Dreath extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
 
-    public Dreath(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground) {
+    public Dreath(Context context, ImageView yourImage) {
         super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
                 null, null,
                 88070, 2580, 880, 0,
