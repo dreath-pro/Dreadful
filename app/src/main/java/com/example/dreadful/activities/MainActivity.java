@@ -84,18 +84,23 @@ public class MainActivity extends AppCompatActivity {
         enemyStunText = findViewById(R.id.enemyStunText);
     }
 
-    private void startConfiguration() {
+    private void startConfiguration(boolean newViews) {
         promptView.setText("");
-        selectedBackground = random.nextInt(backgroundList.length);
+        if (newViews) {
+            selectedBackground = random.nextInt(backgroundList.length);
+        }
         backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
 
-        setupCharacter = new SetupCharacter(this,
-                yourName, yourHealth, yourHealthText, yourImage,
-                enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourPlayer, enemyPlayer, backgroundImage, yourStunText, enemyStunText, backgroundList, selectedBackground);
+        if (newViews) {
+            setupCharacter = new SetupCharacter(this,
+                    yourName, yourHealth, yourHealthText, yourImage,
+                    enemyName, enemyHealth, enemyHealthText, enemyImage,
+                    yourPlayer, enemyPlayer, backgroundImage, yourStunText,
+                    enemyStunText, backgroundList, selectedBackground);
+        }
 
-        setupCharacter.initializeYourViews();
-        setupCharacter.initializeEnemyViews();
+        setupCharacter.initializeYourViews(newViews);
+        setupCharacter.initializeEnemyViews(newViews);
         yourPlayer = setupCharacter.returnYourCharacter();
         enemyPlayer = setupCharacter.returnEnemyCharacter();
 
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-        startConfiguration();
+        startConfiguration(true);
 
         yourPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startConfiguration();
+                startConfiguration(true);
             }
         });
 
@@ -161,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                     invisibleButtons(false);
                     startButton.setText(getString(R.string.start_button));
                     gameMechanics.stopBattleLoop();
+                    startConfiguration(false);
                 }
             }
         });

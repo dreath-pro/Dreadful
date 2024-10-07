@@ -84,11 +84,14 @@ public class SetupCharacter {
         return enemyPlayer;
     }
 
-    public void initializeYourViews() {
+    public void initializeYourViews(boolean newViews) {
         yourImage.setScaleX(1);
 
         initCharacters(yourImage);
-        firstPlayerSelected = random.nextInt(players.size());
+        if(newViews)
+        {
+            firstPlayerSelected = random.nextInt(players.size());
+        }
         yourPlayer = players.get(firstPlayerSelected);
 
         yourName.setText(yourPlayer.getName());
@@ -106,13 +109,20 @@ public class SetupCharacter {
         resizeImage.scale(yourImage, yourPlayer.getSize());
     }
 
-    public void initializeEnemyViews() {
+    public void initializeEnemyViews(boolean newViews) {
         enemyImage.setScaleX(1);
 
         initCharacters(enemyImage);
-        do {
+        if(newViews)
+        {
             secondPlayerSelected = random.nextInt(players.size());
-        } while (firstPlayerSelected == secondPlayerSelected);
+        }
+        if(firstPlayerSelected == secondPlayerSelected)
+        {
+            do {
+                secondPlayerSelected = random.nextInt(players.size());
+            } while (firstPlayerSelected == secondPlayerSelected);
+        }
         enemyPlayer = players.get(secondPlayerSelected);
 
         players.clear();
