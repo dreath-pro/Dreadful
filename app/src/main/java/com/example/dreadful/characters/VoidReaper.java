@@ -67,6 +67,12 @@ public class VoidReaper extends Player {
             yourImage.setImageResource(getImage());
             resizeImage.scale(yourImage, getSize());
             voidTime = 0;
+
+            if (!hasStatus(target, "Endless Void", 20).isEmpty()) {
+                int index = Integer.parseInt(hasStatus(target, "Endless Void", 20));
+                getStatusValue().remove(index);
+                getStatus().remove(index);
+            }
         }
     }
 
@@ -112,6 +118,13 @@ public class VoidReaper extends Player {
                 }
             }
         }
+
+        if(!hasStatus(target, "Endless Void", 20).isEmpty())
+        {
+            for (int i = 1; i <= getMaxSkillCooldowns().length - 1; i++) {
+                getSkillCooldowns()[i] = 0;
+            }
+        }
     }
 
     //if there is the void mark, the void reaper reduces his cooldown with each attack he deals
@@ -131,7 +144,7 @@ public class VoidReaper extends Player {
     }
 
     //the enemy will be teleported to a different dimension and void reaper will transform, after that
-    //he will burst the target
+    //he will burst the target and resets all skill cooldown every attack
     private void skill2(Player hitter, Player target) {
         backgroundImage.setBackgroundResource(hitter.getDimension()[random.nextInt(hitter.getDimension().length)]);
         yourImage.setImageResource(hitter.getTransformation()[0]);
@@ -142,6 +155,7 @@ public class VoidReaper extends Player {
         target.receiveHit(hitter, target);
         hitter.setAttack(hitter.getMaxAttack());
 
+        receiveStatus(hitter, "Endless Void", 20);
         reduceCoolDown(hitter, target);
     }
 }
