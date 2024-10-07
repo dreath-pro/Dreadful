@@ -372,6 +372,6 @@ public abstract class Player {
 
     public void bypassSetMaxHealth(int maxHealth)
     {
-        this.maxHealth = health;
+        this.maxHealth = maxHealth;
     }
 }
