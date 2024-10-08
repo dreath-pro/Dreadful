@@ -20,7 +20,6 @@ public class HellKnight extends Player {
     private ImageView yourImage;
     private ResizeImage resizeImage;
     private ProgressBar yourHealthBar;
-    private double percentageLost = 0;
     private int form = 0;
 
     public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar) {
@@ -99,7 +98,7 @@ public class HellKnight extends Player {
         setDefense(2000);
         setDodge(0);
 
-        percentageLost = (double) (getMaxHealth() - getHealth()) / getMaxHealth() * 100;
+        double percentageLost = (double) (getMaxHealth() - getHealth()) / getMaxHealth() * 100;
 
         bypassSetMaxHealth(60000);
         setHealth(getMaxHealth());
