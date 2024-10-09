@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.characters.Carnant;
 import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.HellKnight;
 import com.example.dreadful.characters.KumoNingyo;
@@ -79,6 +80,7 @@ public class SetupCharacter {
         players.add(new KumoNingyo(context, playerImage, playerHealthBar));
         players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground));
         players.add(new HellKnight(context, playerImage, playerHealthBar));
+        players.add(new Carnant(context, playerImage, playerHealthBar));
     }
 
     public Player returnYourCharacter() {

@@ -44,6 +44,10 @@ public class HellKnight extends Player {
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
+    /**
+     * if ember is active it will add extra shield that will reduce incoming damage and attacker's hit will
+     * reflect back at them
+     */
     public void receiveHit(Player hitter, Player target) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
