@@ -142,6 +142,7 @@ public class DreadProphet extends Player {
         target.getDamageOverTime().add(allHeal);
         target.getDamageOverTime().add(450);
         target.getDamageOverTimeValue().add(15);
+        target.getDamageOverTimeValue().add(15);
     }
 
     //retribution for sinner hitter/attacker, base on the value of the "mark of sin"
