@@ -12,6 +12,7 @@ import com.example.dreadful.R;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class HellKnight extends Player {
@@ -22,18 +23,83 @@ public class HellKnight extends Player {
     private ProgressBar yourHealthBar;
     private int form = 0;
     private int enhancedDefense = 0;
+    private int flameShield = 0;
+    private int ember = 0;
 
     public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar) {
         super(context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
                 new int[]{R.drawable.character_hell_knight_2}, null,
                 20000, 1000, 1000, 5,
-                new String[]{"Burn Slash", "Knight's Breath", "Enhanced Armor", "Dragon Form"},
-                new int[]{0, 4, 9, 0}, new int[]{0, 0, 0, 0});
+                new String[]{"Burn Slash", "Knight's Breath", "Enhanced Armor", "Emberguard", "Dragon Form",
+                        "Burn Claw", "Dragon's Breath", "Enhanced Scale", "Hellguard", "Human Form"},
+                new int[]{0, 4, 9, 7, 0,
+                        0, 4, 9, 7, 0},
+
+                new int[]{0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0});
 
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+    }
+
+    public void receiveHit(Player hitter, Player target) {
+        int antiDodge = random.nextInt(100) + 1;
+        if (antiDodge <= getDodge())
+            return;
+
+        if (ember > 0) {
+            setAttack(hitter.getAttack());
+            hitter.receiveHit(target, hitter);
+            setAttack(getMaxAttack());
+
+            hitter.setAttack(hitter.getAttack() * (int) (1 - (double) flameShield));
+        }
+
+        hitter.setAttack(hitter.getAttack() - getDefense());
+        setHealth(getHealth() - hitter.getAttack());
+        hitter.setAttack(hitter.getMaxAttack());
+        yourImage.startAnimation(shakeAnimation);
+    }
+
+    public void receiveTimeHp(Player hitter, Player target) {
+        ArrayList<Integer> tempHot = new ArrayList<>();
+        ArrayList<Integer> tempHotValue = new ArrayList<>();
+
+        for (int i = 0; i <= getHealOverTime().size() - 1; i++) {
+            if (getHealOverTimeValue().get(i) > 0) {
+                setHealth(getHealth() + getHealOverTime().get(i));
+                getHealOverTimeValue().set(i, getHealOverTimeValue().get(i) - 1);
+
+                tempHot.add(getHealOverTime().get(i));
+                tempHotValue.add(getHealOverTimeValue().get(i));
+            }
+        }
+
+        setHealOverTime(tempHot);
+        setHealOverTimeValue(tempHotValue);
+
+
+        ArrayList<Integer> tempDot = new ArrayList<>();
+        ArrayList<Integer> tempDotValue = new ArrayList<>();
+
+        for (int i = 0; i <= getDamageOverTime().size() - 1; i++) {
+            if (getDamageOverTimeValue().get(i) > 0) {
+                if (ember > 0) {
+                    getDamageOverTime().set(i, getDamageOverTime().get(i) * (int) (1 - (double) flameShield));
+                }
+
+                setHealth(getHealth() - getDamageOverTime().get(i));
+                getDamageOverTimeValue().set(i, getDamageOverTimeValue().get(i) - 1);
+
+                tempDot.add(getDamageOverTime().get(i));
+                tempDotValue.add(getDamageOverTimeValue().get(i));
+            }
+        }
+
+        setDamageOverTime(tempDot);
+        setDamageOverTimeValue(tempDotValue);
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
@@ -42,9 +108,31 @@ public class HellKnight extends Player {
             enhancedDefense = 0;
 
             if (!hasStatus(target, "Enhanced Armor", 1).isEmpty()) {
-                setDefense(getDefense() - 350);
+                setDefense(getMaxDefense());
 
                 int index = Integer.parseInt(hasStatus(target, "Enhanced Armor", 1));
+                getStatusValue().remove(index);
+                getStatus().remove(index);
+            }
+
+            if(!hasStatus(target, "Enhanced Scale", 1).isEmpty())
+            {
+                setDefense(getMaxDefense());
+
+                int index = Integer.parseInt(hasStatus(target, "Enhanced Scale", 1));
+                getStatusValue().remove(index);
+                getStatus().remove(index);
+            }
+        }
+
+        ember--;
+        if (ember <= 0) {
+            ember = 0;
+
+            if (!hasStatus(target, "Flame Shield", 1).isEmpty()) {
+                flameShield = 0;
+
+                int index = Integer.parseInt(hasStatus(target, "Flame Shield", 1));
                 getStatusValue().remove(index);
                 getStatus().remove(index);
             }
@@ -56,11 +144,19 @@ public class HellKnight extends Player {
         int skillIndex;
 
         do {
-            skillIndex = random.nextInt(getSkillNames().length);
-        }while(getSkillCooldowns()[skillIndex] > 0);
+            if(form == 0)
+            {
+                skillIndex = random.nextInt(5);
+            }else
+            {
+                skillIndex = random.nextInt(5) + 5;
+            }
+            //skillIndex = random.nextInt(getSkillNames().length);
+        } while (getSkillCooldowns()[skillIndex] > 0);
 
         skillName = getSkillNames()[skillIndex];
         switch (skillIndex) {
+            //human form
             case 0:
                 basicAttack(hitter, target);
                 break;
@@ -72,6 +168,26 @@ public class HellKnight extends Player {
                 break;
             case 3:
                 skill3(hitter, target);
+                break;
+            case 4:
+                skill4(hitter, target);
+                break;
+
+            //dragon form
+            case 5:
+                skill5(hitter, target);
+                break;
+            case 6:
+                skill6(hitter, target);
+                break;
+            case 7:
+                skill7(hitter, target);
+                break;
+            case 8:
+                skill8(hitter, target);
+                break;
+            case 9:
+                skill9(hitter, target);
                 break;
         }
 
@@ -110,11 +226,21 @@ public class HellKnight extends Player {
         receiveStatus(hitter, "Enhanced Armor", 1);
     }
 
+    //receives a temporary flaming shield, and burns the target for 7 turns
+    private void skill3(Player hitter, Player target) {
+        ember = 15;
+        receiveStatus(hitter, "Flame Shield", 1);
+        flameShield = 25;
+
+        target.getDamageOverTime().add(450);
+        target.getDamageOverTimeValue().add(21);
+    }
+
     //transform into a dragon and increase the max health and heals yourself overtime at the same time
     //that lasts for 10 turns, your max health, defense will increase but your dodge will be reduced
-    private void skill3(Player hitter, Player target) {
+    private void skill4(Player hitter, Player target) {
         form = 1;
-        yourImage.setImageResource(hitter.getTransformation()[0]);
+        yourImage.setImageResource(getTransformation()[0]);
         resizeImage.scale(yourImage, 200);
 
         setDefense(2000);
@@ -129,7 +255,67 @@ public class HellKnight extends Player {
         double reducedNewHealth = getMaxHealth() - (getMaxHealth() * (percentageLost / 100));
         setHealth((int) reducedNewHealth);
 
-        getHealOverTime().add(450);
+        getHealOverTime().add(400);
+        getHealOverTimeValue().add(30);
+    }
+
+
+    //simple basic attack in a dragon form
+    private void skill5(Player hitter, Player target) {
+        target.receiveHit(hitter, target);
+    }
+
+    //burst the target and applies burn that last for 7 turns
+    private void skill6(Player hitter, Player target) {
+        hitter.setAttack(2800);
+        target.receiveHit(hitter, target);
+        hitter.setAttack(hitter.getMaxAttack());
+
+        target.getDamageOverTime().add(280);
+        target.getDamageOverTimeValue().add(21);
+    }
+
+    //increase the defense and applies "enhanced scale" status
+    private void skill7(Player hitter, Player target) {
+        enhancedDefense = 21;
+        setDefense(getDefense() + 550);
+        receiveStatus(hitter, "Enhanced Scale", 1);
+    }
+
+    //receives a temporary flaming shield, and burns the target for 7 turns
+    private void skill8(Player hitter, Player target) {
+        ember = 15;
+        receiveStatus(hitter, "Flame Shield", 1);
+        flameShield = 40;
+
+        target.getDamageOverTime().add(280);
+        target.getDamageOverTimeValue().add(21);
+    }
+
+    //transform into a human again and decrease the max health and heals yourself overtime
+    //that lasts for 10 turns, your max health, defense will decrease and your enemy will be burst
+    private void skill9(Player hitter, Player target) {
+        form = 0;
+        yourImage.setImageResource(getImage());
+        resizeImage.scale(yourImage, getSize());
+
+        setDefense(getMaxDefense());
+        setDodge(getMaxDodge());
+
+        double percentageLost = (double) (getMaxHealth() - getHealth()) / getMaxHealth() * 100;
+
+        bypassSetMaxHealth(20000);
+        setHealth(getMaxHealth());
+        yourHealthBar.setMax(getMaxHealth());
+
+        double reducedNewHealth = getMaxHealth() - (getMaxHealth() * (percentageLost / 100));
+        setHealth((int) reducedNewHealth);
+
+        setAttack(10000);
+        target.receiveHit(hitter, target);
+        setAttack(getMaxAttack());
+
+        getHealOverTime().add(400);
         getHealOverTimeValue().add(30);
     }
 }
