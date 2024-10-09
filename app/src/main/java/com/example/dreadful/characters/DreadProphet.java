@@ -131,15 +131,28 @@ public class DreadProphet extends Player {
 
     //enemy healing will be reverse and convert to damage
     private void skill2(Player hitter, Player target) {
+        boolean withHeal = false;
+
         int allHeal = 0;
         for (int i = 0; i <= target.getHealOverTime().size() - 1; i++) {
+            if(target.getHealOverTimeValue().get(i) > 0)
+            {
+                withHeal = true;
+            }
+
             allHeal += target.getHealOverTime().get(i);
         }
 
         target.getHealOverTime().clear();
         target.getHealOverTimeValue().clear();
 
-        target.getDamageOverTime().add(allHeal);
+        if(withHeal)
+        {
+            target.getDamageOverTime().add(allHeal);
+        }else
+        {
+            target.getDamageOverTime().add(500);
+        }
         target.getDamageOverTimeValue().add(15);
     }
 
