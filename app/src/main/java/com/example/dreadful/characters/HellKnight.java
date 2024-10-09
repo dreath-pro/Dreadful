@@ -143,6 +143,19 @@ public class HellKnight extends Player {
         String skillName;
         int skillIndex;
 
+        if(getSkillCooldowns()[4] > 0)
+        {
+            getSkillCooldowns()[4] = 0;
+        }
+        if(getSkillCooldowns()[5] > 0)
+        {
+            getSkillCooldowns()[5] = 0;
+        }
+        if(getSkillCooldowns()[9] > 0)
+        {
+            getSkillCooldowns()[9] = 0;
+        }
+
         do {
             if(form == 0)
             {
