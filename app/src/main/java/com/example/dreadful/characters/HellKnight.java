@@ -21,13 +21,14 @@ public class HellKnight extends Player {
     private ResizeImage resizeImage;
     private ProgressBar yourHealthBar;
     private int form = 0;
+    private int enhancedDefense = 0;
 
     public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar) {
         super(context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
                 new int[]{R.drawable.character_hell_knight_2}, null,
                 20000, 1000, 1000, 5,
-                new String[]{"Burn Slash", "Knight's Breath", "Dragon Form"},
-                new int[]{0, 4, 0}, new int[]{0, 0, 0});
+                new String[]{"Burn Slash", "Knight's Breath", "Enhanced Armor", "Dragon Form"},
+                new int[]{0, 4, 9, 0}, new int[]{0, 0, 0, 0});
 
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
@@ -36,16 +37,27 @@ public class HellKnight extends Player {
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        enhancedDefense--;
+        if (enhancedDefense <= 0) {
+            enhancedDefense = 0;
 
+            if (!hasStatus(target, "Enhanced Armor", 1).isEmpty()) {
+                setDefense(getDefense() - 350);
+
+                int index = Integer.parseInt(hasStatus(target, "Enhanced Armor", 1));
+                getStatusValue().remove(index);
+                getStatus().remove(index);
+            }
+        }
     }
 
     public String useRandomAttack(Player hitter, Player target) {
         String skillName;
-        int skillIndex = random.nextInt(getSkillNames().length);
+        int skillIndex;
 
-        while (getSkillCooldowns()[skillIndex] > 0) {
+        do {
             skillIndex = random.nextInt(getSkillNames().length);
-        }
+        }while(getSkillCooldowns()[skillIndex] > 0);
 
         skillName = getSkillNames()[skillIndex];
         switch (skillIndex) {
@@ -57,6 +69,9 @@ public class HellKnight extends Player {
                 break;
             case 2:
                 skill2(hitter, target);
+                break;
+            case 3:
+                skill3(hitter, target);
                 break;
         }
 
@@ -84,13 +99,20 @@ public class HellKnight extends Player {
         target.receiveHit(hitter, target);
         hitter.setAttack(hitter.getMaxAttack());
 
-        target.getDamageOverTime().add(700);
+        target.getDamageOverTime().add(450);
         target.getDamageOverTimeValue().add(21);
+    }
+
+    //increase the defense and applies "enhanced armor" status
+    private void skill2(Player hitter, Player target) {
+        enhancedDefense = 21;
+        setDefense(getDefense() + 350);
+        receiveStatus(hitter, "Enhanced Armor", 1);
     }
 
     //transform into a dragon and increase the max health and heals yourself overtime at the same time
     //that lasts for 10 turns, your max health, defense will increase but your dodge will be reduced
-    private void skill2(Player hitter, Player target) {
+    private void skill3(Player hitter, Player target) {
         form = 1;
         yourImage.setImageResource(hitter.getTransformation()[0]);
         resizeImage.scale(yourImage, 200);
@@ -107,7 +129,7 @@ public class HellKnight extends Player {
         double reducedNewHealth = getMaxHealth() - (getMaxHealth() * (percentageLost / 100));
         setHealth((int) reducedNewHealth);
 
-        getHealOverTime().add(800);
+        getHealOverTime().add(450);
         getHealOverTimeValue().add(30);
     }
 }
