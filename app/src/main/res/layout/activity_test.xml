@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_cathedral"
+    tools:context=".activities.TestActivity">
+
+    <LinearLayout
+        android:id="@+id/playersLayout"
+        android:layout_width="560dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="20dp"
+        android:gravity="bottom|center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/promptView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/yourPlayerLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/yourName"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:background="#400000"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:padding="1dp"
+                        android:text="@string/player_name"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/yourStunIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_immobilize" />
+
+                        <TextView
+                            android:id="@+id/yourStunText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignEnd="@+id/yourStunIcon"
+                            android:layout_alignBottom="@+id/yourStunIcon"
+                            android:background="#383838"
+                            android:text="@string/health_text"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/yourHealthLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/yourHealth"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="160dp"
+                        android:layout_height="15dp"
+                        android:layout_centerInParent="true"
+                        android:layout_weight="1"
+                        android:progressDrawable="@drawable/code_health_bar" />
+
+                    <TextView
+                        android:id="@+id/yourHealthText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/health_text"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/yourImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/character_dreath" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/enemyPlayerLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/enemyName"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:background="#400000"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:padding="1dp"
+                        android:text="@string/opponent_name"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/enemyStunIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_immobilize" />
+
+                        <TextView
+                            android:id="@+id/enemyStunText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignEnd="@+id/enemyStunIcon"
+                            android:layout_alignBottom="@+id/enemyStunIcon"
+                            android:background="#383838"
+                            android:text="@string/health_text"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/enemyHealthLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/enemyHealth"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="160dp"
+                        android:layout_height="15dp"
+                        android:layout_centerInParent="true"
+                        android:layout_weight="1"
+                        android:progressDrawable="@drawable/code_health_bar" />
+
+                    <TextView
+                        android:id="@+id/enemyHealthText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/health_text"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/enemyImage"
+                android:layout_width="210dp"
+                android:layout_height="210dp"
+                android:scaleType="fitXY"
+                android:scaleX="-1"
+                android:src="@drawable/character_dread_prophet" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/promptView"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:background="#210909"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/prompt_view"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playersLayout" />
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/promptView">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#A60606"
+            android:fontFamily="@font/horroroid"
+            android:text="@string/back_button"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#A60606"
+            android:fontFamily="@font/horroroid"
+            android:text="@string/reset_button"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#A60606"
+            android:fontFamily="@font/horroroid"
+            android:text="@string/start_button"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/promptButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="#A60606"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_message"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
