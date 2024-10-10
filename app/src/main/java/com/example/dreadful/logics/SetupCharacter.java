@@ -80,7 +80,7 @@ public class SetupCharacter {
         players.add(new KumoNingyo(context, playerImage, playerHealthBar));
         players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground));
         players.add(new HellKnight(context, playerImage, playerHealthBar));
-        players.add(new Carnant(context, playerImage, playerHealthBar));
+        players.add(new Carnant(context, playerImage, playerHealthBar, yourName));
     }
 
     public Player returnYourCharacter() {

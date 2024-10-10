@@ -5,6 +5,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.dreadful.R;
 import com.example.dreadful.logics.ResizeImage;
@@ -19,17 +20,21 @@ public class Carnant extends Player {
     private ImageView yourImage;
     private ProgressBar yourHealthBar;
     private ResizeImage resizeImage;
+    private TextView yourName;
     private int form = 0;
+    private int increaseHeal = 4, maxIncreaseHeal = 4;
+    private int heal = 450;
 
-    public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar) {
+    public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName) {
         super(context, yourImage, "This Psycho", R.drawable.character_psychopath, "left", 140,
                 new int[]{R.drawable.character_carnant}, null,
                 2100, 180, 10, 40,
                 new String[]{"Bat Slam", "Hard Swing", "Left Kick"},
-                new int[]{0, 2, 2}, new int[]{0, 0, 0});
+                new int[]{0, 4, 2}, new int[]{0, 0, 0});
 
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
+        this.yourName = yourName;
         this.resizeImage = new ResizeImage(context);
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
@@ -54,10 +59,16 @@ public class Carnant extends Player {
                 int toTransform = random.nextInt(2);
 
                 if (toTransform == 0) {
+                    setName("Carnant");
+                    yourName.setText(getName());
                     yourImage.setImageResource(getTransformation()[0]);
+                    setImage(getTransformation()[0]);
                     resizeImage.scale(yourImage, 200);
                     bypassSetMaxHealth(8880);
                     setHealth(getMaxHealth());
+                    setAttack(1800);
+                    setDefense(480);
+                    setDodge(0);
                     yourHealthBar.setMax(getMaxHealth());
                     form = 1;
                 }
@@ -134,7 +145,23 @@ public class Carnant extends Player {
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        if(form == 1)
+        {
+            bypassSetHealth(getHealth() + heal);
+            if(getHealth() > getMaxHealth())
+            {
+                bypassSetMaxHealth(getHealth());
+                yourHealthBar.setMax(getMaxHealth());
+            }
 
+            setAttack(getAttack() + 80);
+
+            increaseHeal--;
+            if (increaseHeal <= 0) {
+                increaseHeal = maxIncreaseHeal;
+                heal += 80;
+            }
+        }
     }
 
     public String useRandomAttack(Player hitter, Player target) {
@@ -176,9 +203,10 @@ public class Carnant extends Player {
         target.receiveHit(hitter, target);
     }
 
-    //simple attack
+    //simple attack with stun
     private void skill1(Player hitter, Player target) {
         target.receiveHit(hitter, target);
+        target.setStun(3);
     }
 
     //simple attack
