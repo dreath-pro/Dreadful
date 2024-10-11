@@ -73,14 +73,14 @@ public class SetupCharacter {
         this.secondPlayerSelected = 0;
     }
 
-    private void initCharacters(ImageView playerImage, ProgressBar playerHealthBar) {
+    private void initCharacters(ImageView playerImage, ProgressBar playerHealthBar, TextView playerName) {
         players.clear();
         players.add(new Dreath(context, playerImage));
         players.add(new DreadProphet(context, playerImage));
         players.add(new KumoNingyo(context, playerImage, playerHealthBar));
         players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground));
         players.add(new HellKnight(context, playerImage, playerHealthBar));
-        players.add(new Carnant(context, playerImage, playerHealthBar, yourName));
+        players.add(new Carnant(context, playerImage, playerHealthBar, playerName));
     }
 
     public Player returnYourCharacter() {
@@ -94,7 +94,7 @@ public class SetupCharacter {
     public void initializeYourViews(boolean newViews) {
         yourImage.setScaleX(1);
 
-        initCharacters(yourImage, yourHealthBar);
+        initCharacters(yourImage, yourHealthBar, yourName);
         if(newViews)
         {
             firstPlayerSelected = random.nextInt(players.size());
@@ -119,7 +119,7 @@ public class SetupCharacter {
     public void initializeEnemyViews(boolean newViews) {
         enemyImage.setScaleX(1);
 
-        initCharacters(enemyImage, enemyHealthBar);
+        initCharacters(enemyImage, enemyHealthBar, enemyName);
         if(newViews)
         {
             secondPlayerSelected = random.nextInt(players.size());

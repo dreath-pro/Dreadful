@@ -24,11 +24,11 @@ public class Carnant extends Player {
     private int form = 0;
     private int increaseHeal = 4, maxIncreaseHeal = 4;
     private int increaseVenom = 4, maxIncreaseVenom = 4;
-    private int heal = 450, venom = 100;
+    private int heal = 300, venom = 100;
     private int dissolve = 0;
 
     public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName) {
-        super(context, yourImage, "This Psycho", R.drawable.character_psychopath, "left", 140,
+        super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
                 new int[]{R.drawable.character_carnant}, null,
                 2100, 180, 10, 40,
                 new String[]{"Bat Slam", "Hard Swing", "Left Kick",
@@ -69,7 +69,7 @@ public class Carnant extends Player {
                     yourName.setText(getName());
                     yourImage.setImageResource(getTransformation()[0]);
                     setImage(getTransformation()[0]);
-                    resizeImage.scale(yourImage, 200);
+                    resizeImage.scale(yourImage, 155);
                     bypassSetMaxHealth(8880);
                     setHealth(getMaxHealth());
                     setAttack(1800);
@@ -162,13 +162,13 @@ public class Carnant extends Player {
             increaseHeal--;
             if (increaseHeal <= 0) {
                 increaseHeal = maxIncreaseHeal;
-                heal += 80;
+                heal += 40;
             }
 
             increaseVenom--;
             if (increaseVenom <= 0) {
                 increaseVenom = maxIncreaseVenom;
-                venom += 80;
+                venom += 40;
             }
 
             dissolve--;
@@ -287,7 +287,7 @@ public class Carnant extends Player {
 
     //simple heal over time that last for 4 turns while also applying venom that last for 4 turns
     private void skill5(Player hitter, Player target) {
-        getHealOverTime().add(heal * 4);
+        getHealOverTime().add(heal * 2);
         getHealOverTimeValue().add(12);
 
         target.getDamageOverTime().add(venom);
