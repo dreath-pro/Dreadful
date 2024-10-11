@@ -46,7 +46,7 @@ public class Dreath extends Player {
             if (getHealth() <= 0) {
                 setHealth(56780);
 
-                int damage = (target.getHealth() * target.getStatusValue().get(index)) / 100;
+                int damage = (hitter.getHealth() * target.getStatusValue().get(index)) / 100;
                 setAttack(damage);
 
                 hitter.setDefense(0);

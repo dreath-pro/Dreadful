@@ -46,7 +46,7 @@ public class TestActivity extends AppCompatActivity {
     private SetupCharacter setupCharacter;
     private Random random = new Random();
     private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
-            R.drawable.background_graveyard};
+            R.drawable.background_graveyard, R.drawable.background_cave};
     private int selectedBackground = 0;
 
     private void initViews() {
