@@ -19,7 +19,7 @@ public class GodOfDeath extends Player{
     public GodOfDeath(Context context, ImageView yourImage) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
                 null, null,
-                500000, 500000, 500000, 100,
+                500000, 500000, 500000, 50,
                 new String[]{"Decay Touch", "Pray For The Living", "Time Before Death", "Afterlife"},
                 new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0});
 
