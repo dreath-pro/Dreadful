@@ -31,7 +31,7 @@ public class Dreath extends Player {
 
     /**
      * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
-     * and the opponent will receive a 9000 hit and can not be dodge
+     * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
      */
     @Override
     public void receiveHit(Player hitter, Player target) {
@@ -44,13 +44,18 @@ public class Dreath extends Player {
         if (!hasStatus(target, "Rage", 50).isEmpty()) {
             int index = Integer.parseInt(hasStatus(target, "Rage", 50));
             if (getHealth() <= 0) {
-                setHealth(35700);
-                setAttack(9000);
+                setHealth(56780);
+
+                int damage = (target.getHealth() * target.getStatusValue().get(index)) / 100;
+                setAttack(damage);
+
+                hitter.setDefense(0);
                 hitter.setDodge(0);
 
                 hitter.receiveHit(hitter, target);
 
                 hitter.setDodge(hitter.getMaxDodge());
+                hitter.setDefense(hitter.getMaxDefense());
                 setAttack(getMaxAttack());
                 getStatusValue().set(index, getStatusValue().get(index) - 50);
             }
