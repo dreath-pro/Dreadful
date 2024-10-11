@@ -49,11 +49,15 @@ public class GameMechanics {
     }
 
     private void receiveTimeEffect() {
-        yourPlayer.receiveTimeHp(enemyPlayer, yourPlayer);
-        enemyPlayer.receiveTimeHp(yourPlayer, enemyPlayer);
+        if (yourPlayer.getHealth() <= 0) {
+            yourPlayer.receiveTimeHp(enemyPlayer, yourPlayer);
+            yourPlayer.receiveTimeEffect(enemyPlayer, yourPlayer);
+        }
 
-        yourPlayer.receiveTimeEffect(enemyPlayer, yourPlayer);
-        enemyPlayer.receiveTimeEffect(yourPlayer, enemyPlayer);
+        if (enemyPlayer.getHealth() <= 0) {
+            enemyPlayer.receiveTimeHp(yourPlayer, enemyPlayer);
+            enemyPlayer.receiveTimeEffect(yourPlayer, enemyPlayer);
+        }
 
         updateHealthBars();
     }
