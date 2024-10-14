@@ -11,10 +11,12 @@ import com.example.dreadful.models.Player;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GodOfDeath extends Player{
+public class GodOfDeath extends Player {
     private Random random = new Random();
     private Animation shakeAnimation;
     private ImageView yourImage;
+    private int timeBeforeDeath = 0;
+    private boolean isClockOn = false;
 
     public GodOfDeath(Context context, ImageView yourImage) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
@@ -28,7 +30,23 @@ public class GodOfDeath extends Player{
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        if (isClockOn) {
+            timeBeforeDeath--;
 
+            if (!hasStatus(hitter, "Time Before Death", 1).isEmpty()) {
+                int index = Integer.parseInt(hasStatus(hitter, "Time Before Death", 1));
+                hitter.getStatusValue().set(index, hitter.getStatusValue().get(index) - 1);
+            }
+
+            if (timeBeforeDeath <= 0) {
+                hitter.setHealth(0);
+                timeBeforeDeath = 0;
+
+                int index = Integer.parseInt(hasStatus(hitter, "Time Before Death", 0));
+                hitter.getStatus().remove(index);
+                hitter.getStatusValue().remove(index);
+            }
+        }
     }
 
     public String useRandomAttack(Player hitter, Player target) {
@@ -39,16 +57,13 @@ public class GodOfDeath extends Player{
             skillIndex = random.nextInt(getSkillNames().length);
         }
 
-        if(getSkillCooldowns()[1] > 0)
-        {
+        if (getSkillCooldowns()[1] > 0) {
             getSkillCooldowns()[1] = 0;
         }
-        if(getSkillCooldowns()[2] > 0)
-        {
+        if (getSkillCooldowns()[2] > 0) {
             getSkillCooldowns()[2] = 0;
         }
-        if(getSkillCooldowns()[3] > 0)
-        {
+        if (getSkillCooldowns()[3] > 0) {
             getSkillCooldowns()[3] = 0;
         }
 
@@ -95,11 +110,12 @@ public class GodOfDeath extends Player{
         target.setDodge(getMaxDodge());
     }
 
-    //temporary simple attack
+    //give the target time before death ranges from 6 to 10
     private void skill2(Player hitter, Player target) {
-        target.setDodge(0);
-        target.receiveHit(hitter, target);
-        target.setDodge(getMaxDodge());
+        isClockOn = true;
+        timeBeforeDeath = random.nextInt(4) + 6;
+
+        target.receiveStatus(target, "Time Before Death", timeBeforeDeath);
     }
 
     //temporary simple attack
