@@ -127,28 +127,13 @@ public abstract class Player {
         yourImage.startAnimation(shakeAnimation);
     }
 
-    public void receiveTimeHp(Player hitter, Player target) {
-        ArrayList<Integer> tempHot = new ArrayList<>();
-        ArrayList<Integer> tempHotValue = new ArrayList<>();
-
-        for (int i = 0; i <= getHealOverTime().size() - 1; i++) {
-            if (healOverTimeValue.get(i) > 0) {
-                setHealth(getHealth() + getHealOverTime().get(i));
-                healOverTimeValue.set(i, healOverTimeValue.get(i) - 1);
-
-                tempHot.add(healOverTime.get(i));
-                tempHotValue.add(healOverTimeValue.get(i));
-            }
-        }
-
-        setHealOverTime(tempHot);
-        setHealOverTimeValue(tempHotValue);
-
-
+    protected void runTimeDamage()
+    {
         ArrayList<Integer> tempDot = new ArrayList<>();
         ArrayList<Integer> tempDotValue = new ArrayList<>();
 
-        for (int i = 0; i <= getDamageOverTime().size() - 1; i++) {
+        for(int i = 0; i <= damageOverTime.size() - 1; i++)
+        {
             if (damageOverTimeValue.get(i) > 0) {
                 setHealth(getHealth() - getDamageOverTime().get(i));
                 damageOverTimeValue.set(i, damageOverTimeValue.get(i) - 1);
@@ -160,6 +145,24 @@ public abstract class Player {
 
         setDamageOverTime(tempDot);
         setDamageOverTimeValue(tempDotValue);
+    }
+
+    protected void runTimeHeal() {
+        ArrayList<Integer> tempHot = new ArrayList<>();
+        ArrayList<Integer> tempHotValue = new ArrayList<>();
+
+        for (int i = 0; i <= healOverTime.size() - 1; i++) {
+            if (healOverTimeValue.get(i) > 0) {
+                setHealth(getHealth() + getHealOverTime().get(i));
+                healOverTimeValue.set(i, healOverTimeValue.get(i) - 1);
+
+                tempHot.add(healOverTime.get(i));
+                tempHotValue.add(healOverTimeValue.get(i));
+            }
+        }
+
+        setHealOverTime(tempHot);
+        setHealOverTimeValue(tempHotValue);
     }
 
     public abstract void receiveTimeEffect(Player hitter, Player target);
@@ -365,13 +368,11 @@ public abstract class Player {
         this.stun = stun;
     }
 
-    public void bypassSetHealth(int health)
-    {
+    public void bypassSetHealth(int health) {
         this.health = health;
     }
 
-    public void bypassSetMaxHealth(int maxHealth)
-    {
+    public void bypassSetMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
 }

@@ -52,8 +52,7 @@ public class DreadProphet extends Player {
      * the damage overtime received from the opponent will be convert into his own heal over time
      * the heal overtime he receive will be useless and be ignore, only damage over time is his way of healing
      */
-    @Override
-    public void receiveTimeHp(Player hitter, Player target) {
+    public void receiveTimeEffect(Player hitter, Player target) {
         ArrayList<Integer> tempDot = new ArrayList<>();
         ArrayList<Integer> tempDotValue = new ArrayList<>();
 
@@ -69,10 +68,8 @@ public class DreadProphet extends Player {
 
         setDamageOverTime(tempDot);
         setDamageOverTimeValue(tempDotValue);
-    }
 
-    public void receiveTimeEffect(Player hitter, Player target) {
-
+        runTimeHeal();
     }
 
     public String useRandomAttack(Player hitter, Player target) {

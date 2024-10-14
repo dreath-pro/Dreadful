@@ -82,74 +82,10 @@ public class Carnant extends Player {
         }
     }
 
-    @Override
-    public void receiveTimeHp(Player hitter, Player target) {
-        ArrayList<Integer> tempHot = new ArrayList<>();
-        ArrayList<Integer> tempHotValue = new ArrayList<>();
-
-        for (int i = 0; i <= getHealOverTime().size() - 1; i++) {
-            if (getHealOverTimeValue().get(i) > 0) {
-                setHealth(getHealth() + getHealOverTime().get(i));
-                getHealOverTimeValue().set(i, getHealOverTimeValue().get(i) - 1);
-
-                tempHot.add(getHealOverTime().get(i));
-                tempHotValue.add(getHealOverTimeValue().get(i));
-            }
-        }
-
-        setHealOverTime(tempHot);
-        setHealOverTimeValue(tempHotValue);
-
-
-        ArrayList<Integer> tempDot = new ArrayList<>();
-        ArrayList<Integer> tempDotValue = new ArrayList<>();
-
-        for (int i = 0; i <= getDamageOverTime().size() - 1; i++) {
-            if (getDamageOverTimeValue().get(i) > 0) {
-                setHealth(getHealth() - getDamageOverTime().get(i));
-
-                if (!hasStatus(target, "Rage", 50).isEmpty()) {
-                    int index = Integer.parseInt(hasStatus(target, "Rage", 50));
-                    if (getHealth() <= 0) {
-                        setHealth(35700);
-                        setAttack(9000);
-                        hitter.setDodge(0);
-
-                        hitter.receiveHit(hitter, target);
-
-                        hitter.setDodge(hitter.getMaxDodge());
-                        setAttack(getMaxAttack());
-                        getStatusValue().set(index, getStatusValue().get(index) - 50);
-                    }
-                }
-
-                getDamageOverTimeValue().set(i, getDamageOverTimeValue().get(i) - 1);
-
-                tempDot.add(getDamageOverTime().get(i));
-                tempDotValue.add(getDamageOverTimeValue().get(i));
-            }
-        }
-
-        setDamageOverTime(tempDot);
-        setDamageOverTimeValue(tempDotValue);
-
-        if (form == 0) {
-            if (getHealth() <= 0) {
-                int toTransform = random.nextInt(2);
-
-                if (toTransform == 0) {
-                    yourImage.setImageResource(getTransformation()[0]);
-                    resizeImage.scale(yourImage, 200);
-                    bypassSetMaxHealth(8880);
-                    setHealth(getMaxHealth());
-                    yourHealthBar.setMax(getMaxHealth());
-                    form = 1;
-                }
-            }
-        }
-    }
-
     public void receiveTimeEffect(Player hitter, Player target) {
+        runTimeHeal();
+        runTimeDamage();
+
         if (form == 1) {
             bypassSetHealth(getHealth() + heal);
             if (getHealth() > getMaxHealth()) {

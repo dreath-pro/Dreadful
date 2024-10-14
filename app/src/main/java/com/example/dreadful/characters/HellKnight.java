@@ -67,34 +67,22 @@ public class HellKnight extends Player {
         yourImage.startAnimation(shakeAnimation);
     }
 
-    public void receiveTimeHp(Player hitter, Player target) {
-        ArrayList<Integer> tempHot = new ArrayList<>();
-        ArrayList<Integer> tempHotValue = new ArrayList<>();
-
-        for (int i = 0; i <= getHealOverTime().size() - 1; i++) {
-            if (getHealOverTimeValue().get(i) > 0) {
-                setHealth(getHealth() + getHealOverTime().get(i));
-                getHealOverTimeValue().set(i, getHealOverTimeValue().get(i) - 1);
-
-                tempHot.add(getHealOverTime().get(i));
-                tempHotValue.add(getHealOverTimeValue().get(i));
-            }
-        }
-
-        setHealOverTime(tempHot);
-        setHealOverTimeValue(tempHotValue);
-
+    public void receiveTimeEffect(Player hitter, Player target) {
+        runTimeHeal();
 
         ArrayList<Integer> tempDot = new ArrayList<>();
         ArrayList<Integer> tempDotValue = new ArrayList<>();
 
         for (int i = 0; i <= getDamageOverTime().size() - 1; i++) {
             if (getDamageOverTimeValue().get(i) > 0) {
-                if (ember > 0) {
-                    getDamageOverTime().set(i, getDamageOverTime().get(i) * (int) (1 - (double) flameShield));
+                if(ember > 0)
+                {
+                    setHealth(getHealth() - getDamageOverTime().get(i) * (int) (1 - (double) flameShield));
+                }else
+                {
+                    setHealth(getHealth() - getDamageOverTime().get(i));
                 }
 
-                setHealth(getHealth() - getDamageOverTime().get(i));
                 getDamageOverTimeValue().set(i, getDamageOverTimeValue().get(i) - 1);
 
                 tempDot.add(getDamageOverTime().get(i));
@@ -104,9 +92,8 @@ public class HellKnight extends Player {
 
         setDamageOverTime(tempDot);
         setDamageOverTimeValue(tempDotValue);
-    }
 
-    public void receiveTimeEffect(Player hitter, Player target) {
+
         enhancedDefense--;
         if (enhancedDefense <= 0) {
             enhancedDefense = 0;
