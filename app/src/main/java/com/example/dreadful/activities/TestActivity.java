@@ -48,6 +48,9 @@ public class TestActivity extends AppCompatActivity {
     private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
             R.drawable.background_graveyard, R.drawable.background_cave};
     private int selectedBackground = 0;
+    private ViewStatus viewStatus;
+    private ViewSkill viewSkill;
+    private Dialog characterDialog;
 
     private void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -138,7 +141,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TestActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -180,14 +183,20 @@ public class TestActivity extends AppCompatActivity {
         });
     }
 
-    private void showCharacterDetails(Player player) {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_character_details);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gameMechanics.stopBattleLoop(); // Ensure cleanup when activity is destroyed
+    }
 
-        TextView playerName = dialog.findViewById(R.id.playerName);
-        ImageView playerImage = dialog.findViewById(R.id.playerImage);
-        RecyclerView statusList = dialog.findViewById(R.id.statusList);
-        RecyclerView skillList = dialog.findViewById(R.id.skillList);
+    private void showCharacterDetails(Player player) {
+        characterDialog = new Dialog(this);
+        characterDialog.setContentView(R.layout.dialog_character_details);
+
+        TextView playerName = characterDialog.findViewById(R.id.playerName);
+        ImageView playerImage = characterDialog.findViewById(R.id.playerImage);
+        RecyclerView statusList = characterDialog.findViewById(R.id.statusList);
+        RecyclerView skillList = characterDialog.findViewById(R.id.skillList);
 
         playerName.setText(player.getName());
         playerImage.setImageResource(player.getImage());
@@ -198,14 +207,14 @@ public class TestActivity extends AppCompatActivity {
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         statusList.setLayoutManager(statusLayoutManager);
-        ViewStatus viewStatus = new ViewStatus(this, player);
+        viewStatus = new ViewStatus(this, player);
         statusList.setAdapter(viewStatus);
 
         LinearLayoutManager skillLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         skillList.setLayoutManager(skillLayoutManager);
-        ViewSkill viewSkill = new ViewSkill(this, player);
+        viewSkill = new ViewSkill(this, player);
         skillList.setAdapter(viewSkill);
 
-        dialog.show();
+        characterDialog.show();
     }
 }
