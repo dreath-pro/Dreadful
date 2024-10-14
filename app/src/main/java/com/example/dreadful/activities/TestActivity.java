@@ -50,7 +50,6 @@ public class TestActivity extends AppCompatActivity {
     private int selectedBackground = 0;
     private ViewStatus viewStatus;
     private ViewSkill viewSkill;
-    private Dialog characterDialog;
 
     private void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -172,7 +171,7 @@ public class TestActivity extends AppCompatActivity {
         promptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(TestActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
+                showBattleLogs();
             }
         });
 
@@ -189,8 +188,15 @@ public class TestActivity extends AppCompatActivity {
         gameMechanics.stopBattleLoop(); // Ensure cleanup when activity is destroyed
     }
 
+    private void showBattleLogs() {
+        Dialog battleLogsDialog = new Dialog(this);
+        battleLogsDialog.setContentView(R.layout.dialog_battle_log);
+
+        battleLogsDialog.show();
+    }
+
     private void showCharacterDetails(Player player) {
-        characterDialog = new Dialog(this);
+        Dialog characterDialog = new Dialog(this);
         characterDialog.setContentView(R.layout.dialog_character_details);
 
         TextView playerName = characterDialog.findViewById(R.id.playerName);

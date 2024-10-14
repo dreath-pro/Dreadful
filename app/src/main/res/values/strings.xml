@@ -10,6 +10,7 @@
     <string name="status_name">Mark of Sin</string>
     <string name="status_label">Status</string>
     <string name="skill_label">Skill</string>
+    <string name="battle_logs">Battle Logs</string>
 
     <!--    button labels-->
     <string name="start_button">Start</string>
