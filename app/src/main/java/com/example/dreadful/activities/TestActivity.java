@@ -21,11 +21,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
+import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.logics.SetupCharacter;
 import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Prompt;
 
 import java.util.Random;
 
@@ -50,6 +52,9 @@ public class TestActivity extends AppCompatActivity {
     private int selectedBackground = 0;
     private ViewStatus viewStatus;
     private ViewSkill viewSkill;
+    private ViewPrompt viewPrompt;
+
+    private Prompt prompt;
 
     private void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -101,6 +106,9 @@ public class TestActivity extends AppCompatActivity {
 
         gameMechanics = new GameMechanics(this, yourHealth, yourHealthText, enemyHealth,
                 enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton);
+
+        this.prompt = new Prompt();
+        this.prompt.addEventMessage("Fate has led them to this pivotal moment of encounter.");
     }
 
     private void invisibleButtons(Boolean invisible) {
@@ -191,6 +199,13 @@ public class TestActivity extends AppCompatActivity {
     private void showBattleLogs() {
         Dialog battleLogsDialog = new Dialog(this);
         battleLogsDialog.setContentView(R.layout.dialog_battle_log);
+
+        RecyclerView promptList = battleLogsDialog.findViewById(R.id.promptList);
+
+        LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        promptList.setLayoutManager(statusLayoutManager);
+        viewPrompt = new ViewPrompt(this, prompt);
+        promptList.setAdapter(viewPrompt);
 
         battleLogsDialog.show();
     }
