@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.dreadful.R;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,16 +24,17 @@ public class VoidReaper extends Player {
     private int[] backgroundList;
     private int selectedBackground;
     private ResizeImage resizeImage;
+    private Prompt prompt;
     private int voidTime = 0;
     private int fatigue = 0;
 
-    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground) {
+    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, Prompt prompt) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1, R.drawable.background_void_2},
                 60000, 1800, 500, 15,
                 new String[]{"Chrono Reap", "Time Fracture", "Dimension Shift", "Reverse Dash", "Singularity Slash", "Void Fatigue", "Temporal Reset"},
-                new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0});
+                new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0}, prompt);
 
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
@@ -40,13 +42,13 @@ public class VoidReaper extends Player {
         this.backgroundList = backgroundList;
         this.selectedBackground = selectedBackground;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.prompt = prompt;
     }
 
     /**
      * if the attacker hits, the void reaper will be mark with time passed status by 1 and it will stack with
      * each hits
      */
-    @Override
     public void receiveHit(Player hitter, Player target) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())

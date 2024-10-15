@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
 import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,33 +18,26 @@ public class DreadProphet extends Player {
     private Random random = new Random();
     private Animation shakeAnimation;
     private ImageView yourImage;
+    private Prompt prompt;
 
-    public DreadProphet(Context context, ImageView yourImage) {
+    public DreadProphet(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
                 null, null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
-                new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
+                new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0}, prompt);
 
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.prompt = prompt;
     }
 
     /**
      * everytime an attacker hits dread prophet, they will be mark with sin, and every attack it will add
      * 10 mark of sin
      */
-    @Override
     public void receiveHit(Player hitter, Player target) {
-        int antiDodge = random.nextInt(100) + 1;
-        if (antiDodge <= getDodge())
-            return;
-
-        hitter.setAttack(hitter.getAttack() - getDefense());
-        setHealth(getHealth() - hitter.getAttack());
-        hitter.setAttack(hitter.getMaxAttack());
-        yourImage.startAnimation(shakeAnimation);
-
+        receiveHitLogic(hitter, target);
         receiveStatus(hitter, "Mark of Sin", 10);
     }
 

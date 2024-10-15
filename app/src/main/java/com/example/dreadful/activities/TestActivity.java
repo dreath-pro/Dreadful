@@ -96,7 +96,8 @@ public class TestActivity extends AppCompatActivity {
                     yourName, yourHealth, yourHealthText, yourImage,
                     enemyName, enemyHealth, enemyHealthText, enemyImage,
                     yourPlayer, enemyPlayer, backgroundImage, yourStunText,
-                    enemyStunText, backgroundList, selectedBackground, yourHealth, enemyHealth);
+                    enemyStunText, backgroundList, selectedBackground,
+                    yourHealth, enemyHealth, viewPrompt);
         }
 
         setupCharacter.initializeYourViews(newViews);

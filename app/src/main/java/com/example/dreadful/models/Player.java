@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.dreadful.R;
+import com.example.dreadful.adapters.ViewPrompt;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,13 +33,14 @@ public abstract class Player {
     private Animation shakeAnimation;
 
     private Random random = new Random();
+    private Prompt prompt;
 
     public Player() {
 
     }
 
     public Player(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
-                  int[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
+                  int[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns, Prompt prompt) {
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -59,11 +61,12 @@ public abstract class Player {
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
         this.stun = 0;
+        this.prompt = prompt;
     }
 
     public Player(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
                   int[] transformation, int[] dimension, int health, int attack, int defense, int dodge,
-                  String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
+                  String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns, Prompt prompt) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -85,6 +88,7 @@ public abstract class Player {
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
         this.stun = 0;
+        this.prompt = prompt;
     }
 
     public void receiveStatus(Player target, String statusName, int statusValue) {
@@ -116,7 +120,8 @@ public abstract class Player {
         return hasStatus;
     }
 
-    public void receiveHit(Player hitter, Player target) {
+    protected void receiveHitLogic(Player hitter, Player target)
+    {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return;
@@ -126,6 +131,8 @@ public abstract class Player {
         hitter.setAttack(hitter.getMaxAttack());
         yourImage.startAnimation(shakeAnimation);
     }
+
+    public abstract void receiveHit(Player hitter, Player target);
 
     protected void runTimeDamage()
     {

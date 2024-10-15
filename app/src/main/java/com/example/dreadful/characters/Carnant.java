@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.dreadful.R;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,13 +22,14 @@ public class Carnant extends Player {
     private ProgressBar yourHealthBar;
     private ResizeImage resizeImage;
     private TextView yourName;
+    private Prompt prompt;
     private int form = 0;
     private int increaseHeal = 4, maxIncreaseHeal = 4;
     private int increaseVenom = 4, maxIncreaseVenom = 4;
     private int heal = 300, venom = 100;
     private int dissolve = 0;
 
-    public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName) {
+    public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, Prompt prompt) {
         super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
                 new int[]{R.drawable.character_carnant}, null,
                 2100, 180, 10, 40,
@@ -37,28 +39,21 @@ public class Carnant extends Player {
                         0, 1, 5, 4},
 
                 new int[]{0, 0, 0,
-                        0, 0, 0, 0});
+                        0, 0, 0, 0}, prompt);
 
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.yourName = yourName;
         this.resizeImage = new ResizeImage(context);
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.prompt = prompt;
     }
 
     /**
      * if he dies theres a 50/50 chance he will transform into a strong mutant, or will just die easily
      */
-    @Override
     public void receiveHit(Player hitter, Player target) {
-        int antiDodge = random.nextInt(100) + 1;
-        if (antiDodge <= getDodge())
-            return;
-
-        hitter.setAttack(hitter.getAttack() - getDefense());
-        setHealth(getHealth() - hitter.getAttack());
-        hitter.setAttack(hitter.getMaxAttack());
-        yourImage.startAnimation(shakeAnimation);
+        receiveHitLogic(hitter, target);
 
         if (form == 0) {
             if (getHealth() <= 0) {

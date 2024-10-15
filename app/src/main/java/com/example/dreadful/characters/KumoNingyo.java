@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
 import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Prompt;
 
 import java.util.Random;
 
@@ -18,37 +19,30 @@ public class KumoNingyo extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
     private ProgressBar yourHealthBar;
+    private Prompt prompt;
     private int poison = 10;
     private int creepyStalkerTime = 0;
     private int limbTwitch = 6, maxLimbTwitch = 6;
 
-    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar) {
+    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
                 null, null,
                 5800, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage", "Ito no Tami"},
-                new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
+                new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0}, prompt);
 
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.prompt = prompt;
     }
 
     /**
      * everytime an attacker hit, kumo ningyo will be mark with lost limb buff and healing effects
      * will increase significantly base on the lost limbs buff
      */
-    @Override
     public void receiveHit(Player hitter, Player target) {
-        int antiDodge = random.nextInt(100) + 1;
-        if (antiDodge <= getDodge())
-            return;
-
-        hitter.setAttack(hitter.getAttack() - getDefense());
-        setHealth(getHealth() - hitter.getAttack());
-        hitter.setAttack(hitter.getMaxAttack());
-        yourImage.startAnimation(shakeAnimation);
-
+        receiveHitLogic(hitter, target);
         receiveStatus(target, "Lost Limbs", 1);
     }
 

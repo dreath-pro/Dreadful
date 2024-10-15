@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,28 +19,26 @@ public class Dreath extends Player {
     private Random random = new Random();
     private Animation shakeAnimation;
     private ImageView yourImage;
+    private Prompt prompt;
 
-    public Dreath(Context context, ImageView yourImage) {
+    public Dreath(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
                 null, null,
                 88070, 2580, 880, 0,
                 new String[]{"Butcher", "Dismember", "Ruthless Torture", "Brutal Gut", "Evisceration"},
-                new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
+                new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0}, prompt);
 
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.prompt = prompt;
     }
 
     /**
      * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
      */
-    @Override
     public void receiveHit(Player hitter, Player target) {
-        hitter.setAttack(hitter.getAttack() - getDefense());
-        setHealth(getHealth() - hitter.getAttack());
-        hitter.setAttack(hitter.getMaxAttack());
-        yourImage.startAnimation(shakeAnimation);
+        receiveHitLogic(hitter, target);
 
         receiveStatus(target, "Rage", 10);
         if (!hasStatus(target, "Rage", 50).isEmpty()) {
