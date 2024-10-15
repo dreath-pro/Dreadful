@@ -55,6 +55,7 @@ public class TestActivity extends AppCompatActivity {
     private ViewPrompt viewPrompt;
 
     private Prompt prompt;
+    private Dialog battleLogsDialog;
 
     private void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -97,7 +98,7 @@ public class TestActivity extends AppCompatActivity {
                     enemyName, enemyHealth, enemyHealthText, enemyImage,
                     yourPlayer, enemyPlayer, backgroundImage, yourStunText,
                     enemyStunText, backgroundList, selectedBackground,
-                    yourHealth, enemyHealth, prompt);
+                    yourHealth, enemyHealth, this, prompt);
         }
 
         setupCharacter.initializeYourViews(newViews);
@@ -180,6 +181,9 @@ public class TestActivity extends AppCompatActivity {
         promptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (battleLogsDialog != null && battleLogsDialog.isShowing()) {
+                    battleLogsDialog.dismiss();
+                }
                 showBattleLogs();
             }
         });
@@ -197,8 +201,13 @@ public class TestActivity extends AppCompatActivity {
         gameMechanics.stopBattleLoop(); // Ensure cleanup when activity is destroyed
     }
 
+    public void updatePrompt(Prompt prompt)
+    {
+        this.prompt = prompt;
+    }
+
     private void showBattleLogs() {
-        Dialog battleLogsDialog = new Dialog(this);
+        battleLogsDialog = new Dialog(this);
         battleLogsDialog.setContentView(R.layout.dialog_battle_log);
 
         RecyclerView promptList = battleLogsDialog.findViewById(R.id.promptList);

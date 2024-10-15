@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.dreadful.R;
+import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -28,8 +29,9 @@ public class Carnant extends Player {
     private int increaseVenom = 4, maxIncreaseVenom = 4;
     private int heal = 300, venom = 100;
     private int dissolve = 0;
+    private TestActivity testActivity;
 
-    public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, Prompt prompt) {
+    public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, TestActivity testActivity, Prompt prompt) {
         super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
                 new int[]{R.drawable.character_carnant}, null,
                 2100, 180, 10, 40,
@@ -39,14 +41,15 @@ public class Carnant extends Player {
                         0, 1, 5, 4},
 
                 new int[]{0, 0, 0,
-                        0, 0, 0, 0}, prompt);
+                        0, 0, 0, 0});
 
+        this.testActivity = testActivity;
+        this.prompt = prompt;
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.yourName = yourName;
         this.resizeImage = new ResizeImage(context);
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
-        this.prompt = prompt;
     }
 
     /**

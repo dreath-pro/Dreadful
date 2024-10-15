@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -27,22 +28,24 @@ public class VoidReaper extends Player {
     private Prompt prompt;
     private int voidTime = 0;
     private int fatigue = 0;
+    private TestActivity testActivity;
 
-    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, Prompt prompt) {
+    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, TestActivity testActivity, Prompt prompt) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1, R.drawable.background_void_2},
                 60000, 1800, 500, 15,
                 new String[]{"Chrono Reap", "Time Fracture", "Dimension Shift", "Reverse Dash", "Singularity Slash", "Void Fatigue", "Temporal Reset"},
-                new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0}, prompt);
+                new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0});
 
+        this.testActivity = testActivity;
+        this.prompt = prompt;
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.backgroundImage = backgroundImage;
         this.backgroundList = backgroundList;
         this.selectedBackground = selectedBackground;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
-        this.prompt = prompt;
     }
 
     /**

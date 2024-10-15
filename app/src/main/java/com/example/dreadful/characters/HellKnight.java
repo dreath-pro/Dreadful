@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -27,8 +28,9 @@ public class HellKnight extends Player {
     private int enhancedDefense = 0;
     private int flameShield = 0;
     private int ember = 0;
+    private TestActivity testActivity;
 
-    public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
+    public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity, Prompt prompt) {
         super(context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
                 new int[]{R.drawable.character_hell_knight_2}, null,
                 20000, 1000, 1000, 5,
@@ -38,13 +40,14 @@ public class HellKnight extends Player {
                         0, 4, 9, 7, 0},
 
                 new int[]{0, 0, 0, 0, 0,
-                        0, 0, 0, 0, 0}, prompt);
+                        0, 0, 0, 0, 0});
 
+        this.testActivity = testActivity;
+        this.prompt = prompt;
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
-        this.prompt = prompt;
     }
 
     /**

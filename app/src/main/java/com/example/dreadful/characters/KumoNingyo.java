@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -23,18 +24,20 @@ public class KumoNingyo extends Player {
     private int poison = 10;
     private int creepyStalkerTime = 0;
     private int limbTwitch = 6, maxLimbTwitch = 6;
+    private TestActivity testActivity;
 
-    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
+    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity, Prompt prompt) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
                 null, null,
                 5800, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage", "Ito no Tami"},
-                new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0}, prompt);
+                new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
 
+        this.testActivity = testActivity;
+        this.prompt = prompt;
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
-        this.prompt = prompt;
     }
 
     /**

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.characters.Carnant;
 import com.example.dreadful.characters.Dreath;
@@ -39,14 +40,16 @@ public class SetupCharacter {
     private int[] backgroundList;
     private int selectedBackground = 0;
     private ProgressBar yourHealthBar, enemyHealthBar;
+    private TestActivity testActivity;
+    private Prompt prompt;
 
     private int firstPlayerSelected, secondPlayerSelected;
-    private Prompt prompt;
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
                           Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText,
-                          int[] backgroundList, int selectedBackground, ProgressBar yourHealthBar, ProgressBar enemyHealthBar, Prompt prompt) {
+                          int[] backgroundList, int selectedBackground, ProgressBar yourHealthBar, ProgressBar enemyHealthBar,
+                          TestActivity testActivity, Prompt prompt) {
 
         this.context = context;
 
@@ -71,6 +74,7 @@ public class SetupCharacter {
         this.yourHealthBar = yourHealthBar;
         this.enemyHealthBar = enemyHealthBar;
 
+        this.testActivity = testActivity;
         this.prompt = prompt;
 
         this.yourPlayer = yourPlayer;
@@ -81,13 +85,13 @@ public class SetupCharacter {
 
     private void initCharacters(ImageView playerImage, ProgressBar playerHealthBar, TextView playerName) {
         players.clear();
-        players.add(new Dreath(context, playerImage, prompt));
-        players.add(new DreadProphet(context, playerImage, prompt));
-        players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
-        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
-        players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
-        players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
-        players.add(new GodOfDeath(context, playerImage, prompt));
+        players.add(new Dreath(context, playerImage, testActivity, prompt));
+        players.add(new DreadProphet(context, playerImage, testActivity, prompt));
+        players.add(new KumoNingyo(context, playerImage, playerHealthBar, testActivity, prompt));
+        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, testActivity, prompt));
+        players.add(new HellKnight(context, playerImage, playerHealthBar, testActivity, prompt));
+        players.add(new Carnant(context, playerImage, playerHealthBar, playerName, testActivity, prompt));
+        players.add(new GodOfDeath(context, playerImage, testActivity, prompt));
     }
 
     public Player returnYourCharacter() {

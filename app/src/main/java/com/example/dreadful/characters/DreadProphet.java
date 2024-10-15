@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -19,17 +20,19 @@ public class DreadProphet extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
     private Prompt prompt;
+    private TestActivity testActivity;
 
-    public DreadProphet(Context context, ImageView yourImage, Prompt prompt) {
+    public DreadProphet(Context context, ImageView yourImage, TestActivity testActivity, Prompt prompt) {
         super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
                 null, null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
-                new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0}, prompt);
+                new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
 
+        this.testActivity = testActivity;
+        this.prompt = prompt;
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
-        this.prompt = prompt;
     }
 
     /**

@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.dreadful.R;
+import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -19,17 +20,19 @@ public class GodOfDeath extends Player {
     private Prompt prompt;
     private int timeBeforeDeath = 0;
     private boolean isClockOn = false;
+    private TestActivity testActivity;
 
-    public GodOfDeath(Context context, ImageView yourImage, Prompt prompt) {
+    public GodOfDeath(Context context, ImageView yourImage, TestActivity testActivity, Prompt prompt) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
                 null, null,
                 500000, 500000, 500000, 50,
                 new String[]{"Decay Touch", "Pray For The Living", "Time Before Death", "Afterlife"},
-                new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0}, prompt);
+                new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0});
 
+        this.testActivity = testActivity;
+        this.prompt = prompt;
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
-        this.prompt = prompt;
     }
 
     public void receiveHit(Player hitter, Player target) {

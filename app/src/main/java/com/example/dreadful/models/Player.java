@@ -33,14 +33,13 @@ public abstract class Player {
     private Animation shakeAnimation;
 
     private Random random = new Random();
-    private Prompt prompt;
 
     public Player() {
 
     }
 
     public Player(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
-                  int[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns, Prompt prompt) {
+                  int[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -61,7 +60,6 @@ public abstract class Player {
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
         this.stun = 0;
-        this.prompt = prompt;
     }
 
     public Player(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
@@ -88,7 +86,6 @@ public abstract class Player {
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
         this.stun = 0;
-        this.prompt = prompt;
     }
 
     public void receiveStatus(Player target, String statusName, int statusValue) {

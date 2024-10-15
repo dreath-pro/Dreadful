@@ -1,5 +1,6 @@
 package com.example.dreadful.characters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
+import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -20,17 +22,19 @@ public class Dreath extends Player {
     private Animation shakeAnimation;
     private ImageView yourImage;
     private Prompt prompt;
+    private TestActivity testActivity;
 
-    public Dreath(Context context, ImageView yourImage, Prompt prompt) {
+    public Dreath(Context context, ImageView yourImage, TestActivity testActivity, Prompt prompt) {
         super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
                 null, null,
                 88070, 2580, 880, 0,
                 new String[]{"Butcher", "Dismember", "Ruthless Torture", "Brutal Gut", "Evisceration"},
-                new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0}, prompt);
+                new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
 
+        this.testActivity = testActivity;
+        this.prompt = prompt;
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
-        this.prompt = prompt;
     }
 
     /**
@@ -58,6 +62,17 @@ public class Dreath extends Player {
                 hitter.setDefense(hitter.getMaxDefense());
                 setAttack(getMaxAttack());
                 getStatusValue().set(index, getStatusValue().get(index) - 50);
+
+                String[] dialogues = {
+                        "I am fear itself, unleashed upon you!",
+                        "Fear does not die... and neither do I!",
+                        "I am the fear that never fades!",
+                        "I am fear!",
+                        "You fear death? Fear me more.",
+                        "Fear me, for I am the last thing you will ever see.",
+                        "Fear is eternal, and now... so am I."};
+                prompt.addDialogueMessage(this, dialogues[random.nextInt(dialogues.length)]);
+                testActivity.updatePrompt(prompt);
             }
         }
     }
@@ -128,6 +143,14 @@ public class Dreath extends Player {
     //attack that will ignore defense
     @Override
     public void basicAttack(Player hitter, Player target) {
+        String[] dialogues = {
+                getName() + " hacks his sharp sword.",
+                getName() + " swings his deadly sword.",
+                getName() + " attacks " + target.getName() + " with malice.",
+                getName() + " quick slashes his spiky sword."};
+        prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
+        testActivity.updatePrompt(prompt);
+
         target.setDefense(0);
         target.receiveHit(hitter, target);
         target.setDefense(target.getMaxDefense());
