@@ -98,7 +98,7 @@ public class TestActivity extends AppCompatActivity {
                     enemyName, enemyHealth, enemyHealthText, enemyImage,
                     yourPlayer, enemyPlayer, backgroundImage, yourStunText,
                     enemyStunText, backgroundList, selectedBackground,
-                    yourHealth, enemyHealth, this, prompt);
+                    yourHealth, enemyHealth, this);
         }
 
         setupCharacter.initializeYourViews(newViews);
@@ -201,9 +201,14 @@ public class TestActivity extends AppCompatActivity {
         gameMechanics.stopBattleLoop(); // Ensure cleanup when activity is destroyed
     }
 
-    public void updatePrompt(Prompt prompt)
+    public void setPrompt(Prompt prompt)
     {
         this.prompt = prompt;
+    }
+
+    public Prompt getPrompt()
+    {
+        return prompt;
     }
 
     private void showBattleLogs() {

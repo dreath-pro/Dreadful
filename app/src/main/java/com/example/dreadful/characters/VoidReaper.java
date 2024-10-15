@@ -30,7 +30,7 @@ public class VoidReaper extends Player {
     private int fatigue = 0;
     private TestActivity testActivity;
 
-    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, TestActivity testActivity, Prompt prompt) {
+    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, TestActivity testActivity) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1, R.drawable.background_void_2},
@@ -39,7 +39,7 @@ public class VoidReaper extends Player {
                 new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = prompt;
+        this.prompt = new Prompt();
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.backgroundImage = backgroundImage;

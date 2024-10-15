@@ -24,7 +24,7 @@ public class Dreath extends Player {
     private Prompt prompt;
     private TestActivity testActivity;
 
-    public Dreath(Context context, ImageView yourImage, TestActivity testActivity, Prompt prompt) {
+    public Dreath(Context context, ImageView yourImage, TestActivity testActivity) {
         super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
                 null, null,
                 88070, 2580, 880, 0,
@@ -32,7 +32,7 @@ public class Dreath extends Player {
                 new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = prompt;
+        this.prompt = new Prompt();
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
@@ -71,8 +71,9 @@ public class Dreath extends Player {
                         "You fear death? Fear me more.",
                         "Fear me, for I am the last thing you will ever see.",
                         "Fear is eternal, and now... so am I."};
+                prompt = testActivity.getPrompt();
                 prompt.addDialogueMessage(this, dialogues[random.nextInt(dialogues.length)]);
-                testActivity.updatePrompt(prompt);
+                testActivity.setPrompt(prompt);
             }
         }
     }
@@ -144,12 +145,13 @@ public class Dreath extends Player {
     @Override
     public void basicAttack(Player hitter, Player target) {
         String[] dialogues = {
-                getName() + " hacks his sharp sword.",
+                getName() + " uses his sharp sword to hack " + target.getName(),
                 getName() + " swings his deadly sword.",
                 getName() + " attacks " + target.getName() + " with malice.",
-                getName() + " quick slashes his spiky sword."};
+                getName() + " quick slashes his sword."};
+        prompt = testActivity.getPrompt();
         prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
-        testActivity.updatePrompt(prompt);
+        testActivity.setPrompt(prompt);
 
         target.setDefense(0);
         target.receiveHit(hitter, target);
@@ -158,6 +160,15 @@ public class Dreath extends Player {
 
     //prevent enemy from using all skills
     private void skill1(Player hitter, Player target) {
+        String[] dialogues = {
+                getName() + " tries to brutally dismember " + target.getName() + " alive.",
+                getName() + " tries to chop " + target.getName() + " to pieces.",
+                getName() + " does a violent amputation on " + target.getName() + ".",
+                getName() + " ruthlessly destroying " + target.getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' body parts." : "'s body parts.")};
+        prompt = testActivity.getPrompt();
+        prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
+        testActivity.setPrompt(prompt);
+
         for (int i = 1; i <= target.getMaxSkillCooldowns().length - 1; i++) {
             target.getSkillCooldowns()[i] += 5;
         }
@@ -169,6 +180,14 @@ public class Dreath extends Player {
 
     //enemy cannot dodge all incoming attacks
     private void skill2(Player hitter, Player target) {
+        String[] dialogues = {
+                getName() + " hacks his opponent with pure rage",
+                getName() + " stabbing " + target.getName() + " multiple times.",
+                getName() + " ruthlessly torturing " + target.getName() + "."};
+        prompt = testActivity.getPrompt();
+        prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
+        testActivity.setPrompt(prompt);
+
         target.setDodge(0);
         setAttack(getAttack() + 5000);
         target.receiveHit(hitter, target);
@@ -178,6 +197,15 @@ public class Dreath extends Player {
 
     //high burst
     private void skill3(Player hitter, Player target) {
+        String[] dialogues = {
+                getName() + " tries to gut " + target.getName() + ".",
+                getName() + " thirsty bloody attacks " + target.getName() + " from the insides.",
+                getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + "guts and gore attack.",
+                getName() + " tries to disembowel " + target.getName() + "."};
+        prompt = testActivity.getPrompt();
+        prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
+        testActivity.setPrompt(prompt);
+
         setAttack(getAttack() + 8870);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
@@ -185,6 +213,15 @@ public class Dreath extends Player {
 
     //heal and increase damage
     private void skill4(Player hitter, Player target) {
+        String[] dialogues = {
+                getName() + " tries to attack " + target.getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + "organs and recovers his lost blood.",
+                getName() + " eviscerated " + target.getName() + " and devours internal organs to recover",
+                getName() + " tries to gut " + target.getName() + " with his sharp sword.",
+                getName() + " does a gory attack on " + target.getName() + target.getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + " intestines."};
+        prompt = testActivity.getPrompt();
+        prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
+        testActivity.setPrompt(prompt);
+
         setHealth(getHealth() + 10000);
         setAttack(getAttack() + 11000);
         target.receiveHit(hitter, target);

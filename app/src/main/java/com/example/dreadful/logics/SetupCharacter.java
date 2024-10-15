@@ -41,7 +41,6 @@ public class SetupCharacter {
     private int selectedBackground = 0;
     private ProgressBar yourHealthBar, enemyHealthBar;
     private TestActivity testActivity;
-    private Prompt prompt;
 
     private int firstPlayerSelected, secondPlayerSelected;
 
@@ -49,7 +48,7 @@ public class SetupCharacter {
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
                           Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText,
                           int[] backgroundList, int selectedBackground, ProgressBar yourHealthBar, ProgressBar enemyHealthBar,
-                          TestActivity testActivity, Prompt prompt) {
+                          TestActivity testActivity) {
 
         this.context = context;
 
@@ -75,7 +74,6 @@ public class SetupCharacter {
         this.enemyHealthBar = enemyHealthBar;
 
         this.testActivity = testActivity;
-        this.prompt = prompt;
 
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
@@ -85,13 +83,13 @@ public class SetupCharacter {
 
     private void initCharacters(ImageView playerImage, ProgressBar playerHealthBar, TextView playerName) {
         players.clear();
-        players.add(new Dreath(context, playerImage, testActivity, prompt));
-        players.add(new DreadProphet(context, playerImage, testActivity, prompt));
-        players.add(new KumoNingyo(context, playerImage, playerHealthBar, testActivity, prompt));
-        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, testActivity, prompt));
-        players.add(new HellKnight(context, playerImage, playerHealthBar, testActivity, prompt));
-        players.add(new Carnant(context, playerImage, playerHealthBar, playerName, testActivity, prompt));
-        players.add(new GodOfDeath(context, playerImage, testActivity, prompt));
+        players.add(new Dreath(context, playerImage, testActivity));
+        players.add(new DreadProphet(context, playerImage, testActivity));
+        players.add(new KumoNingyo(context, playerImage, playerHealthBar, testActivity));
+        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, testActivity));
+        players.add(new HellKnight(context, playerImage, playerHealthBar, testActivity));
+        players.add(new Carnant(context, playerImage, playerHealthBar, playerName, testActivity));
+        players.add(new GodOfDeath(context, playerImage, testActivity));
     }
 
     public Player returnYourCharacter() {

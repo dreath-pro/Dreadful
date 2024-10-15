@@ -22,7 +22,7 @@ public class GodOfDeath extends Player {
     private boolean isClockOn = false;
     private TestActivity testActivity;
 
-    public GodOfDeath(Context context, ImageView yourImage, TestActivity testActivity, Prompt prompt) {
+    public GodOfDeath(Context context, ImageView yourImage, TestActivity testActivity) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
                 null, null,
                 500000, 500000, 500000, 50,
@@ -30,7 +30,7 @@ public class GodOfDeath extends Player {
                 new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = prompt;
+        this.prompt = new Prompt();
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }

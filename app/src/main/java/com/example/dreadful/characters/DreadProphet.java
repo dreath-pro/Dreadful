@@ -22,7 +22,7 @@ public class DreadProphet extends Player {
     private Prompt prompt;
     private TestActivity testActivity;
 
-    public DreadProphet(Context context, ImageView yourImage, TestActivity testActivity, Prompt prompt) {
+    public DreadProphet(Context context, ImageView yourImage, TestActivity testActivity) {
         super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
                 null, null,
                 120000, 2888, 0, 0,
@@ -30,7 +30,7 @@ public class DreadProphet extends Player {
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = prompt;
+        this.prompt = new Prompt();
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }

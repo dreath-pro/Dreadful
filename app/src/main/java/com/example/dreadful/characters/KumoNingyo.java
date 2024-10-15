@@ -26,7 +26,7 @@ public class KumoNingyo extends Player {
     private int limbTwitch = 6, maxLimbTwitch = 6;
     private TestActivity testActivity;
 
-    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity, Prompt prompt) {
+    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
                 null, null,
                 5800, 180, 0, 20,
@@ -34,7 +34,7 @@ public class KumoNingyo extends Player {
                 new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = prompt;
+        this.prompt = new Prompt();
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
