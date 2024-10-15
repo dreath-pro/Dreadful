@@ -117,16 +117,26 @@ public abstract class Player {
         return hasStatus;
     }
 
-    protected void receiveHitLogic(Player hitter, Player target)
+    protected String receiveHitLogic(Player hitter, Player target)
     {
+        String result = ""; //DODGE, BLOCKED, 1058 <-- damage
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
-            return;
+            return "DODGE";
 
-        hitter.setAttack(hitter.getAttack() - getDefense());
-        setHealth(getHealth() - hitter.getAttack());
-        hitter.setAttack(hitter.getMaxAttack());
-        yourImage.startAnimation(shakeAnimation);
+        if(hitter.getAttack() <= getDefense())
+        {
+            result = "BLOCKED";
+        }else
+        {
+            hitter.setAttack(hitter.getAttack() - getDefense());
+            setHealth(getHealth() - hitter.getAttack());
+            result = Integer.toString(hitter.getAttack());
+            hitter.setAttack(hitter.getMaxAttack());
+            yourImage.startAnimation(shakeAnimation);
+        }
+
+        return result;
     }
 
     public abstract void receiveHit(Player hitter, Player target);

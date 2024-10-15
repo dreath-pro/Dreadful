@@ -42,7 +42,20 @@ public class Dreath extends Player {
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
      */
     public void receiveHit(Player hitter, Player target) {
-        receiveHitLogic(hitter, target);
+        switch (receiveHitLogic(hitter, target)) {
+            case "DODGE":
+
+            case "BLOCKED":
+                String[] dialogues2 = {
+                        "You’ll need a stronger attack to get past me!"};
+                prompt = testActivity.getPrompt();
+                prompt.addDialogueMessage(this, dialogues2[random.nextInt(dialogues2.length)]);
+                testActivity.setPrompt(prompt);
+                break;
+            default:
+
+                break;
+        }
 
         receiveStatus(target, "Rage", 10);
         if (!hasStatus(target, "Rage", 50).isEmpty()) {
@@ -153,6 +166,14 @@ public class Dreath extends Player {
         prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
         testActivity.setPrompt(prompt);
 
+        if (random.nextInt(2) == 0) {
+            String[] dialogues2 = {
+                    "Your fate was sealed the moment you crossed me!"};
+            prompt = testActivity.getPrompt();
+            prompt.addDialogueMessage(this, dialogues2[random.nextInt(dialogues2.length)]);
+            testActivity.setPrompt(prompt);
+        }
+
         target.setDefense(0);
         target.receiveHit(hitter, target);
         target.setDefense(target.getMaxDefense());
@@ -168,6 +189,14 @@ public class Dreath extends Player {
         prompt = testActivity.getPrompt();
         prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
         testActivity.setPrompt(prompt);
+
+        if (random.nextInt(2) == 0) {
+            String[] dialogues2 = {
+                    "With every strike, I carve your fate!"};
+            prompt = testActivity.getPrompt();
+            prompt.addDialogueMessage(this, dialogues2[random.nextInt(dialogues2.length)]);
+            testActivity.setPrompt(prompt);
+        }
 
         for (int i = 1; i <= target.getMaxSkillCooldowns().length - 1; i++) {
             target.getSkillCooldowns()[i] += 5;
@@ -188,6 +217,14 @@ public class Dreath extends Player {
         prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
         testActivity.setPrompt(prompt);
 
+        if (random.nextInt(2) == 0) {
+            String[] dialogues2 = {
+                    "Prepare to meet your end!"};
+            prompt = testActivity.getPrompt();
+            prompt.addDialogueMessage(this, dialogues2[random.nextInt(dialogues2.length)]);
+            testActivity.setPrompt(prompt);
+        }
+
         target.setDodge(0);
         setAttack(getAttack() + 5000);
         target.receiveHit(hitter, target);
@@ -206,6 +243,16 @@ public class Dreath extends Player {
         prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
         testActivity.setPrompt(prompt);
 
+        if (random.nextInt(2) == 0) {
+            String[] dialogues2 = {
+                    "Prepare to meet your end!",
+                    "Prepare for annihilation!",
+                    "Let my blade guide you to oblivion!"};
+            prompt = testActivity.getPrompt();
+            prompt.addDialogueMessage(this, dialogues2[random.nextInt(dialogues2.length)]);
+            testActivity.setPrompt(prompt);
+        }
+
         setAttack(getAttack() + 8870);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
@@ -221,6 +268,16 @@ public class Dreath extends Player {
         prompt = testActivity.getPrompt();
         prompt.addEventMessage(dialogues[random.nextInt(dialogues.length)]);
         testActivity.setPrompt(prompt);
+
+        if (random.nextInt(2) == 0) {
+            String[] dialogues2 = {
+                    "Prepare to meet your end!",
+                    "Prepare for annihilation!",
+                    "Let my blade guide you to oblivion!"};
+            prompt = testActivity.getPrompt();
+            prompt.addDialogueMessage(this, dialogues2[random.nextInt(dialogues2.length)]);
+            testActivity.setPrompt(prompt);
+        }
 
         setHealth(getHealth() + 10000);
         setAttack(getAttack() + 11000);
