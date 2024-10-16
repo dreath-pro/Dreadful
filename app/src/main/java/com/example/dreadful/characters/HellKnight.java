@@ -28,7 +28,6 @@ public class HellKnight extends Player {
     private int enhancedDefense = 0;
     private int flameShield = 0;
     private int ember = 0;
-    private TestActivity testActivity;
 
     public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity) {
         super(context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
@@ -42,7 +41,6 @@ public class HellKnight extends Player {
                 new int[]{0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0});
 
-        this.testActivity = testActivity;
         this.prompt = new Prompt(testActivity);
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;

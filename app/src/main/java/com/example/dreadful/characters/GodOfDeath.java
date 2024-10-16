@@ -15,12 +15,9 @@ import java.util.Random;
 
 public class GodOfDeath extends Player {
     private Random random = new Random();
-    private Animation shakeAnimation;
-    private ImageView yourImage;
     private Prompt prompt;
     private int timeBeforeDeath = 0;
     private boolean isClockOn = false;
-    private TestActivity testActivity;
 
     public GodOfDeath(Context context, ImageView yourImage, TestActivity testActivity) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
@@ -29,10 +26,7 @@ public class GodOfDeath extends Player {
                 new String[]{"Decay Touch", "Pray For The Living", "Time Before Death", "Afterlife"},
                 new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0});
 
-        this.testActivity = testActivity;
         this.prompt = new Prompt(testActivity);
-        this.yourImage = yourImage;
-        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     public void receiveHit(Player hitter, Player target) {

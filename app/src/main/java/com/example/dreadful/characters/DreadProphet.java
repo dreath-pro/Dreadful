@@ -17,10 +17,7 @@ import java.util.Random;
 
 public class DreadProphet extends Player {
     private Random random = new Random();
-    private Animation shakeAnimation;
-    private ImageView yourImage;
     private Prompt prompt;
-    private TestActivity testActivity;
 
     public DreadProphet(Context context, ImageView yourImage, TestActivity testActivity) {
         super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
@@ -29,10 +26,7 @@ public class DreadProphet extends Player {
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
 
-        this.testActivity = testActivity;
         this.prompt = new Prompt(testActivity);
-        this.yourImage = yourImage;
-        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     /**

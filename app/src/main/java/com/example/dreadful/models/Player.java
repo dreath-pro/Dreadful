@@ -118,18 +118,15 @@ public abstract class Player {
         return hasStatus;
     }
 
-    protected String receiveHitLogic(Player hitter, Player target)
-    {
+    protected String receiveHitLogic(Player hitter, Player target) {
         String result = ""; //DODGE, BLOCKED, 47% <-- damage percentage
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return "DODGE";
 
-        if(hitter.getAttack() <= getDefense())
-        {
+        if (hitter.getAttack() <= getDefense()) {
             result = "BLOCKED";
-        }else
-        {
+        } else {
             hitter.setAttack(hitter.getAttack() - getDefense());
             result = Integer.toString(getDamagePercentage(hitter.getAttack(), getHealth()));
             setHealth(getHealth() - hitter.getAttack());
@@ -140,21 +137,18 @@ public abstract class Player {
         return result;
     }
 
-    private int getDamagePercentage(int damageDealt, int healthLost)
-    {
+    private int getDamagePercentage(int damageDealt, int healthLost) {
         double damagePercentage = (double) damageDealt / healthLost * 100;
         return (int) damagePercentage;
     }
 
     public abstract void receiveHit(Player hitter, Player target);
 
-    protected void runTimeDamage()
-    {
+    protected void runTimeDamage() {
         ArrayList<Integer> tempDot = new ArrayList<>();
         ArrayList<Integer> tempDotValue = new ArrayList<>();
 
-        for(int i = 0; i <= damageOverTime.size() - 1; i++)
-        {
+        for (int i = 0; i <= damageOverTime.size() - 1; i++) {
             if (damageOverTimeValue.get(i) > 0) {
                 setHealth(getHealth() - getDamageOverTime().get(i));
                 damageOverTimeValue.set(i, damageOverTimeValue.get(i) - 1);

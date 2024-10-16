@@ -17,14 +17,11 @@ import java.util.Random;
 
 public class KumoNingyo extends Player {
     private Random random = new Random();
-    private Animation shakeAnimation;
-    private ImageView yourImage;
     private ProgressBar yourHealthBar;
     private Prompt prompt;
     private int poison = 10;
     private int creepyStalkerTime = 0;
     private int limbTwitch = 6, maxLimbTwitch = 6;
-    private TestActivity testActivity;
 
     public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
@@ -33,11 +30,8 @@ public class KumoNingyo extends Player {
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage", "Ito no Tami"},
                 new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
 
-        this.testActivity = testActivity;
         this.prompt = new Prompt(testActivity);
-        this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
-        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     /**

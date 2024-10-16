@@ -19,10 +19,7 @@ import java.util.Random;
 
 public class Dreath extends Player {
     private Random random = new Random();
-    private Animation shakeAnimation;
-    private ImageView yourImage;
     private Prompt prompt;
-    private TestActivity testActivity;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
     public Dreath(Context context, ImageView yourImage, TestActivity testActivity) {
@@ -32,10 +29,8 @@ public class Dreath extends Player {
                 new String[]{"Butcher", "Dismember", "Ruthless Torture", "Brutal Gut", "Evisceration"},
                 new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
 
-        this.testActivity = testActivity;
         this.prompt = new Prompt(testActivity);
-        this.yourImage = yourImage;
-        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.prompt = testActivity.getPrompt();
     }
 
     /**
@@ -50,15 +45,13 @@ public class Dreath extends Player {
                 break;
             case "BLOCKED":
                 events.add("But " + getName() + " blocks the attack with ease.");
-                events.add("Unfortunately, " + getName() + " is immune to that attack.");
+                events.add("But " + getName() + " is immune to that attack.");
                 events.add("The attack has no effect on " + getName() + ".");
                 events.add("That hit tickles " + getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + "hard armor.");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomEvent(events);
                 events.clear();
 
                 dialogues.add("You’ll need a stronger attack to get past me!");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
@@ -116,7 +109,6 @@ public class Dreath extends Player {
                 dialogues.add("You fear death? Fear me more.");
                 dialogues.add("Fear me, for I am the last thing you will ever see.");
                 dialogues.add("Fear is eternal, and now... so am I.");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomDialogue(this, dialogues, false);
                 dialogues.clear();
             }
@@ -164,12 +156,10 @@ public class Dreath extends Player {
                 events.add(getName() + " swings his deadly sword.");
                 events.add(getName() + " attacks " + target.getName() + " with malice.");
                 events.add(getName() + " quick slashes his sword.");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomEvent(events);
                 events.clear();
 
                 dialogues.add("Your fate was sealed the moment you crossed me!");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
                 break;
@@ -180,12 +170,10 @@ public class Dreath extends Player {
                 events.add(getName() + " tries to chop " + target.getName() + " to pieces.");
                 events.add(getName() + " does a violent amputation on " + target.getName() + ".");
                 events.add(getName() + " ruthlessly destroying " + target.getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' body parts." : "'s body parts."));
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomEvent(events);
                 events.clear();
 
                 dialogues.add("With every strike, I carve your fate!");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
                 break;
@@ -195,12 +183,10 @@ public class Dreath extends Player {
                 events.add(getName() + " hacks his opponent with pure rage");
                 events.add(getName() + " stabbing " + target.getName() + " multiple times.");
                 events.add(getName() + " ruthlessly torturing " + target.getName() + ".");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomEvent(events);
                 events.clear();
 
                 dialogues.add("Prepare to meet your end!");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
                 break;
@@ -211,14 +197,12 @@ public class Dreath extends Player {
                 events.add(getName() + " thirsty bloody attacks " + target.getName() + " from the insides.");
                 events.add(getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + "guts and gore attack.");
                 events.add(getName() + " tries to disembowel " + target.getName() + ".");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomEvent(events);
                 events.clear();
 
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
                 dialogues.add("Let my blade guide you to oblivion!");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
                 break;
@@ -229,14 +213,12 @@ public class Dreath extends Player {
                 events.add(getName() + " eviscerated " + target.getName() + " and devours internal organs to recover");
                 events.add(getName() + " tries to gut " + target.getName() + " with his sharp sword.");
                 events.add(getName() + " does a gory attack on " + target.getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + " intestines.");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomEvent(events);
                 events.clear();
 
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
                 dialogues.add("Let my blade guide you to oblivion!");
-                prompt = testActivity.getPrompt();
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
                 break;

@@ -18,7 +18,6 @@ import java.util.Random;
 
 public class Carnant extends Player {
     private Random random = new Random();
-    private Animation shakeAnimation;
     private ImageView yourImage;
     private ProgressBar yourHealthBar;
     private ResizeImage resizeImage;
@@ -29,7 +28,6 @@ public class Carnant extends Player {
     private int increaseVenom = 4, maxIncreaseVenom = 4;
     private int heal = 300, venom = 100;
     private int dissolve = 0;
-    private TestActivity testActivity;
 
     public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, TestActivity testActivity) {
         super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
@@ -43,13 +41,11 @@ public class Carnant extends Player {
                 new int[]{0, 0, 0,
                         0, 0, 0, 0});
 
-        this.testActivity = testActivity;
         this.prompt = new Prompt(testActivity);
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.yourName = yourName;
         this.resizeImage = new ResizeImage(context);
-        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     /**
