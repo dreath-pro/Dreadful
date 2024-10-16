@@ -39,7 +39,7 @@ public class VoidReaper extends Player {
                 new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = new Prompt();
+        this.prompt = new Prompt(testActivity);
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.backgroundImage = backgroundImage;

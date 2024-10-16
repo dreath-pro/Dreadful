@@ -29,6 +29,7 @@ import com.example.dreadful.logics.SetupCharacter;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class TestActivity extends AppCompatActivity {
@@ -49,6 +50,7 @@ public class TestActivity extends AppCompatActivity {
     private Random random = new Random();
     private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
             R.drawable.background_graveyard, R.drawable.background_cave};
+    private ArrayList<String> events = new ArrayList<>();
     private int selectedBackground = 0;
     private ViewStatus viewStatus;
     private ViewSkill viewSkill;
@@ -109,8 +111,11 @@ public class TestActivity extends AppCompatActivity {
         gameMechanics = new GameMechanics(this, yourHealth, yourHealthText, enemyHealth,
                 enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton);
 
-        this.prompt = new Prompt();
-        this.prompt.addEventMessage("Fate has led them to this pivotal moment of encounter.");
+        prompt = new Prompt(this);
+        events.add("Fate has led them to this pivotal moment of encounter.");
+        prompt = getPrompt();
+        prompt.selectRandomEvent(events);
+        events.clear();
     }
 
     private void invisibleButtons(Boolean invisible) {

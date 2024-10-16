@@ -30,7 +30,7 @@ public class DreadProphet extends Player {
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = new Prompt();
+        this.prompt = new Prompt(testActivity);
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }

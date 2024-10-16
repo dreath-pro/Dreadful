@@ -44,7 +44,7 @@ public class Carnant extends Player {
                         0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = new Prompt();
+        this.prompt = new Prompt(testActivity);
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.yourName = yourName;

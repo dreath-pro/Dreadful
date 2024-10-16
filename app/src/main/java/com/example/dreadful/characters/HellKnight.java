@@ -43,7 +43,7 @@ public class HellKnight extends Player {
                         0, 0, 0, 0, 0});
 
         this.testActivity = testActivity;
-        this.prompt = new Prompt();
+        this.prompt = new Prompt(testActivity);
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;

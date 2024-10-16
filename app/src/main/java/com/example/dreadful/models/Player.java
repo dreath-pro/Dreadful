@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewPrompt;
@@ -119,7 +120,7 @@ public abstract class Player {
 
     protected String receiveHitLogic(Player hitter, Player target)
     {
-        String result = ""; //DODGE, BLOCKED, 1058 <-- damage
+        String result = ""; //DODGE, BLOCKED, 47% <-- damage percentage
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return "DODGE";
@@ -130,13 +131,19 @@ public abstract class Player {
         }else
         {
             hitter.setAttack(hitter.getAttack() - getDefense());
+            result = Integer.toString(getDamagePercentage(hitter.getAttack(), getHealth()));
             setHealth(getHealth() - hitter.getAttack());
-            result = Integer.toString(hitter.getAttack());
             hitter.setAttack(hitter.getMaxAttack());
             yourImage.startAnimation(shakeAnimation);
         }
 
         return result;
+    }
+
+    private int getDamagePercentage(int damageDealt, int healthLost)
+    {
+        double damagePercentage = (double) damageDealt / healthLost * 100;
+        return (int) damagePercentage;
     }
 
     public abstract void receiveHit(Player hitter, Player target);
