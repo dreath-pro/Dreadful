@@ -22,6 +22,42 @@ public class Prompt {
         this.selectedMessage = new ArrayList<>();
     }
 
+    public String getApostrophe(String word) {
+        if (word.charAt(word.length() - 1) == 's') {
+            return "' ";
+        } else {
+            return "'s ";
+        }
+    }
+
+    public int measureDamage(int damagePercentage) {
+        if (damagePercentage >= 0 && damagePercentage <= 5) {
+            return 0;
+        } else if (damagePercentage >= 6 && damagePercentage <= 10) {
+            return 0;
+        } else if (damagePercentage >= 11 && damagePercentage <= 20) {
+            return 0;
+        } else if (damagePercentage >= 21 && damagePercentage <= 30) {
+            return 1;
+        } else if (damagePercentage >= 31 && damagePercentage <= 40) {
+            return 1;
+        } else if (damagePercentage >= 41 && damagePercentage <= 50) {
+            return 1;
+        } else if (damagePercentage >= 51 && damagePercentage <= 60) {
+            return 2;
+        } else if (damagePercentage >= 61 && damagePercentage <= 70) {
+            return 2;
+        } else if (damagePercentage >= 71 && damagePercentage <= 80) {
+            return 2;
+        } else if (damagePercentage >= 81 && damagePercentage <= 90) {
+            return 3;
+        } else if (damagePercentage >= 91 && damagePercentage <= 100) {
+            return 3;
+        }
+
+        return 4;
+    }
+
     public void selectRandomEvent(ArrayList<String> dialogues) {
         addEventMessage(dialogues.get(random.nextInt(dialogues.size())));
         testActivity.setPrompt(this);

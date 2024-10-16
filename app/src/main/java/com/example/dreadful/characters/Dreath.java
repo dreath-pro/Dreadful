@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -33,6 +34,71 @@ public class Dreath extends Player {
         this.prompt = testActivity.getPrompt();
     }
 
+    private void damageExpression(int level) {
+        // 0 - low,
+        // 1 - moderate,
+        // 2 - strong,
+        // 3 - critical
+        switch (level) {
+            case 0:
+                events.add(getName() + " shrugs off the attack, barely feeling its impact.");
+                events.add("The hit lands, but " + getName() + " remains unfazed, a mere flicker of annoyance crossing his face.");
+                events.add(getName() + " glances at his attacker, unimpressed by the weak strike.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("A nuisance at best.");
+                dialogues.add("You’ll have to try harder than that.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 1:
+                events.add("The blow lands solidly, yet " + getName() + prompt.getApostrophe(getName()) + " expression reveals no pain, only a cold determination.");
+                events.add("The attack connects, but " + getName() + " stands firm, his resolve unshaken.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Pain is merely a distraction.");
+                dialogues.add("Interesting... I expected more.");
+                dialogues.add("I felt that, but it won’t change the outcome.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 2:
+                events.add("The strike forces " + getName() + " back slightly, but he quickly regains his composure, undeterred.");
+                events.add(getName() + " is momentarily taken aback by the force of the blow, yet his icy demeanor remains intact.");
+                events.add("Though the attack stings, " + getName() + " assesses his opponent with a cold glare, plotting his next move.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("That hit had some weight. Still irrelevant.");
+                dialogues.add("Impressive, but ultimately inconsequential.");
+                dialogues.add("You’ve gained my attention, but not my concern.");
+                dialogues.add("A more respectable effort, but futile.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 3:
+                events.add(getName() + " stumbles from the force of the blow, but even as he regains his footing, his eyes burn with defiance.");
+                events.add("Despite the severe hit, " + getName() + prompt.getApostrophe(getName()) + " expression remains stoic; he is far from finished.");
+                events.add("The pain is evident, but " + getName() + prompt.getApostrophe(getName()) + " resolve hardens; he will not yield to weakness.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Pain is temporary; this fight is eternal.");
+                dialogues.add("I won’t be defeated by a mere scratch.");
+                dialogues.add("You’ve done well, but it won’t matter in the end.");
+                dialogues.add("You think you’ve won? I’m just getting started.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+        }
+    }
+
     /**
      * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
@@ -47,7 +113,7 @@ public class Dreath extends Player {
                 events.add("But " + getName() + " blocks the attack with ease.");
                 events.add("But " + getName() + " is immune to that attack.");
                 events.add("The attack has no effect on " + getName() + ".");
-                events.add("That hit tickles " + getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + "hard armor.");
+                events.add("That hit tickles " + getName() + prompt.getApostrophe(getName()) + "hard armor.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
@@ -56,30 +122,11 @@ public class Dreath extends Player {
                 dialogues.clear();
 
                 break;
+            case "":
+
+                break;
             default:
-                if (Integer.parseInt(result) >= 1 && Integer.parseInt(result) <= 5) {
-
-                } else if (Integer.parseInt(result) >= 6 && Integer.parseInt(result) <= 10) {
-
-                } else if (Integer.parseInt(result) >= 11 && Integer.parseInt(result) <= 20) {
-
-                } else if (Integer.parseInt(result) >= 21 && Integer.parseInt(result) <= 30) {
-
-                } else if (Integer.parseInt(result) >= 31 && Integer.parseInt(result) <= 40) {
-
-                } else if (Integer.parseInt(result) >= 41 && Integer.parseInt(result) <= 50) {
-
-                } else if (Integer.parseInt(result) >= 51 && Integer.parseInt(result) <= 60) {
-
-                } else if (Integer.parseInt(result) >= 61 && Integer.parseInt(result) <= 70) {
-
-                } else if (Integer.parseInt(result) >= 71 && Integer.parseInt(result) <= 80) {
-
-                } else if (Integer.parseInt(result) >= 81 && Integer.parseInt(result) <= 90) {
-
-                } else if (Integer.parseInt(result) >= 91 && Integer.parseInt(result) <= 100) {
-
-                }
+                damageExpression(prompt.measureDamage(Integer.parseInt(result)));
                 break;
         }
 
@@ -169,7 +216,7 @@ public class Dreath extends Player {
                 events.add(getName() + " tries to brutally dismember " + target.getName() + " alive.");
                 events.add(getName() + " tries to chop " + target.getName() + " to pieces.");
                 events.add(getName() + " does a violent amputation on " + target.getName() + ".");
-                events.add(getName() + " ruthlessly destroying " + target.getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' body parts." : "'s body parts."));
+                events.add(getName() + " ruthlessly destroying " + target.getName() + prompt.getApostrophe(target.getName()));
                 prompt.selectRandomEvent(events);
                 events.clear();
 
@@ -195,7 +242,7 @@ public class Dreath extends Player {
 
                 events.add(getName() + " tries to gut " + target.getName() + ".");
                 events.add(getName() + " thirsty bloody attacks " + target.getName() + " from the insides.");
-                events.add(getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + "guts and gore attack.");
+                events.add(getName() + prompt.getApostrophe(getName()) + "guts and gore attack.");
                 events.add(getName() + " tries to disembowel " + target.getName() + ".");
                 prompt.selectRandomEvent(events);
                 events.clear();
@@ -209,10 +256,10 @@ public class Dreath extends Player {
             case 4:
                 skill4(hitter, target);
 
-                events.add(getName() + " tries to attack " + target.getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + "organs and recovers his lost blood.");
+                events.add(getName() + " tries to attack " + target.getName() + prompt.getApostrophe(target.getName()) + "organs and recovers his lost blood.");
                 events.add(getName() + " eviscerated " + target.getName() + " and devours internal organs to recover");
                 events.add(getName() + " tries to gut " + target.getName() + " with his sharp sword.");
-                events.add(getName() + " does a gory attack on " + target.getName() + (target.getName().charAt(target.getName().length() - 1) == 's' ? "' " : "'s ") + " intestines.");
+                events.add(getName() + " does a gory attack on " + target.getName() + prompt.getApostrophe(target.getName()) + " intestines.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
