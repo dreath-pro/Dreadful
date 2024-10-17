@@ -197,8 +197,6 @@ public class Dreath extends Player {
         skillName = getSkillNames()[skillIndex];
         switch (skillIndex) {
             case 0:
-                basicAttack(hitter, target);
-
                 events.add(getName() + " uses his sharp sword to hack " + target.getName());
                 events.add(getName() + " swings his deadly sword.");
                 events.add(getName() + " attacks " + target.getName() + " with malice.");
@@ -209,10 +207,10 @@ public class Dreath extends Player {
                 dialogues.add("Your fate was sealed the moment you crossed me!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                basicAttack(hitter, target);
                 break;
             case 1:
-                skill1(hitter, target);
-
                 events.add(getName() + " tries to brutally dismember " + target.getName() + " alive.");
                 events.add(getName() + " tries to chop " + target.getName() + " to pieces.");
                 events.add(getName() + " does a violent amputation on " + target.getName() + ".");
@@ -223,10 +221,10 @@ public class Dreath extends Player {
                 dialogues.add("With every strike, I carve your fate!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill1(hitter, target);
                 break;
             case 2:
-                skill2(hitter, target);
-
                 events.add(getName() + " hacks his opponent with pure rage");
                 events.add(getName() + " stabbing " + target.getName() + " multiple times.");
                 events.add(getName() + " ruthlessly torturing " + target.getName() + ".");
@@ -236,10 +234,10 @@ public class Dreath extends Player {
                 dialogues.add("Prepare to meet your end!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill2(hitter, target);
                 break;
             case 3:
-                skill3(hitter, target);
-
                 events.add(getName() + " tries to gut " + target.getName() + ".");
                 events.add(getName() + " thirsty bloody attacks " + target.getName() + " from the insides.");
                 events.add(getName() + prompt.getApostrophe(getName()) + "guts and gore attack.");
@@ -252,10 +250,10 @@ public class Dreath extends Player {
                 dialogues.add("Let my blade guide you to oblivion!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill3(hitter, target);
                 break;
             case 4:
-                skill4(hitter, target);
-
                 events.add(getName() + " tries to attack " + target.getName() + prompt.getApostrophe(target.getName()) + "organs and recovers his lost blood.");
                 events.add(getName() + " eviscerated " + target.getName() + " and devours internal organs to recover");
                 events.add(getName() + " tries to gut " + target.getName() + " with his sharp sword.");
@@ -268,6 +266,8 @@ public class Dreath extends Player {
                 dialogues.add("Let my blade guide you to oblivion!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill4(hitter, target);
                 break;
         }
 

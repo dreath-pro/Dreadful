@@ -219,8 +219,6 @@ public class VoidReaper extends Player {
         skillName = getSkillNames()[skillIndex];
         switch (skillIndex) {
             case 0:
-                basicAttack(hitter, target);
-
                 events.add(getName() + " raised its scythe, and the void itself seemed to shudder. Time slowed as a violet aura crackled around its blade, distorting reality with every swing.");
                 events.add("With a swift, sweeping motion, " + getName() + prompt.getApostrophe(getName()) + " scythe carved through time, leaving trails of dark energy. The air pulsed as moments were ripped apart, merging past and present.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " tentacles spread wide as it unleashed " + getSkillNames()[skillIndex] + ", bending time around its foe. The very fabric of space trembled, caught in the grasp of the scythe.");
@@ -238,10 +236,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrrraaahhh!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                basicAttack(hitter, target);
                 break;
             case 1:
-                skill1(hitter, target);
-
                 events.add(getName() + " tensed, its violet energy condensing until, in a sudden explosion, the very air seemed to shatter. Time itself fractured, catching " + target.getName() + " off-guard as they froze in place, stunned by the sudden distortion.");
                 events.add("A low, reverberating hum grew from within " + getName() + ", culminating in a burst of fractured light that rippled outward. " + target.getName() + prompt.getApostrophe(target.getName()) + " movements halted, ensnared in the warped flow of time.");
                 events.add("With a sharp, guttural growl, " + getName() + " unleashed " + getSkillNames()[skillIndex] + ". Waves of dark energy erupted from its form, splitting through space and freezing " + target.getName() + " in a suspended daze.");
@@ -259,10 +257,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrrkkkshh!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill1(hitter, target);
                 break;
             case 2:
-                skill2(hitter, target);
-
                 events.add(getName() + prompt.getApostrophe(getName()) + " tentacles spread wide, and the void around them seemed to warp and twist. In an instant, the world vanished, replaced by a realm of endless darkness and swirling violet energy. " + target.getName() + " struggled as " + getName() + prompt.getApostrophe(getName()) + " form shifted, growing larger and more terrifying.");
                 events.add("Reality tore apart, and " + target.getName() + " found themselves surrounded by the shadowed expanse of " + getName() + prompt.getApostrophe(getName()) + " realm. With a low growl, " + getName() + " began to transform, his body now armored and crackling with dark energy. Each attack rippled through the air, his cooldown lessening as his relentless onslaught continued.");
                 events.add("The dimension shifted, pulling " + getName() + " and " + target.getName() + " into a swirling cosmos of shadow and violet. With a distorted howl, " + getName() + " morphed into a stronger, monstrous form, his scythe glowing with power. He lunged, unleashing a powerful burst of energy that rattled the dimension, striking with fierce precision.");
@@ -280,10 +278,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrrrraaahhkkk!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill2(hitter, target);
                 break;
             case 3:
-                skill3(hitter, target);
-
                 events.add(getName() + " suddenly burst forward, its form a blur of violet shadows. As it dashed, the very fabric of time around it began to unravel, reversing the flow of moments and healing its wounds.");
                 events.add("In an instant, " + getName() + " flickered, appearing to dart backwards through the void. Time itself rewound, restoring health as past injuries faded like echoes in the shadows.");
                 events.add("With a swift movement, " + getName() + " activated " + getSkillNames()[skillIndex] + ", sending ripples through time. As it dashed, the wounds began to seal, and vitality surged back into its body.");
@@ -301,10 +299,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrrhhhk!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill3(hitter, target);
                 break;
             case 4:
-                skill4(hitter, target);
-
                 events.add(getName() + " gathered energy, the air around its scythe crackling with dark power. With a swift motion, it swung the blade, creating a rift in space that surged toward " + target.getName() + ".");
                 events.add("As " + getName() + " unleashed " + getSkillNames()[skillIndex] + ", a vortex of dark energy erupted from its scythe. The attack cleaved through the air, leaving a trail of distortion that threatened to consume everything in its path.");
                 events.add("With a growl that echoed through the void, " + getName() + " launched " + getSkillNames()[skillIndex] + ". The blade sliced through reality, unleashing a wave of force that sought to tear apart " + target.getName() + ".");
@@ -322,10 +320,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrraaaaaash!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill4(hitter, target);
                 break;
             case 5:
-                skill5(hitter, target);
-
                 events.add("As " + getName() + " loomed closer, it unleashed the dark essence of " + getSkillNames()[skillIndex] + ". Shadows coiled around " + target.getName() + ", sapping their energy and dulling their senses, leaving them vulnerable to the onslaught");
                 events.add("With a low, growling hum, " + getName() + " invoked " + getSkillNames()[skillIndex] + ", dark tendrils swirling through the air and wrapping around " + target.getName() + ". Their strength waned, and they staggered under the weight of the encroaching darkness.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " scythe glimmered ominously as it initiated " + getSkillNames()[skillIndex] + ", draining " + target.getName() + prompt.getApostrophe(target.getName()) + " vitality. Each strike felt heavier, their reflexes slowed as shadows engulfed their form, making it harder to resist the coming assault.");
@@ -343,10 +341,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Fffffsssrrkk!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill5(hitter, target);
                 break;
             case 6:
-                skill6(hitter, target);
-
                 events.add(getName() + " raised its scythe, time rippling as it invoked " + getSkillNames()[skillIndex] + ". Shadows coiled around, reversing moments as the two combatants were pulled back to the battle’s start, their injuries erased. But for " + target.getName() + ", each skill felt further out of reach, as though bound by the weight of time.");
                 events.add("With a chilling hum, " + getName() + prompt.getApostrophe(getName()) + " scythe tore through reality, and " + getSkillNames()[skillIndex] + " triggered. The void swirled, pulling them both back to where it all began. " + target.getName() + " felt the oppressive weight of delayed powers, each skill more distant, shackled by lingering time.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " form blurred as " + getSkillNames()[skillIndex] + " unfolded, reversing injuries and pulling both fighters back to the start. Time reset for health but not for power; " + target.getName() + " felt the lock on their abilities tighten, skills now tangled in the web of lingering cooldowns.");
@@ -364,6 +362,8 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghhrrrrraaakk!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
+
+                skill6(hitter, target);
                 break;
         }
 
