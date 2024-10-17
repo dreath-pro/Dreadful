@@ -19,7 +19,6 @@ import java.util.Random;
 
 public class VoidReaper extends Player {
     private Random random = new Random();
-    private Animation shakeAnimation;
     private ImageView yourImage;
     private ConstraintLayout backgroundImage;
     private int[] backgroundList;
@@ -28,6 +27,7 @@ public class VoidReaper extends Player {
     private Prompt prompt;
     private int voidTime = 0;
     private int fatigue = 0;
+    private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
     public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, TestActivity testActivity) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
@@ -38,12 +38,79 @@ public class VoidReaper extends Player {
                 new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0});
 
         this.prompt = new Prompt(testActivity);
+        this.prompt = testActivity.getPrompt();
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.backgroundImage = backgroundImage;
         this.backgroundList = backgroundList;
         this.selectedBackground = selectedBackground;
-        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+    }
+
+    public void damageExpression(int level) {
+        // 0 - low,
+        // 1 - moderate,
+        // 2 - strong,
+        // 3 - critical
+        switch (level) {
+            case 0:
+                events.add(getName() + " received a light blow, barely disrupting its eerie calm as it swayed slightly.");
+                events.add(getName() + " received a light blow, but the impact barely registered.");
+                events.add("A minor hit grazed the " + getName() + ", leaving it unfazed but slightly annoyed.");
+                events.add("The attack barely scratched the surface, and the " + getName() + " let out a dismissive gurgle.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Gurgle-grrrgh!");
+                dialogues.add("Grrrgh.");
+                dialogues.add("Gurgle.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 1:
+                events.add(getName() + " was struck with moderate force, causing a ripple through its tentacles.");
+                events.add("The strike landed with a solid thud, causing " + getName() + prompt.getApostrophe(getName()) + " tentacles to twitch in irritation.");
+                events.add("With a moderate impact, the " + getName() + " staggered but maintained its menacing stance.");
+                events.add("The attack pushed the " + getName() + " back a step, its gurgling growl growing more pronounced.\n");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Grrraahhh!");
+                dialogues.add("Grrrrr!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 2:
+                events.add(getName() + " took a strong hit, the force momentarily disrupting its control over the void.");
+                events.add(getName() + " absorbed a strong blow, the force rippling through its body like a shockwave.");
+                events.add("The powerful hit sent tremors through the void around it, and the Reaper emitted a low growl of defiance.");
+                events.add("The strike hit hard, causing the " + getName() + " to falter briefly, its tentacles flailing in agitation.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Grrr-glkkk!");
+                dialogues.add("Ggrrrhhhaaaaahhh!");
+                dialogues.add("Grrraaaah!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 3:
+                events.add(getName() + " suffered a critical blow, staggering back as time itself flickered around it.");
+                events.add("A critical blow struck with devastating force, causing " + getName() + " to reel as time itself wavered.");
+                events.add("The blow resonated through the void, forcing the " + getName() + " to momentarily falter, shadows swirling in agitation.");
+                events.add("The devastating impact sent the " + getName() + " crashing back, its growl turning into a deep, anguished roar.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Ggrrrhhhaaaaahhh!");
+                dialogues.add("Ggrrrk-kh!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+        }
     }
 
     /**
@@ -51,22 +118,60 @@ public class VoidReaper extends Player {
      * each hits
      */
     public void receiveHit(Player hitter, Player target) {
-        int antiDodge = random.nextInt(100) + 1;
-        if (antiDodge <= getDodge())
-            return;
-
         if (!hasStatus(hitter, "Fatigue", 1).isEmpty()) {
             hitter.setAttack(hitter.getAttack() - 250);
         }
-
-        hitter.setAttack(hitter.getAttack() - getDefense());
-        setHealth(getHealth() - hitter.getAttack());
-
         if (hasStatus(hitter, "Fatigue", 1).isEmpty()) {
             hitter.setAttack(hitter.getMaxAttack());
         }
 
-        yourImage.startAnimation(shakeAnimation);
+        String result = receiveHitLogic(hitter, target);
+        switch (result) {
+            case "DODGE":
+                events.add(getName() + " slithered out of harm’s way, its tentacles curling gracefully as it evaded the blow.");
+                events.add("The attack sliced through the air, missing as the " + getName() + " dissolved momentarily into shadow, reappearing behind its foe.");
+                events.add(getName() + " sidestepped the strike with an unnatural fluidity, leaving only a wisp of the void in its place.");
+                events.add("The blow came close, but the " + getName() + prompt.getApostrophe(getName()) + " body twisted like smoke, avoiding the hit without effort.");
+                events.add("Time seemed to warp as the " + getName() + " shifted, the attack passing harmlessly through the space it once occupied.");
+                events.add("With a flicker of violet energy, the " + getName() + " vanished, dodging the attack just before it could connect.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Shhhrrrgh.");
+                dialogues.add("Grrrkk.");
+                dialogues.add("Hhhrrrhh.");
+                dialogues.add("Rrrraahhh.");
+                dialogues.add("Fffshhh.");
+                dialogues.add("Grrrah!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+                break;
+            case "BLOCKED":
+                events.add(getName() + " raised its scythe just in time, the blade deflecting the blow with a harsh, metallic clang.");
+                events.add("The strike connected with " + getName() + prompt.getApostrophe(getName()) + " tentacles, but they coiled tightly, absorbing the impact without yielding.");
+                events.add("The " + getName() + prompt.getApostrophe(getName()) + " shadowy form solidified as it met the attack head-on, dark energy rippling outward from the point of contact.");
+                events.add("With a swift movement, " + getName() + " interposed its scythe between itself and the blow, the void around it shimmering from the force of the block.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " tentacles whipped around, forming a defensive barrier that absorbed the attack, sending vibrations through the void.");
+                events.add("The strike clashed against " + getName() + prompt.getApostrophe(getName()) + " scythe, sparks flying as it growled lowly, holding its ground with unearthly strength.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Chhrrk!");
+                dialogues.add("Grrrrhhh.");
+                dialogues.add("Thrrrssshh!");
+                dialogues.add("Hhhhkkk!");
+                dialogues.add("Grrraaakk!");
+                dialogues.add("Rrrrgggh!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+                break;
+            case "":
+
+                break;
+            default:
+                damageExpression(prompt.measureDamage(Integer.parseInt(result)));
+                break;
+        }
 
         receiveStatus(target, "Time Passed", 1);
     }
@@ -115,12 +220,66 @@ public class VoidReaper extends Player {
         switch (skillIndex) {
             case 0:
                 basicAttack(hitter, target);
+
+                events.add(getName() + " raised its scythe, and the void itself seemed to shudder. Time slowed as a violet aura crackled around its blade, distorting reality with every swing.");
+                events.add("With a swift, sweeping motion, " + getName() + prompt.getApostrophe(getName()) + " scythe carved through time, leaving trails of dark energy. The air pulsed as moments were ripped apart, merging past and present.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " tentacles spread wide as it unleashed " + getSkillNames()[skillIndex] + ", bending time around its foe. The very fabric of space trembled, caught in the grasp of the scythe.");
+                events.add("A dark haze surrounded the " + getName() + " as it channeled the energy of " + getSkillNames()[skillIndex] + ". Shadows stretched and twisted, bending toward the scythe's blade as time splintered.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " scythe shimmered with an unholy glow, and with one massive swing, it cut through reality itself. A deep, resonant hum filled the void as moments fractured.");
+                events.add("With a deadly calm, " + getName() + " invoked " + getSkillNames()[skillIndex] + ". A wave of violet light pulsed forward, and every second felt stretched and warped in its wake.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Rrrrhhhaaaa!");
+                dialogues.add("Shhhhhrrrkkk!");
+                dialogues.add("Ghrrrrrhhh!");
+                dialogues.add("Ggrrrhhhk!");
+                dialogues.add("Fffssshhh!");
+                dialogues.add("Rrrrraaahhh!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
                 break;
             case 1:
                 skill1(hitter, target);
+
+                events.add(getName() + " tensed, its violet energy condensing until, in a sudden explosion, the very air seemed to shatter. Time itself fractured, catching " + target.getName() + " off-guard as they froze in place, stunned by the sudden distortion.");
+                events.add("A low, reverberating hum grew from within " + getName() + ", culminating in a burst of fractured light that rippled outward. " + target.getName() + prompt.getApostrophe(target.getName()) + " movements halted, ensnared in the warped flow of time.");
+                events.add("With a sharp, guttural growl, " + getName() + " unleashed " + getSkillNames()[skillIndex] + ". Waves of dark energy erupted from its form, splitting through space and freezing " + target.getName() + " in a suspended daze.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " body pulsed with power, then burst into fragments of shadow that rippled through the battlefield. " + getSkillNames()[skillIndex] + " around " + target.getName() + ", leaving them dazed and paralyzed.");
+                events.add("A violet flash engulfed the void, and as the echoes of " + getSkillNames()[skillIndex] + " faded, " + target.getName() + " was left stunned, trapped in the shattered fragments of time.");
+                events.add(getName() + " unleashed a fierce pulse, its form expanding as time fractured around it. " + target.getName() + prompt.getApostrophe(target.getName()) + " body shuddered as they froze, their reality warped by the void’s sinister hold.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Brrrraaakkk!");
+                dialogues.add("Ghhhrrrzzzh!");
+                dialogues.add("Shhhhhrraakk!");
+                dialogues.add("Rrrggghhh!");
+                dialogues.add("Ffsssshhh!");
+                dialogues.add("Grrrkkkshh!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
                 break;
             case 2:
                 skill2(hitter, target);
+
+                events.add(getName() + prompt.getApostrophe(getName()) + " tentacles spread wide, and the void around them seemed to warp and twist. In an instant, the world vanished, replaced by a realm of endless darkness and swirling violet energy. " + target.getName() + " struggled as " + getName() + prompt.getApostrophe(getName()) + " form shifted, growing larger and more terrifying.");
+                events.add("Reality tore apart, and " + target.getName() + " found themselves surrounded by the shadowed expanse of " + getName() + prompt.getApostrophe(getName()) + " realm. With a low growl, " + getName() + " began to transform, his body now armored and crackling with dark energy. Each attack rippled through the air, his cooldown lessening as his relentless onslaught continued.");
+                events.add("The dimension shifted, pulling " + getName() + " and " + target.getName() + " into a swirling cosmos of shadow and violet. With a distorted howl, " + getName() + " morphed into a stronger, monstrous form, his scythe glowing with power. He lunged, unleashing a powerful burst of energy that rattled the dimension, striking with fierce precision.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " laughter echoed as he dragged " + target.getName() + " into his realm, his form twisting and expanding with newfound power. The void pulsed as he unleashed a barrage of attacks, each one further reducing the delay between his skills.");
+                events.add("With a chilling roar, " + getName() + " transported them both to his dominion. Violet shadows danced as he transformed, his aura darkening with increased power. Each blow struck with more ferocity than the last, an unstoppable cascade that reset his abilities with each powerful swing.");
+                events.add(target.getName() + " barely had a moment to react as " + getName() + prompt.getApostrophe(getName()) + " realm enveloped them. Transformed and pulsing with energy, " + getName() + " unleashed a deadly assault, each strike diminishing his cooldown with the relentless cadence of a nightmare.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Hrrrrraaaaggh!");
+                dialogues.add("Grraahhhkk!");
+                dialogues.add("Fffsshhhrrrk!");
+                dialogues.add("Rrrgghhhah!");
+                dialogues.add("Thrrrrssskt!");
+                dialogues.add("Grrrrraaahhkkk!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
                 break;
             case 3:
                 skill3(hitter, target);

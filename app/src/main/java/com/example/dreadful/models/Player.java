@@ -89,6 +89,8 @@ public abstract class Player {
         this.stun = 0;
     }
 
+    public abstract void damageExpression(int level);
+
     public void receiveStatus(Player target, String statusName, int statusValue) {
         boolean withStatus = false;
         int statusIndex = 0;

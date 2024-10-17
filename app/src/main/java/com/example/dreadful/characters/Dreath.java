@@ -34,7 +34,7 @@ public class Dreath extends Player {
         this.prompt = testActivity.getPrompt();
     }
 
-    private void damageExpression(int level) {
+    public void damageExpression(int level) {
         // 0 - low,
         // 1 - moderate,
         // 2 - strong,

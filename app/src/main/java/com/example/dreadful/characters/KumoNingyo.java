@@ -13,6 +13,7 @@ import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class KumoNingyo extends Player {
@@ -22,6 +23,7 @@ public class KumoNingyo extends Player {
     private int poison = 10;
     private int creepyStalkerTime = 0;
     private int limbTwitch = 6, maxLimbTwitch = 6;
+    private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
     public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
@@ -31,7 +33,75 @@ public class KumoNingyo extends Player {
                 new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
 
         this.prompt = new Prompt(testActivity);
+        this.prompt = testActivity.getPrompt();
         this.yourHealthBar = yourHealthBar;
+    }
+
+    public void damageExpression(int level) {
+        // 0 - low,
+        // 1 - moderate,
+        // 2 - strong,
+        // 3 - critical
+        switch (level) {
+            case 0:
+                events.add(getName() + " received a light blow, barely disrupting its eerie calm as it swayed slightly.");
+                events.add(getName() + " received a light blow, but the impact barely registered.");
+                events.add("A minor hit grazed the " + getName() + ", leaving it unfazed but slightly annoyed.");
+                events.add("The attack barely scratched the surface, and the " + getName() + " let out a dismissive gurgle.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Gurgle-grrrgh!");
+                dialogues.add("Grrrgh.");
+                dialogues.add("Gurgle.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 1:
+                events.add(getName() + " was struck with moderate force, causing a ripple through its tentacles.");
+                events.add("The strike landed with a solid thud, causing " + getName() + prompt.getApostrophe(getName()) + " tentacles to twitch in irritation.");
+                events.add("With a moderate impact, the " + getName() + " staggered but maintained its menacing stance.");
+                events.add("The attack pushed the " + getName() + " back a step, its gurgling growl growing more pronounced.\n");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Grrraahhh!");
+                dialogues.add("Grrrrr!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 2:
+                events.add(getName() + " took a strong hit, the force momentarily disrupting its control over the void.");
+                events.add(getName() + " absorbed a strong blow, the force rippling through its body like a shockwave.");
+                events.add("The powerful hit sent tremors through the void around it, and the Reaper emitted a low growl of defiance.");
+                events.add("The strike hit hard, causing the " + getName() + " to falter briefly, its tentacles flailing in agitation.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Grrr-glkkk!");
+                dialogues.add("Ggrrrhhhaaaaahhh!");
+                dialogues.add("Grrraaaah!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case 3:
+                events.add(getName() + " suffered a critical blow, staggering back as time itself flickered around it.");
+                events.add("A critical blow struck with devastating force, causing " + getName() + " to reel as time itself wavered.");
+                events.add("The blow resonated through the void, forcing the " + getName() + " to momentarily falter, shadows swirling in agitation.");
+                events.add("The devastating impact sent the " + getName() + " crashing back, its growl turning into a deep, anguished roar.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Ggrrrhhhaaaaahhh!");
+                dialogues.add("Ggrrrk-kh!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+        }
     }
 
     /**
