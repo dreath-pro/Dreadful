@@ -283,15 +283,87 @@ public class VoidReaper extends Player {
                 break;
             case 3:
                 skill3(hitter, target);
+
+                events.add(getName() + " suddenly burst forward, its form a blur of violet shadows. As it dashed, the very fabric of time around it began to unravel, reversing the flow of moments and healing its wounds.");
+                events.add("In an instant, " + getName() + " flickered, appearing to dart backwards through the void. Time itself rewound, restoring health as past injuries faded like echoes in the shadows.");
+                events.add("With a swift movement, " + getName() + " activated " + getSkillNames()[skillIndex] + ", sending ripples through time. As it dashed, the wounds began to seal, and vitality surged back into its body.");
+                events.add("The darkness around " + getName() + " twisted as it performed " + getSkillNames()[skillIndex] + ", gliding through time. As moments rewound, it felt the rush of healing energy enveloping its form, recovering what was lost.");
+                events.add(getName() + " surged forward, the air crackling as time itself began to reverse. With each step, health surged back, each injury erasing like a forgotten memory.");
+                events.add("As " + getName() + " executed " + getSkillNames()[skillIndex] + ", the world around it faded and rewound. The shadows coiled around, knitting wounds and renewing strength as it dashed through time.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Rrrrhhk!");
+                dialogues.add("Ghhrrrraah!");
+                dialogues.add("Fffffssshhh!");
+                dialogues.add("Ghhrreeek!");
+                dialogues.add("Brrrraaaak!");
+                dialogues.add("Grrrhhhk!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
                 break;
             case 4:
                 skill4(hitter, target);
+
+                events.add(getName() + " gathered energy, the air around its scythe crackling with dark power. With a swift motion, it swung the blade, creating a rift in space that surged toward " + target.getName() + ".");
+                events.add("As " + getName() + " unleashed " + getSkillNames()[skillIndex] + ", a vortex of dark energy erupted from its scythe. The attack cleaved through the air, leaving a trail of distortion that threatened to consume everything in its path.");
+                events.add("With a growl that echoed through the void, " + getName() + " launched " + getSkillNames()[skillIndex] + ". The blade sliced through reality, unleashing a wave of force that sought to tear apart " + target.getName() + ".");
+                events.add(getName() + prompt.getApostrophe(getName()) + " scythe shimmered with violet energy as it performed " + getSkillNames()[skillIndex] + ", the very fabric of space warping around it. The attack surged forward, a relentless tide of dark power.");
+                events.add("The air thickened with tension as " + getName() + " prepared " + getSkillNames()[skillIndex] + ". With a devastating arc of its blade, it unleashed the attack, a gravitational pull following in its wake, drawing " + target.getName() + " closer to the impending doom.");
+                events.add("With a fierce determination, " + getName() + " executed " + getSkillNames()[skillIndex] + ". The slash unleashed a gravitational shockwave, warping the space around " + target.getName() + " and engulfing them in darkness.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Ssssshhhhh!");
+                dialogues.add("Fffhrrrraaag!");
+                dialogues.add("Rrrraaaashhh!");
+                dialogues.add("Grrrrrreeeek!");
+                dialogues.add("Brrrraaaak!");
+                dialogues.add("Grrraaaaaash!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
                 break;
             case 5:
                 skill5(hitter, target);
+
+                events.add("As " + getName() + " loomed closer, it unleashed the dark essence of " + getSkillNames()[skillIndex] + ". Shadows coiled around " + target.getName() + ", sapping their energy and dulling their senses, leaving them vulnerable to the onslaught");
+                events.add("With a low, growling hum, " + getName() + " invoked " + getSkillNames()[skillIndex] + ", dark tendrils swirling through the air and wrapping around " + target.getName() + ". Their strength waned, and they staggered under the weight of the encroaching darkness.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " scythe glimmered ominously as it initiated " + getSkillNames()[skillIndex] + ", draining " + target.getName() + prompt.getApostrophe(target.getName()) + " vitality. Each strike felt heavier, their reflexes slowed as shadows engulfed their form, making it harder to resist the coming assault.");
+                events.add("As " + target.getName() + " felt the effects of " + getSkillNames()[skillIndex] + ", " + getName() + prompt.getApostrophe(getName()) + " presence became suffocating. The weight of the void pressed down on them, reducing their defense and dodging ability as the shadows seeped deeper.");
+                events.add(getName() + " advanced, eyes glinting with malevolence as it activated " + getSkillNames()[skillIndex] + ". The air thickened with darkness, wrapping around " + target.getName() + " and dulling their attacks, making them feel sluggish and weak.");
+                events.add("With a chilling growl, " + getName() + " unleashed " + getSkillNames()[skillIndex] + ", the void swirling around " + target.getName() + " and siphoning their strength. The shadows twisted, making each attempt to fight back feel futile and clumsy.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Grrrrrhhhhh!");
+                dialogues.add("Ffffssshhh!");
+                dialogues.add("Ghrrrraaaak!");
+                dialogues.add("Ghrrreeeeek!");
+                dialogues.add("Brrrrrraaaah!");
+                dialogues.add("Fffffsssrrkk!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
                 break;
             case 6:
                 skill6(hitter, target);
+
+                events.add(getName() + " raised its scythe, time rippling as it invoked " + getSkillNames()[skillIndex] + ". Shadows coiled around, reversing moments as the two combatants were pulled back to the battle’s start, their injuries erased. But for " + target.getName() + ", each skill felt further out of reach, as though bound by the weight of time.");
+                events.add("With a chilling hum, " + getName() + prompt.getApostrophe(getName()) + " scythe tore through reality, and " + getSkillNames()[skillIndex] + " triggered. The void swirled, pulling them both back to where it all began. " + target.getName() + " felt the oppressive weight of delayed powers, each skill more distant, shackled by lingering time.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " form blurred as " + getSkillNames()[skillIndex] + " unfolded, reversing injuries and pulling both fighters back to the start. Time reset for health but not for power; " + target.getName() + " felt the lock on their abilities tighten, skills now tangled in the web of lingering cooldowns.");
+                events.add("As " + getName() + " activated " + getSkillNames()[skillIndex] + ", the battlefield twisted, yanking both back to their starting positions. Their health renewed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " skills were bound tighter, cooldowns extended by the void’s cold grip.");
+                events.add("With a dark gleam in its empty gaze, " + getName() + " enacted " + getSkillNames()[skillIndex] + ". Shadows consumed the field, winding back time. Both returned to the beginning, unharmed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " powers felt trapped, delayed by a spectral weight.");
+                events.add(getName() + " invoked " + getSkillNames()[skillIndex] + ", the air shuddering as time rewound. Both regained their strength, but " + target.getName() + prompt.getApostrophe(target.getName()) + " power was slowed, abilities held back as if bound by spectral chains.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Grraahh… ffsssshhh.");
+                dialogues.add("Rrrrhhhkk… gghrraaak!");
+                dialogues.add("Ssshhhaaak… ghrrrraaah.");
+                dialogues.add("Ghrrrrr… fffrrraaah!");
+                dialogues.add("Fffssshhhh… grrahhh.");
+                dialogues.add("Ghhrrrrraaakk!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
                 break;
         }
 
