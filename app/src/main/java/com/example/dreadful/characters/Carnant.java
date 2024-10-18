@@ -57,59 +57,89 @@ public class Carnant extends Player {
         // 3 - critical
         switch (level) {
             case 0:
-                events.add(getName() + " received a light blow, barely disrupting its eerie calm as it swayed slightly.");
-                events.add(getName() + " received a light blow, but the impact barely registered.");
-                events.add("A minor hit grazed the " + getName() + ", leaving it unfazed but slightly annoyed.");
-                events.add("The attack barely scratched the surface, and the " + getName() + " let out a dismissive gurgle.");
+                if (form == 0) {
+                    events.add("The attack barely grazed " + getName() + prompt.getApostrophe(getName()) + " arm, but instead of fear, he let out a maniacal laugh, eyes wide with excitement.");
+                    events.add(getName() + prompt.getApostrophe(getName()) + " grin stretched wider as the attack barely nicked his skin, his fingers twitching in anticipation.");
+
+                    dialogues.add("Hahaha! You missed the fun part!");
+                    dialogues.add("That all you got? Pathetic!");
+                } else {
+                    events.add("The attack bounced harmlessly off " + getName() + prompt.getApostrophe(getName()) + " red armor, his sharp claws flexing as a guttural growl echoed from his chest.");
+                    events.add(getName() + " barely noticed the minor hit, his tentacles twitching as he lurched forward, the hunger for violence burning in his glowing eyes.");
+
+                    dialogues.add("Grraaah… fffsshhh… is that all?!");
+                    dialogues.add("Hrrrk… weak… just like the rest!");
+                }
+
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Gurgle-grrrgh!");
-                dialogues.add("Grrrgh.");
-                dialogues.add("Gurgle.");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 1:
-                events.add(getName() + " was struck with moderate force, causing a ripple through its tentacles.");
-                events.add("The strike landed with a solid thud, causing " + getName() + prompt.getApostrophe(getName()) + " tentacles to twitch in irritation.");
-                events.add("With a moderate impact, the " + getName() + " staggered but maintained its menacing stance.");
-                events.add("The attack pushed the " + getName() + " back a step, its gurgling growl growing more pronounced.\n");
+                if (form == 0) {
+                    events.add("The blow made " + getName() + " stumble slightly, but his wild eyes sparkled with bloodlust as he wiped the blood from his mouth.");
+                    events.add(getName() + " hissed in pain as the attack sunk into his shoulder, but his insane grin never left his face. His breathing grew heavier, excited by the rush.");
+
+                    dialogues.add("Hrrgh… oh, I like that! Hit me again, if you dare!");
+                    dialogues.add("Yessss… that’s it… more blood!");
+                } else {
+                    events.add("The hit struck " + getName() + prompt.getApostrophe(getName()) + " side, his monstrous form twitching, but he only growled in satisfaction, his claws scraping the ground as he advanced.");
+                    events.add("The strike hit " + getName() + prompt.getApostrophe(getName()) + " armor hard, but instead of slowing down, he let out a deep, monstrous laugh, his tentacles flaring as his claws extended.");
+
+                    dialogues.add("Rrrraahhh… now it’s my turn!");
+                    dialogues.add("Grrrhhhk… you hit me… now bleed!");
+                }
+
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Grrraahhh!");
-                dialogues.add("Grrrrr!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 2:
-                events.add(getName() + " took a strong hit, the force momentarily disrupting its control over the void.");
-                events.add(getName() + " absorbed a strong blow, the force rippling through its body like a shockwave.");
-                events.add("The powerful hit sent tremors through the void around it, and the Reaper emitted a low growl of defiance.");
-                events.add("The strike hit hard, causing the " + getName() + " to falter briefly, its tentacles flailing in agitation.");
+                if (form == 0) {
+                    events.add("The attack tore into " + getName() + prompt.getApostrophe(getName()) + " flesh, causing him to stagger, but his cackling echoed through the alley as he pushed himself back up.");
+                    events.add("Blood gushed from " + getName() + prompt.getApostrophe(getName()) + " wound, but his eyes gleamed with twisted joy, the pain driving him further into madness.");
+
+                    dialogues.add("Hahahaha! That’s the kind of thrill I’m after!");
+                    dialogues.add("Grrraahh! Now you’re playing the game right!");
+                } else {
+                    events.add("The powerful attack crashed into " + getName() + prompt.getApostrophe(getName()) + " chest, cracking his armor. He roared in a mix of pain and rage, his tentacles writhing violently.");
+                    events.add(getName() + " reeled back from the blow, but his mutant body surged with fury. His claws scraped the ground as he lunged forward, laughter twisting into a growl.");
+
+                    dialogues.add("Rrrraagh!! Pain… yessss… let’s see if you can survive it!!");
+                    dialogues.add("Hehehe… strong… but not strong enough!!");
+                }
+
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Grrr-glkkk!");
-                dialogues.add("Ggrrrhhhaaaaahhh!");
-                dialogues.add("Grrraaaah!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 3:
-                events.add(getName() + " suffered a critical blow, staggering back as time itself flickered around it.");
-                events.add("A critical blow struck with devastating force, causing " + getName() + " to reel as time itself wavered.");
-                events.add("The blow resonated through the void, forcing the " + getName() + " to momentarily falter, shadows swirling in agitation.");
-                events.add("The devastating impact sent the " + getName() + " crashing back, its growl turning into a deep, anguished roar.");
+                if (form == 0) {
+                    events.add(getName() + " dropped to one knee as the strike nearly killed him, but instead of giving in, he let out an ear-piercing laugh, standing up with blood pouring down his body.");
+                    events.add("The critical hit left him staggering, blood dripping from his mouth, but " + getName() + prompt.getApostrophe(getName()) + " laughter only intensified, his psychotic rage burning brighter.");
+
+                    dialogues.add("Hahahahaha!! You… can’t stop me! I’ll take you down… one limb at a time!");
+                    dialogues.add("More… MORE!! I’m still standing!! You’re gonna die slowly!");
+                } else {
+                    events.add(getName() + prompt.getApostrophe(getName()) + " body was slammed into the ground, his armor shattered, blood pouring from deep wounds. But through the pain, his manic laughter pierced the air as he dragged himself back up.");
+                    events.add("The critical hit tore into " + getName() + prompt.getApostrophe(getName()) + " body, leaving him bleeding heavily, but his glowing red eyes burned with unstoppable rage. He stood back up, claws twitching as he prepared to attack again.");
+
+                    dialogues.add("Hahahaha!! I’ll tear you apart!! Piece by piece!");
+                    dialogues.add("Rrrraghh! You think this is enough?! I’ll make you regret that!!");
+                }
+
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Ggrrrhhhaaaaahhh!");
-                dialogues.add("Ggrrrk-kh!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
@@ -121,7 +151,61 @@ public class Carnant extends Player {
      * if he dies theres a 50/50 chance he will transform into a strong mutant, or will just die easily
      */
     public void receiveHit(Player hitter, Player target) {
-        receiveHitLogic(hitter, target);
+        String result = receiveHitLogic(hitter, target);
+        switch (result) {
+            case "DODGE":
+                if (form == 0) {
+                    events.add("The attack cut through the air as " + getName() + " swiftly dodged to the side, laughing maniacally at his own reflexes.");
+                    events.add(getName() + " ducked just in time to avoid the swing, his deranged grin growing wider as he looked back with crazed delight.");
+                    events.add("The attack missed " + getName() + " by inches, and he leaned back, barely flinching, his twisted smirk dripping with mockery.");
+                    events.add(getName() + " sidestepped the strike at the last second, his breath ragged with excitement. His psychotic laughter filled the air as he pointed mockingly.");
+
+                    dialogues.add("Hahaha! Too slow, Try harder!");
+                    dialogues.add("Tsk, tsk… gonna have to be quicker than that!");
+                    dialogues.add("Heh… close! But close don’t count!");
+                    dialogues.add("Hah! You missed! Come on, don’t disappoint me!");
+                } else {
+                    events.add(getName() + prompt.getApostrophe(getName()) + " tentacles lashed out, pulling him out of the path of Dreath’s attack just in time. His growling laugh echoed as he taunted his foe.");
+                    events.add("With unnatural speed, " + getName() + " twisted his body to dodge the strike, his armored form gleaming under the dim light as he let out a guttural snarl.");
+                    events.add(getName() + prompt.getApostrophe(getName()) + " tentacles whipped the ground, propelling him backward, narrowly avoiding the swing. His glowing eyes locked with malicious glee.");
+                    events.add("The hit whizzed past " + getName() + prompt.getApostrophe(getName()) + " armored head as he shifted just in time. He let out a low, rumbling growl as he mocked his opponent.");
+
+                    dialogues.add("Grrahh… too slow! You’ll never catch me!");
+                    dialogues.add("Hrrkk… pathetic, Dreath… you missed.");
+                    dialogues.add("Rrrahh… nice try, but I’m not that easy to hit!");
+                    dialogues.add("Grraa… dodged again, what now?");
+                }
+
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+                break;
+            case "BLOCKED":
+                if (form == 0) {
+                    events.add("The attack cut through the air as " + getName() + " swiftly dodged to the side, laughing maniacally at his own reflexes.");
+
+                    dialogues.add("Hah! You missed! Come on, don’t disappoint me!");
+                } else {
+                    events.add(getName() + prompt.getApostrophe(getName()) + " tentacles lashed out, pulling him out of the path of Dreath’s attack just in time. His growling laugh echoed as he taunted his foe.");
+
+                    dialogues.add("Grraa… dodged again, Dreath… what now?");
+                }
+
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+                break;
+            case "":
+
+                break;
+            default:
+                damageExpression(prompt.measureDamage(Integer.parseInt(result)));
+                break;
+        }
 
         if (form == 0) {
             if (getHealth() <= 0) {
@@ -171,10 +255,8 @@ public class Carnant extends Player {
             }
 
             dissolve--;
-            if (dissolve <= 0)
-            {
-                if(!hasStatus(target, "Dissolve Armor", 100).isEmpty())
-                {
+            if (dissolve <= 0) {
+                if (!hasStatus(target, "Dissolve Armor", 100).isEmpty()) {
                     setDefense(getMaxDefense());
 
                     int index = Integer.parseInt(hasStatus(target, "Dissolve Armor", 100));
