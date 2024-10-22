@@ -38,59 +38,66 @@ public class DreadProphet extends Player {
         // 3 - critical
         switch (level) {
             case 0:
-                events.add(getName() + " received a light blow, barely disrupting its eerie calm as it swayed slightly.");
-                events.add(getName() + " received a light blow, but the impact barely registered.");
-                events.add("A minor hit grazed the " + getName() + ", leaving it unfazed but slightly annoyed.");
-                events.add("The attack barely scratched the surface, and the " + getName() + " let out a dismissive gurgle.");
+                events.add("The " + getName() + " doth not so much as waver, yet his eyes lock onto thee as though weighing thy soul. Shadows creep at the edges of the cathedral, the faint whispers of the damned stirring as they mark thy sin.");
+                events.add("The Prophet’s skeletal hands remain steady, and he doth barely acknowledge thy strike. But a chill setteth in the air, as though the Abyss itself hath taken note of the sinner in its midst.");
+
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Gurgle-grrrgh!");
-                dialogues.add("Grrrgh.");
-                dialogues.add("Gurgle.");
+                dialogues.add("Thou hast barely grazed mine bones, yet the stain of sin doth cling to thee.");
+                dialogues.add("A sinner thou art, for to strike me is to strike at the very heart of the Abyss.");
+                dialogues.add("Thy hand is weak, yet it doth reek of transgression.");
+                dialogues.add("Thy feeble attempt is but a child's folly. Thou art marked by thy trespass.");
+                dialogues.add("A scratch, no more. Yet the sin thou hast wrought shall linger.");
+                dialogues.add("Such weakness... and yet thou hast sinned nonetheless.");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 1:
-                events.add(getName() + " was struck with moderate force, causing a ripple through its tentacles.");
-                events.add("The strike landed with a solid thud, causing " + getName() + prompt.getApostrophe(getName()) + " tentacles to twitch in irritation.");
-                events.add("With a moderate impact, the " + getName() + " staggered but maintained its menacing stance.");
-                events.add("The attack pushed the " + getName() + " back a step, its gurgling growl growing more pronounced.\n");
+                events.add("The Prophet grimaceth as thy blow maketh contact. His bones groan, but he doth remain firm. The weight of his judgment seems to pull the very light from the room, shadows dancing more wildly as though they hunger for thy soul.");
+                events.add("A dark fog swirls around the " + getName() + " as the hit doth send a rattle through his form. His cold, empty gaze locketh upon thee, and the burden of guilt groweth heavier with every passing moment.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Grrraahhh!");
-                dialogues.add("Grrrrr!");
+                dialogues.add("Thou striketh me in vain. Thy sin grows, and thy soul withers.");
+                dialogues.add("Every blow thou landeth is an affront to the Abyss. Thou hast chosen thy path to damnation.");
+                dialogues.add("Beware, for every strike condemns thee further, sinner.");
+                dialogues.add("The Abyss seeth thy sin. None shall escape its grasp!");
+                dialogues.add("Thou strikest in ignorance, hastening thine eternal doom!");
+                dialogues.add("Thy sinful hand doth tremble before me, yet still thou seeketh to wound!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 2:
-                events.add(getName() + " took a strong hit, the force momentarily disrupting its control over the void.");
-                events.add(getName() + " absorbed a strong blow, the force rippling through its body like a shockwave.");
-                events.add("The powerful hit sent tremors through the void around it, and the Reaper emitted a low growl of defiance.");
-                events.add("The strike hit hard, causing the " + getName() + " to falter briefly, its tentacles flailing in agitation.");
+                events.add("The force of thy strike cracketh his skeletal frame, causing fragments of bone to scatter across the floor. The Prophet staggers slightly, but his hatred for thee doth only grow. The very air turns oppressive, as if the Abyss itself hath begun to claim thee.");
+                events.add("The blow sends a visible tremor through the " + getName() + ", his ancient bones splintering under the weight of thy strike. The shadows around him deepen, growing more violent, and the sensation of dread fills the air like a smothering fog.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Grrr-glkkk!");
-                dialogues.add("Ggrrrhhhaaaaahhh!");
-                dialogues.add("Grrraaaah!");
+                dialogues.add("Thou hast wounded me, sinner, but thou hast also sealed thy doom!");
+                dialogues.add("Stronger thou art, yet greater is thy sin! Thou art beyond redemption!");
+                dialogues.add("A grievous sin hast thou committed! Thy soul shall rot in the Abyss for this!");
+                dialogues.add("Every strike doth bind thee to the Abyss. Thy soul is forfeit!");
+                dialogues.add("Foul sinner, thou shalt know the full wrath of the Abyss for this offense!");
+                dialogues.add("Thy power is great, but thy sin is greater still! The Abyss awaiteth thee!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 3:
-                events.add(getName() + " suffered a critical blow, staggering back as time itself flickered around it.");
-                events.add("A critical blow struck with devastating force, causing " + getName() + " to reel as time itself wavered.");
-                events.add("The blow resonated through the void, forcing the " + getName() + " to momentarily falter, shadows swirling in agitation.");
-                events.add("The devastating impact sent the " + getName() + " crashing back, its growl turning into a deep, anguished roar.");
+                events.add("Thy blow shattereth his form, breaking bones and tearing the shadows that cling to him. Yet the " + getName() + " doth not fall; his eyes blaze with fury unbound. The very earth trembleth, and the cathedral seemeth to shift as if the Abyss itself doth hunger for thy soul.");
+                events.add("The Prophet staggers, his form unraveling under the might of thy attack. Darkness spills from the cracks in his bones, and an unearthly wail echoes through the cathedral. The shadows writhe as if alive, closing in upon thee, eager to claim thee for thy sins.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Ggrrrhhhaaaaahhh!");
-                dialogues.add("Ggrrrk-kh!");
+                dialogues.add("Blasphemer! Thou hast committed a sin most grave, and for it, thou shalt be devoured whole!");
+                dialogues.add("Thou hast sinned beyond measure! The Abyss opens its maw to swallow thee whole!");
+                dialogues.add("Thou art damned! The weight of thy sin shall drag thee to the Abyss, and none shall mourn thy fall!");
+                dialogues.add("Thou fool! Thou hast brought ruin upon thyself. Thy soul is marked for the Abyss!");
+                dialogues.add("A sin most grievous! None shall escape the dark, and thou art its next feast!");
+                dialogues.add("The Abyss calls for thee, sinner! Thou hast earned thy place in its depths!");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
@@ -103,7 +110,17 @@ public class DreadProphet extends Player {
      * 10 mark of sin
      */
     public void receiveHit(Player hitter, Player target) {
-        receiveHitLogic(hitter, target);
+        String result = receiveHitLogic(hitter, target);
+        switch (result) {
+            case "DODGE":
+            case "BLOCKED":
+            case "":
+
+                break;
+            default:
+                damageExpression(prompt.measureDamage(Integer.parseInt(result)));
+                break;
+        }
         receiveStatus(hitter, "Mark of Sin", 10);
     }
 

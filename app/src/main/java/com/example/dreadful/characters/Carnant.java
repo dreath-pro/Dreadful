@@ -184,13 +184,25 @@ public class Carnant extends Player {
                 break;
             case "BLOCKED":
                 if (form == 0) {
-                    events.add("The attack cut through the air as " + getName() + " swiftly dodged to the side, laughing maniacally at his own reflexes.");
+                    events.add("The strike crashed against " + getName() + prompt.getApostrophe(getName()) + " arm, the impact ringing out like a bell. Instead of backing down, " + getName() + " grinned maniacally, relishing the confrontation.");
+                    events.add(getName() + " raised his arm just in time to deflect the attack, absorbing the blow with a sadistic laugh. He reveled in the contact, enjoying the moment.");
+                    events.add("The force of that attack pushed " + getName() + " back a step, but he steadied himself with a cackle, eyes gleaming with madness.");
+                    events.add("The assault clanged against " + getName() + prompt.getApostrophe(getName()) + " forearm, leaving a dent in his flesh. He responded with a twisted grin, dripping with bloodlust.");
 
-                    dialogues.add("Hah! You missed! Come on, don’t disappoint me!");
+                    dialogues.add("Heheh! That tickles! Is that all you got?!");
+                    dialogues.add("You think a little scratch will stop me? Come on, show me more!");
+                    dialogues.add("Agh! Nice try, but you’ll have to hit harder to make me bleed!");
+                    dialogues.add("Hah! You’ll need to do better than that! I’m just getting started!");
                 } else {
-                    events.add(getName() + prompt.getApostrophe(getName()) + " tentacles lashed out, pulling him out of the path of Dreath’s attack just in time. His growling laugh echoed as he taunted his foe.");
+                    events.add(getName() + " braced himself as the attack struck his armored shoulder, the impact sending a shudder through his body, but he laughed in defiance.");
+                    events.add("With a swift movement, " + getName() + " raised his claws to block the strike, the sound of collision echoing. He chuckled darkly, his eyes glowing with exhilaration.");
+                    events.add("The blow landed squarely on " + getName() + prompt.getApostrophe(getName()) + " armor, and he absorbed the impact with a growl, flexing his claws as he laughed maniacally.");
+                    events.add("As the strike met " + getName() + prompt.getApostrophe(getName()) + " armored arm, he stood firm, deflecting the blow effortlessly. His jagged laughter echoed through the battlefield, taunting.");
 
-                    dialogues.add("Grraa… dodged again, Dreath… what now?");
+                    dialogues.add("Grrahh! You think that hurts? I barely felt a thing!");
+                    dialogues.add("Rrraah! Nice effort, but you’ll have to do more than that to break through!");
+                    dialogues.add("Hrrkk! Is that your best shot? I expected more from you!");
+                    dialogues.add("Grraaahh! You’re gonna have to hit harder! I love a challenge!");
                 }
 
                 prompt.selectRandomEvent(events);
@@ -279,7 +291,7 @@ public class Carnant extends Player {
             if (form == 0) {
                 skillIndex = random.nextInt(3);
             } else {
-                skillIndex = random.nextInt(3) + 3;
+                skillIndex = random.nextInt(4) + 3;
             }
             //skillIndex = random.nextInt(getSkillNames().length);
         } while (getSkillCooldowns()[skillIndex] > 0);
@@ -288,26 +300,110 @@ public class Carnant extends Player {
         switch (skillIndex) {
             //human form
             case 0:
+                events.add(getName() + " lunged forward, gathering his strength as he prepared for the " + getSkillNames()[skillIndex] + ". With a wild grin, he leaped into the air, ready to bring his full weight down on " + target.getName() + ".");
+                events.add("As he soared through the air, " + getName() + prompt.getApostrophe(getName()) + " laughter echoed ominously. He curled his body into a ball, crashing down with tremendous force, intent on obliterating everything in his path.");
+                events.add("The ground shook beneath him as " + getName() + " slammed down, his laughter rising above the chaos. Dust and debris flew as he landed, eyes wide with manic delight.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Hahaha! Time to feel the weight of my madness!");
+                dialogues.add("Grraahhh! Here comes the pain!");
+                dialogues.add("Hah! Feel that? That’s the sound of your doom!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 basicAttack(hitter, target);
                 break;
             case 1:
+                events.add(getName() + " tightened his grip on his weapon, a wild glint in his eyes as he swung it back, gathering momentum for the strike. He was ready to unleash his fury.");
+                events.add("With a ferocious grin, " + getName() + " unleashed the " + getSkillNames()[skillIndex] + ", his weapon cutting through the air with deadly precision. He felt the thrill of the impending impact.");
+                events.add("The force of the swing echoed through the battlefield as " + getName() + prompt.getApostrophe(getName()) + " weapon collided with " + target.getName() + ", sending shockwaves of pain rippling through his opponent. He laughed maniacally at the sight of " + target.getName() + " staggering back.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Hahaha! Get ready for a world of hurt!");
+                dialogues.add("You will be added to my kill count.");
+                dialogues.add("Grrahh! Stunned already? This is too easy!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill1(hitter, target);
                 break;
             case 2:
+                events.add(getName() + " kicks at maximum strength!");
+                events.add(getName() + " kicks at his target with no hesitation.");
+                events.add(getName() + " does a heavy kick.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("You are just another corpse.");
+                dialogues.add("You should be happy I am giving you chance to live!");
+                dialogues.add("Rrraah! You won’t see this coming!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill2(hitter, target);
                 break;
 
             //mutant form
             case 3:
+                events.add(target.getName() + " is pierced by " + getName() + prompt.getApostrophe(getName()) + " tentacle.");
+                events.add(getName() + " used " + getSkillNames()[skillIndex] + " to destroy " + target.getName() + " with raw strength.");
+                events.add(getName() + " quick pierce through " + target.getName() + prompt.getApostrophe(target.getName()) + " body.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("I am your greatest kryptonite.");
+                dialogues.add("I am infinity, this fight is eternal!");
+                dialogues.add("I'm getting stronger!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill3(hitter, target);
                 break;
             case 4:
+                events.add(target.getName() + " is punctured by a deadly venom.");
+                events.add(getName() + " targeted and injected " + target.getName() + " with an aggressive venom.");
+                events.add(getName() + " injected venom into " + target.getName() + prompt.getApostrophe(target.getName()) + " body.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("You will slowly die by my venom!");
+                dialogues.add("Succumb into the afterlife.");
+                dialogues.add("No matter how strong you are, you are fragile to my venom!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill4(hitter, target);
                 break;
             case 5:
+                events.add(getName() + " ingested his own poison to recover his lost health.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " poison takes over his body and recovers those damage cell.");
+                events.add(getName() + " absorb his own poison from his tentacle to heal his body.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("You can't kill me");
+                dialogues.add("I can feel power");
+                dialogues.add("The surge of energy is so powerful");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill5(hitter, target);
                 break;
             case 6:
+                events.add(getName() + prompt.getApostrophe(getName()) + " body is dissolving making it hard for " + target.getName() + " to attack.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " cell is liquefied.");
+                events.add(getName() + " started to get deformed and agile from incoming attack.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Hehehe you cannot destroy my liquefied body!");
+                dialogues.add("I am invincible!");
+                dialogues.add("I am blessed to have this power.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill6(hitter, target);
                 break;
         }
