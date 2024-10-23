@@ -1,6 +1,7 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -20,15 +21,14 @@ public class GodOfDeath extends Player {
     private boolean isClockOn = false;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public GodOfDeath(Context context, ImageView yourImage, TestActivity testActivity) {
+    public GodOfDeath(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
                 null, null,
                 500000, 8500, 50, 50,
                 new String[]{"Decay Touch", "Pray For The Living", "Time Before Death", "Afterlife"},
                 new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0});
 
-        this.prompt = new Prompt(testActivity);
-        this.prompt = testActivity.getPrompt();
+        this.prompt = prompt;
     }
 
     public void damageExpression(int level) {
@@ -119,6 +119,8 @@ public class GodOfDeath extends Player {
 
                 break;
             default:
+                Log.e("error", "hahah error");
+
                 damageExpression(prompt.measureDamage(Integer.parseInt(result)));
                 break;
         }
@@ -131,18 +133,17 @@ public class GodOfDeath extends Player {
             if (!hasStatus(hitter, "Time Before Death", 1).isEmpty()) {
                 int index = Integer.parseInt(hasStatus(hitter, "Time Before Death", 1));
                 hitter.getStatusValue().set(index, hitter.getStatusValue().get(index) - 1);
-            }
 
-            if (timeBeforeDeath <= 0) {
-                setAttack(hitter.getMaxHealth() * 2);
-                hitter.receiveHit(target, hitter);
-                setAttack(getMaxAttack());
+                if (timeBeforeDeath <= 0) {
+                    setAttack(hitter.getMaxHealth() * 2);
+                    hitter.receiveHit(target, hitter);
+                    setAttack(getMaxAttack());
 
-                timeBeforeDeath = 0;
+                    timeBeforeDeath = 0;
 
-                int index = Integer.parseInt(hasStatus(hitter, "Time Before Death", 0));
-                hitter.getStatus().remove(index);
-                hitter.getStatusValue().remove(index);
+                    hitter.getStatus().remove(index);
+                    hitter.getStatusValue().remove(index);
+                }
             }
         }
     }
@@ -194,17 +195,29 @@ public class GodOfDeath extends Player {
                 skill1(hitter, target);
                 break;
             case 2:
-                events.add("The " + getName() + " clasps its skeletal hands in prayer, and with a sudden surge of energy, its body is fully restored. Meanwhile, " + target.getName() + prompt.getApostrophe(target.getName()) + " vitality is cut in half, drained as if the very essence of life is ripped from them. The screen glitches, flickering violently as the life force shifts.");
+                events.add("The " + getName() + " extends one bony finger, and " + target.getName() + prompt.getApostrophe(target.getName()) + " vision blurs. A countdown appears above their head, ticking down the moments until their demise. The air becomes thick with inevitability, as if death is already at the door, waiting. The screen begins to glitch, flickering like a dying flame.");
+                events.add("With a subtle motion, the " + getName() + " marks " + target.getName() + ". A ghostly timer appears, counting the seconds until life will be forcefully taken. The game’s audio distorts, the sound of a ticking clock mingling with the pulsing hum of impending death.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Pr͝ay al͠l̸ y͠ou wi͘s̡h, th͘e͝ liv͏i͟nǵ sh̶al̕l̶ s͡uffe͝r.");
+                dialogues.add("T̴h͏e̷ c͟lǫck ͡ti͝c̨k̢s. In e͝nd̵, th̵e҉r͢e ́sha͠ll b͘è no̶ esc͏ap̕e.");
+                dialogues.add("C͡o̕unt̶ y̛o͡u̴r̛ ̨bre̵áth́s,̧ yǫur ͢t͏i͝m̨e i̵s͠ f̢lee̵t͢i͘ng.");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 skill2(hitter, target);
                 break;
             case 3:
+                events.add("The " + getName() + " gestures with a slow, deliberate motion. The very air around " + target.getName() + " seems to rot as the poison effect takes hold, creeping through their body. Health begins to steadily drain, the lasting decay a reminder that even death itself is not an escape. The screen glitches faintly, distorting like the gradual unraveling of life.");
+                events.add("A soft, chilling prayer escapes from the " + getName() + ", and with it, a wave of decay spreads toward " + target.getName() + ". Poison seeps into their soul, causing their health to wither away slowly. The game flickers as the damage lingers, drawing out the torment beyond what seems mortal.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Th͜e̢ ̡aft̀er͘li͞fe͠ i͘s̡ ͏m͢ore ̨p̕a͠i͟n ̸th̴an̢ th͘e en͝d.");
+                dialogues.add("N̨ot̡ ̛ev̀en͢ ̷dea͠t͞h s̷h̶a̶ll͝ s̛pa̛r̢e t͞hee҉ fr̀o͏m̡ s͢ưf̕fe̢r͢in̢g͝.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill3(hitter, target);
                 break;
         }

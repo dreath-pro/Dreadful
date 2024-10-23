@@ -25,15 +25,14 @@ public class KumoNingyo extends Player {
     private int limbTwitch = 6, maxLimbTwitch = 6;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity) {
+    public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 210,
                 null, null,
                 5800, 180, 0, 20,
                 new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage", "Ito no Tami"},
                 new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
 
-        this.prompt = new Prompt(testActivity);
-        this.prompt = testActivity.getPrompt();
+        this.prompt = prompt;
         this.yourHealthBar = yourHealthBar;
     }
 

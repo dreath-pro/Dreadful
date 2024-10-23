@@ -23,15 +23,14 @@ public class Dreath extends Player {
     private Prompt prompt;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public Dreath(Context context, ImageView yourImage, TestActivity testActivity) {
+    public Dreath(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
                 null, null,
                 88070, 2580, 880, 0,
                 new String[]{"Butcher", "Dismember", "Ruthless Torture", "Brutal Gut", "Evisceration"},
                 new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
 
-        this.prompt = new Prompt(testActivity);
-        this.prompt = testActivity.getPrompt();
+        this.prompt = prompt;
     }
 
     public void damageExpression(int level) {

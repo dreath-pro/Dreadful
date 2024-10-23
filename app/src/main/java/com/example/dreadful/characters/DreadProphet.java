@@ -20,15 +20,14 @@ public class DreadProphet extends Player {
     private Prompt prompt;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public DreadProphet(Context context, ImageView yourImage, TestActivity testActivity) {
+    public DreadProphet(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
                 null, null,
                 120000, 2888, 0, 0,
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
 
-        this.prompt = new Prompt(testActivity);
-        this.prompt = testActivity.getPrompt();
+        this.prompt = prompt;
     }
 
     public void damageExpression(int level) {

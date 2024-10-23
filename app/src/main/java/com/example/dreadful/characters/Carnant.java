@@ -30,7 +30,7 @@ public class Carnant extends Player {
     private int dissolve = 0;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, TestActivity testActivity) {
+    public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, Prompt prompt) {
         super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
                 new int[]{R.drawable.character_carnant}, null,
                 2100, 180, 10, 40,
@@ -42,8 +42,7 @@ public class Carnant extends Player {
                 new int[]{0, 0, 0,
                         0, 0, 0, 0});
 
-        this.prompt = new Prompt(testActivity);
-        this.prompt = testActivity.getPrompt();
+        this.prompt = prompt;
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.yourName = yourName;

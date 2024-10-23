@@ -29,7 +29,7 @@ public class VoidReaper extends Player {
     private int fatigue = 0;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, TestActivity testActivity) {
+    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, Prompt prompt) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1, R.drawable.background_void_2},
@@ -37,8 +37,7 @@ public class VoidReaper extends Player {
                 new String[]{"Chrono Reap", "Time Fracture", "Dimension Shift", "Reverse Dash", "Singularity Slash", "Void Fatigue", "Temporal Reset"},
                 new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0});
 
-        this.prompt = new Prompt(testActivity);
-        this.prompt = testActivity.getPrompt();
+        this.prompt = prompt;
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.backgroundImage = backgroundImage;

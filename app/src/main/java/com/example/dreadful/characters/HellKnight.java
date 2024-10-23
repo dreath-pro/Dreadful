@@ -30,7 +30,7 @@ public class HellKnight extends Player {
     private int ember = 0;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar, TestActivity testActivity) {
+    public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
         super(context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
                 new int[]{R.drawable.character_hell_knight_2}, null,
                 20000, 1000, 1000, 5,
@@ -42,8 +42,7 @@ public class HellKnight extends Player {
                 new int[]{0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0});
 
-        this.prompt = new Prompt(testActivity);
-        this.prompt = testActivity.getPrompt();
+        this.prompt = prompt;
         this.resizeImage = new ResizeImage(context);
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;

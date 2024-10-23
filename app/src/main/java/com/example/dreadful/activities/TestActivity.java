@@ -50,7 +50,6 @@ public class TestActivity extends AppCompatActivity {
     private Random random = new Random();
     private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
             R.drawable.background_graveyard, R.drawable.background_cave};
-    private ArrayList<String> events = new ArrayList<>();
     private int selectedBackground = 0;
     private ViewStatus viewStatus;
     private ViewSkill viewSkill;
@@ -89,6 +88,10 @@ public class TestActivity extends AppCompatActivity {
 
     private void startConfiguration(boolean newViews) {
         promptView.setText("");
+
+        prompt = new Prompt(this);
+        prompt.addEventMessage("Fate has led them to this pivotal moment of encounter.");
+
         if (newViews) {
             selectedBackground = random.nextInt(backgroundList.length);
         }
@@ -100,7 +103,7 @@ public class TestActivity extends AppCompatActivity {
                     enemyName, enemyHealth, enemyHealthText, enemyImage,
                     yourPlayer, enemyPlayer, backgroundImage, yourStunText,
                     enemyStunText, backgroundList, selectedBackground,
-                    yourHealth, enemyHealth, this);
+                    yourHealth, enemyHealth, prompt);
         }
 
         setupCharacter.initializeYourViews(newViews);
@@ -110,12 +113,6 @@ public class TestActivity extends AppCompatActivity {
 
         gameMechanics = new GameMechanics(this, yourHealth, yourHealthText, enemyHealth,
                 enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton);
-
-        prompt = new Prompt(this);
-        events.add("Fate has led them to this pivotal moment of encounter.");
-        prompt = getPrompt();
-        prompt.selectRandomEvent(events);
-        events.clear();
     }
 
     private void invisibleButtons(Boolean invisible) {
@@ -206,14 +203,9 @@ public class TestActivity extends AppCompatActivity {
         gameMechanics.stopBattleLoop(); // Ensure cleanup when activity is destroyed
     }
 
-    public void setPrompt(Prompt prompt)
+    public void addPrompt(Prompt prompt)
     {
         this.prompt = prompt;
-    }
-
-    public Prompt getPrompt()
-    {
-        return prompt;
     }
 
     private void showBattleLogs() {
