@@ -160,18 +160,78 @@ public class DreadProphet extends Player {
         skillName = getSkillNames()[skillIndex];
         switch (skillIndex) {
             case 0:
+                events.add("The " + getName() + " raiseth his skeletal hand, and between his fingers, a bolt of pure darkness doth streak toward " + target.getName() + ". The attack cannot be dodged, its path certain and unyielding. Though defenses may lessen its sting, it feels the cold embrace of the Abyss biting deep into their form.");
+                events.add("A tendril of shadow doth lash forth from the " + getName() + prompt.getApostrophe(getName()) + " outstretched arm, crackling with dark energy. The bolt flies straight, swift and sure, unhindered by " + target.getName() + prompt.getApostrophe(target.getName()) + " attempts to evade. The force of the Abyss itself bears down upon " + target.getName() + ", its touch inescapable, though dampened by their formidable defense.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Run if thou must, but the shadows shall always find thee, " + target.getName() + ".");
+                dialogues.add("Feel the weight of the Abyss, for no dodge shall save thee from thy fate!");
+                dialogues.add("Mine dark bolt dost seek thee, for none may escape judgment eternal.");
+                dialogues.add("Futile are thy escape, for the Abyss giveth no quarter to thee.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 basicAttack(hitter, target);
                 break;
             case 1:
+                events.add("The " + getName() + " lifts his skeletal arms to the heavens, channeling the malevolence of the Abyss. Shadows twist and converge around him as six dark bolts form, each crackling with sinister energy. In a blinding flash, the bolts are unleashed, striking " + target.getName() + " with the weight of accumulated sins, each impact a chilling reminder of their transgressions.");
+                events.add("With a voice that echoes like thunder, the " + getName() + " intones the words of the Abyss. Six dark tendrils erupt from his outstretched hands, each one a swift harbinger of doom. The air fills with a suffocating darkness as they dart toward " + target.getName() + ", each strike resonating with the fury of judgment, leaving a trail of despair in their wake.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Behold the reckoning! " + getSkillNames()[skillIndex] + " shall seal thy fate!");
+                dialogues.add("Thy sins multiply, and now they shall return to thee in force!");
+                dialogues.add("I call upon the depths of despair! Six strikes shall rend thee!");
+                dialogues.add("The Abyss hath deemed thee worthy of judgment; prepare for thy end!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill1(hitter, target);
                 break;
             case 2:
+                events.add("The " + getName() + " raises his skeletal arms to the heavens, chanting a dark incantation that twists the very essence of prayer. As light begins to shimmer around " + target.getName() + ", the glow shifts, turning into a sinister dark aura that wraps around them. The energy that once sought to mend now gnaws at their vitality, converting hope into an unyielding torment.");
+                events.add("With a voice resonating from the depths of the Abyss, the " + getName() + " invokes the power of " + getSkillNames()[skillIndex] + ". Shadows swirl around him, forming a sinister vortex as the healing energies intended for " + target.getName() + " are siphoned away, transforming into a creeping malaise. Each heartbeat brings renewed agony, as what was meant to restore now drags them deeper into despair.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Thy feeble attempts to heal shall serve only to strengthen my wrath!");
+                dialogues.add("In the Abyss, the prayers of the unworthy turn to curses!");
+                dialogues.add("Let thy lifeblood flow as I twist thy hopes into despair!");
+                dialogues.add("What thou deemest healing, I shall transform into thy undoing!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill2(hitter, target);
                 break;
             case 3:
+                events.add("The " + getName() + prompt.getApostrophe(getName()) + " hollow gaze fixeth upon thee, a chilling smile spreading across his bony visage. As he raises a skeletal hand, a dark sigil materializeth upon thy flesh, the Mark of Sin glimmering ominously. In that moment, a sense of dread envelopeth thee, and the Prophet’s voice echoes, promising that thy sins shall return with unrelenting force.");
+                events.add("With a low, rumbling chant, the " + getName() + " conjureth the dark energies of " + getSkillNames()[skillIndex] + ". The very air crackles with foreboding as the mark upon thee pulsates with an eerie light. A jolt of pain courses through thy veins, and with each heartbeat, the weight of thy transgressions presseth down, stealing thy vitality and turning it against thee, binding thee to the judgment of the Abyss.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("For every strike thou landest, a mark of sin doth grow—now feel its wrath!");
+                dialogues.add("Thou thinkest to harm me? Know this: thy sins shall return to thee tenfold!");
+                dialogues.add("Thy blood shall pay the price for thy transgressions! " + getSkillNames()[skillIndex] + " is at hand!");
+                dialogues.add("The Abyss doth not forget; every wound thou causeth doth lead to thy own doom!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill3(hitter, target);
                 break;
             case 4:
+                events.add("With a skeletal hand raised high, the " + getName() + " calleth forth the lost souls of the Abyss. Their voices, twisted in eternal worship, rise as one in a harrowing chant, singing praises to their dark shepherd. The air thickens with the weight of their hymn, as the Mark of Sin upon the enemy shineth bright. The deeper their transgressions, the stronger the choir's fervor, healing the Prophet with each mournful verse.");
+                events.add("The very walls of the Abyssal Cathedral tremble as the " + getSkillNames()[skillIndex] + " raiseth their voices in dark worship. Bound in torment, the souls of the Abyss sing forth a hymn of reverence, their voices full of anguish and praise for the " + getName() + ". With each note, the Mark of Sin doth burn brighter upon the foe, and the Prophet's form is bathed in the unholy light of their worship, his wounds mended by their undying devotion.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Hark! The souls of the damned doth singeth mine praise, their torment healeth mine flesh!");
+                dialogues.add("Thee shalt hear their woeful song; for their suffering is mine salvation!");
+                dialogues.add("In agony they sing, and through their sin, I am made whole!");
+                dialogues.add("Thee canst not silence the hymn of the Abyss, for it doth grant me life everlasting!");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill4(hitter, target);
                 break;
         }
@@ -220,7 +280,7 @@ public class DreadProphet extends Player {
     }
 
     //retribution for sinner hitter/attacker, base on the value of the "mark of sin"
-    //reduce 50% of attacker current health
+    //reduce percentage of attacker current health base on the value of mark of sin
     private void skill3(Player hitter, Player target) {
         target.receiveHit(hitter, target);
 

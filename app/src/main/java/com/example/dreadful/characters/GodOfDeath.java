@@ -23,7 +23,7 @@ public class GodOfDeath extends Player {
     public GodOfDeath(Context context, ImageView yourImage, TestActivity testActivity) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
                 null, null,
-                500000, 500000, 500000, 50,
+                500000, 8500, 50, 50,
                 new String[]{"Decay Touch", "Pray For The Living", "Time Before Death", "Afterlife"},
                 new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0});
 
@@ -38,59 +38,49 @@ public class GodOfDeath extends Player {
         // 3 - critical
         switch (level) {
             case 0:
-                events.add(getName() + " received a light blow, barely disrupting its eerie calm as it swayed slightly.");
-                events.add(getName() + " received a light blow, but the impact barely registered.");
-                events.add("A minor hit grazed the " + getName() + ", leaving it unfazed but slightly annoyed.");
-                events.add("The attack barely scratched the surface, and the " + getName() + " let out a dismissive gurgle.");
+                events.add("The " + getName() + " remains completely still, showing no sign of pain or concern. The world around you flickers briefly as if reality itself is growing unstable.");
+                events.add("Barely touched, the " + getName() + prompt.getApostrophe(getName()) + " skull tilts slightly in acknowledgment, though the screen twitches as if something just went wrong within the game.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Gurgle-grrrgh!");
-                dialogues.add("Grrrgh.");
-                dialogues.add("Gurgle.");
+                dialogues.add("W̵e̕ak̴. Yo͟u̷ w͠o̧n'́t̕ eve̸n̡ ̨́s̷̛c͡r͠atc̨̨h̛ ͞m͢͞e.");
+                dialogues.add("Ý̴ou c̸̛̀án͡not͞ ̵hàr͡m w͞hat is à͞͡lręady d̢̨è͝a̷d.");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 1:
-                events.add(getName() + " was struck with moderate force, causing a ripple through its tentacles.");
-                events.add("The strike landed with a solid thud, causing " + getName() + prompt.getApostrophe(getName()) + " tentacles to twitch in irritation.");
-                events.add("With a moderate impact, the " + getName() + " staggered but maintained its menacing stance.");
-                events.add("The attack pushed the " + getName() + " back a step, its gurgling growl growing more pronounced.\n");
+                events.add("The attack lands, and for a moment, the " + getName() + " seems to pause in its prayer. The game glitches briefly, a static hum filling your ears.");
+                events.add("The blow lands, more forceful than before, but the " + getName() + " remains composed. The atmosphere distorts slightly, hinting at the untouchable nature of this entity.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Grrraahhh!");
-                dialogues.add("Grrrrr!");
+                dialogues.add("You th͞i͠n͢k thìs m̛ea̵n͏s s̛o͡me͝th͝in͠g͏? I̵ am b̀eyo͡nd́ i͠t al̷l̨.");
+                dialogues.add("M̵̢or̸e, bu̴t ̀͢s͠tilļ fa͟r̡ ̴̷͘t͘oǫ ̶we̸͟ák͡.");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 2:
-                events.add(getName() + " took a strong hit, the force momentarily disrupting its control over the void.");
-                events.add(getName() + " absorbed a strong blow, the force rippling through its body like a shockwave.");
-                events.add("The powerful hit sent tremors through the void around it, and the Reaper emitted a low growl of defiance.");
-                events.add("The strike hit hard, causing the " + getName() + " to falter briefly, its tentacles flailing in agitation.");
+                events.add("The impact sends a ripple through the air, and for a moment, the " + getName() + " flickers as if skipping frames, but it remains unmoved, unfazed.");
+                events.add("Your strong strike reverberates through the battlefield, but the " + getName() + prompt.getApostrophe(getName()) + " prayer remains unchanged. It almost seems to acknowledge the futility of the effort with its unmoving form.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Grrr-glkkk!");
-                dialogues.add("Ggrrrhhhaaaaahhh!");
-                dialogues.add("Grrraaaah!");
+                dialogues.add("Ahh͟...͟ b͟u͢t ̷yo̡ur ͠e͠ǹde͠avor ̡is f̡u͞ti̛le.");
+                dialogues.add("H̡it̵ ͝m͘e̛ a͡ll͡ ͡yo̷u wi͘ll...͠ ̴it ch̢ang̸es n͞ot̢hi͏ng͢.");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
                 break;
             case 3:
-                events.add(getName() + " suffered a critical blow, staggering back as time itself flickered around it.");
-                events.add("A critical blow struck with devastating force, causing " + getName() + " to reel as time itself wavered.");
-                events.add("The blow resonated through the void, forcing the " + getName() + " to momentarily falter, shadows swirling in agitation.");
-                events.add("The devastating impact sent the " + getName() + " crashing back, its growl turning into a deep, anguished roar.");
+                events.add("Your critical strike lands, and the world seems to unravel for a moment, the screen tearing and glitching violently. The " + getName() + " remains, mocking your effort through its very existence.");
+                events.add("A devastating blow, but as the " + getName() + " takes it, the ground beneath begins to tremble as the screen distorts wildly, a reminder that you are facing an unstoppable force.");
                 prompt.selectRandomEvent(events);
                 events.clear();
 
-                dialogues.add("Ggrrrhhhaaaaahhh!");
-                dialogues.add("Ggrrrk-kh!");
+                dialogues.add("T̶r̸y al̕l͠ ͢you͏ w̡ish... but y͟ou w̸i̸ll ͞never es̶cap̕e ḿe.");
+                dialogues.add("Yo͘ư ̵d̕o̕ ńot f̡ight mè. Y̵ou fi͝g͡h͝t̡ t͞he ͞i̴ne̕vitab̸le.");
                 prompt.selectRandomDialogue(this, dialogues, true);
                 dialogues.clear();
 
@@ -99,7 +89,39 @@ public class GodOfDeath extends Player {
     }
 
     public void receiveHit(Player hitter, Player target) {
-        receiveHitLogic(hitter, target);
+        String result = receiveHitLogic(hitter, target);
+        switch (result) {
+            case "DODGE":
+                events.add("The " + getName() + " seems to blur and flicker out of existence as your strike passes through it. The very air around you shifts, as if the laws of reality are momentarily suspended.");
+                events.add("As the attack is launched, the " + getName() + " vanishes, leaving nothing but static in its place. The game glitches momentarily before the skeletal figure reappears, still locked in its eerie prayer.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Díd͏ yo͠ư r̸e̸ally think yo͞u co̵ul̴d hi͢t̢ m̢é?");
+                dialogues.add("Y̴ou m͝i̶ght͠ ̀h͡it t̀he ͏gr̀a͡v͡e befo͟r̡e yo̷u ́e͏v̀en͟ t̛óu͘ch́ m̢e.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case "BLOCKED":
+                events.add("The " + getName() + " raises one skeletal hand, and as your attack connects, a faint ripple of energy dissipates the blow. The game glitches briefly, a reminder that you face something beyond comprehension.");
+                events.add("The blow lands squarely, yet it feels like striking stone. The " + getName() + " remains still, as if the very concept of harm is meaningless to it. The screen flickers, subtly reinforcing the futility of your actions.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Yo̡uŕ e̛ffo̷rt̷s a̴re... pa̕t͡heti͡c.");
+                dialogues.add("St́r͡ik̡e̕ as ͏yo͝u ̸wil̛l̷...̢ ̶it ͠matters ńot.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
+                break;
+            case "":
+
+                break;
+            default:
+                damageExpression(prompt.measureDamage(Integer.parseInt(result)));
+                break;
+        }
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
@@ -112,7 +134,10 @@ public class GodOfDeath extends Player {
             }
 
             if (timeBeforeDeath <= 0) {
-                hitter.setHealth(0);
+                setAttack(hitter.getMaxHealth() * 2);
+                hitter.receiveHit(target, hitter);
+                setAttack(getMaxAttack());
+
                 timeBeforeDeath = 0;
 
                 int index = Integer.parseInt(hasStatus(hitter, "Time Before Death", 0));
@@ -143,12 +168,40 @@ public class GodOfDeath extends Player {
         skillName = getSkillNames()[skillIndex];
         switch (skillIndex) {
             case 0:
+                events.add("As the " + getName() + " reaches out, a cold, decaying energy clings to " + target.getName() + prompt.getApostrophe(target.getName()) + " form. Though the initial touch is light, the poison begins to seep in, slow but relentless. The game glitches subtly as if the code itself is decaying.");
+                events.add("With a mere graze, the " + getName() + " transfers a lingering rot into " + target.getName() + ". The poison begins to eat away at health, spreading its effects over time. The screen flickers, mirroring the slow destruction " + target.getName() + " now faces.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("To̵uch̡ ̵o͟f de͘ath,̕ th͟ou sha̷l̀l not es̵cape̷ ẃha̛t́ ͝ís c͝e̡rt̷ain.");
+                dialogues.add("E͡vęr̸y̵ b͞r͝e͏at̸h t͘ake̕n͝,̡ a ste̷p ̛c̵l͡oser t͠o me̢.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 basicAttack(hitter, target);
                 break;
             case 1:
+                events.add("The " + getName() + " clasps its skeletal hands in prayer, and with a sudden surge of energy, its body is fully restored. Meanwhile, " + target.getName() + prompt.getApostrophe(target.getName()) + " vitality is cut in half, drained as if the very essence of life is ripped from them. The screen glitches, flickering violently as the life force shifts.");
+                events.add("The " + getName() + " offers a twisted prayer, and in response, its health returns to full. " + target.getName() + prompt.getApostrophe(target.getName()) + " own life essence is then siphoned, their health halved in an instant, as if fate itself has deemed them unworthy of survival. The game stutters, reflecting the disruption of balance.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Pr͝ay al͠l̸ y͠ou wi͘s̡h, th͘e͝ liv͏i͟nǵ sh̶al̕l̶ s͡uffe͝r.");
+                dialogues.add("R̷es̶to͟rat͏i͠oǹ fo͢r̵ m̀e, e̵r̵ad͞i̷cat͢íon̢ f̨o̡r ̶thee.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill1(hitter, target);
                 break;
             case 2:
+                events.add("The " + getName() + " clasps its skeletal hands in prayer, and with a sudden surge of energy, its body is fully restored. Meanwhile, " + target.getName() + prompt.getApostrophe(target.getName()) + " vitality is cut in half, drained as if the very essence of life is ripped from them. The screen glitches, flickering violently as the life force shifts.");
+                prompt.selectRandomEvent(events);
+                events.clear();
+
+                dialogues.add("Pr͝ay al͠l̸ y͠ou wi͘s̡h, th͘e͝ liv͏i͟nǵ sh̶al̕l̶ s͡uffe͝r.");
+                prompt.selectRandomDialogue(this, dialogues, true);
+                dialogues.clear();
+
                 skill2(hitter, target);
                 break;
             case 3:
@@ -168,19 +221,29 @@ public class GodOfDeath extends Player {
         return skillName;
     }
 
-    //temporary simple attack
+    //basic attack with damage over time that last for 4 turns
     @Override
     public void basicAttack(Player hitter, Player target) {
-        target.setDodge(0);
+        target.setDefense(0);
         target.receiveHit(hitter, target);
-        target.setDodge(getMaxDodge());
+        target.setDefense(getMaxDefense());
+
+        target.getDamageOverTime().add(4500);
+        target.getDamageOverTimeValue().add(12);
     }
 
-    //temporary simple attack
+    //resets the health to max and then reduce enemy health by 50% of it's max health
     private void skill1(Player hitter, Player target) {
-        target.setDodge(0);
+        setHealth(getMaxHealth());
+
+        double halfHealthDamage = ((double) 50 / 100) * target.getMaxHealth();
+        setAttack((int) halfHealthDamage);
+        target.setDefense(0);
+
         target.receiveHit(hitter, target);
-        target.setDodge(getMaxDodge());
+
+        target.setDefense(getMaxDefense());
+        setAttack(getMaxAttack());
     }
 
     //give the target time before death ranges from 6 to 10
@@ -191,10 +254,13 @@ public class GodOfDeath extends Player {
         target.receiveStatus(target, "Time Before Death", timeBeforeDeath);
     }
 
-    //temporary simple attack
+    //same as basic attack but enhanced
     private void skill3(Player hitter, Player target) {
-        target.setDodge(0);
+        target.setDefense(0);
         target.receiveHit(hitter, target);
-        target.setDodge(getMaxDodge());
+        target.setDefense(getMaxDefense());
+
+        target.getDamageOverTime().add(4500 * 2);
+        target.getDamageOverTimeValue().add(12);
     }
 }
