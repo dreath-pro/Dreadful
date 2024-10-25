@@ -1,5 +1,8 @@
 package com.example.dreadful.models;
 
+import androidx.core.content.ContextCompat;
+
+import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
 
 import java.util.ArrayList;
@@ -8,6 +11,7 @@ import java.util.Random;
 public class Prompt {
     private ArrayList<String> eventMessage;
     private ArrayList<String> dialogueMessage;
+    private ArrayList<Integer> eventColor, dialogueColor;
     private TestActivity testActivity;
     private Random random;
 
@@ -22,7 +26,8 @@ public class Prompt {
         this.dialogueMessage = new ArrayList<>();
         this.testActivity = testActivity;
         this.random = new Random();
-
+        this.eventColor = new ArrayList<>();
+        this.dialogueColor = new ArrayList<>();
         this.selectedMessage = new ArrayList<>();
     }
 
@@ -102,5 +107,21 @@ public class Prompt {
 
     public ArrayList<Integer> getSelectedMessage() {
         return selectedMessage;
+    }
+
+    public ArrayList<Integer> getEventColor() {
+        return eventColor;
+    }
+
+    public void setEventColor(ArrayList<Integer> eventColor) {
+        this.eventColor = eventColor;
+    }
+
+    public ArrayList<Integer> getDialogueColor() {
+        return dialogueColor;
+    }
+
+    public void setDialogueColor(ArrayList<Integer> dialogueColor) {
+        this.dialogueColor = dialogueColor;
     }
 }

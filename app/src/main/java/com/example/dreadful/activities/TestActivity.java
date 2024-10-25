@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -91,6 +92,7 @@ public class TestActivity extends AppCompatActivity {
 
         prompt = new Prompt(this);
         prompt.addEventMessage("Fate has led them to this pivotal moment of encounter.");
+        prompt.getEventColor().add(ContextCompat.getColor(this, R.color.yellow_orange));
 
         if (newViews) {
             selectedBackground = random.nextInt(backgroundList.length);

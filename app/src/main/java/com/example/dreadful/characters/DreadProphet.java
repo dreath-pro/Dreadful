@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
@@ -18,6 +19,7 @@ import java.util.Random;
 public class DreadProphet extends Player {
     private Random random = new Random();
     private Prompt prompt;
+    private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
     public DreadProphet(Context context, ImageView yourImage, Prompt prompt) {
@@ -27,6 +29,7 @@ public class DreadProphet extends Player {
                 new String[]{"Dark Bolt", "Sixfold Judgement", "Reverse Prayer", "Sinful Retribution", "Spectral Choir"},
                 new int[]{0, 4, 7, 4, 6}, new int[]{0, 0, 0, 0, 0});
 
+        this.context = context;
         this.prompt = prompt;
     }
 
@@ -39,8 +42,8 @@ public class DreadProphet extends Player {
             case 0:
                 events.add("The " + getName() + " doth not so much as waver, yet his eyes lock onto thee as though weighing thy soul. Shadows creep at the edges of the cathedral, the faint whispers of the damned stirring as they mark thy sin.");
                 events.add("The Prophet’s skeletal hands remain steady, and he doth barely acknowledge thy strike. But a chill setteth in the air, as though the Abyss itself hath taken note of the sinner in its midst.");
-
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Thou hast barely grazed mine bones, yet the stain of sin doth cling to thee.");
@@ -50,6 +53,7 @@ public class DreadProphet extends Player {
                 dialogues.add("A scratch, no more. Yet the sin thou hast wrought shall linger.");
                 dialogues.add("Such weakness... and yet thou hast sinned nonetheless.");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -57,6 +61,7 @@ public class DreadProphet extends Player {
                 events.add("The Prophet grimaceth as thy blow maketh contact. His bones groan, but he doth remain firm. The weight of his judgment seems to pull the very light from the room, shadows dancing more wildly as though they hunger for thy soul.");
                 events.add("A dark fog swirls around the " + getName() + " as the hit doth send a rattle through his form. His cold, empty gaze locketh upon thee, and the burden of guilt groweth heavier with every passing moment.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Thou striketh me in vain. Thy sin grows, and thy soul withers.");
@@ -66,6 +71,7 @@ public class DreadProphet extends Player {
                 dialogues.add("Thou strikest in ignorance, hastening thine eternal doom!");
                 dialogues.add("Thy sinful hand doth tremble before me, yet still thou seeketh to wound!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -73,6 +79,7 @@ public class DreadProphet extends Player {
                 events.add("The force of thy strike cracketh his skeletal frame, causing fragments of bone to scatter across the floor. The Prophet staggers slightly, but his hatred for thee doth only grow. The very air turns oppressive, as if the Abyss itself hath begun to claim thee.");
                 events.add("The blow sends a visible tremor through the " + getName() + ", his ancient bones splintering under the weight of thy strike. The shadows around him deepen, growing more violent, and the sensation of dread fills the air like a smothering fog.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Thou hast wounded me, sinner, but thou hast also sealed thy doom!");
@@ -82,6 +89,7 @@ public class DreadProphet extends Player {
                 dialogues.add("Foul sinner, thou shalt know the full wrath of the Abyss for this offense!");
                 dialogues.add("Thy power is great, but thy sin is greater still! The Abyss awaiteth thee!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -89,6 +97,7 @@ public class DreadProphet extends Player {
                 events.add("Thy blow shattereth his form, breaking bones and tearing the shadows that cling to him. Yet the " + getName() + " doth not fall; his eyes blaze with fury unbound. The very earth trembleth, and the cathedral seemeth to shift as if the Abyss itself doth hunger for thy soul.");
                 events.add("The Prophet staggers, his form unraveling under the might of thy attack. Darkness spills from the cracks in his bones, and an unearthly wail echoes through the cathedral. The shadows writhe as if alive, closing in upon thee, eager to claim thee for thy sins.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Blasphemer! Thou hast committed a sin most grave, and for it, thou shalt be devoured whole!");
@@ -98,6 +107,7 @@ public class DreadProphet extends Player {
                 dialogues.add("A sin most grievous! None shall escape the dark, and thou art its next feast!");
                 dialogues.add("The Abyss calls for thee, sinner! Thou hast earned thy place in its depths!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -162,6 +172,7 @@ public class DreadProphet extends Player {
                 events.add("The " + getName() + " raiseth his skeletal hand, and between his fingers, a bolt of pure darkness doth streak toward " + target.getName() + ". The attack cannot be dodged, its path certain and unyielding. Though defenses may lessen its sting, it feels the cold embrace of the Abyss biting deep into their form.");
                 events.add("A tendril of shadow doth lash forth from the " + getName() + prompt.getApostrophe(getName()) + " outstretched arm, crackling with dark energy. The bolt flies straight, swift and sure, unhindered by " + target.getName() + prompt.getApostrophe(target.getName()) + " attempts to evade. The force of the Abyss itself bears down upon " + target.getName() + ", its touch inescapable, though dampened by their formidable defense.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Run if thou must, but the shadows shall always find thee, " + target.getName() + ".");
@@ -169,6 +180,7 @@ public class DreadProphet extends Player {
                 dialogues.add("Mine dark bolt dost seek thee, for none may escape judgment eternal.");
                 dialogues.add("Futile are thy escape, for the Abyss giveth no quarter to thee.");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -177,6 +189,7 @@ public class DreadProphet extends Player {
                 events.add("The " + getName() + " lifts his skeletal arms to the heavens, channeling the malevolence of the Abyss. Shadows twist and converge around him as six dark bolts form, each crackling with sinister energy. In a blinding flash, the bolts are unleashed, striking " + target.getName() + " with the weight of accumulated sins, each impact a chilling reminder of their transgressions.");
                 events.add("With a voice that echoes like thunder, the " + getName() + " intones the words of the Abyss. Six dark tendrils erupt from his outstretched hands, each one a swift harbinger of doom. The air fills with a suffocating darkness as they dart toward " + target.getName() + ", each strike resonating with the fury of judgment, leaving a trail of despair in their wake.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Behold the reckoning! " + getSkillNames()[skillIndex] + " shall seal thy fate!");
@@ -184,6 +197,7 @@ public class DreadProphet extends Player {
                 dialogues.add("I call upon the depths of despair! Six strikes shall rend thee!");
                 dialogues.add("The Abyss hath deemed thee worthy of judgment; prepare for thy end!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -192,6 +206,7 @@ public class DreadProphet extends Player {
                 events.add("The " + getName() + " raises his skeletal arms to the heavens, chanting a dark incantation that twists the very essence of prayer. As light begins to shimmer around " + target.getName() + ", the glow shifts, turning into a sinister dark aura that wraps around them. The energy that once sought to mend now gnaws at their vitality, converting hope into an unyielding torment.");
                 events.add("With a voice resonating from the depths of the Abyss, the " + getName() + " invokes the power of " + getSkillNames()[skillIndex] + ". Shadows swirl around him, forming a sinister vortex as the healing energies intended for " + target.getName() + " are siphoned away, transforming into a creeping malaise. Each heartbeat brings renewed agony, as what was meant to restore now drags them deeper into despair.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Thy feeble attempts to heal shall serve only to strengthen my wrath!");
@@ -199,6 +214,7 @@ public class DreadProphet extends Player {
                 dialogues.add("Let thy lifeblood flow as I twist thy hopes into despair!");
                 dialogues.add("What thou deemest healing, I shall transform into thy undoing!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -207,6 +223,7 @@ public class DreadProphet extends Player {
                 events.add("The " + getName() + prompt.getApostrophe(getName()) + " hollow gaze fixeth upon thee, a chilling smile spreading across his bony visage. As he raises a skeletal hand, a dark sigil materializeth upon thy flesh, the Mark of Sin glimmering ominously. In that moment, a sense of dread envelopeth thee, and the Prophet’s voice echoes, promising that thy sins shall return with unrelenting force.");
                 events.add("With a low, rumbling chant, the " + getName() + " conjureth the dark energies of " + getSkillNames()[skillIndex] + ". The very air crackles with foreboding as the mark upon thee pulsates with an eerie light. A jolt of pain courses through thy veins, and with each heartbeat, the weight of thy transgressions presseth down, stealing thy vitality and turning it against thee, binding thee to the judgment of the Abyss.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("For every strike thou landest, a mark of sin doth grow—now feel its wrath!");
@@ -214,6 +231,7 @@ public class DreadProphet extends Player {
                 dialogues.add("Thy blood shall pay the price for thy transgressions! " + getSkillNames()[skillIndex] + " is at hand!");
                 dialogues.add("The Abyss doth not forget; every wound thou causeth doth lead to thy own doom!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -222,6 +240,7 @@ public class DreadProphet extends Player {
                 events.add("With a skeletal hand raised high, the " + getName() + " calleth forth the lost souls of the Abyss. Their voices, twisted in eternal worship, rise as one in a harrowing chant, singing praises to their dark shepherd. The air thickens with the weight of their hymn, as the Mark of Sin upon the enemy shineth bright. The deeper their transgressions, the stronger the choir's fervor, healing the Prophet with each mournful verse.");
                 events.add("The very walls of the Abyssal Cathedral tremble as the " + getSkillNames()[skillIndex] + " raiseth their voices in dark worship. Bound in torment, the souls of the Abyss sing forth a hymn of reverence, their voices full of anguish and praise for the " + getName() + ". With each note, the Mark of Sin doth burn brighter upon the foe, and the Prophet's form is bathed in the unholy light of their worship, his wounds mended by their undying devotion.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Hark! The souls of the damned doth singeth mine praise, their torment healeth mine flesh!");
@@ -229,6 +248,7 @@ public class DreadProphet extends Player {
                 dialogues.add("In agony they sing, and through their sin, I am made whole!");
                 dialogues.add("Thee canst not silence the hymn of the Abyss, for it doth grant me life everlasting!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 skill4(hitter, target);

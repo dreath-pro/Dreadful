@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
@@ -21,6 +22,7 @@ import java.util.Random;
 public class Dreath extends Player {
     private Random random = new Random();
     private Prompt prompt;
+    private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
     public Dreath(Context context, ImageView yourImage, Prompt prompt) {
@@ -31,6 +33,7 @@ public class Dreath extends Player {
                 new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
 
         this.prompt = prompt;
+        this.context = context;
     }
 
     public void damageExpression(int level) {
@@ -44,11 +47,13 @@ public class Dreath extends Player {
                 events.add("The hit lands, but " + getName() + " remains unfazed, a mere flicker of annoyance crossing his face.");
                 events.add(getName() + " glances at his attacker, unimpressed by the weak strike.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("A nuisance at best.");
                 dialogues.add("You’ll have to try harder than that.");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -56,12 +61,14 @@ public class Dreath extends Player {
                 events.add("The blow lands solidly, yet " + getName() + prompt.getApostrophe(getName()) + " expression reveals no pain, only a cold determination.");
                 events.add("The attack connects, but " + getName() + " stands firm, his resolve unshaken.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Pain is merely a distraction.");
                 dialogues.add("Interesting... I expected more.");
                 dialogues.add("I felt that, but it won’t change the outcome.");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -70,6 +77,7 @@ public class Dreath extends Player {
                 events.add(getName() + " is momentarily taken aback by the force of the blow, yet his icy demeanor remains intact.");
                 events.add("Though the attack stings, " + getName() + " assesses his opponent with a cold glare, plotting his next move.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("That hit had some weight. Still irrelevant.");
@@ -77,6 +85,7 @@ public class Dreath extends Player {
                 dialogues.add("You’ve gained my attention, but not my concern.");
                 dialogues.add("A more respectable effort, but futile.");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -85,6 +94,7 @@ public class Dreath extends Player {
                 events.add("Despite the severe hit, " + getName() + prompt.getApostrophe(getName()) + " expression remains stoic; he is far from finished.");
                 events.add("The pain is evident, but " + getName() + prompt.getApostrophe(getName()) + " resolve hardens; he will not yield to weakness.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Pain is temporary; this fight is eternal.");
@@ -92,6 +102,7 @@ public class Dreath extends Player {
                 dialogues.add("You’ve done well, but it won’t matter in the end.");
                 dialogues.add("You think you’ve won? I’m just getting started.");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -114,10 +125,12 @@ public class Dreath extends Player {
                 events.add("The attack has no effect on " + getName() + ".");
                 events.add("That hit tickles " + getName() + prompt.getApostrophe(getName()) + "hard armor.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("You’ll need a stronger attack to get past me!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 break;
@@ -156,6 +169,7 @@ public class Dreath extends Player {
                 dialogues.add("Fear me, for I am the last thing you will ever see.");
                 dialogues.add("Fear is eternal, and now... so am I.");
                 prompt.selectRandomDialogue(this, dialogues, false);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.red));
                 dialogues.clear();
             }
         }
@@ -201,10 +215,12 @@ public class Dreath extends Player {
                 events.add(getName() + " attacks " + target.getName() + " with malice.");
                 events.add(getName() + " quick slashes his sword.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Your fate was sealed the moment you crossed me!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -215,10 +231,12 @@ public class Dreath extends Player {
                 events.add(getName() + " does a violent amputation on " + target.getName() + ".");
                 events.add(getName() + " ruthlessly destroying " + target.getName() + prompt.getApostrophe(target.getName()));
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("With every strike, I carve your fate!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -228,10 +246,12 @@ public class Dreath extends Player {
                 events.add(getName() + " stabbing " + target.getName() + " multiple times.");
                 events.add(getName() + " ruthlessly torturing " + target.getName() + ".");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Prepare to meet your end!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -242,12 +262,14 @@ public class Dreath extends Player {
                 events.add(getName() + prompt.getApostrophe(getName()) + "guts and gore attack.");
                 events.add(getName() + " tries to disembowel " + target.getName() + ".");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
                 dialogues.add("Let my blade guide you to oblivion!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -258,12 +280,14 @@ public class Dreath extends Player {
                 events.add(getName() + " tries to gut " + target.getName() + " with his sharp sword.");
                 events.add(getName() + " does a gory attack on " + target.getName() + prompt.getApostrophe(target.getName()) + " intestines.");
                 prompt.selectRandomEvent(events);
+                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
                 dialogues.add("Let my blade guide you to oblivion!");
                 prompt.selectRandomDialogue(this, dialogues, true);
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 dialogues.clear();
 
                 skill4(hitter, target);

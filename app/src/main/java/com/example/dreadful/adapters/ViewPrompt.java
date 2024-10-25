@@ -39,12 +39,16 @@ public class ViewPrompt extends RecyclerView.Adapter<ViewPrompt.MyViewHolder> {
         switch (prompt.getSelectedMessage().get(position)) {
             // 0 = event
             case 0:
-                holder.resultText.setText(prompt.getEventMessage().get(eventIncrement++));
+                holder.resultText.setText(prompt.getEventMessage().get(eventIncrement));
+                holder.resultText.setTextColor(prompt.getEventColor().get(eventIncrement));
+                eventIncrement++;
                 break;
 
             //1 = dialogue
             case 1:
-                holder.resultText.setText(prompt.getDialogueMessage().get(dialogueIncrement++));
+                holder.resultText.setText(prompt.getDialogueMessage().get(dialogueIncrement));
+                holder.resultText.setTextColor(prompt.getDialogueColor().get(dialogueIncrement));
+                dialogueIncrement++;
                 break;
         }
     }
