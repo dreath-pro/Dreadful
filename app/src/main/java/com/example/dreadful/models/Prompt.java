@@ -57,6 +57,8 @@ public class Prompt {
             return 3;
         } else if (damagePercentage >= 91 && damagePercentage <= 100) {
             return 3;
+        } else if (damagePercentage >= 101) {
+            return 3;
         }
 
         return 4;

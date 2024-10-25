@@ -203,11 +203,6 @@ public class TestActivity extends AppCompatActivity {
         gameMechanics.stopBattleLoop(); // Ensure cleanup when activity is destroyed
     }
 
-    public void addPrompt(Prompt prompt)
-    {
-        this.prompt = prompt;
-    }
-
     private void showBattleLogs() {
         battleLogsDialog = new Dialog(this);
         battleLogsDialog.setContentView(R.layout.dialog_battle_log);
