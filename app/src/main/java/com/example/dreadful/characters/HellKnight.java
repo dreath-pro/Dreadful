@@ -77,8 +77,10 @@ public class HellKnight extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -101,8 +103,10 @@ public class HellKnight extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -125,8 +129,10 @@ public class HellKnight extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -149,8 +155,10 @@ public class HellKnight extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -173,8 +181,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("Too slow!. You’ll need to be faster to even touch me.");
                 dialogues.add("Nice try. But the fires of Hell make me untouchable!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
             }
 
@@ -208,8 +218,10 @@ public class HellKnight extends Player {
             prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
             events.clear();
 
-            prompt.selectRandomDialogue(this, dialogues, true);
-            prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+            if(prompt.selectRandomDialogue(this, dialogues, true))
+            {
+                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+            }
             dialogues.clear();
         } else {
             hitter.setAttack(hitter.getAttack() - getDefense());
@@ -318,8 +330,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("Feel the flames of my wrath!");
                 dialogues.add("Let this be a lesson in pain!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -333,8 +347,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("Prepare for the inferno!");
                 dialogues.add("Feel the heat of a thousand suns!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -348,8 +364,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("Feel the weight of my resolve!");
                 dialogues.add("You’ll need more than that to breach my defenses!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -363,8 +381,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("You’ll find my flames are as protective as they are deadly!");
                 dialogues.add("Step closer, and you’ll taste the fire of my wrath!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -378,8 +398,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("Witness my true form, born of fire and fury! RRRRAAAAAAAHHHHHH!");
                 dialogues.add("Feel the strength of my dragon blood coursing through me! RRRRAAAAAAAHHHHHH!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill4(hitter, target);
@@ -395,8 +417,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("Your fate is sealed in flames! RRRRRRHHHHH!");
                 dialogues.add("Embrace the flames of your demise! RRRRRRHHHHH!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill5(hitter, target);
@@ -410,8 +434,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("Behold the fury of my flames! RRAAAAAHHHHH!");
                 dialogues.add("Let the flames consume you! Grrrhhhhh...");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill6(hitter, target);
@@ -425,8 +451,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("My scales are stronger than any steel! Grrrrhhhhh...");
                 dialogues.add("You’ll break before I do! Grrrrhhhhh...");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill7(hitter, target);
@@ -440,8 +468,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("Feel the heat of my wrath, even as you strike! RRRAAAAAAHHHH!");
                 dialogues.add("Your fate is sealed—burn in the flames of my shield! Grrrrrrrrrhhh...");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill8(hitter, target);
@@ -455,8 +485,10 @@ public class HellKnight extends Player {
 
                 dialogues.add("I return, but my flames remain!");
                 dialogues.add("Human once more... but still, I burn with fury!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill9(hitter, target);

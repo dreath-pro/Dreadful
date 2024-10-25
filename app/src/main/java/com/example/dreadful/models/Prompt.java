@@ -73,14 +73,20 @@ public class Prompt {
         addEventMessage(dialogues.get(random.nextInt(dialogues.size())));
     }
 
-    public void selectRandomDialogue(Player selectedPlayer, ArrayList<String> dialogues, boolean isRandomPopup) {
+    public boolean selectRandomDialogue(Player selectedPlayer, ArrayList<String> dialogues, boolean isRandomPopup) {
+        boolean isTherePopup = false;
+
         if (isRandomPopup) {
             if (random.nextInt(2) == 0) {
                 addDialogueMessage(selectedPlayer, dialogues.get(random.nextInt(dialogues.size())));
+                isTherePopup = true;
             }
         } else {
             addDialogueMessage(selectedPlayer, dialogues.get(random.nextInt(dialogues.size())));
+            isTherePopup = true;
         }
+
+        return isTherePopup;
     }
 
     public int getTotalMessages() {

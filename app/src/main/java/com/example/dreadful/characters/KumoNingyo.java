@@ -54,8 +54,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeeak... creak...)");
                 dialogues.add("(Crrreeeak... creak...)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -68,8 +70,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeeaaaaakk... crack crack)");
                 dialogues.add("(Crrraaaaack... click-click-click)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -82,8 +86,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(CRRRRRAAAAAAKK! Creak-creak-creak)");
                 dialogues.add("(CRRRRAAAACCCCK... crackle-click-click)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -96,8 +102,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(CRAAASH! CRRRRRAAAACK-K-K-K)");
                 dialogues.add("(CRRRAAAAAACK—SPLINTER!)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -120,8 +128,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Squeeeeak… creak-creak-creak)");
                 dialogues.add("(Click-click-click… Crrrreeeeak)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -200,8 +210,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Sccrrreeaaak... crrreeeak-click-click)");
                 dialogues.add("(Crrreeaaack... crack-click)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -215,8 +227,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeak... click-click... Sccrrreeeaaak)");
                 dialogues.add("(Crrick-crack... tap-tap-tap... Creeeak)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -230,8 +244,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeak... crack-crack... Sccrrreeeak)");
                 dialogues.add("(Creeeak... crrrrack... click-click)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -245,8 +261,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeak... sccrrreeeak... hissss)");
                 dialogues.add("(Creeeak... crack-click... hsssss...)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -260,8 +278,10 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeak... hisss... ssccrrreeeak)");
                 dialogues.add("(Creeeak... crick-crack... hsss...)");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill4(hitter, target);

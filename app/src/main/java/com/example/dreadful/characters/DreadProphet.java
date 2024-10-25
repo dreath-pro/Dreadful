@@ -52,8 +52,10 @@ public class DreadProphet extends Player {
                 dialogues.add("Thy feeble attempt is but a child's folly. Thou art marked by thy trespass.");
                 dialogues.add("A scratch, no more. Yet the sin thou hast wrought shall linger.");
                 dialogues.add("Such weakness... and yet thou hast sinned nonetheless.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -70,8 +72,10 @@ public class DreadProphet extends Player {
                 dialogues.add("The Abyss seeth thy sin. None shall escape its grasp!");
                 dialogues.add("Thou strikest in ignorance, hastening thine eternal doom!");
                 dialogues.add("Thy sinful hand doth tremble before me, yet still thou seeketh to wound!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -88,8 +92,10 @@ public class DreadProphet extends Player {
                 dialogues.add("Every strike doth bind thee to the Abyss. Thy soul is forfeit!");
                 dialogues.add("Foul sinner, thou shalt know the full wrath of the Abyss for this offense!");
                 dialogues.add("Thy power is great, but thy sin is greater still! The Abyss awaiteth thee!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -106,8 +112,10 @@ public class DreadProphet extends Player {
                 dialogues.add("Thou fool! Thou hast brought ruin upon thyself. Thy soul is marked for the Abyss!");
                 dialogues.add("A sin most grievous! None shall escape the dark, and thou art its next feast!");
                 dialogues.add("The Abyss calls for thee, sinner! Thou hast earned thy place in its depths!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -179,8 +187,10 @@ public class DreadProphet extends Player {
                 dialogues.add("Feel the weight of the Abyss, for no dodge shall save thee from thy fate!");
                 dialogues.add("Mine dark bolt dost seek thee, for none may escape judgment eternal.");
                 dialogues.add("Futile are thy escape, for the Abyss giveth no quarter to thee.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -196,8 +206,10 @@ public class DreadProphet extends Player {
                 dialogues.add("Thy sins multiply, and now they shall return to thee in force!");
                 dialogues.add("I call upon the depths of despair! Six strikes shall rend thee!");
                 dialogues.add("The Abyss hath deemed thee worthy of judgment; prepare for thy end!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -213,8 +225,10 @@ public class DreadProphet extends Player {
                 dialogues.add("In the Abyss, the prayers of the unworthy turn to curses!");
                 dialogues.add("Let thy lifeblood flow as I twist thy hopes into despair!");
                 dialogues.add("What thou deemest healing, I shall transform into thy undoing!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -230,8 +244,10 @@ public class DreadProphet extends Player {
                 dialogues.add("Thou thinkest to harm me? Know this: thy sins shall return to thee tenfold!");
                 dialogues.add("Thy blood shall pay the price for thy transgressions! " + getSkillNames()[skillIndex] + " is at hand!");
                 dialogues.add("The Abyss doth not forget; every wound thou causeth doth lead to thy own doom!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -247,8 +263,10 @@ public class DreadProphet extends Player {
                 dialogues.add("Thee shalt hear their woeful song; for their suffering is mine salvation!");
                 dialogues.add("In agony they sing, and through their sin, I am made whole!");
                 dialogues.add("Thee canst not silence the hymn of the Abyss, for it doth grant me life everlasting!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill4(hitter, target);

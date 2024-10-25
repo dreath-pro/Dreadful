@@ -66,8 +66,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Gurgle-grrrgh!");
                 dialogues.add("Grrrgh.");
                 dialogues.add("Gurgle.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -82,8 +84,10 @@ public class VoidReaper extends Player {
 
                 dialogues.add("Grrraahhh!");
                 dialogues.add("Grrrrr!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -99,8 +103,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrr-glkkk!");
                 dialogues.add("Ggrrrhhhaaaaahhh!");
                 dialogues.add("Grrraaaah!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -115,8 +121,10 @@ public class VoidReaper extends Player {
 
                 dialogues.add("Ggrrrhhhaaaaahhh!");
                 dialogues.add("Ggrrrk-kh!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -154,8 +162,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrraahhh.");
                 dialogues.add("Fffshhh.");
                 dialogues.add("Grrrah!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
                 break;
             case "BLOCKED":
@@ -175,8 +185,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Hhhhkkk!");
                 dialogues.add("Grrraaakk!");
                 dialogues.add("Rrrrgggh!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
                 break;
             case "":
@@ -249,8 +261,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Ggrrrhhhk!");
                 dialogues.add("Fffssshhh!");
                 dialogues.add("Rrrrraaahhh!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -272,8 +286,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrggghhh!");
                 dialogues.add("Ffsssshhh!");
                 dialogues.add("Grrrkkkshh!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -295,8 +311,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrgghhhah!");
                 dialogues.add("Thrrrrssskt!");
                 dialogues.add("Grrrrraaahhkkk!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -318,8 +336,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghhrreeek!");
                 dialogues.add("Brrrraaaak!");
                 dialogues.add("Grrrhhhk!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -341,8 +361,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrrrrreeeek!");
                 dialogues.add("Brrrraaaak!");
                 dialogues.add("Grrraaaaaash!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill4(hitter, target);
@@ -364,8 +386,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghrrreeeeek!");
                 dialogues.add("Brrrrrraaaah!");
                 dialogues.add("Fffffsssrrkk!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill5(hitter, target);
@@ -387,8 +411,10 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghrrrrr… fffrrraaah!");
                 dialogues.add("Fffssshhhh… grrahhh.");
                 dialogues.add("Ghhrrrrraaakk!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill6(hitter, target);

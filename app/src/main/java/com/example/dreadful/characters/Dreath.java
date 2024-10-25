@@ -52,8 +52,10 @@ public class Dreath extends Player {
 
                 dialogues.add("A nuisance at best.");
                 dialogues.add("You’ll have to try harder than that.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -67,8 +69,10 @@ public class Dreath extends Player {
                 dialogues.add("Pain is merely a distraction.");
                 dialogues.add("Interesting... I expected more.");
                 dialogues.add("I felt that, but it won’t change the outcome.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -84,8 +88,10 @@ public class Dreath extends Player {
                 dialogues.add("Impressive, but ultimately inconsequential.");
                 dialogues.add("You’ve gained my attention, but not my concern.");
                 dialogues.add("A more respectable effort, but futile.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -101,8 +107,10 @@ public class Dreath extends Player {
                 dialogues.add("I won’t be defeated by a mere scratch.");
                 dialogues.add("You’ve done well, but it won’t matter in the end.");
                 dialogues.add("You think you’ve won? I’m just getting started.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -129,8 +137,10 @@ public class Dreath extends Player {
                 events.clear();
 
                 dialogues.add("You’ll need a stronger attack to get past me!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 break;
@@ -168,8 +178,10 @@ public class Dreath extends Player {
                 dialogues.add("You fear death? Fear me more.");
                 dialogues.add("Fear me, for I am the last thing you will ever see.");
                 dialogues.add("Fear is eternal, and now... so am I.");
-                prompt.selectRandomDialogue(this, dialogues, false);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.red));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.red));
+                }
                 dialogues.clear();
             }
         }
@@ -219,8 +231,10 @@ public class Dreath extends Player {
                 events.clear();
 
                 dialogues.add("Your fate was sealed the moment you crossed me!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -235,8 +249,10 @@ public class Dreath extends Player {
                 events.clear();
 
                 dialogues.add("With every strike, I carve your fate!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -250,8 +266,10 @@ public class Dreath extends Player {
                 events.clear();
 
                 dialogues.add("Prepare to meet your end!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -268,8 +286,10 @@ public class Dreath extends Player {
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
                 dialogues.add("Let my blade guide you to oblivion!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -286,8 +306,10 @@ public class Dreath extends Player {
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
                 dialogues.add("Let my blade guide you to oblivion!");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                }
                 dialogues.clear();
 
                 skill4(hitter, target);

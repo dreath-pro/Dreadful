@@ -49,8 +49,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("W̵e̕ak̴. Yo͟u̷ w͠o̧n'́t̕ eve̸n̡ ̨́s̷̛c͡r͠atc̨̨h̛ ͞m͢͞e.");
                 dialogues.add("Ý̴ou c̸̛̀án͡not͞ ̵hàr͡m w͞hat is à͞͡lręady d̢̨è͝a̷d.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 break;
@@ -63,8 +65,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("You th͞i͠n͢k thìs m̛ea̵n͏s s̛o͡me͝th͝in͠g͏? I̵ am b̀eyo͡nd́ i͠t al̷l̨.");
                 dialogues.add("M̵̢or̸e, bu̴t ̀͢s͠tilļ fa͟r̡ ̴̷͘t͘oǫ ̶we̸͟ák͡.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 break;
@@ -77,8 +81,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Ahh͟...͟ b͟u͢t ̷yo̡ur ͠e͠ǹde͠avor ̡is f̡u͞ti̛le.");
                 dialogues.add("H̡it̵ ͝m͘e̛ a͡ll͡ ͡yo̷u wi͘ll...͠ ̴it ch̢ang̸es n͞ot̢hi͏ng͢.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 break;
@@ -91,8 +97,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("T̶r̸y al̕l͠ ͢you͏ w̡ish... but y͟ou w̸i̸ll ͞never es̶cap̕e ḿe.");
                 dialogues.add("Yo͘ư ̵d̕o̕ ńot f̡ight mè. Y̵ou fi͝g͡h͝t̡ t͞he ͞i̴ne̕vitab̸le.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 break;
@@ -111,8 +119,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Díd͏ yo͠ư r̸e̸ally think yo͞u co̵ul̴d hi͢t̢ m̢é?");
                 dialogues.add("Y̴ou m͝i̶ght͠ ̀h͡it t̀he ͏gr̀a͡v͡e befo͟r̡e yo̷u ́e͏v̀en͟ t̛óu͘ch́ m̢e.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 break;
@@ -125,8 +135,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Yo̡uŕ e̛ffo̷rt̷s a̴re... pa̕t͡heti͡c.");
                 dialogues.add("St́r͡ik̡e̕ as ͏yo͝u ̸wil̛l̷...̢ ̶it ͠matters ńot.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 break;
@@ -190,8 +202,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("To̵uch̡ ̵o͟f de͘ath,̕ th͟ou sha̷l̀l not es̵cape̷ ẃha̛t́ ͝ís c͝e̡rt̷ain.");
                 dialogues.add("E͡vęr̸y̵ b͞r͝e͏at̸h t͘ake̕n͝,̡ a ste̷p ̛c̵l͡oser t͠o me̢.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -205,8 +219,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Pr͝ay al͠l̸ y͠ou wi͘s̡h, th͘e͝ liv͏i͟nǵ sh̶al̕l̶ s͡uffe͝r.");
                 dialogues.add("R̷es̶to͟rat͏i͠oǹ fo͢r̵ m̀e, e̵r̵ad͞i̷cat͢íon̢ f̨o̡r ̶thee.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -220,8 +236,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("T̴h͏e̷ c͟lǫck ͡ti͝c̨k̢s. In e͝nd̵, th̵e҉r͢e ́sha͠ll b͘è no̶ esc͏ap̕e.");
                 dialogues.add("C͡o̕unt̶ y̛o͡u̴r̛ ̨bre̵áth́s,̧ yǫur ͢t͏i͝m̨e i̵s͠ f̢lee̵t͢i͘ng.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -235,8 +253,10 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Th͜e̢ ̡aft̀er͘li͞fe͠ i͘s̡ ͏m͢ore ̨p̕a͠i͟n ̸th̴an̢ th͘e en͝d.");
                 dialogues.add("N̨ot̡ ̛ev̀en͢ ̷dea͠t͞h s̷h̶a̶ll͝ s̛pa̛r̢e t͞hee҉ fr̀o͏m̡ s͢ưf̕fe̢r͢in̢g͝.");
-                prompt.selectRandomDialogue(this, dialogues, true);
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                if(prompt.selectRandomDialogue(this, dialogues, true))
+                {
+                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
+                }
                 dialogues.clear();
 
                 skill3(hitter, target);
