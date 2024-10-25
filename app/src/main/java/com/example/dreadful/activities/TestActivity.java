@@ -1,6 +1,7 @@
 package com.example.dreadful.activities;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -58,6 +59,8 @@ public class TestActivity extends AppCompatActivity {
 
     private Prompt prompt;
     private Dialog battleLogsDialog;
+
+    private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false;
 
     private void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -206,45 +209,65 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void showBattleLogs() {
-        battleLogsDialog = new Dialog(this);
-        battleLogsDialog.setContentView(R.layout.dialog_battle_log);
+        if (!isBattleLogsDialogShowing) {
+            isBattleLogsDialogShowing = true;
 
-        RecyclerView promptList = battleLogsDialog.findViewById(R.id.promptList);
+            battleLogsDialog = new Dialog(this);
+            battleLogsDialog.setContentView(R.layout.dialog_battle_log);
 
-        LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        promptList.setLayoutManager(statusLayoutManager);
-        viewPrompt = new ViewPrompt(this, prompt);
-        promptList.setAdapter(viewPrompt);
+            RecyclerView promptList = battleLogsDialog.findViewById(R.id.promptList);
 
-        battleLogsDialog.show();
+            LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            promptList.setLayoutManager(statusLayoutManager);
+            viewPrompt = new ViewPrompt(this, prompt);
+            promptList.setAdapter(viewPrompt);
+
+            battleLogsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    isBattleLogsDialogShowing = false;
+                }
+            });
+            battleLogsDialog.show();
+        }
     }
 
     private void showCharacterDetails(Player player) {
-        Dialog characterDialog = new Dialog(this);
-        characterDialog.setContentView(R.layout.dialog_character_details);
+        if (!isCharacterDialogShowing) {
+            isCharacterDialogShowing = true;
 
-        TextView playerName = characterDialog.findViewById(R.id.playerName);
-        ImageView playerImage = characterDialog.findViewById(R.id.playerImage);
-        RecyclerView statusList = characterDialog.findViewById(R.id.statusList);
-        RecyclerView skillList = characterDialog.findViewById(R.id.skillList);
+            Dialog characterDialog = new Dialog(this);
+            characterDialog.setContentView(R.layout.dialog_character_details);
 
-        playerName.setText(player.getName());
-        playerImage.setImageResource(player.getImage());
+            TextView playerName = characterDialog.findViewById(R.id.playerName);
+            ImageView playerImage = characterDialog.findViewById(R.id.playerImage);
+            RecyclerView statusList = characterDialog.findViewById(R.id.statusList);
+            RecyclerView skillList = characterDialog.findViewById(R.id.skillList);
 
-        if (player.getImageDirection().equals("left")) {
-            playerImage.setScaleX(-1);
+            playerName.setText(player.getName());
+            playerImage.setImageResource(player.getImage());
+
+            if (player.getImageDirection().equals("left")) {
+                playerImage.setScaleX(-1);
+            }
+
+            LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            statusList.setLayoutManager(statusLayoutManager);
+            viewStatus = new ViewStatus(this, player);
+            statusList.setAdapter(viewStatus);
+
+            LinearLayoutManager skillLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            skillList.setLayoutManager(skillLayoutManager);
+            viewSkill = new ViewSkill(this, player);
+            skillList.setAdapter(viewSkill);
+
+            characterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    isCharacterDialogShowing = false;
+                }
+            });
+            characterDialog.show();
         }
-
-        LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        statusList.setLayoutManager(statusLayoutManager);
-        viewStatus = new ViewStatus(this, player);
-        statusList.setAdapter(viewStatus);
-
-        LinearLayoutManager skillLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        skillList.setLayoutManager(skillLayoutManager);
-        viewSkill = new ViewSkill(this, player);
-        skillList.setAdapter(viewSkill);
-
-        characterDialog.show();
     }
 }
