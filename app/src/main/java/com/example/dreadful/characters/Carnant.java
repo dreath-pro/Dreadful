@@ -501,33 +501,7 @@ public class Carnant extends Player {
                 break;
         }
 
-        newSkillCooldowns = getMaxSkillCooldowns().getValue();
-        if (newSkillCooldowns == null) {
-            newSkillCooldowns = new ArrayList<>();
-        }
-
-        ArrayList<Integer> newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
-        if (newMaxSkillCooldowns == null) {
-            newMaxSkillCooldowns = new ArrayList<>();
-        }
-
-        for (int i = 0; i <= newMaxSkillCooldowns.size() - 1; i++) {
-            if (newSkillCooldowns.get(i) > 0) {
-                newSkillCooldowns.set(i, newSkillCooldowns.get(i) - 1);
-                if (newSkillCooldowns.get(i) <= 0) {
-                    newSkillCooldowns.set(i, 0);
-                }
-
-                updateSkillCooldowns(newSkillCooldowns);
-            }
-        }
-
-        newSkillCooldowns = getMaxSkillCooldowns().getValue();
-        newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
-
-        newSkillCooldowns.set(skillIndex, newMaxSkillCooldowns.get(skillIndex));
-        updateSkillCooldowns(newSkillCooldowns);
-
+        reduceCooldown(skillIndex);
         return skillName;
     }
 
