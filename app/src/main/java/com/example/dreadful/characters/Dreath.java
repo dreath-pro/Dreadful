@@ -27,10 +27,31 @@ public class Dreath extends Player {
 
     public Dreath(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
-                null, null,
-                88070, 2580, 880, 0,
-                new String[]{"Butcher", "Dismember", "Ruthless Torture", "Brutal Gut", "Evisceration"},
-                new int[]{0, 7, 3, 5, 5}, new int[]{0, 0, 0, 0, 0});
+                null, null, 88070, 2580, 880, 0);
+
+        ArrayList<String> skillNames = new ArrayList<>();
+        skillNames.add("Butcher");
+        skillNames.add("Dismember");
+        skillNames.add("Ruthless Torture");
+        skillNames.add("Brutal Gut");
+        skillNames.add("Evisceration");
+        updateSkillNames(skillNames);
+
+        ArrayList<Integer> maxSkillCooldowns = new ArrayList<>();
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(7);
+        maxSkillCooldowns.add(3);
+        maxSkillCooldowns.add(5);
+        maxSkillCooldowns.add(5);
+        updateMaxSkillCooldowns(maxSkillCooldowns);
+
+        ArrayList<Integer> skillCooldowns = new ArrayList<>();
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        updateSkillCooldowns(skillCooldowns);
 
         this.prompt = prompt;
         this.context = context;
@@ -52,8 +73,7 @@ public class Dreath extends Player {
 
                 dialogues.add("A nuisance at best.");
                 dialogues.add("You’ll have to try harder than that.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -69,8 +89,7 @@ public class Dreath extends Player {
                 dialogues.add("Pain is merely a distraction.");
                 dialogues.add("Interesting... I expected more.");
                 dialogues.add("I felt that, but it won’t change the outcome.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -88,8 +107,7 @@ public class Dreath extends Player {
                 dialogues.add("Impressive, but ultimately inconsequential.");
                 dialogues.add("You’ve gained my attention, but not my concern.");
                 dialogues.add("A more respectable effort, but futile.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -107,8 +125,7 @@ public class Dreath extends Player {
                 dialogues.add("I won’t be defeated by a mere scratch.");
                 dialogues.add("You’ve done well, but it won’t matter in the end.");
                 dialogues.add("You think you’ve won? I’m just getting started.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -137,8 +154,7 @@ public class Dreath extends Player {
                 events.clear();
 
                 dialogues.add("You’ll need a stronger attack to get past me!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -156,14 +172,12 @@ public class Dreath extends Player {
         if (!hasStatus(target, "Rage", 50).isEmpty()) {
             int index = Integer.parseInt(hasStatus(target, "Rage", 50));
             ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
-            if(newStatusValue == null)
-            {
+            if (newStatusValue == null) {
                 newStatusValue = new ArrayList<>();
             }
 
             ArrayList<Integer> targetStatusValue = target.getStatusValueList().getValue();
-            if(targetStatusValue == null)
-            {
+            if (targetStatusValue == null) {
                 targetStatusValue = new ArrayList<>();
             }
 
@@ -192,8 +206,7 @@ public class Dreath extends Player {
                 dialogues.add("You fear death? Fear me more.");
                 dialogues.add("Fear me, for I am the last thing you will ever see.");
                 dialogues.add("Fear is eternal, and now... so am I.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.red));
                 }
                 dialogues.clear();
@@ -212,8 +225,7 @@ public class Dreath extends Player {
         if (!hasStatus(target, "Rage", 50).isEmpty()) {
             int index = Integer.parseInt(hasStatus(target, "Rage", 50));
             ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
-            if(newStatusValue == null)
-            {
+            if (newStatusValue == null) {
                 newStatusValue = new ArrayList<>();
             }
 
@@ -234,13 +246,24 @@ public class Dreath extends Player {
 
     public String useRandomAttack(Player hitter, Player target) {
         String skillName;
-        int skillIndex = random.nextInt(getSkillNames().length);
 
-        while (getSkillCooldowns()[skillIndex] > 0) {
-            skillIndex = random.nextInt(getSkillNames().length);
+        ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
         }
 
-        skillName = getSkillNames()[skillIndex];
+        ArrayList<String> newSkillNames = getSkillNames().getValue();
+        if (newSkillNames == null) {
+            newSkillNames = new ArrayList<>();
+        }
+
+        int skillIndex = random.nextInt(newSkillCooldowns.size());
+
+        while (newSkillCooldowns.get(skillIndex) > 0) {
+            skillIndex = random.nextInt(newSkillCooldowns.size());
+        }
+
+        skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
                 events.add(getName() + " uses his sharp sword to hack " + target.getName());
@@ -252,8 +275,7 @@ public class Dreath extends Player {
                 events.clear();
 
                 dialogues.add("Your fate was sealed the moment you crossed me!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -270,8 +292,7 @@ public class Dreath extends Player {
                 events.clear();
 
                 dialogues.add("With every strike, I carve your fate!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -287,8 +308,7 @@ public class Dreath extends Player {
                 events.clear();
 
                 dialogues.add("Prepare to meet your end!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -307,8 +327,7 @@ public class Dreath extends Player {
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
                 dialogues.add("Let my blade guide you to oblivion!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -327,8 +346,7 @@ public class Dreath extends Player {
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
                 dialogues.add("Let my blade guide you to oblivion!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -337,15 +355,33 @@ public class Dreath extends Player {
                 break;
         }
 
-        for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
-            if (getSkillCooldowns()[i] > 0) {
-                getSkillCooldowns()[i]--;
-                if (getSkillCooldowns()[i] <= 0) {
-                    getSkillCooldowns()[i] = 0;
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newMaxSkillCooldowns == null) {
+            newMaxSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 0; i <= newMaxSkillCooldowns.size() - 1; i++) {
+            if (newSkillCooldowns.get(i) > 0) {
+                newSkillCooldowns.set(i, newSkillCooldowns.get(i) - 1);
+                if (newSkillCooldowns.get(i) <= 0) {
+                    newSkillCooldowns.set(i, 0);
                 }
+
+                updateSkillCooldowns(newSkillCooldowns);
             }
         }
-        getSkillCooldowns()[skillIndex] = getMaxSkillCooldowns()[skillIndex];
+
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+
+        newSkillCooldowns.set(skillIndex, newMaxSkillCooldowns.get(skillIndex));
+        updateSkillCooldowns(newSkillCooldowns);
+
         return skillName;
     }
 
@@ -359,8 +395,14 @@ public class Dreath extends Player {
 
     //prevent enemy from using all skills
     private void skill1(Player hitter, Player target) {
-        for (int i = 1; i <= target.getMaxSkillCooldowns().length - 1; i++) {
-            target.getSkillCooldowns()[i] += 5;
+        ArrayList<Integer> newSkillCooldowns = target.getSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 1; i <= newSkillCooldowns.size() - 1; i++) {
+            newSkillCooldowns.set(i, newSkillCooldowns.get(i) + 5);
+            target.updateMaxSkillCooldowns(newSkillCooldowns);
         }
 
         setAttack(getAttack() + 6500);

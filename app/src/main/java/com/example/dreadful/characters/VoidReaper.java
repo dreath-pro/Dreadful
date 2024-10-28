@@ -35,9 +35,37 @@ public class VoidReaper extends Player {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1, R.drawable.background_void_2},
-                60000, 1800, 500, 15,
-                new String[]{"Chrono Reap", "Time Fracture", "Dimension Shift", "Reverse Dash", "Singularity Slash", "Void Fatigue", "Temporal Reset"},
-                new int[]{0, 5, 5, 3, 4, 5, 10}, new int[]{0, 0, 0, 0, 0, 0, 0});
+                60000, 1800, 500, 15);
+
+        ArrayList<String> skillNames = new ArrayList<>();
+        skillNames.add("Chrono Reap");
+        skillNames.add("Time Fracture");
+        skillNames.add("Dimension Shift");
+        skillNames.add("Reverse Dash");
+        skillNames.add("Singularity Slash");
+        skillNames.add("Void Fatigue");
+        skillNames.add("Temporal Reset");
+        updateSkillNames(skillNames);
+
+        ArrayList<Integer> maxSkillCooldowns = new ArrayList<>();
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(5);
+        maxSkillCooldowns.add(5);
+        maxSkillCooldowns.add(3);
+        maxSkillCooldowns.add(4);
+        maxSkillCooldowns.add(5);
+        maxSkillCooldowns.add(10);
+        updateMaxSkillCooldowns(maxSkillCooldowns);
+
+        ArrayList<Integer> skillCooldowns = new ArrayList<>();
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        updateSkillCooldowns(skillCooldowns);
 
         this.context = context;
         this.prompt = prompt;
@@ -66,8 +94,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Gurgle-grrrgh!");
                 dialogues.add("Grrrgh.");
                 dialogues.add("Gurgle.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -84,8 +111,7 @@ public class VoidReaper extends Player {
 
                 dialogues.add("Grrraahhh!");
                 dialogues.add("Grrrrr!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -103,8 +129,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrr-glkkk!");
                 dialogues.add("Ggrrrhhhaaaaahhh!");
                 dialogues.add("Grrraaaah!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -121,8 +146,7 @@ public class VoidReaper extends Player {
 
                 dialogues.add("Ggrrrhhhaaaaahhh!");
                 dialogues.add("Ggrrrk-kh!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -162,8 +186,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrraahhh.");
                 dialogues.add("Fffshhh.");
                 dialogues.add("Grrrah!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -185,8 +208,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Hhhhkkk!");
                 dialogues.add("Grrraaakk!");
                 dialogues.add("Rrrrgggh!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -262,21 +284,32 @@ public class VoidReaper extends Player {
 
     public String useRandomAttack(Player hitter, Player target) {
         String skillName;
-        int skillIndex = random.nextInt(getSkillNames().length);
 
-        while (getSkillCooldowns()[skillIndex] > 0) {
-            skillIndex = random.nextInt(getSkillNames().length);
+        ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
         }
 
-        skillName = getSkillNames()[skillIndex];
+        ArrayList<String> newSkillNames = getSkillNames().getValue();
+        if (newSkillNames == null) {
+            newSkillNames = new ArrayList<>();
+        }
+
+        int skillIndex = random.nextInt(newSkillCooldowns.size());
+
+        while (newSkillCooldowns.get(skillIndex) > 0) {
+            skillIndex = random.nextInt(newSkillCooldowns.size());
+        }
+
+        skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
                 events.add(getName() + " raised its scythe, and the void itself seemed to shudder. Time slowed as a violet aura crackled around its blade, distorting reality with every swing.");
                 events.add("With a swift, sweeping motion, " + getName() + prompt.getApostrophe(getName()) + " scythe carved through time, leaving trails of dark energy. The air pulsed as moments were ripped apart, merging past and present.");
-                events.add(getName() + prompt.getApostrophe(getName()) + " tentacles spread wide as it unleashed " + getSkillNames()[skillIndex] + ", bending time around its foe. The very fabric of space trembled, caught in the grasp of the scythe.");
-                events.add("A dark haze surrounded the " + getName() + " as it channeled the energy of " + getSkillNames()[skillIndex] + ". Shadows stretched and twisted, bending toward the scythe's blade as time splintered.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " tentacles spread wide as it unleashed " + skillName + ", bending time around its foe. The very fabric of space trembled, caught in the grasp of the scythe.");
+                events.add("A dark haze surrounded the " + getName() + " as it channeled the energy of " + skillName + ". Shadows stretched and twisted, bending toward the scythe's blade as time splintered.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " scythe shimmered with an unholy glow, and with one massive swing, it cut through reality itself. A deep, resonant hum filled the void as moments fractured.");
-                events.add("With a deadly calm, " + getName() + " invoked " + getSkillNames()[skillIndex] + ". A wave of violet light pulsed forward, and every second felt stretched and warped in its wake.");
+                events.add("With a deadly calm, " + getName() + " invoked " + skillName + ". A wave of violet light pulsed forward, and every second felt stretched and warped in its wake.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -287,8 +320,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Ggrrrhhhk!");
                 dialogues.add("Fffssshhh!");
                 dialogues.add("Rrrrraaahhh!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -298,9 +330,9 @@ public class VoidReaper extends Player {
             case 1:
                 events.add(getName() + " tensed, its violet energy condensing until, in a sudden explosion, the very air seemed to shatter. Time itself fractured, catching " + target.getName() + " off-guard as they froze in place, stunned by the sudden distortion.");
                 events.add("A low, reverberating hum grew from within " + getName() + ", culminating in a burst of fractured light that rippled outward. " + target.getName() + prompt.getApostrophe(target.getName()) + " movements halted, ensnared in the warped flow of time.");
-                events.add("With a sharp, guttural growl, " + getName() + " unleashed " + getSkillNames()[skillIndex] + ". Waves of dark energy erupted from its form, splitting through space and freezing " + target.getName() + " in a suspended daze.");
-                events.add(getName() + prompt.getApostrophe(getName()) + " body pulsed with power, then burst into fragments of shadow that rippled through the battlefield. " + getSkillNames()[skillIndex] + " around " + target.getName() + ", leaving them dazed and paralyzed.");
-                events.add("A violet flash engulfed the void, and as the echoes of " + getSkillNames()[skillIndex] + " faded, " + target.getName() + " was left stunned, trapped in the shattered fragments of time.");
+                events.add("With a sharp, guttural growl, " + getName() + " unleashed " + skillName + ". Waves of dark energy erupted from its form, splitting through space and freezing " + target.getName() + " in a suspended daze.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " body pulsed with power, then burst into fragments of shadow that rippled through the battlefield. " + skillName + " around " + target.getName() + ", leaving them dazed and paralyzed.");
+                events.add("A violet flash engulfed the void, and as the echoes of " + skillName + " faded, " + target.getName() + " was left stunned, trapped in the shattered fragments of time.");
                 events.add(getName() + " unleashed a fierce pulse, its form expanding as time fractured around it. " + target.getName() + prompt.getApostrophe(target.getName()) + " body shuddered as they froze, their reality warped by the void’s sinister hold.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
@@ -312,8 +344,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrggghhh!");
                 dialogues.add("Ffsssshhh!");
                 dialogues.add("Grrrkkkshh!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -337,8 +368,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrgghhhah!");
                 dialogues.add("Thrrrrssskt!");
                 dialogues.add("Grrrrraaahhkkk!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -348,10 +378,10 @@ public class VoidReaper extends Player {
             case 3:
                 events.add(getName() + " suddenly burst forward, its form a blur of violet shadows. As it dashed, the very fabric of time around it began to unravel, reversing the flow of moments and healing its wounds.");
                 events.add("In an instant, " + getName() + " flickered, appearing to dart backwards through the void. Time itself rewound, restoring health as past injuries faded like echoes in the shadows.");
-                events.add("With a swift movement, " + getName() + " activated " + getSkillNames()[skillIndex] + ", sending ripples through time. As it dashed, the wounds began to seal, and vitality surged back into its body.");
-                events.add("The darkness around " + getName() + " twisted as it performed " + getSkillNames()[skillIndex] + ", gliding through time. As moments rewound, it felt the rush of healing energy enveloping its form, recovering what was lost.");
+                events.add("With a swift movement, " + getName() + " activated " + skillName + ", sending ripples through time. As it dashed, the wounds began to seal, and vitality surged back into its body.");
+                events.add("The darkness around " + getName() + " twisted as it performed " + skillName + ", gliding through time. As moments rewound, it felt the rush of healing energy enveloping its form, recovering what was lost.");
                 events.add(getName() + " surged forward, the air crackling as time itself began to reverse. With each step, health surged back, each injury erasing like a forgotten memory.");
-                events.add("As " + getName() + " executed " + getSkillNames()[skillIndex] + ", the world around it faded and rewound. The shadows coiled around, knitting wounds and renewing strength as it dashed through time.");
+                events.add("As " + getName() + " executed " + skillName + ", the world around it faded and rewound. The shadows coiled around, knitting wounds and renewing strength as it dashed through time.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -362,8 +392,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghhrreeek!");
                 dialogues.add("Brrrraaaak!");
                 dialogues.add("Grrrhhhk!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -372,11 +401,11 @@ public class VoidReaper extends Player {
                 break;
             case 4:
                 events.add(getName() + " gathered energy, the air around its scythe crackling with dark power. With a swift motion, it swung the blade, creating a rift in space that surged toward " + target.getName() + ".");
-                events.add("As " + getName() + " unleashed " + getSkillNames()[skillIndex] + ", a vortex of dark energy erupted from its scythe. The attack cleaved through the air, leaving a trail of distortion that threatened to consume everything in its path.");
-                events.add("With a growl that echoed through the void, " + getName() + " launched " + getSkillNames()[skillIndex] + ". The blade sliced through reality, unleashing a wave of force that sought to tear apart " + target.getName() + ".");
-                events.add(getName() + prompt.getApostrophe(getName()) + " scythe shimmered with violet energy as it performed " + getSkillNames()[skillIndex] + ", the very fabric of space warping around it. The attack surged forward, a relentless tide of dark power.");
-                events.add("The air thickened with tension as " + getName() + " prepared " + getSkillNames()[skillIndex] + ". With a devastating arc of its blade, it unleashed the attack, a gravitational pull following in its wake, drawing " + target.getName() + " closer to the impending doom.");
-                events.add("With a fierce determination, " + getName() + " executed " + getSkillNames()[skillIndex] + ". The slash unleashed a gravitational shockwave, warping the space around " + target.getName() + " and engulfing them in darkness.");
+                events.add("As " + getName() + " unleashed " + skillName + ", a vortex of dark energy erupted from its scythe. The attack cleaved through the air, leaving a trail of distortion that threatened to consume everything in its path.");
+                events.add("With a growl that echoed through the void, " + getName() + " launched " + skillName + ". The blade sliced through reality, unleashing a wave of force that sought to tear apart " + target.getName() + ".");
+                events.add(getName() + prompt.getApostrophe(getName()) + " scythe shimmered with violet energy as it performed " + skillName + ", the very fabric of space warping around it. The attack surged forward, a relentless tide of dark power.");
+                events.add("The air thickened with tension as " + getName() + " prepared " + skillName + ". With a devastating arc of its blade, it unleashed the attack, a gravitational pull following in its wake, drawing " + target.getName() + " closer to the impending doom.");
+                events.add("With a fierce determination, " + getName() + " executed " + skillName + ". The slash unleashed a gravitational shockwave, warping the space around " + target.getName() + " and engulfing them in darkness.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -387,8 +416,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrrrrreeeek!");
                 dialogues.add("Brrrraaaak!");
                 dialogues.add("Grrraaaaaash!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -396,12 +424,12 @@ public class VoidReaper extends Player {
                 skill4(hitter, target);
                 break;
             case 5:
-                events.add("As " + getName() + " loomed closer, it unleashed the dark essence of " + getSkillNames()[skillIndex] + ". Shadows coiled around " + target.getName() + ", sapping their energy and dulling their senses, leaving them vulnerable to the onslaught");
-                events.add("With a low, growling hum, " + getName() + " invoked " + getSkillNames()[skillIndex] + ", dark tendrils swirling through the air and wrapping around " + target.getName() + ". Their strength waned, and they staggered under the weight of the encroaching darkness.");
-                events.add(getName() + prompt.getApostrophe(getName()) + " scythe glimmered ominously as it initiated " + getSkillNames()[skillIndex] + ", draining " + target.getName() + prompt.getApostrophe(target.getName()) + " vitality. Each strike felt heavier, their reflexes slowed as shadows engulfed their form, making it harder to resist the coming assault.");
-                events.add("As " + target.getName() + " felt the effects of " + getSkillNames()[skillIndex] + ", " + getName() + prompt.getApostrophe(getName()) + " presence became suffocating. The weight of the void pressed down on them, reducing their defense and dodging ability as the shadows seeped deeper.");
-                events.add(getName() + " advanced, eyes glinting with malevolence as it activated " + getSkillNames()[skillIndex] + ". The air thickened with darkness, wrapping around " + target.getName() + " and dulling their attacks, making them feel sluggish and weak.");
-                events.add("With a chilling growl, " + getName() + " unleashed " + getSkillNames()[skillIndex] + ", the void swirling around " + target.getName() + " and siphoning their strength. The shadows twisted, making each attempt to fight back feel futile and clumsy.");
+                events.add("As " + getName() + " loomed closer, it unleashed the dark essence of " + skillName + ". Shadows coiled around " + target.getName() + ", sapping their energy and dulling their senses, leaving them vulnerable to the onslaught");
+                events.add("With a low, growling hum, " + getName() + " invoked " + skillName + ", dark tendrils swirling through the air and wrapping around " + target.getName() + ". Their strength waned, and they staggered under the weight of the encroaching darkness.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " scythe glimmered ominously as it initiated " + skillName + ", draining " + target.getName() + prompt.getApostrophe(target.getName()) + " vitality. Each strike felt heavier, their reflexes slowed as shadows engulfed their form, making it harder to resist the coming assault.");
+                events.add("As " + target.getName() + " felt the effects of " + skillName + ", " + getName() + prompt.getApostrophe(getName()) + " presence became suffocating. The weight of the void pressed down on them, reducing their defense and dodging ability as the shadows seeped deeper.");
+                events.add(getName() + " advanced, eyes glinting with malevolence as it activated " + skillName + ". The air thickened with darkness, wrapping around " + target.getName() + " and dulling their attacks, making them feel sluggish and weak.");
+                events.add("With a chilling growl, " + getName() + " unleashed " + skillName + ", the void swirling around " + target.getName() + " and siphoning their strength. The shadows twisted, making each attempt to fight back feel futile and clumsy.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -412,8 +440,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghrrreeeeek!");
                 dialogues.add("Brrrrrraaaah!");
                 dialogues.add("Fffffsssrrkk!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -421,12 +448,12 @@ public class VoidReaper extends Player {
                 skill5(hitter, target);
                 break;
             case 6:
-                events.add(getName() + " raised its scythe, time rippling as it invoked " + getSkillNames()[skillIndex] + ". Shadows coiled around, reversing moments as the two combatants were pulled back to the battle’s start, their injuries erased. But for " + target.getName() + ", each skill felt further out of reach, as though bound by the weight of time.");
-                events.add("With a chilling hum, " + getName() + prompt.getApostrophe(getName()) + " scythe tore through reality, and " + getSkillNames()[skillIndex] + " triggered. The void swirled, pulling them both back to where it all began. " + target.getName() + " felt the oppressive weight of delayed powers, each skill more distant, shackled by lingering time.");
-                events.add(getName() + prompt.getApostrophe(getName()) + " form blurred as " + getSkillNames()[skillIndex] + " unfolded, reversing injuries and pulling both fighters back to the start. Time reset for health but not for power; " + target.getName() + " felt the lock on their abilities tighten, skills now tangled in the web of lingering cooldowns.");
-                events.add("As " + getName() + " activated " + getSkillNames()[skillIndex] + ", the battlefield twisted, yanking both back to their starting positions. Their health renewed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " skills were bound tighter, cooldowns extended by the void’s cold grip.");
-                events.add("With a dark gleam in its empty gaze, " + getName() + " enacted " + getSkillNames()[skillIndex] + ". Shadows consumed the field, winding back time. Both returned to the beginning, unharmed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " powers felt trapped, delayed by a spectral weight.");
-                events.add(getName() + " invoked " + getSkillNames()[skillIndex] + ", the air shuddering as time rewound. Both regained their strength, but " + target.getName() + prompt.getApostrophe(target.getName()) + " power was slowed, abilities held back as if bound by spectral chains.");
+                events.add(getName() + " raised its scythe, time rippling as it invoked " + skillName + ". Shadows coiled around, reversing moments as the two combatants were pulled back to the battle’s start, their injuries erased. But for " + target.getName() + ", each skill felt further out of reach, as though bound by the weight of time.");
+                events.add("With a chilling hum, " + getName() + prompt.getApostrophe(getName()) + " scythe tore through reality, and " + skillName + " triggered. The void swirled, pulling them both back to where it all began. " + target.getName() + " felt the oppressive weight of delayed powers, each skill more distant, shackled by lingering time.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " form blurred as " + skillName + " unfolded, reversing injuries and pulling both fighters back to the start. Time reset for health but not for power; " + target.getName() + " felt the lock on their abilities tighten, skills now tangled in the web of lingering cooldowns.");
+                events.add("As " + getName() + " activated " + skillName + ", the battlefield twisted, yanking both back to their starting positions. Their health renewed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " skills were bound tighter, cooldowns extended by the void’s cold grip.");
+                events.add("With a dark gleam in its empty gaze, " + getName() + " enacted " + skillName + ". Shadows consumed the field, winding back time. Both returned to the beginning, unharmed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " powers felt trapped, delayed by a spectral weight.");
+                events.add(getName() + " invoked " + skillName + ", the air shuddering as time rewound. Both regained their strength, but " + target.getName() + prompt.getApostrophe(target.getName()) + " power was slowed, abilities held back as if bound by spectral chains.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -437,8 +464,7 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghrrrrr… fffrrraaah!");
                 dialogues.add("Fffssshhhh… grrahhh.");
                 dialogues.add("Ghhrrrrraaakk!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -447,31 +473,61 @@ public class VoidReaper extends Player {
                 break;
         }
 
-        for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
-            if (getSkillCooldowns()[i] > 0) {
-                getSkillCooldowns()[i]--;
-                if (getSkillCooldowns()[i] <= 0) {
-                    getSkillCooldowns()[i] = 0;
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newMaxSkillCooldowns == null) {
+            newMaxSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 0; i <= newMaxSkillCooldowns.size() - 1; i++) {
+            if (newSkillCooldowns.get(i) > 0) {
+                newSkillCooldowns.set(i, newSkillCooldowns.get(i) - 1);
+                if (newSkillCooldowns.get(i) <= 0) {
+                    newSkillCooldowns.set(i, 0);
                 }
+
+                updateSkillCooldowns(newSkillCooldowns);
             }
         }
-        getSkillCooldowns()[skillIndex] = getMaxSkillCooldowns()[skillIndex];
+
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+
+        newSkillCooldowns.set(skillIndex, newMaxSkillCooldowns.get(skillIndex));
+        updateSkillCooldowns(newSkillCooldowns);
+
         return skillName;
     }
 
     private void reduceCoolDown(Player hitter, Player target) {
         if (!hasStatus(hitter, "The Void", 1).isEmpty()) {
-            for (int i = 1; i <= getMaxSkillCooldowns().length - 1; i++) {
-                getSkillCooldowns()[i] -= 1;
-                if (getSkillCooldowns()[i] <= 0) {
-                    getSkillCooldowns()[i] = 0;
+            ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+            if (newSkillCooldowns == null) {
+                newSkillCooldowns = new ArrayList<>();
+            }
+
+            for (int i = 1; i <= newSkillCooldowns.size() - 1; i++) {
+                newSkillCooldowns.set(i, newSkillCooldowns.get(i) - 1);
+                if (newSkillCooldowns.get(i) <= 0) {
+                    newSkillCooldowns.set(i, 0);
                 }
+                updateMaxSkillCooldowns(newSkillCooldowns);
             }
         }
 
         if (!hasStatus(target, "Endless Void", 20).isEmpty()) {
-            for (int i = 1; i <= getMaxSkillCooldowns().length - 1; i++) {
-                getSkillCooldowns()[i] = 0;
+            ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+            if (newSkillCooldowns == null) {
+                newSkillCooldowns = new ArrayList<>();
+            }
+
+            for (int i = 1; i <= newSkillCooldowns.size() - 1; i++) {
+                newSkillCooldowns.set(i, 0);
+                updateMaxSkillCooldowns(newSkillCooldowns);
             }
         }
     }
@@ -607,8 +663,14 @@ public class VoidReaper extends Player {
         target.setDamageOverTime(new ArrayList<>());
         target.setDamageOverTimeValue(new ArrayList<>());
 
-        for (int i = 1; i <= target.getMaxSkillCooldowns().length - 1; i++) {
-            target.getSkillCooldowns()[i] = 5;
+        ArrayList<Integer> targetSkillCooldowns = target.getSkillCooldowns().getValue();
+        if (targetSkillCooldowns == null) {
+            targetSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 1; i <= targetSkillCooldowns.size() - 1; i++) {
+            targetSkillCooldowns.set(i, targetSkillCooldowns.get(i) + 5);
+            target.updateMaxSkillCooldowns(targetSkillCooldowns);
         }
 
         setHealth(getMaxHealth());
@@ -621,8 +683,14 @@ public class VoidReaper extends Player {
         setDamageOverTime(new ArrayList<>());
         setDamageOverTimeValue(new ArrayList<>());
 
-        for (int i = 1; i < getMaxSkillCooldowns().length - 1; i++) {
-            getSkillCooldowns()[i] = 0;
+        ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 1; i <= newSkillCooldowns.size() - 1; i++) {
+            newSkillCooldowns.set(i, 0);
+            updateMaxSkillCooldowns(newSkillCooldowns);
         }
     }
 }

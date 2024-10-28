@@ -42,6 +42,7 @@ public class Carnant extends Player {
         skillNames.add("Bat Slam");
         skillNames.add("Hard Swing");
         skillNames.add("Left Kick");
+
         skillNames.add("Tentacle Pierce");
         skillNames.add("Venom Puncture");
         skillNames.add("Poison Regen");
@@ -52,6 +53,7 @@ public class Carnant extends Player {
         maxSkillCooldowns.add(0);
         maxSkillCooldowns.add(4);
         maxSkillCooldowns.add(2);
+
         maxSkillCooldowns.add(0);
         maxSkillCooldowns.add(1);
         maxSkillCooldowns.add(5);
@@ -62,6 +64,7 @@ public class Carnant extends Player {
         skillCooldowns.add(0);
         skillCooldowns.add(0);
         skillCooldowns.add(0);
+
         skillCooldowns.add(0);
         skillCooldowns.add(0);
         skillCooldowns.add(0);
@@ -369,7 +372,7 @@ public class Carnant extends Player {
         switch (skillIndex) {
             //human form
             case 0:
-                events.add(getName() + " lunged forward, gathering his strength as he prepared for the " + newSkillNames.get(skillIndex) + ". With a wild grin, he leaped into the air, ready to bring his full weight down on " + target.getName() + ".");
+                events.add(getName() + " lunged forward, gathering his strength as he prepared for the " + skillName + ". With a wild grin, he leaped into the air, ready to bring his full weight down on " + target.getName() + ".");
                 events.add("As he soared through the air, " + getName() + prompt.getApostrophe(getName()) + " laughter echoed ominously. He curled his body into a ball, crashing down with tremendous force, intent on obliterating everything in his path.");
                 events.add("The ground shook beneath him as " + getName() + " slammed down, his laughter rising above the chaos. Dust and debris flew as he landed, eyes wide with manic delight.");
                 prompt.selectRandomEvent(events);
@@ -388,7 +391,7 @@ public class Carnant extends Player {
                 break;
             case 1:
                 events.add(getName() + " tightened his grip on his weapon, a wild glint in his eyes as he swung it back, gathering momentum for the strike. He was ready to unleash his fury.");
-                events.add("With a ferocious grin, " + getName() + " unleashed the " + newSkillNames.get(skillIndex) + ", his weapon cutting through the air with deadly precision. He felt the thrill of the impending impact.");
+                events.add("With a ferocious grin, " + getName() + " unleashed the " + skillName + ", his weapon cutting through the air with deadly precision. He felt the thrill of the impending impact.");
                 events.add("The force of the swing echoed through the battlefield as " + getName() + prompt.getApostrophe(getName()) + " weapon collided with " + target.getName() + ", sending shockwaves of pain rippling through his opponent. He laughed maniacally at the sight of " + target.getName() + " staggering back.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
@@ -426,7 +429,7 @@ public class Carnant extends Player {
             //mutant form
             case 3:
                 events.add(target.getName() + " is pierced by " + getName() + prompt.getApostrophe(getName()) + " tentacle.");
-                events.add(getName() + " used " + newSkillNames.get(skillIndex) + " to destroy " + target.getName() + " with raw strength.");
+                events.add(getName() + " used " + skillName + " to destroy " + target.getName() + " with raw strength.");
                 events.add(getName() + " quick pierce through " + target.getName() + prompt.getApostrophe(target.getName()) + " body.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
@@ -498,15 +501,33 @@ public class Carnant extends Player {
                 break;
         }
 
-        for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
-            if (getSkillCooldowns()[i] > 0) {
-                getSkillCooldowns()[i]--;
-                if (getSkillCooldowns()[i] <= 0) {
-                    getSkillCooldowns()[i] = 0;
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newMaxSkillCooldowns == null) {
+            newMaxSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 0; i <= newMaxSkillCooldowns.size() - 1; i++) {
+            if (newSkillCooldowns.get(i) > 0) {
+                newSkillCooldowns.set(i, newSkillCooldowns.get(i) - 1);
+                if (newSkillCooldowns.get(i) <= 0) {
+                    newSkillCooldowns.set(i, 0);
                 }
+
+                updateSkillCooldowns(newSkillCooldowns);
             }
         }
-        getSkillCooldowns()[skillIndex] = getMaxSkillCooldowns()[skillIndex];
+
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+
+        newSkillCooldowns.set(skillIndex, newMaxSkillCooldowns.get(skillIndex));
+        updateSkillCooldowns(newSkillCooldowns);
+
         return skillName;
     }
 

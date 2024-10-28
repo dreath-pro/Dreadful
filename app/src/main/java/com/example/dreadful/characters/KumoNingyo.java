@@ -29,10 +29,31 @@ public class KumoNingyo extends Player {
 
     public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 190,
-                null, null,
-                5800, 180, 0, 20,
-                new String[]{"Doku Kizu", "Shinobi Ashi Keri", "Tsukurogami", "Kakure Kage", "Ito no Tami"},
-                new int[]{0, 3, 3, 3, 6}, new int[]{0, 0, 0, 0, 0});
+                null, null, 5800, 180, 0, 20);
+
+        ArrayList<String> skillNames = new ArrayList<>();
+        skillNames.add("Doku Kizu");
+        skillNames.add("Shinobi Ashi Keri");
+        skillNames.add("Tsukurogami");
+        skillNames.add("Kakure Kage");
+        skillNames.add("Ito no Tami");
+        updateSkillNames(skillNames);
+
+        ArrayList<Integer> maxSkillCooldowns = new ArrayList<>();
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(3);
+        maxSkillCooldowns.add(3);
+        maxSkillCooldowns.add(3);
+        maxSkillCooldowns.add(6);
+        updateMaxSkillCooldowns(maxSkillCooldowns);
+
+        ArrayList<Integer> skillCooldowns = new ArrayList<>();
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        updateSkillCooldowns(skillCooldowns);
 
         this.prompt = prompt;
         this.context = context;
@@ -201,13 +222,24 @@ public class KumoNingyo extends Player {
 
     public String useRandomAttack(Player hitter, Player target) {
         String skillName;
-        int skillIndex = random.nextInt(getSkillNames().length);
 
-        while (getSkillCooldowns()[skillIndex] > 0) {
-            skillIndex = random.nextInt(getSkillNames().length);
+        ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
         }
 
-        skillName = getSkillNames()[skillIndex];
+        ArrayList<String> newSkillNames = getSkillNames().getValue();
+        if (newSkillNames == null) {
+            newSkillNames = new ArrayList<>();
+        }
+
+        int skillIndex = random.nextInt(newSkillCooldowns.size());
+
+        while (newSkillCooldowns.get(skillIndex) > 0) {
+            skillIndex = random.nextInt(newSkillCooldowns.size());
+        }
+
+        skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
                 events.add(getName() + " lunges forward, her limbs a blur as they dart towards " + target.getName() + ". With a swift and precise motion, she slashes through the air, her claws biting into " + target.getName() + ". A sickly green mist erupts from the wound, the poison sinking in and spreading like darkness itself. Her head tilts with a disquieting creak, eyes gleaming as she watches the venom take effect.");
@@ -243,7 +275,7 @@ public class KumoNingyo extends Player {
                 break;
             case 2:
                 events.add(getName() + " pauses, her limbs trembling as dark energy envelops her. She channels the essence of her lost limbs, feeling her vitality surge beyond its former limits. A soft, unsettling creak echoes as her maximum health rewrites itself, each pulse of energy making her feel more powerful. The air around her thickens with a toxic green mist, signaling the enhancement of her poison. She tilts her head, a sinister smile forming as she embraces this newfound strength.");
-                events.add("As " + getName() + " activates \"" + getSkillNames()[skillIndex] + "\", the shadows swirl ominously around her. Her form glimmers, limbs reconstituting with an eerie grace, as her health rises and her maximum health increases, defying previous limits. The very fabric of her being seems to shift, and she can feel the potent poison within her intensifying permanently. With a satisfied, chilling laugh, she surveys the battlefield, her eyes sparkling with renewed ferocity.");
+                events.add("As " + getName() + " activates \"" + skillName + "\", the shadows swirl ominously around her. Her form glimmers, limbs reconstituting with an eerie grace, as her health rises and her maximum health increases, defying previous limits. The very fabric of her being seems to shift, and she can feel the potent poison within her intensifying permanently. With a satisfied, chilling laugh, she surveys the battlefield, her eyes sparkling with renewed ferocity.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -259,7 +291,7 @@ public class KumoNingyo extends Player {
                 break;
             case 3:
                 events.add("With a sudden and fluid motion, " + getName() + " calls upon the shadows around her, summoning a burst of poisonous energy that explodes outward. The air thickens with a noxious green mist, engulfing her target and causing them to stagger. As the poison seeps into their being, she feels a rush of exhilaration. Her form flickers and shimmers, granting her an impressive agility boost for a limited time. A sly grin forms on her face, knowing she can weave through attacks with newfound agility.");
-                events.add(getName() + " elegantly disappears into the shadows, leaving only a whisper of movement behind. As she releases \"" + getSkillNames()[skillIndex] + "\", a cloud of poison bursts forth, catching " + target.getName() + " off guard. The green mist envelops her foe, causing them to falter. With her dodge increased, she stands ready, poised to evade the next attack, her eyes glinting with mischief as she prepares to dance through the chaos.");
+                events.add(getName() + " elegantly disappears into the shadows, leaving only a whisper of movement behind. As she releases \"" + skillName + "\", a cloud of poison bursts forth, catching " + target.getName() + " off guard. The green mist envelops her foe, causing them to falter. With her dodge increased, she stands ready, poised to evade the next attack, her eyes glinting with mischief as she prepares to dance through the chaos.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -275,7 +307,7 @@ public class KumoNingyo extends Player {
                 break;
             case 4:
                 events.add(getName() + " gracefully weaves her hands in the air, summoning a silken thread that glistens in the dim light. With a swift flick, the spider web shoots forward, ensnaring " + target.getName() + " in its sticky embrace. As the web tightens around her foe, she watches with a twisted glee, savoring the moment as they struggle against the binding threads. The air crackles with tension, and her eerie laughter echoes as she revels in their helplessness.");
-                events.add("With a fluid motion, " + getName() + " casts \"" + getSkillNames()[skillIndex] + "\", and the web unfurls like a nightmare, ensnaring " + target.getName() + " in its grasp. The strands shimmer with a malevolent sheen, immobilizing her opponent for a brief moment. As they thrash in vain against their bonds, she tilts her head with a sinister curiosity, her eyes gleaming with the thrill of the hunt, ready to strike while they remain incapacitated.");
+                events.add("With a fluid motion, " + getName() + " casts \"" + skillName + "\", and the web unfurls like a nightmare, ensnaring " + target.getName() + " in its grasp. The strands shimmer with a malevolent sheen, immobilizing her opponent for a brief moment. As they thrash in vain against their bonds, she tilts her head with a sinister curiosity, her eyes gleaming with the thrill of the hunt, ready to strike while they remain incapacitated.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -291,15 +323,33 @@ public class KumoNingyo extends Player {
                 break;
         }
 
-        for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
-            if (getSkillCooldowns()[i] > 0) {
-                getSkillCooldowns()[i]--;
-                if (getSkillCooldowns()[i] <= 0) {
-                    getSkillCooldowns()[i] = 0;
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newMaxSkillCooldowns == null) {
+            newMaxSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 0; i <= newMaxSkillCooldowns.size() - 1; i++) {
+            if (newSkillCooldowns.get(i) > 0) {
+                newSkillCooldowns.set(i, newSkillCooldowns.get(i) - 1);
+                if (newSkillCooldowns.get(i) <= 0) {
+                    newSkillCooldowns.set(i, 0);
                 }
+
+                updateSkillCooldowns(newSkillCooldowns);
             }
         }
-        getSkillCooldowns()[skillIndex] = getMaxSkillCooldowns()[skillIndex];
+
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+
+        newSkillCooldowns.set(skillIndex, newMaxSkillCooldowns.get(skillIndex));
+        updateSkillCooldowns(newSkillCooldowns);
+
         return skillName;
     }
 

@@ -35,14 +35,49 @@ public class HellKnight extends Player {
     public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
         super(context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
                 new int[]{R.drawable.character_hell_knight_2}, null,
-                20000, 1000, 1000, 5,
-                new String[]{"Burn Slash", "Knight's Breath", "Enhanced Armor", "Emberguard", "Dragon Form",
-                        "Burn Claw", "Dragon's Breath", "Enhanced Scale", "Hellguard", "Human Form"},
-                new int[]{0, 4, 9, 7, 0,
-                        0, 4, 9, 7, 0},
+                20000, 1000, 1000, 5);
 
-                new int[]{0, 0, 0, 0, 0,
-                        0, 0, 0, 0, 0});
+        ArrayList<String> skillNames = new ArrayList<>();
+        skillNames.add("Burn Slash");
+        skillNames.add("Knight's Breath");
+        skillNames.add("Enhanced Armor");
+        skillNames.add("Emberguard");
+        skillNames.add("Dragon Form");
+
+        skillNames.add("Burn Claw");
+        skillNames.add("Dragon's Breath");
+        skillNames.add("Enhanced Scale");
+        skillNames.add("Hellguard");
+        skillNames.add("Human Form");
+        updateSkillNames(skillNames);
+
+        ArrayList<Integer> maxSkillCooldowns = new ArrayList<>();
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(4);
+        maxSkillCooldowns.add(9);
+        maxSkillCooldowns.add(7);
+        maxSkillCooldowns.add(0);
+
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(4);
+        maxSkillCooldowns.add(9);
+        maxSkillCooldowns.add(7);
+        maxSkillCooldowns.add(0);
+        updateMaxSkillCooldowns(maxSkillCooldowns);
+
+        ArrayList<Integer> skillCooldowns = new ArrayList<>();
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        updateSkillCooldowns(skillCooldowns);
 
         this.context = context;
         this.prompt = prompt;
@@ -312,15 +347,26 @@ public class HellKnight extends Player {
         String skillName;
         int skillIndex;
 
-        if (getSkillCooldowns()[4] > 0) {
-            getSkillCooldowns()[4] = 0;
+        ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
         }
-        if (getSkillCooldowns()[5] > 0) {
-            getSkillCooldowns()[5] = 0;
+
+        if (newSkillCooldowns.get(4) > 0) {
+            newSkillCooldowns.set(4, newSkillCooldowns.get(4) - 1);
+            updateSkillCooldowns(newSkillCooldowns);
         }
-        if (getSkillCooldowns()[9] > 0) {
-            getSkillCooldowns()[9] = 0;
+
+        if (newSkillCooldowns.get(4) > 0) {
+            newSkillCooldowns.set(4, 0);
         }
+        if (newSkillCooldowns.get(5) > 0) {
+            newSkillCooldowns.set(5, 0);
+        }
+        if (newSkillCooldowns.get(9) > 0) {
+            newSkillCooldowns.set(9, 0);
+        }
+        updateSkillCooldowns(newSkillCooldowns);
 
         do {
             if (form == 0) {
@@ -329,9 +375,14 @@ public class HellKnight extends Player {
                 skillIndex = random.nextInt(5) + 5;
             }
             //skillIndex = random.nextInt(getSkillNames().length);
-        } while (getSkillCooldowns()[skillIndex] > 0);
+        } while (getSkillCooldowns().getValue().get(skillIndex) > 0);
 
-        skillName = getSkillNames()[skillIndex];
+        ArrayList<String> newSkillNames = getSkillNames().getValue();
+        if (newSkillNames == null) {
+            newSkillNames = new ArrayList<>();
+        }
+
+        skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             //human form
             case 0:
@@ -384,7 +435,7 @@ public class HellKnight extends Player {
                 break;
             case 3:
                 events.add(getName() + " raises his arms, and flames envelop him, forming a shimmering, protective shield of fire. The heat radiates outward, causing the air to shimmer as he prepares to counter any incoming attacks.");
-                events.add("With the " + getSkillNames()[skillIndex] + " activated, the shield crackles with energy, and tendrils of flame reach out toward " + target.getName() + ". As it gets too close, the shield bursts, igniting it with fiery tendrils that cause ongoing damage.");
+                events.add("With the " + skillName + " activated, the shield crackles with energy, and tendrils of flame reach out toward " + target.getName() + ". As it gets too close, the shield bursts, igniting it with fiery tendrils that cause ongoing damage.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -418,7 +469,7 @@ public class HellKnight extends Player {
             //dragon form
             case 5:
                 events.add(getName() + " raises his massive claw, engulfed in a fiery glow, and brings it crashing down toward " + target.getName() + ". The heat radiates, signaling the impending destruction.");
-                events.add("With a swift swipe, he unleashes the " + getSkillNames()[skillIndex] + ", sending flames cascading in all directions. The intense heat envelops " + target.getName() + " as it feels the searing pain from the powerful attack, leaving it gasping in the aftermath.");
+                events.add("With a swift swipe, he unleashes the " + skillName + ", sending flames cascading in all directions. The intense heat envelops " + target.getName() + " as it feels the searing pain from the powerful attack, leaving it gasping in the aftermath.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -434,7 +485,7 @@ public class HellKnight extends Player {
                 break;
             case 6:
                 events.add(getName() + " inhales deeply, and flames build up within his massive form. With a thunderous roar, he releases a torrent of blazing fire, engulfing " + target.getName() + " entirely. The intense heat singes everything in its path, leaving it scorched and struggling to withstand the burning agony.");
-                events.add("As he unleashes the " + getSkillNames()[skillIndex] + ", a wave of fire surges forward, scorching everything in its wake. " + target.getName() + " is caught within the inferno, the flames licking as it feels the searing burn intensify with each passing second.");
+                events.add("As he unleashes the " + skillName + ", a wave of fire surges forward, scorching everything in its wake. " + target.getName() + " is caught within the inferno, the flames licking as it feels the searing burn intensify with each passing second.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -466,7 +517,7 @@ public class HellKnight extends Player {
                 break;
             case 8:
                 events.add("In dragon form, " + getName() + prompt.getApostrophe(getName()) + " shield roars to life, a fiery barrier surrounding his massive frame. The flames pulse in sync with his breath, growing hotter by the second. Any who come near are met with burning tendrils of fire that scorch them upon contact.");
-                events.add("The " + getSkillNames()[skillIndex] + " wraps around " + getName() + " like a living flame, its searing heat both protecting him and causing " + target.getName() + " to shriek as its burned by the fiery force. The shield not only deflects its attacks but burns it with each strike.");
+                events.add("The " + skillName + " wraps around " + getName() + " like a living flame, its searing heat both protecting him and causing " + target.getName() + " to shriek as its burned by the fiery force. The shield not only deflects its attacks but burns it with each strike.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
@@ -498,15 +549,33 @@ public class HellKnight extends Player {
                 break;
         }
 
-        for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
-            if (getSkillCooldowns()[i] > 0) {
-                getSkillCooldowns()[i]--;
-                if (getSkillCooldowns()[i] <= 0) {
-                    getSkillCooldowns()[i] = 0;
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newMaxSkillCooldowns == null) {
+            newMaxSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 0; i <= newMaxSkillCooldowns.size() - 1; i++) {
+            if (newSkillCooldowns.get(i) > 0) {
+                newSkillCooldowns.set(i, newSkillCooldowns.get(i) - 1);
+                if (newSkillCooldowns.get(i) <= 0) {
+                    newSkillCooldowns.set(i, 0);
                 }
+
+                updateSkillCooldowns(newSkillCooldowns);
             }
         }
-        getSkillCooldowns()[skillIndex] = getMaxSkillCooldowns()[skillIndex];
+
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+
+        newSkillCooldowns.set(skillIndex, newMaxSkillCooldowns.get(skillIndex));
+        updateSkillCooldowns(newSkillCooldowns);
+
         return skillName;
     }
 

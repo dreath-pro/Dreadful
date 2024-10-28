@@ -26,10 +26,29 @@ public class GodOfDeath extends Player {
 
     public GodOfDeath(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
-                null, null,
-                500000, 8500, 50, 50,
-                new String[]{"Decay Touch", "Pray For The Living", "Time Before Death", "Afterlife"},
-                new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0});
+                null, null, 500000, 8500, 50, 50);
+
+        ArrayList<String> skillNames = new ArrayList<>();
+        skillNames.add("Decay Touch");
+        skillNames.add("Pray For The Living");
+        skillNames.add("Time Before Death");
+        skillNames.add("Afterlife");
+        updateSkillNames(skillNames);
+
+        ArrayList<Integer> maxSkillCooldowns = new ArrayList<>();
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(0);
+        updateMaxSkillCooldowns(maxSkillCooldowns);
+
+        ArrayList<Integer> skillCooldowns = new ArrayList<>();
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        updateSkillCooldowns(skillCooldowns);
+
         this.context = context;
         this.prompt = prompt;
     }
@@ -49,8 +68,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("W̵e̕ak̴. Yo͟u̷ w͠o̧n'́t̕ eve̸n̡ ̨́s̷̛c͡r͠atc̨̨h̛ ͞m͢͞e.");
                 dialogues.add("Ý̴ou c̸̛̀án͡not͞ ̵hàr͡m w͞hat is à͞͡lręady d̢̨è͝a̷d.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -65,8 +83,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("You th͞i͠n͢k thìs m̛ea̵n͏s s̛o͡me͝th͝in͠g͏? I̵ am b̀eyo͡nd́ i͠t al̷l̨.");
                 dialogues.add("M̵̢or̸e, bu̴t ̀͢s͠tilļ fa͟r̡ ̴̷͘t͘oǫ ̶we̸͟ák͡.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -81,8 +98,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Ahh͟...͟ b͟u͢t ̷yo̡ur ͠e͠ǹde͠avor ̡is f̡u͞ti̛le.");
                 dialogues.add("H̡it̵ ͝m͘e̛ a͡ll͡ ͡yo̷u wi͘ll...͠ ̴it ch̢ang̸es n͞ot̢hi͏ng͢.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -97,8 +113,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("T̶r̸y al̕l͠ ͢you͏ w̡ish... but y͟ou w̸i̸ll ͞never es̶cap̕e ḿe.");
                 dialogues.add("Yo͘ư ̵d̕o̕ ńot f̡ight mè. Y̵ou fi͝g͡h͝t̡ t͞he ͞i̴ne̕vitab̸le.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -119,8 +134,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Díd͏ yo͠ư r̸e̸ally think yo͞u co̵ul̴d hi͢t̢ m̢é?");
                 dialogues.add("Y̴ou m͝i̶ght͠ ̀h͡it t̀he ͏gr̀a͡v͡e befo͟r̡e yo̷u ́e͏v̀en͟ t̛óu͘ch́ m̢e.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -135,8 +149,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Yo̡uŕ e̛ffo̷rt̷s a̴re... pa̕t͡heti͡c.");
                 dialogues.add("St́r͡ik̡e̕ as ͏yo͝u ̸wil̛l̷...̢ ̶it ͠matters ńot.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -158,14 +171,12 @@ public class GodOfDeath extends Player {
             if (!hasStatus(hitter, "Time Before Death", 1).isEmpty()) {
                 int index = Integer.parseInt(hasStatus(hitter, "Time Before Death", 1));
                 ArrayList<String> newStatus = hitter.getStatusList().getValue();
-                if(newStatus == null)
-                {
+                if (newStatus == null) {
                     newStatus = new ArrayList<>();
                 }
 
                 ArrayList<Integer> newStatusValue = hitter.getStatusValueList().getValue();
-                if(newStatusValue == null)
-                {
+                if (newStatusValue == null) {
                     newStatusValue = new ArrayList<>();
                 }
 
@@ -190,23 +201,35 @@ public class GodOfDeath extends Player {
 
     public String useRandomAttack(Player hitter, Player target) {
         String skillName;
-        int skillIndex = random.nextInt(getSkillNames().length);
 
-        while (getSkillCooldowns()[skillIndex] > 0) {
-            skillIndex = random.nextInt(getSkillNames().length);
-        }
-
-        if (getSkillCooldowns()[1] > 0) {
-            getSkillCooldowns()[1] = 0;
-        }
-        if (getSkillCooldowns()[2] > 0) {
-            getSkillCooldowns()[2] = 0;
-        }
-        if (getSkillCooldowns()[3] > 0) {
-            getSkillCooldowns()[3] = 0;
+        ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
         }
 
-        skillName = getSkillNames()[skillIndex];
+        ArrayList<String> newSkillNames = getSkillNames().getValue();
+        if (newSkillNames == null) {
+            newSkillNames = new ArrayList<>();
+        }
+
+        if (newSkillCooldowns.get(1) > 0) {
+            newSkillCooldowns.set(1, 0);
+        }
+        if (newSkillCooldowns.get(2) > 0) {
+            newSkillCooldowns.set(2, 0);
+        }
+        if (newSkillCooldowns.get(3) > 0) {
+            newSkillCooldowns.set(3, 0);
+        }
+        updateSkillCooldowns(newSkillCooldowns);
+
+        int skillIndex = random.nextInt(newSkillCooldowns.size());
+
+        while (newSkillCooldowns.get(skillIndex) > 0) {
+            skillIndex = random.nextInt(newSkillCooldowns.size());
+        }
+
+        skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
                 events.add("As the " + getName() + " reaches out, a cold, decaying energy clings to " + target.getName() + prompt.getApostrophe(target.getName()) + " form. Though the initial touch is light, the poison begins to seep in, slow but relentless. The game glitches subtly as if the code itself is decaying.");
@@ -217,8 +240,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("To̵uch̡ ̵o͟f de͘ath,̕ th͟ou sha̷l̀l not es̵cape̷ ẃha̛t́ ͝ís c͝e̡rt̷ain.");
                 dialogues.add("E͡vęr̸y̵ b͞r͝e͏at̸h t͘ake̕n͝,̡ a ste̷p ̛c̵l͡oser t͠o me̢.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -234,8 +256,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Pr͝ay al͠l̸ y͠ou wi͘s̡h, th͘e͝ liv͏i͟nǵ sh̶al̕l̶ s͡uffe͝r.");
                 dialogues.add("R̷es̶to͟rat͏i͠oǹ fo͢r̵ m̀e, e̵r̵ad͞i̷cat͢íon̢ f̨o̡r ̶thee.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -251,8 +272,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("T̴h͏e̷ c͟lǫck ͡ti͝c̨k̢s. In e͝nd̵, th̵e҉r͢e ́sha͠ll b͘è no̶ esc͏ap̕e.");
                 dialogues.add("C͡o̕unt̶ y̛o͡u̴r̛ ̨bre̵áth́s,̧ yǫur ͢t͏i͝m̨e i̵s͠ f̢lee̵t͢i͘ng.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -268,8 +288,7 @@ public class GodOfDeath extends Player {
 
                 dialogues.add("Th͜e̢ ̡aft̀er͘li͞fe͠ i͘s̡ ͏m͢ore ̨p̕a͠i͟n ̸th̴an̢ th͘e en͝d.");
                 dialogues.add("N̨ot̡ ̛ev̀en͢ ̷dea͠t͞h s̷h̶a̶ll͝ s̛pa̛r̢e t͞hee҉ fr̀o͏m̡ s͢ưf̕fe̢r͢in̢g͝.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.violet));
                 }
                 dialogues.clear();
@@ -278,15 +297,33 @@ public class GodOfDeath extends Player {
                 break;
         }
 
-        for (int i = 0; i <= getMaxSkillCooldowns().length - 1; i++) {
-            if (getSkillCooldowns()[i] > 0) {
-                getSkillCooldowns()[i]--;
-                if (getSkillCooldowns()[i] <= 0) {
-                    getSkillCooldowns()[i] = 0;
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+        if (newMaxSkillCooldowns == null) {
+            newMaxSkillCooldowns = new ArrayList<>();
+        }
+
+        for (int i = 0; i <= newMaxSkillCooldowns.size() - 1; i++) {
+            if (newSkillCooldowns.get(i) > 0) {
+                newSkillCooldowns.set(i, newSkillCooldowns.get(i) - 1);
+                if (newSkillCooldowns.get(i) <= 0) {
+                    newSkillCooldowns.set(i, 0);
                 }
+
+                updateSkillCooldowns(newSkillCooldowns);
             }
         }
-        getSkillCooldowns()[skillIndex] = getMaxSkillCooldowns()[skillIndex];
+
+        newSkillCooldowns = getMaxSkillCooldowns().getValue();
+        newMaxSkillCooldowns = getMaxSkillCooldowns().getValue();
+
+        newSkillCooldowns.set(skillIndex, newMaxSkillCooldowns.get(skillIndex));
+        updateSkillCooldowns(newSkillCooldowns);
+
         return skillName;
     }
 
