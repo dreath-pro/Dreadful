@@ -286,6 +286,27 @@ public class TestActivity extends AppCompatActivity {
                 });
             });
 
+            player.getSkillNames().observe(this, skillNamesList -> {
+                // Delay the notifyDataSetChanged() call until the layout pass is complete
+                skillListView.post(() -> {
+                    if (skillNamesList != null) {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            viewSkill.notifyDataSetChanged();
+                        });
+                    }
+                });
+            });
+
+            player.getSkillCooldowns().observe(this, skillCooldownsList -> {
+                skillListView.post(() -> {
+                    if (skillCooldownsList != null) {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            viewSkill.notifyDataSetChanged();
+                        });
+                    }
+                });
+            });
+
             characterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
