@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +21,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -241,8 +245,8 @@ public class TestActivity extends AppCompatActivity {
 
             TextView playerName = characterDialog.findViewById(R.id.playerName);
             ImageView playerImage = characterDialog.findViewById(R.id.playerImage);
-            RecyclerView statusList = characterDialog.findViewById(R.id.statusList);
-            RecyclerView skillList = characterDialog.findViewById(R.id.skillList);
+            RecyclerView statusListView = characterDialog.findViewById(R.id.statusList);
+            RecyclerView skillListView = characterDialog.findViewById(R.id.skillList);
 
             playerName.setText(player.getName());
             playerImage.setImageResource(player.getImage());
@@ -252,14 +256,35 @@ public class TestActivity extends AppCompatActivity {
             }
 
             LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            statusList.setLayoutManager(statusLayoutManager);
+            statusListView.setLayoutManager(statusLayoutManager);
             viewStatus = new ViewStatus(this, player);
-            statusList.setAdapter(viewStatus);
+            statusListView.setAdapter(viewStatus);
 
             LinearLayoutManager skillLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            skillList.setLayoutManager(skillLayoutManager);
+            skillListView.setLayoutManager(skillLayoutManager);
             viewSkill = new ViewSkill(this, player);
-            skillList.setAdapter(viewSkill);
+            skillListView.setAdapter(viewSkill);
+
+            player.getStatusList().observe(this, statusList -> {
+                // Delay the notifyDataSetChanged() call until the layout pass is complete
+                statusListView.post(() -> {
+                    if (statusList != null) {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            viewStatus.notifyDataSetChanged();
+                        });
+                    }
+                });
+            });
+
+            player.getStatusValueList().observe(this, statusValueList -> {
+                statusListView.post(() -> {
+                    if (statusValueList != null) {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            viewStatus.notifyDataSetChanged();
+                        });
+                    }
+                });
+            });
 
             characterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override

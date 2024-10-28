@@ -155,10 +155,22 @@ public class Dreath extends Player {
         receiveStatus(target, "Rage", 10);
         if (!hasStatus(target, "Rage", 50).isEmpty()) {
             int index = Integer.parseInt(hasStatus(target, "Rage", 50));
+            ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
+            if(newStatusValue == null)
+            {
+                newStatusValue = new ArrayList<>();
+            }
+
+            ArrayList<Integer> targetStatusValue = target.getStatusValueList().getValue();
+            if(targetStatusValue == null)
+            {
+                targetStatusValue = new ArrayList<>();
+            }
+
             if (getHealth() <= 0) {
                 setHealth(56780);
 
-                int damage = (hitter.getHealth() * target.getStatusValue().get(index)) / 100;
+                int damage = (hitter.getHealth() * targetStatusValue.get(index)) / 100;
                 setAttack(damage);
 
                 hitter.setDefense(0);
@@ -169,7 +181,9 @@ public class Dreath extends Player {
                 hitter.setDodge(hitter.getMaxDodge());
                 hitter.setDefense(hitter.getMaxDefense());
                 setAttack(getMaxAttack());
-                getStatusValue().set(index, getStatusValue().get(index) - 50);
+                newStatusValue.set(index, newStatusValue.get(index) - 50);
+
+                updateStatusValueList(newStatusValue);
 
                 dialogues.add("I am fear itself, unleashed upon you!");
                 dialogues.add("Fear does not die... and neither do I!");
@@ -197,6 +211,12 @@ public class Dreath extends Player {
 
         if (!hasStatus(target, "Rage", 50).isEmpty()) {
             int index = Integer.parseInt(hasStatus(target, "Rage", 50));
+            ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
+            if(newStatusValue == null)
+            {
+                newStatusValue = new ArrayList<>();
+            }
+
             if (getHealth() <= 0) {
                 setHealth(35700);
                 setAttack(9000);
@@ -206,7 +226,8 @@ public class Dreath extends Player {
 
                 hitter.setDodge(hitter.getMaxDodge());
                 setAttack(getMaxAttack());
-                getStatusValue().set(index, getStatusValue().get(index) - 50);
+                newStatusValue.set(index, newStatusValue.get(index) - 50);
+                updateStatusValueList(newStatusValue);
             }
         }
     }

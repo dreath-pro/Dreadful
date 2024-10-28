@@ -7,6 +7,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewPrompt;
 
@@ -23,12 +26,13 @@ public abstract class Player {
     private int[] dimension;
     private int health, attack, defense, dodge;
     private int maxHealth, maxAttack, maxDefense, maxDodge;
-    private String[] skillNames;
-    private int[] maxSkillCooldowns, skillCooldowns;
     private ArrayList<Integer> healOverTime = new ArrayList<>(), healOverTimeValue = new ArrayList<>();
     private ArrayList<Integer> damageOverTime = new ArrayList<>(), damageOverTimeValue = new ArrayList<>();
-    private ArrayList<String> status = new ArrayList<>();
-    private ArrayList<Integer> statusValue = new ArrayList<>();
+    private MutableLiveData<ArrayList<String>> statusList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Integer>> statusValueList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<String>> skillNames = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Integer>> maxSkillCooldowns = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Integer>> skillCooldowns = new MutableLiveData<>();
     private int stun;
 
     private ImageView yourImage;
@@ -41,7 +45,7 @@ public abstract class Player {
     }
 
     public Player(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
-                  int[] dimension, int health, int attack, int defense, int dodge, String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns) {
+                  int[] dimension, int health, int attack, int defense, int dodge) {
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -56,17 +60,13 @@ public abstract class Player {
         this.maxAttack = attack;
         this.maxDefense = defense;
         this.maxDodge = dodge;
-        this.skillNames = skillNames;
-        this.maxSkillCooldowns = maxSkillCooldowns;
-        this.skillCooldowns = skillCooldowns;
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
         this.stun = 0;
     }
 
     public Player(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
-                  int[] transformation, int[] dimension, int health, int attack, int defense, int dodge,
-                  String[] skillNames, int[] maxSkillCooldowns, int[] skillCooldowns, Prompt prompt) {
+                  int[] transformation, int[] dimension, int health, int attack, int defense, int dodge, Prompt prompt) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -82,9 +82,6 @@ public abstract class Player {
         this.maxAttack = attack;
         this.maxDefense = defense;
         this.maxDodge = dodge;
-        this.skillNames = skillNames;
-        this.maxSkillCooldowns = maxSkillCooldowns;
-        this.skillCooldowns = skillCooldowns;
         this.yourImage = yourImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
         this.stun = 0;
@@ -95,25 +92,55 @@ public abstract class Player {
     public void receiveStatus(Player target, String statusName, int statusValue) {
         boolean withStatus = false;
         int statusIndex = 0;
-        for (int i = 0; i <= target.getStatus().size() - 1; i++) {
-            if (target.getStatus().get(i).equals(statusName)) {
+
+        ArrayList<String> newStatusList = target.statusList.getValue();
+        if (newStatusList == null) {
+            newStatusList = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newStatusValueList = target.statusValueList.getValue();
+        if (newStatusValueList == null) {
+            newStatusValueList = new ArrayList<>();
+        }
+
+        for (int i = 0; i < newStatusList.size(); i++) { // Use newStatusList.size()
+            if (newStatusList.get(i).equals(statusName)) {
                 withStatus = true;
                 statusIndex = i;
             }
         }
 
+        /**
+         * if the status provided is not found, it will create and add new one
+         * but if its already there, it will just update the value
+         */
         if (!withStatus) {
-            target.getStatus().add(statusName);
-            target.getStatusValue().add(statusValue);
+            newStatusList.add(statusName);
+            newStatusValueList.add(statusValue);
+
+            target.updateStatusList(newStatusList);
+            target.updateStatusValueList(newStatusValueList);
         } else {
-            target.getStatusValue().set(statusIndex, target.getStatusValue().get(statusIndex) + statusValue);
+            newStatusValueList.set(statusIndex, newStatusValueList.get(statusIndex) + statusValue);
+            target.updateStatusValueList(newStatusValueList);
         }
     }
 
     public String hasStatus(Player target, String statusName, int statusValue) {
         String hasStatus = "";
-        for (int i = 0; i <= target.getStatus().size() - 1; i++) {
-            if (target.getStatus().get(i).equals(statusName) && target.getStatusValue().get(i) >= statusValue) {
+
+        ArrayList<String> newStatusList = target.statusList.getValue();
+        if (newStatusList == null) {
+            newStatusList = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newStatusValueList = target.statusValueList.getValue();
+        if (newStatusValueList == null) {
+            newStatusValueList = new ArrayList<>();
+        }
+
+        for (int i = 0; i <= newStatusList.size() - 1; i++) {
+            if (newStatusList.get(i).equals(statusName) && newStatusValueList.get(i) >= statusValue) {
                 hasStatus = Integer.toString(i);
             }
         }
@@ -311,22 +338,6 @@ public abstract class Player {
         return maxDodge;
     }
 
-    public String[] getSkillNames() {
-        return skillNames;
-    }
-
-    public int[] getSkillCooldowns() {
-        return skillCooldowns;
-    }
-
-    public void setSkillCooldowns(int[] skillCooldowns) {
-        this.skillCooldowns = skillCooldowns;
-    }
-
-    public int[] getMaxSkillCooldowns() {
-        return maxSkillCooldowns;
-    }
-
     public ArrayList<Integer> getHealOverTime() {
         return healOverTime;
     }
@@ -359,20 +370,44 @@ public abstract class Player {
         this.damageOverTimeValue = damageOverTimeValue;
     }
 
-    public ArrayList<String> getStatus() {
-        return status;
+    public LiveData<ArrayList<String>> getSkillNames() {
+        return skillNames;
     }
 
-    public void setStatus(ArrayList<String> status) {
-        this.status = status;
+    public void updateSkillNames(ArrayList<String> skillNames) {
+        this.skillNames.postValue(skillNames);
     }
 
-    public ArrayList<Integer> getStatusValue() {
-        return statusValue;
+    public LiveData<ArrayList<Integer>> getMaxSkillCooldowns() {
+        return maxSkillCooldowns;
     }
 
-    public void setStatusValue(ArrayList<Integer> statusValue) {
-        this.statusValue = statusValue;
+    public void updateMaxSkillCooldowns(ArrayList<Integer> maxSkillCooldowns) {
+        this.maxSkillCooldowns.postValue(maxSkillCooldowns);
+    }
+
+    public LiveData<ArrayList<Integer>> getSkillCooldowns() {
+        return skillCooldowns;
+    }
+
+    public void updateSkillCooldowns(ArrayList<Integer> skillCooldowns) {
+        this.skillCooldowns.postValue(skillCooldowns);
+    }
+
+    public LiveData<ArrayList<String>> getStatusList() {
+        return statusList;
+    }
+
+    public void updateStatusList(ArrayList<String> statusList) {
+        this.statusList.postValue(statusList);
+    }
+
+    public LiveData<ArrayList<Integer>> getStatusValueList() {
+        return statusValueList;
+    }
+
+    public void updateStatusValueList(ArrayList<Integer> statusValueList) {
+        this.statusValueList.postValue(statusValueList);
     }
 
     public int getStun() {

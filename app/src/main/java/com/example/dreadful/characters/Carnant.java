@@ -36,14 +36,37 @@ public class Carnant extends Player {
     public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, Prompt prompt) {
         super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
                 new int[]{R.drawable.character_carnant}, null,
-                2100, 180, 10, 40,
-                new String[]{"Bat Slam", "Hard Swing", "Left Kick",
-                        "Tentacle Pierce", "Venom Puncture", "Poison Regen", "Dissolve Armor"},
-                new int[]{0, 4, 2,
-                        0, 1, 5, 4},
+                2100, 180, 10, 40);
 
-                new int[]{0, 0, 0,
-                        0, 0, 0, 0});
+        ArrayList<String> skillNames = new ArrayList<>();
+        skillNames.add("Bat Slam");
+        skillNames.add("Hard Swing");
+        skillNames.add("Left Kick");
+        skillNames.add("Tentacle Pierce");
+        skillNames.add("Venom Puncture");
+        skillNames.add("Poison Regen");
+        skillNames.add("Dissolve Armor");
+        updateSkillNames(skillNames);
+
+        ArrayList<Integer> maxSkillCooldowns = new ArrayList<>();
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(4);
+        maxSkillCooldowns.add(2);
+        maxSkillCooldowns.add(0);
+        maxSkillCooldowns.add(1);
+        maxSkillCooldowns.add(5);
+        maxSkillCooldowns.add(4);
+        updateMaxSkillCooldowns(maxSkillCooldowns);
+
+        ArrayList<Integer> skillCooldowns = new ArrayList<>();
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        skillCooldowns.add(0);
+        updateSkillCooldowns(skillCooldowns);
 
         this.context = context;
         this.prompt = prompt;
@@ -78,8 +101,7 @@ public class Carnant extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -104,8 +126,7 @@ public class Carnant extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -130,8 +151,7 @@ public class Carnant extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -156,8 +176,7 @@ public class Carnant extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -199,8 +218,7 @@ public class Carnant extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -232,8 +250,7 @@ public class Carnant extends Player {
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 events.clear();
 
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -299,8 +316,22 @@ public class Carnant extends Player {
                     setDefense(getMaxDefense());
 
                     int index = Integer.parseInt(hasStatus(target, "Dissolve Armor", 100));
-                    getStatusValue().remove(index);
-                    getStatus().remove(index);
+
+                    ArrayList<String> newStatus = getStatusList().getValue();
+                    if (newStatus == null) {
+                        newStatus = new ArrayList<>();
+                    }
+
+                    ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
+                    if (newStatusValue == null) {
+                        newStatusValue = new ArrayList<>();
+                    }
+
+                    newStatus.remove(index);
+                    newStatusValue.remove(index);
+
+                    updateStatusList(newStatus);
+                    updateStatusValueList(newStatusValue);
                 }
             }
         }
@@ -310,8 +341,14 @@ public class Carnant extends Player {
         String skillName;
         int skillIndex;
 
-        if (getSkillCooldowns()[4] > 0) {
-            getSkillCooldowns()[4] = 0;
+        ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
+        if (newSkillCooldowns == null) {
+            newSkillCooldowns = new ArrayList<>();
+        }
+
+        if (newSkillCooldowns.get(4) > 0) {
+            newSkillCooldowns.set(4, newSkillCooldowns.get(4) - 1);
+            updateSkillCooldowns(newSkillCooldowns);
         }
 
         do {
@@ -321,13 +358,18 @@ public class Carnant extends Player {
                 skillIndex = random.nextInt(4) + 3;
             }
             //skillIndex = random.nextInt(getSkillNames().length);
-        } while (getSkillCooldowns()[skillIndex] > 0);
+        } while (getSkillCooldowns().getValue().get(skillIndex) > 0);
 
-        skillName = getSkillNames()[skillIndex];
+        ArrayList<String> newSkillNames = getSkillNames().getValue();
+        if (newSkillNames == null) {
+            newSkillNames = new ArrayList<>();
+        }
+
+        skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             //human form
             case 0:
-                events.add(getName() + " lunged forward, gathering his strength as he prepared for the " + getSkillNames()[skillIndex] + ". With a wild grin, he leaped into the air, ready to bring his full weight down on " + target.getName() + ".");
+                events.add(getName() + " lunged forward, gathering his strength as he prepared for the " + newSkillNames.get(skillIndex) + ". With a wild grin, he leaped into the air, ready to bring his full weight down on " + target.getName() + ".");
                 events.add("As he soared through the air, " + getName() + prompt.getApostrophe(getName()) + " laughter echoed ominously. He curled his body into a ball, crashing down with tremendous force, intent on obliterating everything in his path.");
                 events.add("The ground shook beneath him as " + getName() + " slammed down, his laughter rising above the chaos. Dust and debris flew as he landed, eyes wide with manic delight.");
                 prompt.selectRandomEvent(events);
@@ -337,8 +379,7 @@ public class Carnant extends Player {
                 dialogues.add("Hahaha! Time to feel the weight of my madness!");
                 dialogues.add("Grraahhh! Here comes the pain!");
                 dialogues.add("Hah! Feel that? That’s the sound of your doom!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -347,7 +388,7 @@ public class Carnant extends Player {
                 break;
             case 1:
                 events.add(getName() + " tightened his grip on his weapon, a wild glint in his eyes as he swung it back, gathering momentum for the strike. He was ready to unleash his fury.");
-                events.add("With a ferocious grin, " + getName() + " unleashed the " + getSkillNames()[skillIndex] + ", his weapon cutting through the air with deadly precision. He felt the thrill of the impending impact.");
+                events.add("With a ferocious grin, " + getName() + " unleashed the " + newSkillNames.get(skillIndex) + ", his weapon cutting through the air with deadly precision. He felt the thrill of the impending impact.");
                 events.add("The force of the swing echoed through the battlefield as " + getName() + prompt.getApostrophe(getName()) + " weapon collided with " + target.getName() + ", sending shockwaves of pain rippling through his opponent. He laughed maniacally at the sight of " + target.getName() + " staggering back.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
@@ -356,8 +397,7 @@ public class Carnant extends Player {
                 dialogues.add("Hahaha! Get ready for a world of hurt!");
                 dialogues.add("You will be added to my kill count.");
                 dialogues.add("Grrahh! Stunned already? This is too easy!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -375,8 +415,7 @@ public class Carnant extends Player {
                 dialogues.add("You are just another corpse.");
                 dialogues.add("You should be happy I am giving you chance to live!");
                 dialogues.add("Rrraah! You won’t see this coming!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -387,7 +426,7 @@ public class Carnant extends Player {
             //mutant form
             case 3:
                 events.add(target.getName() + " is pierced by " + getName() + prompt.getApostrophe(getName()) + " tentacle.");
-                events.add(getName() + " used " + getSkillNames()[skillIndex] + " to destroy " + target.getName() + " with raw strength.");
+                events.add(getName() + " used " + newSkillNames.get(skillIndex) + " to destroy " + target.getName() + " with raw strength.");
                 events.add(getName() + " quick pierce through " + target.getName() + prompt.getApostrophe(target.getName()) + " body.");
                 prompt.selectRandomEvent(events);
                 prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
@@ -396,8 +435,7 @@ public class Carnant extends Player {
                 dialogues.add("I am your greatest kryptonite.");
                 dialogues.add("I am infinity, this fight is eternal!");
                 dialogues.add("I'm getting stronger!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -415,8 +453,7 @@ public class Carnant extends Player {
                 dialogues.add("You will slowly die by my venom!");
                 dialogues.add("Succumb into the afterlife.");
                 dialogues.add("No matter how strong you are, you are fragile to my venom!");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -434,8 +471,7 @@ public class Carnant extends Player {
                 dialogues.add("You can't kill me");
                 dialogues.add("I can feel power");
                 dialogues.add("The surge of energy is so powerful");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -453,8 +489,7 @@ public class Carnant extends Player {
                 dialogues.add("Hehehe you cannot destroy my liquefied body!");
                 dialogues.add("I am invincible!");
                 dialogues.add("I am blessed to have this power.");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();

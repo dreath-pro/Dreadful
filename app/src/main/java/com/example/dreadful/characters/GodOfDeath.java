@@ -157,7 +157,19 @@ public class GodOfDeath extends Player {
 
             if (!hasStatus(hitter, "Time Before Death", 1).isEmpty()) {
                 int index = Integer.parseInt(hasStatus(hitter, "Time Before Death", 1));
-                hitter.getStatusValue().set(index, hitter.getStatusValue().get(index) - 1);
+                ArrayList<String> newStatus = hitter.getStatusList().getValue();
+                if(newStatus == null)
+                {
+                    newStatus = new ArrayList<>();
+                }
+
+                ArrayList<Integer> newStatusValue = hitter.getStatusValueList().getValue();
+                if(newStatusValue == null)
+                {
+                    newStatusValue = new ArrayList<>();
+                }
+
+                newStatusValue.set(index, newStatusValue.get(index) - 1);
 
                 if (timeBeforeDeath <= 0) {
                     setAttack(hitter.getMaxHealth() * 2);
@@ -166,8 +178,11 @@ public class GodOfDeath extends Player {
 
                     timeBeforeDeath = 0;
 
-                    hitter.getStatus().remove(index);
-                    hitter.getStatusValue().remove(index);
+                    newStatus.remove(index);
+                    newStatusValue.remove(index);
+
+                    hitter.updateStatusList(newStatus);
+                    hitter.updateStatusValueList(newStatusValue);
                 }
             }
         }

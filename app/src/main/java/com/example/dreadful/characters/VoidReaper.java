@@ -203,6 +203,26 @@ public class VoidReaper extends Player {
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        ArrayList<String> newStatus = getStatusList().getValue();
+        if (newStatus == null) {
+            newStatus = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
+        if (newStatusValue == null) {
+            newStatusValue = new ArrayList<>();
+        }
+
+        ArrayList<String> hitterStatus = getStatusList().getValue();
+        if (hitterStatus == null) {
+            hitterStatus = new ArrayList<>();
+        }
+
+        ArrayList<Integer> hitterStatusValue = getStatusValueList().getValue();
+        if (hitterStatusValue == null) {
+            hitterStatusValue = new ArrayList<>();
+        }
+
         voidTime--;
         if (voidTime <= 0) {
             backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
@@ -212,8 +232,11 @@ public class VoidReaper extends Player {
 
             if (!hasStatus(target, "Endless Void", 20).isEmpty()) {
                 int index = Integer.parseInt(hasStatus(target, "Endless Void", 20));
-                getStatusValue().remove(index);
-                getStatus().remove(index);
+                newStatusValue.remove(index);
+                newStatus.remove(index);
+
+                updateStatusList(newStatus);
+                updateStatusValueList(newStatusValue);
             }
         }
 
@@ -228,8 +251,11 @@ public class VoidReaper extends Player {
                 hitter.setDodge(hitter.getMaxDodge());
                 hitter.setDefense(hitter.getMaxDefense());
 
-                hitter.getStatusValue().remove(index);
-                hitter.getStatus().remove(index);
+                hitterStatusValue.remove(index);
+                hitterStatus.remove(index);
+
+                hitter.updateStatusList(hitterStatus);
+                hitter.updateStatusValueList(hitterStatusValue);
             }
         }
     }
@@ -489,16 +515,29 @@ public class VoidReaper extends Player {
 
     //heals base on the time passed buff
     private void skill3(Player hitter, Player target) {
+        ArrayList<String> newStatus = getStatusList().getValue();
+        if (newStatus == null) {
+            newStatus = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
+        if (newStatusValue == null) {
+            newStatusValue = new ArrayList<>();
+        }
+
         if (!hasStatus(hitter, "Time Passed", 1).isEmpty()) {
             int index = Integer.parseInt(hasStatus(hitter, "Time Passed", 1));
             int healthPortion = (int) (getMaxHealth() * 0.05);
 
-            for (int i = 0; i <= getStatusValue().get(index) - 1; i++) {
+            for (int i = 0; i <= newStatusValue.get(index) - 1; i++) {
                 setHealth(getHealth() + healthPortion);
             }
 
-            getStatusValue().remove(index);
-            getStatus().remove(index);
+            newStatusValue.remove(index);
+            newStatus.remove(index);
+
+            updateStatusList(newStatus);
+            updateStatusValueList(newStatusValue);
         } else {
             setHealth(getHealth() + 750);
         }
@@ -506,18 +545,31 @@ public class VoidReaper extends Player {
 
     //attack target and deals damage based on the time passed buff
     private void skill4(Player hitter, Player target) {
+        ArrayList<String> newStatus = getStatusList().getValue();
+        if (newStatus == null) {
+            newStatus = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
+        if (newStatusValue == null) {
+            newStatusValue = new ArrayList<>();
+        }
+
         if (!hasStatus(hitter, "Time Passed", 1).isEmpty()) {
             int index = Integer.parseInt(hasStatus(hitter, "Time Passed", 1));
             int damagePortion = (int) (target.getMaxHealth() * 0.05);
 
-            for (int i = 0; i <= getStatusValue().get(index) - 1; i++) {
+            for (int i = 0; i <= newStatusValue.get(index) - 1; i++) {
                 setAttack((getAttack() + damagePortion));
                 target.receiveHit(hitter, target);
                 setAttack(getMaxAttack());
             }
 
-            getStatusValue().remove(index);
-            getStatus().remove(index);
+            newStatusValue.remove(index);
+            newStatus.remove(index);
+
+            updateStatusList(newStatus);
+            updateStatusValueList(newStatusValue);
         } else {
             setAttack(getAttack() + 750);
             target.receiveHit(hitter, target);

@@ -54,8 +54,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeeak... creak...)");
                 dialogues.add("(Crrreeeak... creak...)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -70,8 +69,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeeaaaaakk... crack crack)");
                 dialogues.add("(Crrraaaaack... click-click-click)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -86,8 +84,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(CRRRRRAAAAAAKK! Creak-creak-creak)");
                 dialogues.add("(CRRRRAAAACCCCK... crackle-click-click)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -102,8 +99,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(CRAAASH! CRRRRRAAAACK-K-K-K)");
                 dialogues.add("(CRRRAAAAAACK—SPLINTER!)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -128,8 +124,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Squeeeeak… creak-creak-creak)");
                 dialogues.add("(Click-click-click… Crrrreeeeak)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -147,20 +142,30 @@ public class KumoNingyo extends Player {
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        ArrayList<String> newStatus = getStatusList().getValue();
+        if (newStatus == null) {
+            newStatus = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
+        if (newStatusValue == null) {
+            newStatusValue = new ArrayList<>();
+        }
+
         limbTwitch--;
         if (limbTwitch <= 0) {
             limbTwitch = maxLimbTwitch;
 
             if (!hasStatus(target, "Lost Limbs", 1).isEmpty()) {
                 int index = Integer.parseInt(hasStatus(target, "Lost Limbs", 1));
-                bypassSetHealth(getHealth() + (1000 * getStatusValue().get(index)));
+                bypassSetHealth(getHealth() + (1000 * newStatusValue.get(index)));
 
                 if (getHealth() > getMaxHealth()) {
                     bypassSetMaxHealth(getHealth());
                     yourHealthBar.setMax(getMaxHealth());
                 }
 
-                poison *= getStatusValue().get(index);
+                poison *= newStatusValue.get(index);
             } else {
                 bypassSetHealth(getHealth() + 1000);
 
@@ -185,8 +190,11 @@ public class KumoNingyo extends Player {
 
             if (!hasStatus(target, "Creepy Stalker", 1).isEmpty()) {
                 int index = Integer.parseInt(hasStatus(target, "Creepy Stalker", 1));
-                getStatusValue().remove(index);
-                getStatus().remove(index);
+                newStatusValue.remove(index);
+                newStatus.remove(index);
+
+                updateStatusList(newStatus);
+                updateStatusValueList(newStatusValue);
             }
         }
     }
@@ -210,8 +218,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Sccrrreeaaak... crrreeeak-click-click)");
                 dialogues.add("(Crrreeaaack... crack-click)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -227,8 +234,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeak... click-click... Sccrrreeeaaak)");
                 dialogues.add("(Crrick-crack... tap-tap-tap... Creeeak)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -244,8 +250,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeak... crack-crack... Sccrrreeeak)");
                 dialogues.add("(Creeeak... crrrrack... click-click)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -261,8 +266,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeak... sccrrreeeak... hissss)");
                 dialogues.add("(Creeeak... crack-click... hsssss...)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -278,8 +282,7 @@ public class KumoNingyo extends Player {
 
                 dialogues.add("(Creeeak... hisss... ssccrrreeeak)");
                 dialogues.add("(Creeeak... crick-crack... hsss...)");
-                if(prompt.selectRandomDialogue(this, dialogues, true))
-                {
+                if (prompt.selectRandomDialogue(this, dialogues, true)) {
                     prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
                 }
                 dialogues.clear();
@@ -323,17 +326,31 @@ public class KumoNingyo extends Player {
     private void skill2(Player hitter, Player target) {
         if (!hasStatus(hitter, "Lost Limbs", 1).isEmpty()) {
             int index = Integer.parseInt(hasStatus(hitter, "Lost Limbs", 1));
-            bypassSetHealth(getHealth() + (1000 * getStatusValue().get(index)));
+
+            ArrayList<String> newStatus = getStatusList().getValue();
+            if (newStatus == null) {
+                newStatus = new ArrayList<>();
+            }
+
+            ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
+            if (newStatusValue == null) {
+                newStatusValue = new ArrayList<>();
+            }
+
+            bypassSetHealth(getHealth() + (1000 * newStatusValue.get(index)));
 
             if (getHealth() > getMaxHealth()) {
                 bypassSetMaxHealth(getHealth());
                 yourHealthBar.setMax(getMaxHealth());
             }
 
-            poison *= getStatusValue().get(index);
+            poison *= newStatusValue.get(index);
 
-            getStatus().remove(index);
-            getStatusValue().remove(index);
+            newStatus.remove(index);
+            newStatusValue.remove(index);
+
+            updateStatusList(newStatus);
+            updateStatusValueList(newStatusValue);
         } else {
             bypassSetHealth(getHealth() + 1000);
 
