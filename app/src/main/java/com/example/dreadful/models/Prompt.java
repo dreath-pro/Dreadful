@@ -1,6 +1,8 @@
 package com.example.dreadful.models;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
@@ -9,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Prompt {
-    private ArrayList<String> eventMessage;
-    private ArrayList<String> dialogueMessage;
+    private MutableLiveData<ArrayList<String>> eventMessage;
+    private MutableLiveData<ArrayList<String>> dialogueMessage;
     private ArrayList<Integer> eventColor, dialogueColor;
     private TestActivity testActivity;
     private Random random;
@@ -22,8 +24,8 @@ public class Prompt {
     }
 
     public Prompt(TestActivity testActivity) {
-        this.eventMessage = new ArrayList<>();
-        this.dialogueMessage = new ArrayList<>();
+        this.eventMessage = new MutableLiveData<>();
+        this.dialogueMessage = new MutableLiveData<>();
         this.testActivity = testActivity;
         this.random = new Random();
         this.eventColor = new ArrayList<>();
@@ -70,7 +72,12 @@ public class Prompt {
     }
 
     public void selectRandomEvent(ArrayList<String> dialogues) {
-        addEventMessage(dialogues.get(random.nextInt(dialogues.size())));
+        ArrayList<String> newEventMessage = getEventMessage().getValue();
+        if (newEventMessage == null) {
+            newEventMessage = new ArrayList<>();
+        }
+        newEventMessage.add(dialogues.get(random.nextInt(dialogues.size())));
+        addEventMessage(newEventMessage);
     }
 
     public boolean selectRandomDialogue(Player selectedPlayer, ArrayList<String> dialogues, boolean isRandomPopup) {
@@ -78,11 +85,23 @@ public class Prompt {
 
         if (isRandomPopup) {
             if (random.nextInt(2) == 0) {
-                addDialogueMessage(selectedPlayer, dialogues.get(random.nextInt(dialogues.size())));
+                ArrayList<String> newDialogueMessage = getDialogueMessage().getValue();
+                if (newDialogueMessage == null) {
+                    newDialogueMessage = new ArrayList<>();
+                }
+                newDialogueMessage.add(selectedPlayer.getName() + ": " + dialogues.get(random.nextInt(dialogues.size())));
+
+                addDialogueMessage(newDialogueMessage);
                 isTherePopup = true;
             }
         } else {
-            addDialogueMessage(selectedPlayer, dialogues.get(random.nextInt(dialogues.size())));
+            ArrayList<String> newDialogueMessage = getDialogueMessage().getValue();
+            if (newDialogueMessage == null) {
+                newDialogueMessage = new ArrayList<>();
+            }
+            newDialogueMessage.add(selectedPlayer.getName() + ": " + dialogues.get(random.nextInt(dialogues.size())));
+
+            addDialogueMessage(newDialogueMessage);
             isTherePopup = true;
         }
 
@@ -90,24 +109,34 @@ public class Prompt {
     }
 
     public int getTotalMessages() {
-        return eventMessage.size() + dialogueMessage.size();
+        ArrayList<String> newEventMessage = getEventMessage().getValue();
+        if (newEventMessage == null) {
+            newEventMessage = new ArrayList<>();
+        }
+
+        ArrayList<String> newDialogueMessage = getDialogueMessage().getValue();
+        if (newDialogueMessage == null) {
+            newDialogueMessage = new ArrayList<>();
+        }
+
+        return newEventMessage.size() + newDialogueMessage.size();
     }
 
-    public ArrayList<String> getEventMessage() {
+    public LiveData<ArrayList<String>> getEventMessage() {
         return eventMessage;
     }
 
-    public void addEventMessage(String eventMessage) {
-        getEventMessage().add(eventMessage);
+    public void addEventMessage(ArrayList<String> eventMessage) {
+        this.eventMessage.postValue(eventMessage);
         selectedMessage.add(0);
     }
 
-    public ArrayList<String> getDialogueMessage() {
+    public LiveData<ArrayList<String>> getDialogueMessage() {
         return dialogueMessage;
     }
 
-    public void addDialogueMessage(Player selectedPlayer, String dialogueMessage) {
-        getDialogueMessage().add(selectedPlayer.getName() + ": " + dialogueMessage);
+    public void addDialogueMessage(ArrayList<String> dialogueMessage) {
+        this.dialogueMessage.postValue(dialogueMessage);
         selectedMessage.add(1);
     }
 

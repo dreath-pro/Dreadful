@@ -19,13 +19,11 @@ import java.util.ArrayList;
 
 public class ViewStatus extends RecyclerView.Adapter<ViewStatus.MyViewHolder> {
     private Context context;
-    private Player player;
     private ArrayList<String> statusList = new ArrayList<>();
     private ArrayList<Integer> statusValueList = new ArrayList<>();
 
     public ViewStatus(Context context, Player player) {
         this.context = context;
-        this.player = player;
 
         // Observe statusList LiveData
         player.getStatusList().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {

@@ -7,20 +7,44 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
 import com.example.dreadful.models.Prompt;
 
+import java.util.ArrayList;
+
 public class ViewPrompt extends RecyclerView.Adapter<ViewPrompt.MyViewHolder> {
     private Context context;
     private Prompt prompt;
+    private ArrayList<String> eventList = new ArrayList<>();
+    private ArrayList<String> dialogueList = new ArrayList<>();
 
     private int eventIncrement, dialogueIncrement;
 
     public ViewPrompt(Context context, Prompt prompt) {
         this.context = context;
         this.prompt = prompt;
+
+        // Observe statusList LiveData
+        prompt.getEventMessage().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> newEventList) {
+                eventList = newEventList != null ? newEventList : new ArrayList<>();
+                notifyDataSetChanged(); // Notify adapter of data change once outside onBindViewHolder
+            }
+        });
+
+        // Observe statusValueList LiveData
+        prompt.getDialogueMessage().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> newDialogueList) {
+                dialogueList = newDialogueList != null ? newDialogueList : new ArrayList<>();
+                notifyDataSetChanged(); // Notify adapter of data change once outside onBindViewHolder
+            }
+        });
 
         this.eventIncrement = 0;
         this.dialogueIncrement = 0;
@@ -39,16 +63,20 @@ public class ViewPrompt extends RecyclerView.Adapter<ViewPrompt.MyViewHolder> {
         switch (prompt.getSelectedMessage().get(position)) {
             // 0 = event
             case 0:
-                holder.resultText.setText(prompt.getEventMessage().get(eventIncrement));
-                holder.resultText.setTextColor(prompt.getEventColor().get(eventIncrement));
-                eventIncrement++;
+                if (holder.getAdapterPosition() < eventList.size()) {
+                    holder.resultText.setText(eventList.get(holder.getAdapterPosition()));
+                    holder.resultText.setTextColor(prompt.getEventColor().get(eventIncrement));
+                    eventIncrement++;
+                }
                 break;
 
             //1 = dialogue
             case 1:
-                holder.resultText.setText(prompt.getDialogueMessage().get(dialogueIncrement));
-                holder.resultText.setTextColor(prompt.getDialogueColor().get(dialogueIncrement));
-                dialogueIncrement++;
+                if (holder.getAdapterPosition() < dialogueList.size()) {
+                    holder.resultText.setText(dialogueList.get(holder.getAdapterPosition()));
+                    holder.resultText.setTextColor(prompt.getDialogueColor().get(dialogueIncrement));
+                    dialogueIncrement++;
+                }
                 break;
         }
     }

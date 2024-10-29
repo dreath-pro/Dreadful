@@ -98,7 +98,13 @@ public class TestActivity extends AppCompatActivity {
         promptView.setText("");
 
         prompt = new Prompt(this);
-        prompt.addEventMessage("Fate has led them to this pivotal moment of encounter.");
+
+        ArrayList<String> newEventMessage = prompt.getEventMessage().getValue();
+        if (newEventMessage == null) {
+            newEventMessage = new ArrayList<>();
+        }
+        newEventMessage.add("Fate has led them to this pivotal moment of encounter.");
+        prompt.addEventMessage(newEventMessage);
         prompt.getEventColor().add(ContextCompat.getColor(this, R.color.yellow_orange));
 
         if (newViews) {
@@ -225,6 +231,27 @@ public class TestActivity extends AppCompatActivity {
             promptList.setLayoutManager(statusLayoutManager);
             viewPrompt = new ViewPrompt(this, prompt);
             promptList.setAdapter(viewPrompt);
+
+            prompt.getEventMessage().observe(this, statusList -> {
+                // Delay the notifyDataSetChanged() call until the layout pass is complete
+                promptList.post(() -> {
+                    if (statusList != null) {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            viewPrompt.notifyDataSetChanged();
+                        });
+                    }
+                });
+            });
+
+            prompt.getDialogueMessage().observe(this, statusValueList -> {
+                promptList.post(() -> {
+                    if (statusValueList != null) {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            viewPrompt.notifyDataSetChanged();
+                        });
+                    }
+                });
+            });
 
             battleLogsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
