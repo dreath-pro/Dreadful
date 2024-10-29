@@ -100,13 +100,12 @@ public class Carnant extends Player {
                     dialogues.add("Hrrrk… weak… just like the rest!");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 break;
@@ -125,13 +124,12 @@ public class Carnant extends Player {
                     dialogues.add("Grrrhhhk… you hit me… now bleed!");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 break;
@@ -150,13 +148,12 @@ public class Carnant extends Player {
                     dialogues.add("Hehehe… strong… but not strong enough!!");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 break;
@@ -175,13 +172,12 @@ public class Carnant extends Player {
                     dialogues.add("Rrrraghh! You think this is enough?! I’ll make you regret that!!");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 break;
@@ -217,14 +213,14 @@ public class Carnant extends Player {
                     dialogues.add("Grraa… dodged again, what now?");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
+
                 break;
             case "BLOCKED":
                 if (form == 0) {
@@ -249,14 +245,14 @@ public class Carnant extends Player {
                     dialogues.add("Grraaahh! You’re gonna have to hit harder! I love a challenge!");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
+
                 break;
             case "":
 
@@ -375,16 +371,17 @@ public class Carnant extends Player {
                 events.add(getName() + " lunged forward, gathering his strength as he prepared for the " + skillName + ". With a wild grin, he leaped into the air, ready to bring his full weight down on " + target.getName() + ".");
                 events.add("As he soared through the air, " + getName() + prompt.getApostrophe(getName()) + " laughter echoed ominously. He curled his body into a ball, crashing down with tremendous force, intent on obliterating everything in his path.");
                 events.add("The ground shook beneath him as " + getName() + " slammed down, his laughter rising above the chaos. Dust and debris flew as he landed, eyes wide with manic delight.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Hahaha! Time to feel the weight of my madness!");
                 dialogues.add("Grraahhh! Here comes the pain!");
                 dialogues.add("Hah! Feel that? That’s the sound of your doom!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
+                events.clear();
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -393,16 +390,17 @@ public class Carnant extends Player {
                 events.add(getName() + " tightened his grip on his weapon, a wild glint in his eyes as he swung it back, gathering momentum for the strike. He was ready to unleash his fury.");
                 events.add("With a ferocious grin, " + getName() + " unleashed the " + skillName + ", his weapon cutting through the air with deadly precision. He felt the thrill of the impending impact.");
                 events.add("The force of the swing echoed through the battlefield as " + getName() + prompt.getApostrophe(getName()) + " weapon collided with " + target.getName() + ", sending shockwaves of pain rippling through his opponent. He laughed maniacally at the sight of " + target.getName() + " staggering back.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Hahaha! Get ready for a world of hurt!");
                 dialogues.add("You will be added to my kill count.");
                 dialogues.add("Grrahh! Stunned already? This is too easy!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
+                events.clear();
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -411,16 +409,17 @@ public class Carnant extends Player {
                 events.add(getName() + " kicks at maximum strength!");
                 events.add(getName() + " kicks at his target with no hesitation.");
                 events.add(getName() + " does a heavy kick.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("You are just another corpse.");
                 dialogues.add("You should be happy I am giving you chance to live!");
                 dialogues.add("Rrraah! You won’t see this coming!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
+                events.clear();
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -431,16 +430,17 @@ public class Carnant extends Player {
                 events.add(target.getName() + " is pierced by " + getName() + prompt.getApostrophe(getName()) + " tentacle.");
                 events.add(getName() + " used " + skillName + " to destroy " + target.getName() + " with raw strength.");
                 events.add(getName() + " quick pierce through " + target.getName() + prompt.getApostrophe(target.getName()) + " body.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("I am your greatest kryptonite.");
                 dialogues.add("I am infinity, this fight is eternal!");
                 dialogues.add("I'm getting stronger!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
+                events.clear();
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -449,16 +449,17 @@ public class Carnant extends Player {
                 events.add(target.getName() + " is punctured by a deadly venom.");
                 events.add(getName() + " targeted and injected " + target.getName() + " with an aggressive venom.");
                 events.add(getName() + " injected venom into " + target.getName() + prompt.getApostrophe(target.getName()) + " body.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("You will slowly die by my venom!");
                 dialogues.add("Succumb into the afterlife.");
                 dialogues.add("No matter how strong you are, you are fragile to my venom!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
+                events.clear();
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 skill4(hitter, target);
@@ -467,16 +468,17 @@ public class Carnant extends Player {
                 events.add(getName() + " ingested his own poison to recover his lost health.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " poison takes over his body and recovers those damage cell.");
                 events.add(getName() + " absorb his own poison from his tentacle to heal his body.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("You can't kill me");
                 dialogues.add("I can feel power");
                 dialogues.add("The surge of energy is so powerful");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
+                events.clear();
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 skill5(hitter, target);
@@ -485,16 +487,17 @@ public class Carnant extends Player {
                 events.add(getName() + prompt.getApostrophe(getName()) + " body is dissolving making it hard for " + target.getName() + " to attack.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " cell is liquefied.");
                 events.add(getName() + " started to get deformed and agile from incoming attack.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Hehehe you cannot destroy my liquefied body!");
                 dialogues.add("I am invincible!");
                 dialogues.add("I am blessed to have this power.");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
-                }
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false, false);
+                events.clear();
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true, true);
                 dialogues.clear();
 
                 skill6(hitter, target);

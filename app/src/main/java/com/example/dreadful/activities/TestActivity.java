@@ -99,13 +99,13 @@ public class TestActivity extends AppCompatActivity {
 
         prompt = new Prompt(this);
 
-        ArrayList<String> newEventMessage = prompt.getEventMessage().getValue();
-        if (newEventMessage == null) {
-            newEventMessage = new ArrayList<>();
+        ArrayList<String> newBattleMessage = prompt.getBattleMessage().getValue();
+        if (newBattleMessage == null) {
+            newBattleMessage = new ArrayList<>();
         }
-        newEventMessage.add("Fate has led them to this pivotal moment of encounter.");
-        prompt.addEventMessage(newEventMessage);
-        prompt.getEventColor().add(ContextCompat.getColor(this, R.color.yellow_orange));
+        prompt.getMessageColor().add(ContextCompat.getColor(this, R.color.yellow_orange));
+        newBattleMessage.add("Fate has led them to this pivotal moment of encounter.");
+        prompt.selectRandomMessage(null, newBattleMessage, false, false);
 
         if (newViews) {
             selectedBackground = random.nextInt(backgroundList.length);
@@ -232,20 +232,10 @@ public class TestActivity extends AppCompatActivity {
             viewPrompt = new ViewPrompt(this, prompt);
             promptList.setAdapter(viewPrompt);
 
-            prompt.getEventMessage().observe(this, statusList -> {
+            prompt.getBattleMessage().observe(this, messageList -> {
                 // Delay the notifyDataSetChanged() call until the layout pass is complete
                 promptList.post(() -> {
-                    if (statusList != null) {
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            viewPrompt.notifyDataSetChanged();
-                        });
-                    }
-                });
-            });
-
-            prompt.getDialogueMessage().observe(this, statusValueList -> {
-                promptList.post(() -> {
-                    if (statusValueList != null) {
+                    if (messageList != null) {
                         new Handler(Looper.getMainLooper()).post(() -> {
                             viewPrompt.notifyDataSetChanged();
                         });

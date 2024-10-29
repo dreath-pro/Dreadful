@@ -19,13 +19,11 @@ import java.util.ArrayList;
 
 public class ViewSkill extends RecyclerView.Adapter<ViewSkill.MyViewHolder> {
     private Context context;
-    private Player player;
     private ArrayList<String> skillNames = new ArrayList<>();
     private ArrayList<Integer> skillCooldowns = new ArrayList<>();
 
     public ViewSkill(Context context, Player player) {
         this.context = context;
-        this.player = player;
 
         // Observe statusList LiveData
         player.getSkillNames().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {
