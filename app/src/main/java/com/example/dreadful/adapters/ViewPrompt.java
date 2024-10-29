@@ -18,18 +18,18 @@ import java.util.ArrayList;
 
 public class ViewPrompt extends RecyclerView.Adapter<ViewPrompt.MyViewHolder> {
     private Context context;
-    private Prompt prompt;
     private ArrayList<String> messageList = new ArrayList<>();
+    private ArrayList<Integer> colorList = new ArrayList<>();
 
     public ViewPrompt(Context context, Prompt prompt) {
         this.context = context;
-        this.prompt = prompt;
 
         // Observe statusList LiveData
         prompt.getBattleMessage().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> newBattleList) {
                 messageList = newBattleList != null ? newBattleList : new ArrayList<>();
+                colorList = prompt.getMessageColor();
                 notifyDataSetChanged(); // Notify adapter of data change once outside onBindViewHolder
             }
         });
@@ -46,7 +46,8 @@ public class ViewPrompt extends RecyclerView.Adapter<ViewPrompt.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewPrompt.MyViewHolder holder, int position) {
         if (holder.getAdapterPosition() < messageList.size()) {
-            holder.resultText.setText(messageList.get(holder.getAdapterPosition()));
+            holder.resultText.setText(messageList.get(position));
+            holder.resultText.setTextColor(colorList.get(position));
         }
     }
 
