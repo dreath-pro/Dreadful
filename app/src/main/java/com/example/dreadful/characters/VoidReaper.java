@@ -87,15 +87,19 @@ public class VoidReaper extends Player {
                 events.add(getName() + " received a light blow, but the impact barely registered.");
                 events.add("A minor hit grazed the " + getName() + ", leaving it unfazed but slightly annoyed.");
                 events.add("The attack barely scratched the surface, and the " + getName() + " let out a dismissive gurgle.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Gurgle-grrrgh!");
                 dialogues.add("Grrrgh.");
                 dialogues.add("Gurgle.");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -105,14 +109,18 @@ public class VoidReaper extends Player {
                 events.add("The strike landed with a solid thud, causing " + getName() + prompt.getApostrophe(getName()) + " tentacles to twitch in irritation.");
                 events.add("With a moderate impact, the " + getName() + " staggered but maintained its menacing stance.");
                 events.add("The attack pushed the " + getName() + " back a step, its gurgling growl growing more pronounced.\n");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Grrraahhh!");
                 dialogues.add("Grrrrr!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -122,15 +130,19 @@ public class VoidReaper extends Player {
                 events.add(getName() + " absorbed a strong blow, the force rippling through its body like a shockwave.");
                 events.add("The powerful hit sent tremors through the void around it, and the Reaper emitted a low growl of defiance.");
                 events.add("The strike hit hard, causing the " + getName() + " to falter briefly, its tentacles flailing in agitation.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Grrr-glkkk!");
                 dialogues.add("Ggrrrhhhaaaaahhh!");
                 dialogues.add("Grrraaaah!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -140,14 +152,18 @@ public class VoidReaper extends Player {
                 events.add("A critical blow struck with devastating force, causing " + getName() + " to reel as time itself wavered.");
                 events.add("The blow resonated through the void, forcing the " + getName() + " to momentarily falter, shadows swirling in agitation.");
                 events.add("The devastating impact sent the " + getName() + " crashing back, its growl turning into a deep, anguished roar.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Ggrrrhhhaaaaahhh!");
                 dialogues.add("Ggrrrk-kh!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -176,9 +192,6 @@ public class VoidReaper extends Player {
                 events.add("The blow came close, but the " + getName() + prompt.getApostrophe(getName()) + " body twisted like smoke, avoiding the hit without effort.");
                 events.add("Time seemed to warp as the " + getName() + " shifted, the attack passing harmlessly through the space it once occupied.");
                 events.add("With a flicker of violet energy, the " + getName() + " vanished, dodging the attack just before it could connect.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Shhhrrrgh.");
                 dialogues.add("Grrrkk.");
@@ -186,8 +199,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrraahhh.");
                 dialogues.add("Fffshhh.");
                 dialogues.add("Grrrah!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
                 break;
@@ -198,9 +218,6 @@ public class VoidReaper extends Player {
                 events.add("With a swift movement, " + getName() + " interposed its scythe between itself and the blow, the void around it shimmering from the force of the block.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " tentacles whipped around, forming a defensive barrier that absorbed the attack, sending vibrations through the void.");
                 events.add("The strike clashed against " + getName() + prompt.getApostrophe(getName()) + " scythe, sparks flying as it growled lowly, holding its ground with unearthly strength.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Chhrrk!");
                 dialogues.add("Grrrrhhh.");
@@ -208,8 +225,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Hhhhkkk!");
                 dialogues.add("Grrraaakk!");
                 dialogues.add("Rrrrgggh!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
                 break;
@@ -310,9 +334,6 @@ public class VoidReaper extends Player {
                 events.add("A dark haze surrounded the " + getName() + " as it channeled the energy of " + skillName + ". Shadows stretched and twisted, bending toward the scythe's blade as time splintered.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " scythe shimmered with an unholy glow, and with one massive swing, it cut through reality itself. A deep, resonant hum filled the void as moments fractured.");
                 events.add("With a deadly calm, " + getName() + " invoked " + skillName + ". A wave of violet light pulsed forward, and every second felt stretched and warped in its wake.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Rrrrhhhaaaa!");
                 dialogues.add("Shhhhhrrrkkk!");
@@ -320,8 +341,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Ggrrrhhhk!");
                 dialogues.add("Fffssshhh!");
                 dialogues.add("Rrrrraaahhh!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -334,9 +362,6 @@ public class VoidReaper extends Player {
                 events.add(getName() + prompt.getApostrophe(getName()) + " body pulsed with power, then burst into fragments of shadow that rippled through the battlefield. " + skillName + " around " + target.getName() + ", leaving them dazed and paralyzed.");
                 events.add("A violet flash engulfed the void, and as the echoes of " + skillName + " faded, " + target.getName() + " was left stunned, trapped in the shattered fragments of time.");
                 events.add(getName() + " unleashed a fierce pulse, its form expanding as time fractured around it. " + target.getName() + prompt.getApostrophe(target.getName()) + " body shuddered as they froze, their reality warped by the void’s sinister hold.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Brrrraaakkk!");
                 dialogues.add("Ghhhrrrzzzh!");
@@ -344,8 +369,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrggghhh!");
                 dialogues.add("Ffsssshhh!");
                 dialogues.add("Grrrkkkshh!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -358,9 +390,6 @@ public class VoidReaper extends Player {
                 events.add(getName() + prompt.getApostrophe(getName()) + " laughter echoed as he dragged " + target.getName() + " into his realm, his form twisting and expanding with newfound power. The void pulsed as he unleashed a barrage of attacks, each one further reducing the delay between his skills.");
                 events.add("With a chilling roar, " + getName() + " transported them both to his dominion. Violet shadows danced as he transformed, his aura darkening with increased power. Each blow struck with more ferocity than the last, an unstoppable cascade that reset his abilities with each powerful swing.");
                 events.add(target.getName() + " barely had a moment to react as " + getName() + prompt.getApostrophe(getName()) + " realm enveloped them. Transformed and pulsing with energy, " + getName() + " unleashed a deadly assault, each strike diminishing his cooldown with the relentless cadence of a nightmare.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Hrrrrraaaaggh!");
                 dialogues.add("Grraahhhkk!");
@@ -368,8 +397,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Rrrgghhhah!");
                 dialogues.add("Thrrrrssskt!");
                 dialogues.add("Grrrrraaahhkkk!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -382,9 +418,6 @@ public class VoidReaper extends Player {
                 events.add("The darkness around " + getName() + " twisted as it performed " + skillName + ", gliding through time. As moments rewound, it felt the rush of healing energy enveloping its form, recovering what was lost.");
                 events.add(getName() + " surged forward, the air crackling as time itself began to reverse. With each step, health surged back, each injury erasing like a forgotten memory.");
                 events.add("As " + getName() + " executed " + skillName + ", the world around it faded and rewound. The shadows coiled around, knitting wounds and renewing strength as it dashed through time.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Rrrrhhk!");
                 dialogues.add("Ghhrrrraah!");
@@ -392,8 +425,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghhrreeek!");
                 dialogues.add("Brrrraaaak!");
                 dialogues.add("Grrrhhhk!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -406,9 +446,6 @@ public class VoidReaper extends Player {
                 events.add(getName() + prompt.getApostrophe(getName()) + " scythe shimmered with violet energy as it performed " + skillName + ", the very fabric of space warping around it. The attack surged forward, a relentless tide of dark power.");
                 events.add("The air thickened with tension as " + getName() + " prepared " + skillName + ". With a devastating arc of its blade, it unleashed the attack, a gravitational pull following in its wake, drawing " + target.getName() + " closer to the impending doom.");
                 events.add("With a fierce determination, " + getName() + " executed " + skillName + ". The slash unleashed a gravitational shockwave, warping the space around " + target.getName() + " and engulfing them in darkness.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Ssssshhhhh!");
                 dialogues.add("Fffhrrrraaag!");
@@ -416,8 +453,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Grrrrrreeeek!");
                 dialogues.add("Brrrraaaak!");
                 dialogues.add("Grrraaaaaash!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -430,9 +474,6 @@ public class VoidReaper extends Player {
                 events.add("As " + target.getName() + " felt the effects of " + skillName + ", " + getName() + prompt.getApostrophe(getName()) + " presence became suffocating. The weight of the void pressed down on them, reducing their defense and dodging ability as the shadows seeped deeper.");
                 events.add(getName() + " advanced, eyes glinting with malevolence as it activated " + skillName + ". The air thickened with darkness, wrapping around " + target.getName() + " and dulling their attacks, making them feel sluggish and weak.");
                 events.add("With a chilling growl, " + getName() + " unleashed " + skillName + ", the void swirling around " + target.getName() + " and siphoning their strength. The shadows twisted, making each attempt to fight back feel futile and clumsy.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Grrrrrhhhhh!");
                 dialogues.add("Ffffssshhh!");
@@ -440,8 +481,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghrrreeeeek!");
                 dialogues.add("Brrrrrraaaah!");
                 dialogues.add("Fffffsssrrkk!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -454,9 +502,6 @@ public class VoidReaper extends Player {
                 events.add("As " + getName() + " activated " + skillName + ", the battlefield twisted, yanking both back to their starting positions. Their health renewed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " skills were bound tighter, cooldowns extended by the void’s cold grip.");
                 events.add("With a dark gleam in its empty gaze, " + getName() + " enacted " + skillName + ". Shadows consumed the field, winding back time. Both returned to the beginning, unharmed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " powers felt trapped, delayed by a spectral weight.");
                 events.add(getName() + " invoked " + skillName + ", the air shuddering as time rewound. Both regained their strength, but " + target.getName() + prompt.getApostrophe(target.getName()) + " power was slowed, abilities held back as if bound by spectral chains.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Grraahh… ffsssshhh.");
                 dialogues.add("Rrrrhhhkk… gghrraaak!");
@@ -464,8 +509,15 @@ public class VoidReaper extends Player {
                 dialogues.add("Ghrrrrr… fffrrraaah!");
                 dialogues.add("Fffssshhhh… grrahhh.");
                 dialogues.add("Ghhrrrrraaakk!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 

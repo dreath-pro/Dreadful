@@ -108,12 +108,14 @@ public class HellKnight extends Player {
                     dialogues.add("You dare face me with such pitiful strength? Grrrrrraaahh…");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -133,12 +135,14 @@ public class HellKnight extends Player {
                     dialogues.add("You’ve got some fire in you... but I’ll show you a real inferno! RRRRRAAAHHHH!!");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -158,12 +162,14 @@ public class HellKnight extends Player {
                     dialogues.add("You’ve struck me hard... Now, prepare for the fury of Hell itself! RRRRRAAAWWWRRHHH!!");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -183,12 +189,14 @@ public class HellKnight extends Player {
                     dialogues.add("You’ve wounded me... Now face the wrath of the abyss! RRRROOOOOAAAAARRRHHHH!!!");
                 }
 
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -206,14 +214,18 @@ public class HellKnight extends Player {
             if (form == 0) {
                 events.add(getName() + " sidesteps effortlessly, his flaming armor leaving a trail of sparks as he moves. His eyes burn with amusement, mocking " + hitter.getName() + prompt.getApostrophe(hitter.getName()) + " efforts.");
                 events.add("With a swift twist of his body, " + getName() + " evades the strike, the flames on his armor flaring momentarily, casting a hellish glow around him as he grins with fiery confidence.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Too slow!. You’ll need to be faster to even touch me.");
                 dialogues.add("Nice try. But the fires of Hell make me untouchable!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
             }
@@ -244,14 +256,17 @@ public class HellKnight extends Player {
                 dialogues.add("You’ve got power, but it’s nothing against my scales of flame! RRRROOOAAARRRRHHH!!");
             }
 
-            prompt.selectRandomEvent(events);
-            prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+            prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+            prompt.selectRandomMessage(this, events, false);
             events.clear();
 
-            if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+            if(prompt.isTherePopup())
+            {
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true);
             }
             dialogues.clear();
+
         } else {
             hitter.setAttack(hitter.getAttack() - getDefense());
 
@@ -388,14 +403,18 @@ public class HellKnight extends Player {
             case 0:
                 events.add("With a swift motion, " + getName() + " swings his sword, igniting it with hellfire. The blade blazes bright, leaving a trail of flames as he strikes toward " + target.getName() + ", the air sizzling with heat.");
                 events.add("He steps forward, channeling the inferno through his weapon. As he brings the blade down, flames explode outward, creating a fiery arc aimed directly at " + target.getName() + ".");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Feel the flames of my wrath!");
                 dialogues.add("Let this be a lesson in pain!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -404,14 +423,18 @@ public class HellKnight extends Player {
             case 1:
                 events.add(getName() + " draws in a deep breath, his chest expanding as he channels the flames of the underworld. He exhales with a roar, unleashing a torrent of hellfire that engulfs " + target.getName() + " in a blazing wave.");
                 events.add("As the flames burst forth, they scorch the ground and wrap around " + target.getName() + ", burning her relentlessly. The heat radiates around them, and " + getName() + " stands firm, watching the fire do its work with a wicked smile.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Prepare for the inferno!");
                 dialogues.add("Feel the heat of a thousand suns!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -420,14 +443,18 @@ public class HellKnight extends Player {
             case 2:
                 events.add(getName() + " slams his gauntleted fists against his chest, and the flames on his armor blaze brighter. As he activates the skill, the heat radiates around him, creating an aura of fiery protection that envelops his form.");
                 events.add("As the flames swirl and solidify into a protective barrier, " + getName() + " stands tall, his confidence unwavering. The air around him crackles with energy, as if the very essence of fire has fortified his armor.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Feel the weight of my resolve!");
                 dialogues.add("You’ll need more than that to breach my defenses!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -436,14 +463,18 @@ public class HellKnight extends Player {
             case 3:
                 events.add(getName() + " raises his arms, and flames envelop him, forming a shimmering, protective shield of fire. The heat radiates outward, causing the air to shimmer as he prepares to counter any incoming attacks.");
                 events.add("With the " + skillName + " activated, the shield crackles with energy, and tendrils of flame reach out toward " + target.getName() + ". As it gets too close, the shield bursts, igniting it with fiery tendrils that cause ongoing damage.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("You’ll find my flames are as protective as they are deadly!");
                 dialogues.add("Step closer, and you’ll taste the fire of my wrath!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -452,14 +483,18 @@ public class HellKnight extends Player {
             case 4:
                 events.add("Flames swirl around " + getName() + ", intensifying as he begins to shift. His body expands, scales erupting from his armor, and with a thunderous roar, he transforms into a fearsome dragon, radiating immense power.");
                 events.add("As his transformation completes, " + getName() + prompt.getApostrophe(getName()) + " max health skyrockets, the essence of fire healing his wounds over time. His scaled form gleams in the light, the very air around him crackling with renewed energy. He feels the weight of his newfound power but knows that agility comes at a cost.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Witness my true form, born of fire and fury! RRRRAAAAAAAHHHHHH!");
                 dialogues.add("Feel the strength of my dragon blood coursing through me! RRRRAAAAAAAHHHHHH!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -470,14 +505,18 @@ public class HellKnight extends Player {
             case 5:
                 events.add(getName() + " raises his massive claw, engulfed in a fiery glow, and brings it crashing down toward " + target.getName() + ". The heat radiates, signaling the impending destruction.");
                 events.add("With a swift swipe, he unleashes the " + skillName + ", sending flames cascading in all directions. The intense heat envelops " + target.getName() + " as it feels the searing pain from the powerful attack, leaving it gasping in the aftermath.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Your fate is sealed in flames! RRRRRRHHHHH!");
                 dialogues.add("Embrace the flames of your demise! RRRRRRHHHHH!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -486,14 +525,18 @@ public class HellKnight extends Player {
             case 6:
                 events.add(getName() + " inhales deeply, and flames build up within his massive form. With a thunderous roar, he releases a torrent of blazing fire, engulfing " + target.getName() + " entirely. The intense heat singes everything in its path, leaving it scorched and struggling to withstand the burning agony.");
                 events.add("As he unleashes the " + skillName + ", a wave of fire surges forward, scorching everything in its wake. " + target.getName() + " is caught within the inferno, the flames licking as it feels the searing burn intensify with each passing second.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Behold the fury of my flames! RRAAAAAHHHHH!");
                 dialogues.add("Let the flames consume you! Grrrhhhhh...");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -502,14 +545,18 @@ public class HellKnight extends Player {
             case 7:
                 events.add(getName() + " roars, his scales glowing with a deep, fiery hue as they harden into an impenetrable armor. Each scale radiates a fierce heat, creating a protective barrier that few could hope to penetrate.");
                 events.add("His body tenses as his scales reinforce, thickening and gleaming with a tempered, darkened sheen. The air around him crackles as his defenses grow, and he stands like an immovable mountain, daring his enemies to try and break him.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("My scales are stronger than any steel! Grrrrhhhhh...");
                 dialogues.add("You’ll break before I do! Grrrrhhhhh...");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -518,14 +565,18 @@ public class HellKnight extends Player {
             case 8:
                 events.add("In dragon form, " + getName() + prompt.getApostrophe(getName()) + " shield roars to life, a fiery barrier surrounding his massive frame. The flames pulse in sync with his breath, growing hotter by the second. Any who come near are met with burning tendrils of fire that scorch them upon contact.");
                 events.add("The " + skillName + " wraps around " + getName() + " like a living flame, its searing heat both protecting him and causing " + target.getName() + " to shriek as its burned by the fiery force. The shield not only deflects its attacks but burns it with each strike.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("Feel the heat of my wrath, even as you strike! RRRAAAAAAHHHH!");
                 dialogues.add("Your fate is sealed—burn in the flames of my shield! Grrrrrrrrrhhh...");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
@@ -534,14 +585,18 @@ public class HellKnight extends Player {
             case 9:
                 events.add(getName() + prompt.getApostrophe(getName()) + " massive dragon form begins to shrink, his scales retracting, wings folding back, and his claws diminishing into his human form. As he transforms, his body heals from the battle's wounds, though his towering presence is now reduced. A violent burst of energy surges from him, striking " + target.getName() + " and sending her reeling as the remnants of his dragon power lash out.");
                 events.add("With a growl, " + getName() + prompt.getApostrophe(getName()) + " dragon body begins to dissipate, flames crackling as he shrinks back to his human size. As the transformation completes, a burst of searing energy erupts from him, knocking " + target.getName() + " back and igniting its body with flames. His armor, though less imposing, now burns with renewed rage, even as his health and defense decrease.");
-                prompt.selectRandomEvent(events);
-                prompt.getEventColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                events.clear();
 
                 dialogues.add("I return, but my flames remain!");
                 dialogues.add("Human once more... but still, I burn with fury!");
-                if (prompt.selectRandomDialogue(this, dialogues, true)) {
-                    prompt.getDialogueColor().add(ContextCompat.getColor(context, R.color.white));
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 

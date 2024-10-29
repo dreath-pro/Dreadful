@@ -65,44 +65,26 @@ public class Prompt {
         return 4;
     }
 
-    public boolean selectRandomMessage(Player selectedPlayer, ArrayList<String> messages, boolean isDialog, boolean isRandomPopup) {
-        boolean isTherePopup = false;
-
-        if (isRandomPopup) {
-            if (random.nextInt(2) == 0) {
-                ArrayList<String> newBattleMessage = getBattleMessage().getValue();
-                if (newBattleMessage == null) {
-                    newBattleMessage = new ArrayList<>();
-                }
-                if(isDialog)
-                {
-                    newBattleMessage.add(selectedPlayer.getName() + ": " + messages.get(random.nextInt(messages.size())));
-                }else
-                {
-                    newBattleMessage.add(messages.get(random.nextInt(messages.size())));
-                }
-
-                addBattleMessage(newBattleMessage);
-                isTherePopup = true;
-            }
+    public boolean isTherePopup() {
+        if (random.nextInt(2) == 0) {
+            return true;
         } else {
-            ArrayList<String> newBattleMessage = getBattleMessage().getValue();
-            if (newBattleMessage == null) {
-                newBattleMessage = new ArrayList<>();
-            }
-            if(isDialog)
-            {
-                newBattleMessage.add(selectedPlayer.getName() + ": " + messages.get(random.nextInt(messages.size())));
-            }else
-            {
-                newBattleMessage.add(messages.get(random.nextInt(messages.size())));
-            }
+            return false;
+        }
+    }
 
-            addBattleMessage(newBattleMessage);
-            isTherePopup = true;
+    public void selectRandomMessage(Player selectedPlayer, ArrayList<String> messages, boolean isDialog) {
+        ArrayList<String> newBattleMessage = getBattleMessage().getValue();
+        if (newBattleMessage == null) {
+            newBattleMessage = new ArrayList<>();
+        }
+        if (isDialog) {
+            newBattleMessage.add(selectedPlayer.getName() + ": " + messages.get(random.nextInt(messages.size())));
+        } else {
+            newBattleMessage.add(messages.get(random.nextInt(messages.size())));
         }
 
-        return isTherePopup;
+        addBattleMessage(newBattleMessage);
     }
 
     public LiveData<ArrayList<String>> getBattleMessage() {

@@ -101,11 +101,14 @@ public class Carnant extends Player {
                 }
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -125,11 +128,14 @@ public class Carnant extends Player {
                 }
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -149,11 +155,14 @@ public class Carnant extends Player {
                 }
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -173,11 +182,14 @@ public class Carnant extends Player {
                 }
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -214,11 +226,14 @@ public class Carnant extends Player {
                 }
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -246,11 +261,14 @@ public class Carnant extends Player {
                 }
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -377,11 +395,14 @@ public class Carnant extends Player {
                 dialogues.add("Hah! Feel that? That’s the sound of your doom!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -396,11 +417,14 @@ public class Carnant extends Player {
                 dialogues.add("Grrahh! Stunned already? This is too easy!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -415,11 +439,14 @@ public class Carnant extends Player {
                 dialogues.add("Rrraah! You won’t see this coming!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -436,11 +463,14 @@ public class Carnant extends Player {
                 dialogues.add("I'm getting stronger!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -455,11 +485,14 @@ public class Carnant extends Player {
                 dialogues.add("No matter how strong you are, you are fragile to my venom!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill4(hitter, target);
@@ -474,11 +507,14 @@ public class Carnant extends Player {
                 dialogues.add("The surge of energy is so powerful");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill5(hitter, target);
@@ -493,11 +529,14 @@ public class Carnant extends Player {
                 dialogues.add("I am blessed to have this power.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill6(hitter, target);

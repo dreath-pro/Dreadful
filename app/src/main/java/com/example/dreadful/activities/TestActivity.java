@@ -105,7 +105,7 @@ public class TestActivity extends AppCompatActivity {
         }
         prompt.getMessageColor().add(ContextCompat.getColor(this, R.color.yellow_orange));
         newBattleMessage.add("Fate has led them to this pivotal moment of encounter.");
-        prompt.selectRandomMessage(null, newBattleMessage, false, false);
+        prompt.selectRandomMessage(null, newBattleMessage, false);
 
         if (newViews) {
             selectedBackground = random.nextInt(backgroundList.length);

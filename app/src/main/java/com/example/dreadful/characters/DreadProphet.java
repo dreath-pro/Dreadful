@@ -72,11 +72,14 @@ public class DreadProphet extends Player {
                 dialogues.add("Such weakness... and yet thou hast sinned nonetheless.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -92,11 +95,14 @@ public class DreadProphet extends Player {
                 dialogues.add("Thy sinful hand doth tremble before me, yet still thou seeketh to wound!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -112,11 +118,14 @@ public class DreadProphet extends Player {
                 dialogues.add("Thy power is great, but thy sin is greater still! The Abyss awaiteth thee!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -132,11 +141,14 @@ public class DreadProphet extends Player {
                 dialogues.add("The Abyss calls for thee, sinner! Thou hast earned thy place in its depths!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 break;
@@ -218,11 +230,14 @@ public class DreadProphet extends Player {
                 dialogues.add("Futile are thy escape, for the Abyss giveth no quarter to thee.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 basicAttack(hitter, target);
@@ -237,11 +252,14 @@ public class DreadProphet extends Player {
                 dialogues.add("The Abyss hath deemed thee worthy of judgment; prepare for thy end!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill1(hitter, target);
@@ -256,11 +274,14 @@ public class DreadProphet extends Player {
                 dialogues.add("What thou deemest healing, I shall transform into thy undoing!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill2(hitter, target);
@@ -275,11 +296,14 @@ public class DreadProphet extends Player {
                 dialogues.add("The Abyss doth not forget; every wound thou causeth doth lead to thy own doom!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill3(hitter, target);
@@ -294,11 +318,14 @@ public class DreadProphet extends Player {
                 dialogues.add("Thee canst not silence the hymn of the Abyss, for it doth grant me life everlasting!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false, false);
+                prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                prompt.selectRandomMessage(this, dialogues, true, true);
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
                 dialogues.clear();
 
                 skill4(hitter, target);
