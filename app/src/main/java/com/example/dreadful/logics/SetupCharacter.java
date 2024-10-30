@@ -39,7 +39,7 @@ public class SetupCharacter {
     private Prompt prompt;
 
     private int[] backgroundList;
-    private int selectedBackground = 0;
+    private int selectedBackground;
     private ProgressBar yourHealthBar, enemyHealthBar;
 
     private int firstPlayerSelected, secondPlayerSelected;
@@ -76,8 +76,6 @@ public class SetupCharacter {
 
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
-        this.firstPlayerSelected = 0;
-        this.secondPlayerSelected = 0;
     }
 
     private void initCharacters(ImageView playerImage, ProgressBar playerHealthBar, TextView playerName) {
@@ -155,5 +153,21 @@ public class SetupCharacter {
         }
 
         resizeImage.scale(enemyImage, enemyPlayer.getSize());
+    }
+
+    public int getFirstPlayerSelected() {
+        return firstPlayerSelected;
+    }
+
+    public void setFirstPlayerSelected(int firstPlayerSelected) {
+        this.firstPlayerSelected = firstPlayerSelected;
+    }
+
+    public int getSecondPlayerSelected() {
+        return secondPlayerSelected;
+    }
+
+    public void setSecondPlayerSelected(int secondPlayerSelected) {
+        this.secondPlayerSelected = secondPlayerSelected;
     }
 }

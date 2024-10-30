@@ -422,7 +422,7 @@ public class HellKnight extends Player {
                 break;
             case 1:
                 events.add(getName() + " draws in a deep breath, his chest expanding as he channels the flames of the underworld. He exhales with a roar, unleashing a torrent of hellfire that engulfs " + target.getName() + " in a blazing wave.");
-                events.add("As the flames burst forth, they scorch the ground and wrap around " + target.getName() + ", burning her relentlessly. The heat radiates around them, and " + getName() + " stands firm, watching the fire do its work with a wicked smile.");
+                events.add("As the flames burst forth, they scorch the ground and wrap around " + target.getName() + ", burning it relentlessly. The heat radiates around them, and " + getName() + " stands firm, watching the fire do its work with a wicked smile.");
 
                 dialogues.add("Prepare for the inferno!");
                 dialogues.add("Feel the heat of a thousand suns!");
@@ -583,7 +583,7 @@ public class HellKnight extends Player {
                 skill8(hitter, target);
                 break;
             case 9:
-                events.add(getName() + prompt.getApostrophe(getName()) + " massive dragon form begins to shrink, his scales retracting, wings folding back, and his claws diminishing into his human form. As he transforms, his body heals from the battle's wounds, though his towering presence is now reduced. A violent burst of energy surges from him, striking " + target.getName() + " and sending her reeling as the remnants of his dragon power lash out.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " massive dragon form begins to shrink, his scales retracting, wings folding back, and his claws diminishing into his human form. As he transforms, his body heals from the battle's wounds, though his towering presence is now reduced. A violent burst of energy surges from him, striking " + target.getName() + " and sending it reeling as the remnants of his dragon power lash out.");
                 events.add("With a growl, " + getName() + prompt.getApostrophe(getName()) + " dragon body begins to dissipate, flames crackling as he shrinks back to his human size. As the transformation completes, a burst of searing energy erupts from him, knocking " + target.getName() + " back and igniting its body with flames. His armor, though less imposing, now burns with renewed rage, even as his health and defense decrease.");
 
                 dialogues.add("I return, but my flames remain!");

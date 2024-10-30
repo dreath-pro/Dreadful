@@ -64,6 +64,8 @@ public class TestActivity extends AppCompatActivity {
     private Prompt prompt;
     private Dialog battleLogsDialog;
 
+    private int firstPlayerSelected, secondPlayerSelected;
+
     private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false;
 
     private void initViews() {
@@ -112,17 +114,24 @@ public class TestActivity extends AppCompatActivity {
         }
         backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
 
-        if (newViews) {
-            setupCharacter = new SetupCharacter(this,
-                    yourName, yourHealth, yourHealthText, yourImage,
-                    enemyName, enemyHealth, enemyHealthText, enemyImage,
-                    yourPlayer, enemyPlayer, backgroundImage, yourStunText,
-                    enemyStunText, backgroundList, selectedBackground,
-                    yourHealth, enemyHealth, prompt);
+        setupCharacter = new SetupCharacter(this,
+                yourName, yourHealth, yourHealthText, yourImage,
+                enemyName, enemyHealth, enemyHealthText, enemyImage,
+                yourPlayer, enemyPlayer, backgroundImage, yourStunText,
+                enemyStunText, backgroundList, selectedBackground,
+                yourHealth, enemyHealth, prompt);
+
+        if (!newViews) {
+            setupCharacter.setFirstPlayerSelected(firstPlayerSelected);
+            setupCharacter.setSecondPlayerSelected(secondPlayerSelected);
         }
 
         setupCharacter.initializeYourViews(newViews);
         setupCharacter.initializeEnemyViews(newViews);
+
+        firstPlayerSelected = setupCharacter.getFirstPlayerSelected();
+        secondPlayerSelected = setupCharacter.getSecondPlayerSelected();
+
         yourPlayer = setupCharacter.returnYourCharacter();
         enemyPlayer = setupCharacter.returnEnemyCharacter();
 
