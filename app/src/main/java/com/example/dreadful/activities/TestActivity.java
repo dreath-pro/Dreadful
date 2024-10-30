@@ -127,8 +127,8 @@ public class TestActivity extends AppCompatActivity {
             setupCharacter.setSecondPlayerSelected(secondPlayerSelected);
         }
 
-        setupCharacter.initializeYourViews(newViews);
-        setupCharacter.initializeEnemyViews(newViews);
+        setupCharacter.selectYourCharacter(newViews);
+        setupCharacter.selectEnemyCharacter(newViews);
 
         firstPlayerSelected = setupCharacter.getFirstPlayerSelected();
         secondPlayerSelected = setupCharacter.getSecondPlayerSelected();

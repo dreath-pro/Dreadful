@@ -24,12 +24,13 @@ public class Michael extends Player{
     private ImageView yourImage, enemyImage;
     private int shieldPercentage = 20, maxShieldPercentage = 20;
     private int enemyCurrentHealth;
+    private boolean isPetrifyActivated = false;
     private int petrification = 0;
     private int shield = 0;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
     public Michael(Context context, ImageView yourImage, Prompt prompt, ImageView enemyImage) {
-        super(context, yourImage, "Michael", R.drawable.character_michael, "left", 210,
+        super(context, yourImage, "Michael", R.drawable.character_michael, "left", 180,
                 null, null, 20500, 1800, 800, 0);
 
         ArrayList<String> skillNames = new ArrayList<>();
@@ -189,16 +190,18 @@ public class Michael extends Player{
             shieldPercentage = maxShieldPercentage;
         }
 
-        petrification--;
-        if(petrification <= 0)
+        if(isPetrifyActivated)
         {
-            petrification = 0;
-
-            enemyImage.setColorFilter(null);
-            hitter.setHealth(enemyCurrentHealth);
-            enemyCurrentHealth = hitter.getHealth();
-            hitter.setDefense(hitter.getMaxDefense());
-            hitter.setDodge(hitter.getMaxDodge());
+            petrification--;
+            if(petrification <= 0)
+            {
+                enemyImage.setColorFilter(null);
+                hitter.setHealth(enemyCurrentHealth);
+                enemyCurrentHealth = hitter.getHealth();
+                hitter.setDefense(hitter.getMaxDefense());
+                hitter.setDodge(hitter.getMaxDodge());
+                isPetrifyActivated = false;
+            }
         }
     }
 
@@ -394,7 +397,7 @@ public class Michael extends Player{
         target.getHealOverTime().clear();
         target.getHealOverTimeValue().clear();
 
-        target.setStun(3);
+        target.setStun(target.getStun() + 3);
     }
 
     //provides a temporary shield and damaging enemy at the same time
@@ -421,7 +424,10 @@ public class Michael extends Player{
         target.setDefense(0);
         target.setDodge(0);
 
-        petrification = 3;
+        target.setStun(target.getStun() + 3);
+
+        petrification = 9;
+        isPetrifyActivated = true;
     }
 
     //give enemy damage over time and hit them

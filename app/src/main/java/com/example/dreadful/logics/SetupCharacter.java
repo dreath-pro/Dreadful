@@ -79,7 +79,7 @@ public class SetupCharacter {
         this.enemyPlayer = enemyPlayer;
     }
 
-    private void initCharacters(ImageView playerImage, ProgressBar playerHealthBar, TextView playerName) {
+    private void setComponents(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
         players.clear();
         players.add(new Dreath(context, playerImage, prompt));
         players.add(new DreadProphet(context, playerImage, prompt));
@@ -88,7 +88,7 @@ public class SetupCharacter {
         players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
         players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
         players.add(new GodOfDeath(context, playerImage, prompt));
-        players.add(new Michael(context, playerImage, prompt));
+        players.add(new Michael(context, playerImage, prompt, opponentImage));
     }
 
     public Player returnYourCharacter() {
@@ -99,10 +99,10 @@ public class SetupCharacter {
         return enemyPlayer;
     }
 
-    public void initializeYourViews(boolean newViews) {
+    public void selectYourCharacter(boolean newViews) {
         yourImage.setScaleX(1);
 
-        initCharacters(yourImage, yourHealthBar, yourName);
+        setComponents(yourImage, enemyImage, yourHealthBar, yourName);
         if(newViews)
         {
             firstPlayerSelected = random.nextInt(players.size());
@@ -124,10 +124,10 @@ public class SetupCharacter {
         resizeImage.scale(yourImage, yourPlayer.getSize());
     }
 
-    public void initializeEnemyViews(boolean newViews) {
+    public void selectEnemyCharacter(boolean newViews) {
         enemyImage.setScaleX(1);
 
-        initCharacters(enemyImage, enemyHealthBar, enemyName);
+        setComponents(enemyImage, yourImage, enemyHealthBar, enemyName);
         if(newViews)
         {
             secondPlayerSelected = random.nextInt(players.size());
