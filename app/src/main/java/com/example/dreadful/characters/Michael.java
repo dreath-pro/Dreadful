@@ -1,6 +1,10 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
@@ -16,9 +20,15 @@ public class Michael extends Player{
     private Random random = new Random();
     private Prompt prompt;
     private Context context;
+    private Animation shakeAnimation;
+    private ImageView yourImage, enemyImage;
+    private int shieldPercentage = 20, maxShieldPercentage = 20;
+    private int enemyCurrentHealth;
+    private int petrification = 0;
+    private int shield = 0;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public Michael(Context context, ImageView yourImage, Prompt prompt) {
+    public Michael(Context context, ImageView yourImage, Prompt prompt, ImageView enemyImage) {
         super(context, yourImage, "Michael", R.drawable.character_michael, "left", 210,
                 null, null, 20500, 1800, 800, 0);
 
@@ -33,11 +43,11 @@ public class Michael extends Player{
 
         ArrayList<Integer> maxSkillCooldowns = new ArrayList<>();
         maxSkillCooldowns.add(0);
-        maxSkillCooldowns.add(7);
         maxSkillCooldowns.add(3);
         maxSkillCooldowns.add(5);
+        maxSkillCooldowns.add(7);
         maxSkillCooldowns.add(5);
-        maxSkillCooldowns.add(5);
+        maxSkillCooldowns.add(4);
         updateMaxSkillCooldowns(maxSkillCooldowns);
 
         ArrayList<Integer> skillCooldowns = new ArrayList<>();
@@ -51,6 +61,9 @@ public class Michael extends Player{
 
         this.prompt = prompt;
         this.context = context;
+        this.yourImage = yourImage;
+        this.enemyImage = enemyImage;
+        this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
     }
 
     public void damageExpression(int level) {
@@ -135,40 +148,58 @@ public class Michael extends Player{
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
      */
     public void receiveHit(Player hitter, Player target) {
-        String result = receiveHitLogic(hitter, target);
-        switch (result) {
-            case "DODGE":
+        hitter.setAttack(hitter.getAttack() * (int) (1 - (double) shieldPercentage));
 
-                break;
-            case "BLOCKED":
-                events.add("");
+        if (hitter.getAttack() <= getDefense()) {
+            events.add("");
 
-                dialogues.add("");
+            dialogues.add("");
 
-                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
-                prompt.selectRandomMessage(this, events, false);
-                events.clear();
+            prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+            prompt.selectRandomMessage(this, events, false);
+            events.clear();
 
-                if(prompt.isTherePopup())
-                {
-                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
-                    prompt.selectRandomMessage(this, dialogues, true);
-                }
-                dialogues.clear();
+            if(prompt.isTherePopup())
+            {
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                prompt.selectRandomMessage(this, dialogues, true);
+            }
+            dialogues.clear();
 
-                break;
-            case "":
+        } else {
+            hitter.setAttack(hitter.getAttack() - getDefense());
 
-                break;
-            default:
-                damageExpression(prompt.measureDamage(Integer.parseInt(result)));
-                break;
+            double damagePercentage = (double) hitter.getAttack() / getHealth() * 100;
+            damageExpression((int) damagePercentage);
+
+            setHealth(getHealth() - hitter.getAttack());
+            yourImage.startAnimation(shakeAnimation);
         }
+
+        hitter.setAttack(hitter.getMaxAttack());
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
         runTimeHeal();
-        runTimeDamage();
+
+        shield--;
+        if(shield <= 0)
+        {
+            shield = 0;
+            shieldPercentage = maxShieldPercentage;
+        }
+
+        petrification--;
+        if(petrification <= 0)
+        {
+            petrification = 0;
+
+            enemyImage.setColorFilter(null);
+            hitter.setHealth(enemyCurrentHealth);
+            enemyCurrentHealth = hitter.getHealth();
+            hitter.setDefense(hitter.getMaxDefense());
+            hitter.setDodge(hitter.getMaxDodge());
+        }
     }
 
     public String useRandomAttack(Player hitter, Player target) {
@@ -193,12 +224,9 @@ public class Michael extends Player{
         skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
-                events.add(getName() + " uses his sharp sword to hack " + target.getName());
-                events.add(getName() + " swings his deadly sword.");
-                events.add(getName() + " attacks " + target.getName() + " with malice.");
-                events.add(getName() + " quick slashes his sword.");
+                events.add("");
 
-                dialogues.add("Your fate was sealed the moment you crossed me!");
+                dialogues.add("");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -214,12 +242,9 @@ public class Michael extends Player{
                 basicAttack(hitter, target);
                 break;
             case 1:
-                events.add(getName() + " tries to brutally dismember " + target.getName() + " alive.");
-                events.add(getName() + " tries to chop " + target.getName() + " to pieces.");
-                events.add(getName() + " does a violent amputation on " + target.getName() + ".");
-                events.add(getName() + " ruthlessly destroying " + target.getName() + prompt.getApostrophe(target.getName()));
+                events.add("");
 
-                dialogues.add("With every strike, I carve your fate!");
+                dialogues.add("");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -235,11 +260,9 @@ public class Michael extends Player{
                 skill1(hitter, target);
                 break;
             case 2:
-                events.add(getName() + " hacks his opponent with pure rage");
-                events.add(getName() + " stabbing " + target.getName() + " multiple times.");
-                events.add(getName() + " ruthlessly torturing " + target.getName() + ".");
+                events.add("");
 
-                dialogues.add("Prepare to meet your end!");
+                dialogues.add("");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -255,14 +278,9 @@ public class Michael extends Player{
                 skill2(hitter, target);
                 break;
             case 3:
-                events.add(getName() + " tries to gut " + target.getName() + ".");
-                events.add(getName() + " thirsty bloody attacks " + target.getName() + " from the insides.");
-                events.add(getName() + prompt.getApostrophe(getName()) + "guts and gore attack.");
-                events.add(getName() + " tries to disembowel " + target.getName() + ".");
+                events.add("");
 
-                dialogues.add("Prepare to meet your end!");
-                dialogues.add("Prepare for annihilation!");
-                dialogues.add("Let my blade guide you to oblivion!");
+                dialogues.add("");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -278,14 +296,9 @@ public class Michael extends Player{
                 skill3(hitter, target);
                 break;
             case 4:
-                events.add(getName() + " tries to attack " + target.getName() + prompt.getApostrophe(target.getName()) + "organs and recovers his lost blood.");
-                events.add(getName() + " eviscerated " + target.getName() + " and devours internal organs to recover");
-                events.add(getName() + " tries to gut " + target.getName() + " with his sharp sword.");
-                events.add(getName() + " does a gory attack on " + target.getName() + prompt.getApostrophe(target.getName()) + " intestines.");
+                events.add("");
 
-                dialogues.add("Prepare to meet your end!");
-                dialogues.add("Prepare for annihilation!");
-                dialogues.add("Let my blade guide you to oblivion!");
+                dialogues.add("");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -300,58 +313,123 @@ public class Michael extends Player{
 
                 skill4(hitter, target);
                 break;
+            case 5:
+                events.add("");
+
+                dialogues.add("");
+
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+                if(prompt.isTherePopup())
+                {
+                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
+                    prompt.selectRandomMessage(this, dialogues, true);
+                }
+                dialogues.clear();
+
+                skill5(hitter, target);
+                break;
         }
 
         reduceCooldown(skillIndex);
         return skillName;
     }
 
-    //attack that will ignore defense
+    //attack that will ignore dodge
     @Override
     public void basicAttack(Player hitter, Player target) {
-        target.setDefense(0);
-        target.receiveHit(hitter, target);
-        target.setDefense(target.getMaxDefense());
-    }
-
-    //prevent enemy from using all skills
-    private void skill1(Player hitter, Player target) {
-        ArrayList<Integer> newSkillCooldowns = target.getSkillCooldowns().getValue();
-        if (newSkillCooldowns == null) {
-            newSkillCooldowns = new ArrayList<>();
-        }
-
-        for (int i = 1; i <= newSkillCooldowns.size() - 1; i++) {
-            newSkillCooldowns.set(i, newSkillCooldowns.get(i) + 5);
-            target.updateMaxSkillCooldowns(newSkillCooldowns);
-        }
-
-        setAttack(getAttack() + 6500);
-        target.receiveHit(hitter, target);
-        setAttack(getMaxAttack());
-    }
-
-    //enemy cannot dodge all incoming attacks
-    private void skill2(Player hitter, Player target) {
         target.setDodge(0);
-        setAttack(getAttack() + 5000);
         target.receiveHit(hitter, target);
-        setAttack(getMaxAttack());
         target.setDodge(target.getMaxDodge());
     }
 
-    //high burst
+    //cleanse all status and damage over time while damaging the enemy
+    private void skill1(Player hitter, Player target) {
+        ArrayList<String> newStatusList = getStatusList().getValue();
+        if (newStatusList == null) {
+            newStatusList = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newStatusValueList = getStatusValueList().getValue();
+        if (newStatusValueList == null) {
+            newStatusValueList = new ArrayList<>();
+        }
+
+        newStatusList.clear();
+        newStatusValueList.clear();
+
+        updateStatusList(newStatusList);
+        updateStatusValueList(newStatusValueList);
+
+        getDamageOverTime().clear();
+        getDamageOverTimeValue().clear();
+
+        setAttack(getAttack() * 2);
+        target.setDodge(0);
+        target.receiveHit(hitter, target);
+        target.setDodge(target.getMaxDodge());
+        setAttack(getMaxAttack());
+    }
+
+    //cleanse all enemy's status and heal over time and also stunning them
+    private void skill2(Player hitter, Player target) {
+        ArrayList<String> newStatusList = target.getStatusList().getValue();
+        if (newStatusList == null) {
+            newStatusList = new ArrayList<>();
+        }
+
+        ArrayList<Integer> newStatusValueList = target.getStatusValueList().getValue();
+        if (newStatusValueList == null) {
+            newStatusValueList = new ArrayList<>();
+        }
+
+        newStatusList.clear();
+        newStatusValueList.clear();
+
+        target.updateStatusList(newStatusList);
+        target.updateStatusValueList(newStatusValueList);
+
+        target.getHealOverTime().clear();
+        target.getHealOverTimeValue().clear();
+
+        target.setStun(3);
+    }
+
+    //provides a temporary shield and damaging enemy at the same time
     private void skill3(Player hitter, Player target) {
-        setAttack(getAttack() + 8870);
+        shieldPercentage *= 2;
+        shield = 5;
+
+        setAttack(getAttack() + 1230);
+        setAttack(getAttack() * 2);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
     }
 
-    //heal and increase damage
+    //petrify enemy and reduce their health to ash and their dodge while ignoring their defense
     private void skill4(Player hitter, Player target) {
-        setHealth(getHealth() + 10000);
-        setAttack(getAttack() + 11000);
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0f);
+
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        enemyImage.setColorFilter(filter);
+
+        enemyCurrentHealth = target.getHealth();
+        target.setHealth(4000);
+        target.setDefense(0);
+        target.setDodge(0);
+
+        petrification = 3;
+    }
+
+    //give enemy damage over time and hit them
+    private void skill5(Player hitter, Player target)
+    {
         target.receiveHit(hitter, target);
-        setAttack(getMaxAttack());
+
+        target.getDamageOverTime().add(500);
+        target.getDamageOverTimeValue().add(15);
     }
 }

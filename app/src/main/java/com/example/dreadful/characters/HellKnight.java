@@ -274,9 +274,10 @@ public class HellKnight extends Player {
             damageExpression((int) damagePercentage);
 
             setHealth(getHealth() - hitter.getAttack());
-            hitter.setAttack(hitter.getMaxAttack());
             yourImage.startAnimation(shakeAnimation);
         }
+
+        hitter.setAttack(hitter.getMaxAttack());
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {

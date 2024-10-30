@@ -28,8 +28,8 @@ public class KumoNingyo extends Player {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
     public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
-        super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 190,
-                null, null, 5800, 180, 0, 20);
+        super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 170,
+                null, null, 7800, 180, 0, 20);
 
         ArrayList<String> skillNames = new ArrayList<>();
         skillNames.add("Doku Kizu");
