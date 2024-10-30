@@ -32,6 +32,7 @@ import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.logics.SetupCharacter;
+import com.example.dreadful.logics.SlowSmoothScroller;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -247,6 +248,9 @@ public class TestActivity extends AppCompatActivity {
                     if (messageList != null) {
                         new Handler(Looper.getMainLooper()).post(() -> {
                             viewPrompt.notifyDataSetChanged();
+                            SlowSmoothScroller smoothScroller = new SlowSmoothScroller(this); // Create custom scroller
+                            smoothScroller.setTargetPosition(viewPrompt.getItemCount() - 1); // Set target position
+                            statusLayoutManager.startSmoothScroll(smoothScroller); // Start smooth scroll
                         });
                     }
                 });
