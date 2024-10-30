@@ -249,6 +249,9 @@ public class VoidReaper extends Player {
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        runTimeHeal();
+        runTimeDamage();
+
         ArrayList<String> newStatus = getStatusList().getValue();
         if (newStatus == null) {
             newStatus = new ArrayList<>();

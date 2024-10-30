@@ -189,6 +189,9 @@ public class GodOfDeath extends Player {
     }
 
     public void receiveTimeEffect(Player hitter, Player target) {
+        runTimeHeal();
+        runTimeDamage();
+        
         if (isClockOn) {
             timeBeforeDeath--;
 

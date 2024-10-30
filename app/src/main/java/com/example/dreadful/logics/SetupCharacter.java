@@ -17,6 +17,7 @@ import com.example.dreadful.characters.GodOfDeath;
 import com.example.dreadful.characters.HellKnight;
 import com.example.dreadful.characters.KumoNingyo;
 import com.example.dreadful.characters.DreadProphet;
+import com.example.dreadful.characters.Michael;
 import com.example.dreadful.characters.VoidReaper;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -87,6 +88,7 @@ public class SetupCharacter {
         players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
         players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
         players.add(new GodOfDeath(context, playerImage, prompt));
+        players.add(new Michael(context, playerImage, prompt));
     }
 
     public Player returnYourCharacter() {
