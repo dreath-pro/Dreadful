@@ -490,9 +490,9 @@ public class Michael extends Player{
         target.setDefense(0);
         target.setDodge(0);
 
-        target.setStun(target.getStun() + 3);
+        target.setStun(target.getStun() + 2);
 
-        petrification = 9;
+        petrification = 6;
         isPetrifyActivated = true;
     }
 
