@@ -122,6 +122,9 @@ public class TestActivity extends AppCompatActivity {
                 enemyStunText, backgroundList, selectedBackground,
                 yourHealth, enemyHealth, prompt);
 
+        yourImage.setColorFilter(null);
+        enemyImage.setColorFilter(null);
+
         if (!newViews) {
             setupCharacter.setFirstPlayerSelected(firstPlayerSelected);
             setupCharacter.setSecondPlayerSelected(secondPlayerSelected);
