@@ -22,7 +22,8 @@ public class Michael extends Player{
     private Context context;
     private Animation shakeAnimation;
     private ImageView yourImage, enemyImage;
-    private int shieldPercentage = 80, maxShieldPercentage = 80;
+    private double shieldPercentage = 35;
+    private final double maxShieldPercentage = 35;
     private int enemyCurrentHealth;
     private boolean isPetrifyActivated = false;
     private int petrification = 0;
@@ -169,7 +170,10 @@ public class Michael extends Player{
     }
 
     public void receiveHit(Player hitter, Player target) {
-        hitter.setAttack(hitter.getAttack() * (int) (1 - (double) shieldPercentage));
+        int originalDamage = hitter.getAttack();
+        double percentage = shieldPercentage / 100;
+        int reducedAttack = (int) (originalDamage * (1 - percentage));
+        hitter.setAttack(reducedAttack);
 
         if (hitter.getAttack() <= getDefense()) {
             events.add(hitter.getName() + prompt.getApostrophe(hitter.getName()) + " delicate limbs swipe at " + getName() + ", but he intercepts with a slow, grinding turn. The strike merely skims off his weathered surface, like rain on rock.");
@@ -464,7 +468,7 @@ public class Michael extends Player{
 
     //provides a temporary shield and damaging enemy at the same time
     private void skill3(Player hitter, Player target) {
-        shieldPercentage -= 20;
+        shieldPercentage *= 2;
         shield = 5;
 
         setAttack(getAttack() + 1230);

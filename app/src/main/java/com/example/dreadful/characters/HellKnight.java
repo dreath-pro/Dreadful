@@ -27,7 +27,7 @@ public class HellKnight extends Player {
     private Prompt prompt;
     private int form = 0;
     private int enhancedDefense = 0;
-    private int flameShield = 0;
+    private double flameShield = 0;
     private int ember = 0;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
@@ -238,7 +238,12 @@ public class HellKnight extends Player {
             hitter.receiveHit(target, hitter);
             setAttack(getMaxAttack());
 
-            hitter.setAttack(hitter.getAttack() * (int) (1 - (double) flameShield));
+            int originalDamage = hitter.getAttack();
+            double percentage = flameShield / 100;
+            int reducedAttack = (int) (originalDamage * (1 - percentage));
+            hitter.setAttack(reducedAttack);
+
+            hitter.setAttack(hitter.getAttack() * (int) (1 - flameShield));
         }
 
         if (hitter.getAttack() <= getDefense()) {
@@ -289,7 +294,12 @@ public class HellKnight extends Player {
         for (int i = 0; i <= getDamageOverTime().size() - 1; i++) {
             if (getDamageOverTimeValue().get(i) > 0) {
                 if (ember > 0) {
-                    setHealth(getHealth() - getDamageOverTime().get(i) * (int) (1 - (double) flameShield));
+                    int originalDamage = getDamageOverTime().get(i);
+                    double percentage = flameShield / 100;
+                    int reducedAttack = (int) (originalDamage * (1 - percentage));
+                    getDamageOverTime().set(i, reducedAttack);
+
+                    setHealth(getHealth() - getDamageOverTime().get(i));
                 } else {
                     setHealth(getHealth() - getDamageOverTime().get(i));
                 }
@@ -636,7 +646,7 @@ public class HellKnight extends Player {
     private void skill3(Player hitter, Player target) {
         ember = 15;
         receiveStatus(hitter, "Flame Shield", 1);
-        flameShield = 25;
+        flameShield += 25;
 
         target.getDamageOverTime().add(450);
         target.getDamageOverTimeValue().add(21);
@@ -692,7 +702,7 @@ public class HellKnight extends Player {
     private void skill8(Player hitter, Player target) {
         ember = 15;
         receiveStatus(hitter, "Flame Shield", 1);
-        flameShield = 40;
+        flameShield += 40;
 
         target.getDamageOverTime().add(280);
         target.getDamageOverTimeValue().add(21);
