@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -239,11 +240,24 @@ public class TestActivity extends AppCompatActivity {
             battleLogsDialog.setContentView(R.layout.dialog_battle_log);
 
             RecyclerView promptList = battleLogsDialog.findViewById(R.id.promptList);
+            CheckBox autoScroll = battleLogsDialog.findViewById(R.id.autoScroll);
+            ImageView downButton = battleLogsDialog.findViewById(R.id.downButton);
 
             LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             promptList.setLayoutManager(statusLayoutManager);
             viewPrompt = new ViewPrompt(this, prompt);
             promptList.setAdapter(viewPrompt);
+
+            autoScroll.setChecked(true);
+
+            downButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SlowSmoothScroller smoothScroller = new SlowSmoothScroller(TestActivity.this); // Create custom scroller
+                    smoothScroller.setTargetPosition(viewPrompt.getItemCount() - 1); // Set target position
+                    statusLayoutManager.startSmoothScroll(smoothScroller); // Start smooth scroll
+                }
+            });
 
             prompt.getBattleMessage().observe(this, messageList -> {
                 // Delay the notifyDataSetChanged() call until the layout pass is complete
@@ -251,9 +265,11 @@ public class TestActivity extends AppCompatActivity {
                     if (messageList != null) {
                         new Handler(Looper.getMainLooper()).post(() -> {
                             viewPrompt.notifyDataSetChanged();
-                            SlowSmoothScroller smoothScroller = new SlowSmoothScroller(this); // Create custom scroller
-                            smoothScroller.setTargetPosition(viewPrompt.getItemCount() - 1); // Set target position
-                            statusLayoutManager.startSmoothScroll(smoothScroller); // Start smooth scroll
+                            if (autoScroll.isChecked()) {
+                                SlowSmoothScroller smoothScroller = new SlowSmoothScroller(this); // Create custom scroller
+                                smoothScroller.setTargetPosition(viewPrompt.getItemCount() - 1); // Set target position
+                                statusLayoutManager.startSmoothScroll(smoothScroller); // Start smooth scroll
+                            }
                         });
                     }
                 });
