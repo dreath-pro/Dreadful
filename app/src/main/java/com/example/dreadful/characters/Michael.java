@@ -463,7 +463,7 @@ public class Michael extends Player{
         target.getHealOverTime().clear();
         target.getHealOverTimeValue().clear();
 
-        target.setStun(target.getStun() + 3);
+        target.setStun(3);
     }
 
     //provides a temporary shield and damaging enemy at the same time
@@ -490,7 +490,7 @@ public class Michael extends Player{
         target.setDefense(0);
         target.setDodge(0);
 
-        target.setStun(target.getStun() + 2);
+        target.setStun(2);
 
         petrification = 6;
         isPetrifyActivated = true;
