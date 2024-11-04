@@ -486,11 +486,11 @@ public class Michael extends Player{
         enemyImage.setColorFilter(filter);
 
         enemyCurrentHealth = target.getHealth();
-        target.setHealth(4000);
+        target.setHealth(2800);
         target.setDefense(0);
         target.setDodge(0);
 
-        target.setStun(2);
+        target.setStun(3);
 
         petrification = 6;
         isPetrifyActivated = true;
