@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
     //person with spiky armor covered with dark liquid, hd detailed, dark cartoon 2d, horror theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
     //long hair man riding a armored horse with long sword, hd detailed, dark cartoon 2d, horror theme, white background, facing right, standing full view, red, black, gray, white, dark-red
 
-    //mossy old ruins building, landscape, hd detailed, dark cartoon 2d, horror theme, blur, unfocused
-    //altar of cathedral, landscape, hd detailed, dark cartoon 2d, horror theme, blur, unfocused, red, crimson-red, black
+    //forest with plenty of creepy angel mossy stone statue, 2d landscape, hd detailed, dark cartoon 2d, horror theme, blur, unfocused
 
     //two swords clashing, simple icon, digital art, dark horror theme, vibrant shading, white background, red, crimson-red, black, dark-red
     //immobilize, minimalist icon, dark horror theme, vibrant shading, red, crimson-red, dark-red, black
