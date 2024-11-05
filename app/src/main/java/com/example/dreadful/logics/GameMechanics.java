@@ -28,6 +28,8 @@ public class GameMechanics {
     private Handler hitDelay = new Handler();
     private Random random = new Random();
 
+    private NumberComma numberComma = new NumberComma();
+
     public GameMechanics(Context context, ProgressBar yourHealth, TextView yourHealthText, ProgressBar enemyHealth,
                          TextView enemyHealthText, Player yourPlayer, Player enemyPlayer, TextView promptView,
                          TextView yourStunText, TextView enemyStunText, Button startButton) {
@@ -126,8 +128,8 @@ public class GameMechanics {
     }
 
     private void updateHealthBars() {
-        yourHealthText.setText(String.valueOf(yourPlayer.getHealth()));
-        enemyHealthText.setText(String.valueOf(enemyPlayer.getHealth()));
+        yourHealthText.setText(numberComma.convertComma(yourPlayer.getHealth()));
+        enemyHealthText.setText(numberComma.convertComma(enemyPlayer.getHealth()));
         yourHealth.setProgress(yourPlayer.getHealth());
         enemyHealth.setProgress(enemyPlayer.getHealth());
         yourStunText.setText(String.valueOf(yourPlayer.getStun()));

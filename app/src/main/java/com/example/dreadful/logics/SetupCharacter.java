@@ -38,6 +38,7 @@ public class SetupCharacter {
     private Random random = new Random();
     private ResizeImage resizeImage;
     private Prompt prompt;
+    private NumberComma numberComma = new NumberComma();
 
     private int[] backgroundList;
     private int selectedBackground;
@@ -110,7 +111,7 @@ public class SetupCharacter {
         yourPlayer = players.get(firstPlayerSelected);
 
         yourName.setText(yourPlayer.getName());
-        yourHealthText.setText(String.valueOf(yourPlayer.getHealth()));
+        yourHealthText.setText(numberComma.convertComma(yourPlayer.getHealth()));
         yourHealth.setMax(yourPlayer.getHealth());
         yourHealth.setProgress(yourPlayer.getHealth());
         yourImage.setImageResource(yourPlayer.getImage());
@@ -143,7 +144,7 @@ public class SetupCharacter {
         players.clear();
 
         enemyName.setText(enemyPlayer.getName());
-        enemyHealthText.setText(String.valueOf(enemyPlayer.getHealth()));
+        enemyHealthText.setText(numberComma.convertComma(enemyPlayer.getHealth()));
         enemyHealth.setMax(enemyPlayer.getHealth());
         enemyHealth.setProgress(enemyPlayer.getHealth());
         enemyImage.setImageResource(enemyPlayer.getImage());

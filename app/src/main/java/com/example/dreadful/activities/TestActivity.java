@@ -56,8 +56,9 @@ public class TestActivity extends AppCompatActivity {
     private GameMechanics gameMechanics;
     private SetupCharacter setupCharacter;
     private Random random = new Random();
-    private int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
-            R.drawable.background_graveyard, R.drawable.background_cave, R.drawable.background_statue};
+    private final int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
+            R.drawable.background_graveyard, R.drawable.background_cave, R.drawable.background_statue,
+            R.drawable.background_hell};
     private int selectedBackground = 0;
     private ViewStatus viewStatus;
     private ViewSkill viewSkill;
