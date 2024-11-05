@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.adapters.ViewPrompt;
+import com.example.dreadful.logics.NumberComma;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -24,6 +25,7 @@ public class Dreath extends Player {
     private Prompt prompt;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
+    private NumberComma numberComma = new NumberComma();
 
     public Dreath(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
@@ -233,6 +235,17 @@ public class Dreath extends Player {
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
+
+                events.add("Warning: A global emergency has occurred; please follow local authorities' instructions and stay safe.");
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.red));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
+
+
+                events.add(numberComma.convertComma(random.nextInt(900000000) + 150000) + " lives perished across the globe from this aura");
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.red));
+                prompt.selectRandomMessage(this, events, false);
+                events.clear();
             }
         }
     }
