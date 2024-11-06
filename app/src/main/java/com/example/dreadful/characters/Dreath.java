@@ -229,11 +229,8 @@ public class Dreath extends Player {
                 dialogues.add("Fear me, for I am the last thing you will ever see.");
                 dialogues.add("Fear is eternal, and now... so am I.");
 
-                if(prompt.isTherePopup())
-                {
-                    prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.red));
-                    prompt.selectRandomMessage(this, dialogues, true);
-                }
+                prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.red));
+                prompt.selectRandomMessage(this, dialogues, true);
                 dialogues.clear();
 
                 events.add("Warning: A global emergency has occurred; please follow local authorities' instructions and stay safe.");
