@@ -13,6 +13,9 @@
     <string name="skill_label">Skill</string>
     <string name="battle_logs">Battle Logs</string>
 
+    <string name="map_name">Hell</string>
+
+
     <!--    button labels-->
     <string name="start_button">Start</string>
     <string name="back_button">Back</string>
@@ -22,6 +25,7 @@
     <string name="test_button">Test</string>
     <string name="quit_button">Quit</string>
     <string name="wiki_button">Wiki</string>
+
 
     <!--    checkbox labels-->
     <string name="auto_scroll">Auto</string>
