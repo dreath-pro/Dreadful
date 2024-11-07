@@ -35,6 +35,7 @@ dependencies {
 
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation("com.android.tools:desugar_jdk_libs:2.1.3")
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     testImplementation(libs.junit)

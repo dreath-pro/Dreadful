@@ -2,6 +2,8 @@ package com.example.dreadful.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +23,9 @@ import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewMap;
 import com.example.dreadful.models.Map;
 
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class MapActivity extends AppCompatActivity {
@@ -28,9 +33,21 @@ public class MapActivity extends AppCompatActivity {
     private ImageView mapImage;
     private Button huntButton;
     private Button backButton;
-    private ArrayList<Map> mapListArray;
+    private ArrayList<Map> mapListArray = new ArrayList<>();
     private ViewMap viewMap;
     private TextView timeText, dateText;
+
+    private Handler handler;
+    private Runnable runnable;
+
+    private void initViews() {
+        mapList = findViewById(R.id.mapList);
+        mapImage = findViewById(R.id.mapImage);
+        huntButton = findViewById(R.id.huntButton);
+        backButton = findViewById(R.id.backButton);
+        timeText = findViewById(R.id.timeText);
+        dateText = findViewById(R.id.dateText);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +55,27 @@ public class MapActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_map);
 
-        mapListArray = new ArrayList<>();
+        initViews();
 
-        mapList = findViewById(R.id.mapList);
-        mapImage = findViewById(R.id.mapImage);
-        huntButton = findViewById(R.id.huntButton);
-        backButton = findViewById(R.id.backButton);
-        timeText = findViewById(R.id.timeText);
-        dateText = findViewById(R.id.dateText);
+        handler = new Handler(Looper.getMainLooper());
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                ZonedDateTime currentDateTime = ZonedDateTime.now();
+
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEE, MMM d"); // Updated date pattern
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a"); // Time pattern
+
+                String formattedDate = currentDateTime.format(dateFormatter);
+                String formattedTime = currentDateTime.format(timeFormatter);
+
+                timeText.setText(formattedTime);
+                dateText.setText(formattedDate);
+
+                handler.postDelayed(this, 1000);
+            }
+        };
+        handler.post(runnable);
 
         mapListArray.add(new Map("Shadowgrove", 1, R.drawable.map_shadowgrove, 0));
         mapListArray.add(new Map("Abyss", 0, R.drawable.map_abyss, 0));
@@ -86,5 +116,11 @@ public class MapActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
     }
 }

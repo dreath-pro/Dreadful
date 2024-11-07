@@ -5,7 +5,7 @@
     android:id="@+id/map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#592222"
+    android:background="#4D1C1C"
     tools:context=".activities.MapActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -32,8 +32,9 @@
             android:id="@+id/timeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/horroroid"
             android:text="@string/time_text"
-            android:textColor="@color/white"
+            android:textColor="@color/red"
             android:textSize="35sp" />
 
         <TextView
@@ -41,9 +42,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:fontFamily="@font/horroroid"
             android:text="@string/date_text"
-            android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textColor="@color/red"
+            android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/mapImage"
