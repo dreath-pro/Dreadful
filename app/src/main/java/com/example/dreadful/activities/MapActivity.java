@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewMap;
-import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.models.Map;
 
 import java.util.ArrayList;
@@ -27,8 +27,10 @@ public class MapActivity extends AppCompatActivity {
     private RecyclerView mapList;
     private ImageView mapImage;
     private Button huntButton;
+    private Button backButton;
     private ArrayList<Map> mapListArray;
     private ViewMap viewMap;
+    private TextView timeText, dateText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,11 @@ public class MapActivity extends AppCompatActivity {
         mapList = findViewById(R.id.mapList);
         mapImage = findViewById(R.id.mapImage);
         huntButton = findViewById(R.id.huntButton);
+        backButton = findViewById(R.id.backButton);
+        timeText = findViewById(R.id.timeText);
+        dateText = findViewById(R.id.dateText);
 
-        mapListArray.add(new Map("Shadowgrove", 1, R.drawable.map_dark_forest, 0));
+        mapListArray.add(new Map("Shadowgrove", 1, R.drawable.map_shadowgrove, 0));
         mapListArray.add(new Map("Abyss", 0, R.drawable.map_abyss, 0));
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -54,6 +59,15 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MapActivity.this, "Coming Soon!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 

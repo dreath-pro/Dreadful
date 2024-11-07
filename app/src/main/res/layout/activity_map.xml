@@ -5,7 +5,7 @@
     android:id="@+id/map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#311313"
+    android:background="#592222"
     tools:context=".activities.MapActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,23 +28,58 @@
         app:layout_constraintStart_toEndOf="@+id/mapList"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_text"
+            android:textColor="@color/white"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/date_text"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
         <ImageView
             android:id="@+id/mapImage"
-            android:layout_width="250dp"
-            android:layout_height="180dp"
-            android:layout_marginBottom="40dp"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/background_hell"
             android:scaleType="fitXY" />
 
-        <Button
-            android:id="@+id/huntButton"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#920000"
-            android:fontFamily="@font/horroroid"
-            android:text="@string/classic_button"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="#920000"
+                android:fontFamily="@font/horroroid"
+                android:text="@string/back_button"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/huntButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#920000"
+                android:fontFamily="@font/horroroid"
+                android:text="@string/classic_button"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
