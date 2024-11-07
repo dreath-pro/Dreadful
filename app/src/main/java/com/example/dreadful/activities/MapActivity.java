@@ -43,6 +43,7 @@ public class MapActivity extends AppCompatActivity {
         huntButton = findViewById(R.id.huntButton);
 
         mapListArray.add(new Map("Shadowgrove", 1, R.drawable.background_dark_forest, 0));
+        mapListArray.add(new Map("Stature", 0, R.drawable.background_statue, 0));
         mapListArray.add(new Map("Hell", 0, R.drawable.background_hell, 0));
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
