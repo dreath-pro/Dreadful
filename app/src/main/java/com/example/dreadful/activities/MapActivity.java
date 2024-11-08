@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,9 @@ public class MapActivity extends AppCompatActivity {
     private ArrayList<Map> mapListArray = new ArrayList<>();
     private ViewMap viewMap;
     private TextView timeText, dateText;
+    private TextView mapName;
+    private ProgressBar exploredBar;
+    private TextView exploredText;
 
     private Handler handler;
     private Runnable runnable;
@@ -47,6 +51,9 @@ public class MapActivity extends AppCompatActivity {
         backButton = findViewById(R.id.backButton);
         timeText = findViewById(R.id.timeText);
         dateText = findViewById(R.id.dateText);
+        mapName = findViewById(R.id.mapName);
+        exploredBar = findViewById(R.id.exploredBar);
+        exploredText = findViewById(R.id.exploredText);
     }
 
     @Override
@@ -77,7 +84,10 @@ public class MapActivity extends AppCompatActivity {
         };
         handler.post(runnable);
 
+        mapListArray.add(new Map("Facility", 1, R.drawable.map_facility, 0));
         mapListArray.add(new Map("Shadowgrove", 1, R.drawable.map_shadowgrove, 0));
+        mapListArray.add(new Map("Badlands", 1, R.drawable.map_badland, 0));
+        mapListArray.add(new Map("Ghost Town", 0, R.drawable.map_ghost_town, 0));
         mapListArray.add(new Map("Abyss", 0, R.drawable.map_abyss, 0));
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

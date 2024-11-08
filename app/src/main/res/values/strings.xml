@@ -17,6 +17,9 @@
     <string name="time_text">5:03 pm</string>
     <string name="date_text">Thu, Dec 28</string>
 
+    <string name="percentage">0%</string>
+    <string name="explored_label">Explored</string>
+
 
     <!--    button labels-->
     <string name="start_button">Start</string>
