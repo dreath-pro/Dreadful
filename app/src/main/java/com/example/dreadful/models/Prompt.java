@@ -13,16 +13,10 @@ import java.util.Random;
 public class Prompt {
     private MutableLiveData<ArrayList<String>> battleMessage;
     private ArrayList<Integer> messageColor;
-    private TestActivity testActivity;
     private Random random;
 
     public Prompt() {
-
-    }
-
-    public Prompt(TestActivity testActivity) {
         this.battleMessage = new MutableLiveData<>();
-        this.testActivity = testActivity;
         this.random = new Random();
         this.messageColor = new ArrayList<>();
     }

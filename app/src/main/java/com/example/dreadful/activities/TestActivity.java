@@ -33,6 +33,7 @@ import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.logics.GameMechanics;
+import com.example.dreadful.logics.MainMechanics;
 import com.example.dreadful.logics.SetupCharacter;
 import com.example.dreadful.logics.SlowSmoothScroller;
 import com.example.dreadful.models.Player;
@@ -72,7 +73,9 @@ public class TestActivity extends AppCompatActivity {
 
     private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false;
 
-    private void initViews() {
+    private MainMechanics mainMechanics;
+
+    public void initViews() {
         yourName = findViewById(R.id.yourName);
         enemyName = findViewById(R.id.enemyName);
 
@@ -100,62 +103,6 @@ public class TestActivity extends AppCompatActivity {
         enemyStunText = findViewById(R.id.enemyStunText);
     }
 
-    private void startConfiguration(boolean newViews) {
-        promptView.setText("");
-
-        prompt = new Prompt(this);
-
-        ArrayList<String> newBattleMessage = prompt.getBattleMessage().getValue();
-        if (newBattleMessage == null) {
-            newBattleMessage = new ArrayList<>();
-        }
-        prompt.getMessageColor().add(ContextCompat.getColor(this, R.color.yellow_orange));
-        newBattleMessage.add("Fate has led them to this pivotal moment of encounter.");
-        prompt.selectRandomMessage(null, newBattleMessage, false);
-
-        if (newViews) {
-            selectedBackground = random.nextInt(backgroundList.length);
-        }
-        backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
-
-        setupCharacter = new SetupCharacter(this,
-                yourName, yourHealth, yourHealthText, yourImage,
-                enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourPlayer, enemyPlayer, backgroundImage, yourStunText,
-                enemyStunText, backgroundList, selectedBackground,
-                yourHealth, enemyHealth, prompt);
-
-        yourImage.setColorFilter(null);
-        enemyImage.setColorFilter(null);
-
-        if (!newViews) {
-            setupCharacter.setFirstPlayerSelected(firstPlayerSelected);
-            setupCharacter.setSecondPlayerSelected(secondPlayerSelected);
-        }
-
-        setupCharacter.selectYourCharacter(newViews);
-        setupCharacter.selectEnemyCharacter(newViews);
-
-        firstPlayerSelected = setupCharacter.getFirstPlayerSelected();
-        secondPlayerSelected = setupCharacter.getSecondPlayerSelected();
-
-        yourPlayer = setupCharacter.returnYourCharacter();
-        enemyPlayer = setupCharacter.returnEnemyCharacter();
-
-        gameMechanics = new GameMechanics(this, yourHealth, yourHealthText, enemyHealth,
-                enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton);
-    }
-
-    private void invisibleButtons(Boolean invisible) {
-        if (invisible) {
-            backButton.setVisibility(View.GONE);
-            resetButton.setVisibility(View.GONE);
-        } else {
-            backButton.setVisibility(View.VISIBLE);
-            resetButton.setVisibility(View.VISIBLE);
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,13 +110,17 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         initViews();
-        startConfiguration(true);
+        mainMechanics = new MainMechanics(this, backgroundImage, yourName, enemyName,
+                yourHealth, enemyHealth, yourHealthText, enemyHealthText, yourImage, enemyImage,
+                backButton, startButton, resetButton, promptButton, promptView, yourStunText,
+                enemyStunText, yourPlayerLayout, enemyPlayerLayout);
+        mainMechanics.startConfiguration(true);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 Intent intent = new Intent(TestActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }
@@ -178,14 +129,14 @@ public class TestActivity extends AppCompatActivity {
         yourPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCharacterDetails(yourPlayer);
+                mainMechanics.showCharacterDetails(yourPlayer, TestActivity.this);
             }
         });
 
         enemyPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCharacterDetails(enemyPlayer);
+                mainMechanics.showCharacterDetails(enemyPlayer, TestActivity.this);
             }
         });
 
@@ -201,33 +152,21 @@ public class TestActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startConfiguration(true);
+                mainMechanics.startConfiguration(true);
             }
         });
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (startButton.getText().toString().equals(getString(R.string.start_button))) {
-                    invisibleButtons(true);
-                    startButton.setText("Stop");
-                    gameMechanics.battleLoop();
-                } else {
-                    invisibleButtons(false);
-                    startButton.setText(getString(R.string.start_button));
-                    gameMechanics.stopBattleLoop();
-                    startConfiguration(false);
-                }
+                mainMechanics.editButton();
             }
         });
 
         promptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (battleLogsDialog != null && battleLogsDialog.isShowing()) {
-                    battleLogsDialog.dismiss();
-                }
-                showBattleLogs();
+                mainMechanics.battleLogValidation(TestActivity.this);
             }
         });
 
@@ -242,139 +181,5 @@ public class TestActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         gameMechanics.stopBattleLoop(); // Ensure cleanup when activity is destroyed
-    }
-
-    private void showBattleLogs() {
-        if (!isBattleLogsDialogShowing) {
-            isBattleLogsDialogShowing = true;
-
-            battleLogsDialog = new Dialog(this);
-            battleLogsDialog.setContentView(R.layout.dialog_battle_log);
-
-            RecyclerView promptList = battleLogsDialog.findViewById(R.id.promptList);
-            CheckBox autoScroll = battleLogsDialog.findViewById(R.id.autoScroll);
-            ImageView downButton = battleLogsDialog.findViewById(R.id.downButton);
-
-            LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            promptList.setLayoutManager(statusLayoutManager);
-            viewPrompt = new ViewPrompt(this, prompt);
-            promptList.setAdapter(viewPrompt);
-
-            autoScroll.setChecked(true);
-
-            downButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SlowSmoothScroller smoothScroller = new SlowSmoothScroller(TestActivity.this); // Create custom scroller
-                    smoothScroller.setTargetPosition(viewPrompt.getItemCount() - 1); // Set target position
-                    statusLayoutManager.startSmoothScroll(smoothScroller); // Start smooth scroll
-                }
-            });
-
-            prompt.getBattleMessage().observe(this, messageList -> {
-                // Delay the notifyDataSetChanged() call until the layout pass is complete
-                promptList.post(() -> {
-                    if (messageList != null) {
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            viewPrompt.notifyDataSetChanged();
-                            if (autoScroll.isChecked()) {
-                                SlowSmoothScroller smoothScroller = new SlowSmoothScroller(this); // Create custom scroller
-                                smoothScroller.setTargetPosition(viewPrompt.getItemCount() - 1); // Set target position
-                                statusLayoutManager.startSmoothScroll(smoothScroller); // Start smooth scroll
-                            }
-                        });
-                    }
-                });
-            });
-
-            battleLogsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    isBattleLogsDialogShowing = false;
-                }
-            });
-            battleLogsDialog.show();
-        }
-    }
-
-    private void showCharacterDetails(Player player) {
-        if (!isCharacterDialogShowing) {
-            isCharacterDialogShowing = true;
-
-            Dialog characterDialog = new Dialog(this);
-            characterDialog.setContentView(R.layout.dialog_character_details);
-
-            TextView playerName = characterDialog.findViewById(R.id.playerName);
-            ImageView playerImage = characterDialog.findViewById(R.id.playerImage);
-            RecyclerView statusListView = characterDialog.findViewById(R.id.statusList);
-            RecyclerView skillListView = characterDialog.findViewById(R.id.skillList);
-
-            playerName.setText(player.getName());
-            playerImage.setImageResource(player.getImage());
-
-            if (player.getImageDirection().equals("left")) {
-                playerImage.setScaleX(-1);
-            }
-
-            LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            statusListView.setLayoutManager(statusLayoutManager);
-            viewStatus = new ViewStatus(this, player);
-            statusListView.setAdapter(viewStatus);
-
-            LinearLayoutManager skillLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            skillListView.setLayoutManager(skillLayoutManager);
-            viewSkill = new ViewSkill(this, player);
-            skillListView.setAdapter(viewSkill);
-
-            player.getStatusList().observe(this, statusList -> {
-                // Delay the notifyDataSetChanged() call until the layout pass is complete
-                statusListView.post(() -> {
-                    if (statusList != null) {
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            viewStatus.notifyDataSetChanged();
-                        });
-                    }
-                });
-            });
-
-            player.getStatusValueList().observe(this, statusValueList -> {
-                statusListView.post(() -> {
-                    if (statusValueList != null) {
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            viewStatus.notifyDataSetChanged();
-                        });
-                    }
-                });
-            });
-
-            player.getSkillNames().observe(this, skillNamesList -> {
-                // Delay the notifyDataSetChanged() call until the layout pass is complete
-                skillListView.post(() -> {
-                    if (skillNamesList != null) {
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            viewSkill.notifyDataSetChanged();
-                        });
-                    }
-                });
-            });
-
-            player.getSkillCooldowns().observe(this, skillCooldownsList -> {
-                skillListView.post(() -> {
-                    if (skillCooldownsList != null) {
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            viewSkill.notifyDataSetChanged();
-                        });
-                    }
-                });
-            });
-
-            characterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    isCharacterDialogShowing = false;
-                }
-            });
-            characterDialog.show();
-        }
     }
 }
