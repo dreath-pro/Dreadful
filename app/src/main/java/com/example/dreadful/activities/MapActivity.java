@@ -1,5 +1,7 @@
 package com.example.dreadful.activities;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,12 +20,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewMap;
+import com.example.dreadful.adapters.ViewSkill;
+import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.models.Map;
+import com.example.dreadful.models.Player;
 
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
@@ -46,6 +52,8 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
 
     private Handler handler;
     private Runnable runnable;
+
+    private boolean isLoadingDialogShowing = false;
 
     private void initViews() {
         mapList = findViewById(R.id.mapList);
@@ -110,7 +118,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         huntButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MapActivity.this, "Coming Soon!", Toast.LENGTH_SHORT).show();
+                showLoadingDialog();
             }
         });
 
@@ -127,7 +135,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
             @Override
             public void handleOnBackPressed() {
                 Intent intent = new Intent(MapActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }
@@ -148,16 +156,14 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
 
     @Override
     public void onItemClick(int status, int imageResId, String mapName, int explored, String requirements) {
-        if(status == 0)
-        {
+        if (status == 0) {
             lockLayout.setVisibility(View.VISIBLE);
             progressLayout.setVisibility(View.GONE);
 
             mapImage.setImageResource(imageResId);
             this.mapName.setText(mapName);
             requirementsText.setText("Requirements: " + requirements);
-        }else
-        {
+        } else {
             lockLayout.setVisibility(View.GONE);
             progressLayout.setVisibility(View.VISIBLE);
 
@@ -165,6 +171,26 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
             this.mapName.setText(mapName);
             exploredBar.setProgress(explored);
             exploredText.setText(explored + "%");
+        }
+    }
+
+    public void showLoadingDialog() {
+        if (!isLoadingDialogShowing) {
+            isLoadingDialogShowing = true;
+
+            Dialog loadingDialog = new Dialog(this);
+            loadingDialog.setContentView(R.layout.dialog_hunt_loading);
+            ProgressBar loadingBar = loadingDialog.findViewById(R.id.loadingBar);
+
+            loadingBar.setIndeterminate(true);
+
+            loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    isLoadingDialogShowing = false;
+                }
+            });
+            loadingDialog.show();
         }
     }
 }

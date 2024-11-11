@@ -20,6 +20,7 @@
     <string name="percentage">0%</string>
     <string name="explored_label">Explored</string>
     <string name="requirements">Requirements: Defeat the gun devil, i really believe you so strong dude!</string>
+    <string name="search_result">A dangerous Abyss-level monster has been spotted. Please exercise caution.</string>
 
 
     <!--    button labels-->
@@ -35,4 +36,7 @@
 
     <!--    checkbox labels-->
     <string name="auto_scroll">Auto</string>
+
+    <!--    progressbar labels-->
+    <string name="searching">Searching for aberrations</string>
 </resources>
