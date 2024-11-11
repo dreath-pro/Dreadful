@@ -67,53 +67,92 @@
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/mapName"
-                    android:layout_width="140dp"
+                <LinearLayout
+                    android:id="@+id/progressLayout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/map_name"
-                    android:textAlignment="center"
-                    android:textColor="@color/red"
-                    android:textSize="18sp" />
-
-                <RelativeLayout
-                    android:id="@+id/exploredLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ProgressBar
-                        android:id="@+id/exploredBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="160dp"
-                        android:layout_height="18dp"
-                        android:layout_weight="1"
-                        android:progressDrawable="@drawable/code_health_bar" />
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/exploredText"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/mapName"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/percentage"
-                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/map_name"
+                        android:textAlignment="center"
+                        android:textColor="@color/red"
+                        android:textSize="18sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/exploredLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:id="@+id/exploredBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="160dp"
+                            android:layout_height="18dp"
+                            android:layout_weight="1"
+                            android:progressDrawable="@drawable/code_health_bar" />
+
+                        <TextView
+                            android:id="@+id/exploredText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/percentage"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/explored_label"
+                        android:textAlignment="center"
+                        android:textColor="@color/red"
                         android:textSize="14sp" />
 
-                </RelativeLayout>
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="140dp"
+                <LinearLayout
+                    android:id="@+id/lockLayout"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/explored_label"
-                    android:textAlignment="center"
-                    android:textColor="@color/red"
-                    android:textSize="14sp" />
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_lock"
+                        app:tint="@color/red" />
+
+                    <TextView
+                        android:id="@+id/requirementsText"
+                        android:layout_width="160dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:maxLines="6"
+                        android:ellipsize="end"
+                        android:text="@string/requirements"
+                        android:textAlignment="center"
+                        android:textColor="@color/red"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

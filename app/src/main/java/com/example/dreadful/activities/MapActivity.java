@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,8 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
     private TextView mapName;
     private ProgressBar exploredBar;
     private TextView exploredText;
+    private LinearLayout progressLayout, lockLayout;
+    private TextView requirementsText;
 
     private Handler handler;
     private Runnable runnable;
@@ -54,6 +57,9 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         mapName = findViewById(R.id.mapName);
         exploredBar = findViewById(R.id.exploredBar);
         exploredText = findViewById(R.id.exploredText);
+        progressLayout = findViewById(R.id.progressLayout);
+        lockLayout = findViewById(R.id.lockLayout);
+        requirementsText = findViewById(R.id.requirementsText);
     }
 
     @Override
@@ -84,17 +90,22 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         };
         handler.post(runnable);
 
-        mapListArray.add(new Map("Facility", 1, R.drawable.map_facility, 0));
-        mapListArray.add(new Map("Shadowgrove", 1, R.drawable.map_shadowgrove, 0));
-        mapListArray.add(new Map("Badlands", 1, R.drawable.map_badland, 0));
-        mapListArray.add(new Map("Ghost Town", 0, R.drawable.map_ghost_town, 0));
-        mapListArray.add(new Map("Abyss", 0, R.drawable.map_abyss, 0));
+        mapListArray.add(new Map("Facility", 1, R.drawable.map_facility, 0, ""));
+        mapListArray.add(new Map("Shadowgrove", 1, R.drawable.map_shadowgrove, 0, ""));
+        mapListArray.add(new Map("Badlands", 1, R.drawable.map_badland, 0, ""));
+        mapListArray.add(new Map("Ghost Town", 0, R.drawable.map_ghost_town, 0, "Discover the Spectre King"));
+        mapListArray.add(new Map("Abyss", 0, R.drawable.map_abyss, 0, "Defeat the Dread Prophet"));
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mapList.setLayoutManager(statusLayoutManager);
         viewMap = new ViewMap(this, mapListArray);
         viewMap.setOnItemClickListener(this);
         mapList.setAdapter(viewMap);
+
+        mapImage.setImageResource(mapListArray.get(0).getImage());
+        mapName.setText(mapListArray.get(0).getName());
+        exploredBar.setProgress(mapListArray.get(0).getExplorePercentage());
+        exploredText.setText(mapListArray.get(0).getExplorePercentage() + "%");
 
         huntButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,10 +147,24 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
     }
 
     @Override
-    public void onItemClick(int imageResId, String mapName, int explored) {
-        mapImage.setImageResource(imageResId);
-        this.mapName.setText(mapName);
-        exploredBar.setProgress(explored);
-        exploredText.setText(explored + "%");
+    public void onItemClick(int status, int imageResId, String mapName, int explored, String requirements) {
+        if(status == 0)
+        {
+            lockLayout.setVisibility(View.VISIBLE);
+            progressLayout.setVisibility(View.GONE);
+
+            mapImage.setImageResource(imageResId);
+            this.mapName.setText(mapName);
+            requirementsText.setText("Requirements: " + requirements);
+        }else
+        {
+            lockLayout.setVisibility(View.GONE);
+            progressLayout.setVisibility(View.VISIBLE);
+
+            mapImage.setImageResource(imageResId);
+            this.mapName.setText(mapName);
+            exploredBar.setProgress(explored);
+            exploredText.setText(explored + "%");
+        }
     }
 }

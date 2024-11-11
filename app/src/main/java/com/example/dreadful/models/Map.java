@@ -5,12 +5,14 @@ public class Map {
     private int status; // 0 - locked, 1 - unlocked
     private int image;
     private int explorePercentage;
+    private String requirements;
 
-    public Map(String name, int status, int image, int explorePercentage) {
+    public Map(String name, int status, int image, int explorePercentage, String requirements) {
         this.name = name;
         this.status = status;
         this.image = image;
         this.explorePercentage = explorePercentage;
+        this.requirements = requirements;
     }
 
     public String getName() {
@@ -43,5 +45,13 @@ public class Map {
 
     public void setExplorePercentage(int explorePercentage) {
         this.explorePercentage = explorePercentage;
+    }
+
+    public String getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(String requirements) {
+        this.requirements = requirements;
     }
 }

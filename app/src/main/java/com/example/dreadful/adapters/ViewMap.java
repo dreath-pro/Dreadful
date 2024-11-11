@@ -24,7 +24,7 @@ public class ViewMap extends RecyclerView.Adapter<ViewMap.MyViewHolder> {
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(int imageResId, String mapName, int explored);
+        void onItemClick(int status, int imageResId, String mapName, int explored, String requirements);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -49,7 +49,7 @@ public class ViewMap extends RecyclerView.Adapter<ViewMap.MyViewHolder> {
         holder.mapImage.setImageResource(mapList.get(position).getImage());
         holder.mapName.setText(mapList.get(position).getName());
 
-        if(mapList.get(position).getStatus() == 0) {
+        if (mapList.get(position).getStatus() == 0) {
             holder.lockImage.setVisibility(View.VISIBLE);
 
             ColorMatrix matrix = new ColorMatrix();
@@ -60,8 +60,10 @@ public class ViewMap extends RecyclerView.Adapter<ViewMap.MyViewHolder> {
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null && mapList.get(position).getStatus() == 1) {
-                listener.onItemClick(mapList.get(position).getImage(), mapList.get(position).getName(), mapList.get(position).getExplorePercentage());
+            if (listener != null) {
+                listener.onItemClick(mapList.get(position).getStatus(), mapList.get(position).getImage(),
+                        mapList.get(position).getName(), mapList.get(position).getExplorePercentage(),
+                        mapList.get(position).getRequirements());
             }
         });
     }
