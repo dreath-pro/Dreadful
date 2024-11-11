@@ -54,9 +54,6 @@ public class TestActivity extends AppCompatActivity {
     private TextView yourStunText, enemyStunText;
     private LinearLayout yourPlayerLayout, enemyPlayerLayout;
 
-    private Player yourPlayer, enemyPlayer;
-    private GameMechanics gameMechanics;
-
     private MainMechanics mainMechanics;
 
     public void initViews() {
@@ -113,14 +110,14 @@ public class TestActivity extends AppCompatActivity {
         yourPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.showCharacterDetails(yourPlayer, TestActivity.this);
+                mainMechanics.showCharacterDetails(0, TestActivity.this);
             }
         });
 
         enemyPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.showCharacterDetails(enemyPlayer, TestActivity.this);
+                mainMechanics.showCharacterDetails(1, TestActivity.this);
             }
         });
 
@@ -159,11 +156,5 @@ public class TestActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        gameMechanics.stopBattleLoop(); // Ensure cleanup when activity is destroyed
     }
 }

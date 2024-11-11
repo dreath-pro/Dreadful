@@ -224,7 +224,7 @@ public class MainMechanics {
         }
     }
 
-    public void showCharacterDetails(Player player, LifecycleOwner lifecycleOwner) {
+    public void showCharacterDetails(int selectedPlayer, LifecycleOwner lifecycleOwner) {
         if (!isCharacterDialogShowing) {
             isCharacterDialogShowing = true;
 
@@ -235,6 +235,15 @@ public class MainMechanics {
             ImageView playerImage = characterDialog.findViewById(R.id.playerImage);
             RecyclerView statusListView = characterDialog.findViewById(R.id.statusList);
             RecyclerView skillListView = characterDialog.findViewById(R.id.skillList);
+
+            Player player;
+            if(selectedPlayer == 0)
+            {
+                player = yourPlayer;
+            }else
+            {
+                player = enemyPlayer;
+            }
 
             playerName.setText(player.getName());
             playerImage.setImageResource(player.getImage());
