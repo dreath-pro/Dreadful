@@ -56,22 +56,6 @@ public class TestActivity extends AppCompatActivity {
 
     private Player yourPlayer, enemyPlayer;
     private GameMechanics gameMechanics;
-    private SetupCharacter setupCharacter;
-    private Random random = new Random();
-    private final int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
-            R.drawable.background_graveyard, R.drawable.background_cave, R.drawable.background_statue,
-            R.drawable.background_hell};
-    private int selectedBackground = 0;
-    private ViewStatus viewStatus;
-    private ViewSkill viewSkill;
-    private ViewPrompt viewPrompt;
-
-    private Prompt prompt;
-    private Dialog battleLogsDialog;
-
-    private int firstPlayerSelected, secondPlayerSelected;
-
-    private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false;
 
     private MainMechanics mainMechanics;
 

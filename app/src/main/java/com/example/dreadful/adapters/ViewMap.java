@@ -21,6 +21,16 @@ public class ViewMap extends RecyclerView.Adapter<ViewMap.MyViewHolder> {
     private Context context;
     private ArrayList<Map> mapList;
 
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int imageResId, String mapName, int explored);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public ViewMap(Context context, ArrayList<Map> mapList) {
         this.context = context;
         this.mapList = mapList;
@@ -48,6 +58,12 @@ public class ViewMap extends RecyclerView.Adapter<ViewMap.MyViewHolder> {
             ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
             holder.mapImage.setColorFilter(filter);
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null && mapList.get(position).getStatus() == 1) {
+                listener.onItemClick(mapList.get(position).getImage(), mapList.get(position).getName(), mapList.get(position).getExplorePercentage());
+            }
+        });
     }
 
     @Override

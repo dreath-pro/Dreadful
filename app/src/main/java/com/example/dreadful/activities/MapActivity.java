@@ -29,7 +29,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClickListener {
     private RecyclerView mapList;
     private ImageView mapImage;
     private Button huntButton;
@@ -93,6 +93,7 @@ public class MapActivity extends AppCompatActivity {
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mapList.setLayoutManager(statusLayoutManager);
         viewMap = new ViewMap(this, mapListArray);
+        viewMap.setOnItemClickListener(this);
         mapList.setAdapter(viewMap);
 
         huntButton.setOnClickListener(new View.OnClickListener() {
@@ -132,5 +133,13 @@ public class MapActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onItemClick(int imageResId, String mapName, int explored) {
+        mapImage.setImageResource(imageResId);
+        this.mapName.setText(mapName);
+        exploredBar.setProgress(explored);
+        exploredText.setText(explored + "%");
     }
 }
