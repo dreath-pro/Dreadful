@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     //two swords clashing, simple icon, digital art, dark horror theme, vibrant shading, white background, red, crimson-red, black, dark-red
     //immobilize, minimalist icon, dark horror theme, vibrant shading, red, crimson-red, dark-red, black
+    //awakened monster triangle warning sign, minimalist icon, dark horror theme, vibrant shading, yellow-orange, black
     private Button classicButton, testButton, wikiButton, quitButton;
 
     private void initViews() {

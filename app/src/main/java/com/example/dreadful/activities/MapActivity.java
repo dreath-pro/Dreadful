@@ -28,6 +28,7 @@ import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewMap;
 import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
+import com.example.dreadful.models.Level;
 import com.example.dreadful.models.Map;
 import com.example.dreadful.models.Player;
 
@@ -35,6 +36,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClickListener {
     private RecyclerView mapList;
@@ -49,9 +51,11 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
     private TextView exploredText;
     private LinearLayout progressLayout, lockLayout;
     private TextView requirementsText;
+    private Level level;
+    private Random random;
 
-    private Handler handler;
-    private Runnable runnable;
+    private Handler clockhandler, loadingHandler;
+    private Runnable clockrunnable, loadingRunnable;
 
     private boolean isLoadingDialogShowing = false;
 
@@ -78,8 +82,11 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
 
         initViews();
 
-        handler = new Handler(Looper.getMainLooper());
-        runnable = new Runnable() {
+        level = new Level();
+        random = new Random();
+
+        clockhandler = new Handler(Looper.getMainLooper());
+        clockrunnable = new Runnable() {
             @Override
             public void run() {
                 ZonedDateTime currentDateTime = ZonedDateTime.now();
@@ -93,15 +100,15 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
                 timeText.setText(formattedTime);
                 dateText.setText(formattedDate);
 
-                handler.postDelayed(this, 1000);
+                clockhandler.postDelayed(this, 1000);
             }
         };
-        handler.post(runnable);
+        clockhandler.post(clockrunnable);
 
         mapListArray.add(new Map("Facility", 1, R.drawable.map_facility, 0, ""));
         mapListArray.add(new Map("Shadowgrove", 1, R.drawable.map_shadowgrove, 0, ""));
         mapListArray.add(new Map("Badlands", 1, R.drawable.map_badland, 0, ""));
-        mapListArray.add(new Map("Ghost Town", 0, R.drawable.map_ghost_town, 0, "Discover the Spectre King"));
+        mapListArray.add(new Map("Ghost Town", 0, R.drawable.map_ghost_town, 0, "Discover all the Shadowgrove monsters"));
         mapListArray.add(new Map("Abyss", 0, R.drawable.map_abyss, 0, "Defeat the Dread Prophet"));
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -151,7 +158,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacks(runnable);
+        clockhandler.removeCallbacks(clockrunnable);
     }
 
     @Override
@@ -180,14 +187,42 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
 
             Dialog loadingDialog = new Dialog(this);
             loadingDialog.setContentView(R.layout.dialog_hunt_loading);
+
             ProgressBar loadingBar = loadingDialog.findViewById(R.id.loadingBar);
+            TextView progressText = loadingDialog.findViewById(R.id.progressText);
+            TextView resultText = loadingDialog.findViewById(R.id.resultText);
+            ImageView skullWarning = loadingDialog.findViewById(R.id.skullWarning);
+
+            int selectedLevel = random.nextInt(level.getLevelCount());
 
             loadingBar.setIndeterminate(true);
+
+            loadingHandler = new Handler(Looper.getMainLooper());
+            loadingRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    resultText.setVisibility(View.VISIBLE);
+                    skullWarning.setVisibility(View.VISIBLE);
+                    loadingBar.setVisibility(View.GONE);
+
+                    progressText.setText("Waiting for match.");
+                    resultText.setText(level.getWarningMessage(selectedLevel));
+
+                    loadingHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDialog.dismiss();
+                        }
+                    }, 5000);
+                }
+            };
+            loadingHandler.postDelayed(loadingRunnable, 4000); // Delay execution by 4 seconds
 
             loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     isLoadingDialogShowing = false;
+                    loadingHandler.removeCallbacks(loadingRunnable);
                 }
             });
             loadingDialog.show();
