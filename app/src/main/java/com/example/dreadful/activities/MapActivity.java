@@ -109,7 +109,8 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         mapListArray.add(new Map("Shadowgrove", 1, R.drawable.map_shadowgrove, 0, ""));
         mapListArray.add(new Map("Badlands", 1, R.drawable.map_badland, 0, ""));
         mapListArray.add(new Map("Ghost Town", 0, R.drawable.map_ghost_town, 0, "Discover all the Shadowgrove monsters"));
-        mapListArray.add(new Map("Abyss", 0, R.drawable.map_abyss, 0, "Defeat the Dread Prophet"));
+        mapListArray.add(new Map("Abyss", 0, R.drawable.map_abyss, 0, "Defeat the strongest aberrant in ghost town"));
+        mapListArray.add(new Map("Celestial", 0, R.drawable.map_celestial, 0, "Destroy the final aberrant in abyss"));
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mapList.setLayoutManager(statusLayoutManager);
@@ -193,7 +194,20 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
             TextView resultText = loadingDialog.findViewById(R.id.resultText);
             ImageView skullWarning = loadingDialog.findViewById(R.id.skullWarning);
 
-            int selectedLevel = random.nextInt(level.getLevelCount());
+            int selectedLevel;
+            int percentage = random.nextInt(100) + 1;
+
+            if (percentage == 1) {
+                selectedLevel = 4;
+            } else if (percentage <= 10) {
+                selectedLevel = 3;
+            } else if (percentage <= 30) {
+                selectedLevel = 2;
+            } else if (percentage <= 60) {
+                selectedLevel = 1;
+            } else {
+                selectedLevel = 0;
+            }
 
             loadingBar.setIndeterminate(true);
 

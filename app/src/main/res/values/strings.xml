@@ -38,5 +38,5 @@
     <string name="auto_scroll">Auto</string>
 
     <!--    progressbar labels-->
-    <string name="searching">Hunting for aberrations</string>
+    <string name="searching">Hunting for aberrant</string>
 </resources>
