@@ -38,7 +38,7 @@ public class Level {
                 result = "A powerful and dangerous " + getLevelName(level) + "-level aberrant is nearby. Stay alert.";
                 break;
             case 3:
-                result = "A " + getLevelName(level) + "-level aberrant from the depths of hell is in sight. This is a critical threat. Proceed with extreme caution.";
+                result = "This " + getLevelName(level) + "-level aberrant from the depths of hell is in sight. This is a critical threat. Proceed with extreme caution.";
                 break;
             case 4:
                 result = "The end of the world is near. A " + getLevelName(level) + "-level aberrant is right in front of you. Evacuate immediately!";
