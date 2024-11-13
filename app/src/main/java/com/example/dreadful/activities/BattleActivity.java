@@ -32,6 +32,8 @@ public class BattleActivity extends AppCompatActivity {
     private TextView yourStunText, enemyStunText;
     private LinearLayout yourPlayerLayout, enemyPlayerLayout;
 
+    private int selectedLevel;
+
     private MainMechanics mainMechanics;
 
     public void initViews() {
@@ -67,6 +69,8 @@ public class BattleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_battle);
+
+        selectedLevel = getIntent().getIntExtra("selectedLevel", 0);
 
         initViews();
         mainMechanics = new MainMechanics(this, backgroundImage, yourName, enemyName,

@@ -226,6 +226,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
                         @Override
                         public void run() {
                             Intent intent = new Intent(MapActivity.this, BattleActivity.class);
+                            intent.putExtra("selectedLevel", selectedLevel);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
 

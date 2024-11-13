@@ -104,8 +104,7 @@ public class SetupCharacter {
         yourImage.setScaleX(1);
 
         setComponents(yourImage, enemyImage, yourHealthBar, yourName);
-        if(newViews)
-        {
+        if (newViews) {
             firstPlayerSelected = random.nextInt(players.size());
         }
         yourPlayer = players.get(firstPlayerSelected);
@@ -129,12 +128,10 @@ public class SetupCharacter {
         enemyImage.setScaleX(1);
 
         setComponents(enemyImage, yourImage, enemyHealthBar, enemyName);
-        if(newViews)
-        {
+        if (newViews) {
             secondPlayerSelected = random.nextInt(players.size());
         }
-        if(firstPlayerSelected == secondPlayerSelected)
-        {
+        if (firstPlayerSelected == secondPlayerSelected) {
             do {
                 secondPlayerSelected = random.nextInt(players.size());
             } while (firstPlayerSelected == secondPlayerSelected);
