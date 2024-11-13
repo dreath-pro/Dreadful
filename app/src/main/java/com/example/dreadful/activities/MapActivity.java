@@ -225,6 +225,10 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
                     loadingHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            Intent intent = new Intent(MapActivity.this, BattleActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
                             loadingDialog.dismiss();
                         }
                     }, 5000);
