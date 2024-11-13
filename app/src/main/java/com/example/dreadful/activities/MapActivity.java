@@ -128,7 +128,13 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         huntButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLoadingDialog();
+                if(mapListArray.get(selectedMap).getStatus() == 0)
+                {
+                    Toast.makeText(MapActivity.this, "Map is locked!", Toast.LENGTH_SHORT).show();
+                }else
+                {
+                    showLoadingDialog();
+                }
             }
         });
 
@@ -166,6 +172,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
 
     @Override
     public void onItemClick(int status, int mapSelected, int imageResId, String mapName, int explored, String requirements) {
+        selectedMap = mapSelected;
         if (status == 0) {
             lockLayout.setVisibility(View.VISIBLE);
             progressLayout.setVisibility(View.GONE);
@@ -177,7 +184,6 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
             lockLayout.setVisibility(View.GONE);
             progressLayout.setVisibility(View.VISIBLE);
 
-            selectedMap = mapSelected;
             mapImage.setImageResource(imageResId);
             this.mapName.setText(mapName);
             exploredBar.setProgress(explored);

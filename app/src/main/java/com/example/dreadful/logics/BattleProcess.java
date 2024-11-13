@@ -59,6 +59,7 @@ public class BattleProcess {
     private Dialog battleLogsDialog;
 
     private int firstPlayerSelected, secondPlayerSelected;
+    private int selectedMap, selectedLevel;
 
     private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false;
 
@@ -88,6 +89,11 @@ public class BattleProcess {
         this.enemyStunText = enemyStunText;
         this.yourPlayerLayout = yourPlayerLayout;
         this.enemyPlayerLayout = enemyPlayerLayout;
+    }
+
+    public void receiveData(int selectedLevel, int selectedMap) {
+        this.selectedLevel = selectedLevel;
+        this.selectedMap = selectedMap;
     }
 
     public void startConfiguration(boolean newViews) {
@@ -159,8 +165,7 @@ public class BattleProcess {
         }
     }
 
-    public void battleLogValidation(LifecycleOwner lifecycleOwner)
-    {
+    public void battleLogValidation(LifecycleOwner lifecycleOwner) {
         if (battleLogsDialog != null && battleLogsDialog.isShowing()) {
             battleLogsDialog.dismiss();
         }
@@ -233,11 +238,9 @@ public class BattleProcess {
             RecyclerView skillListView = characterDialog.findViewById(R.id.skillList);
 
             Player player;
-            if(selectedPlayer == 0)
-            {
+            if (selectedPlayer == 0) {
                 player = yourPlayer;
-            }else
-            {
+            } else {
                 player = enemyPlayer;
             }
 

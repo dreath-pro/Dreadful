@@ -78,6 +78,7 @@ public class BattleActivity extends AppCompatActivity {
                 yourHealth, enemyHealth, yourHealthText, enemyHealthText, yourImage, enemyImage,
                 backButton, startButton, resetButton, promptButton, promptView, yourStunText,
                 enemyStunText, yourPlayerLayout, enemyPlayerLayout);
+        battleProcess.receiveData(selectedLevel, selectedMap);
         battleProcess.startConfiguration(true);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
