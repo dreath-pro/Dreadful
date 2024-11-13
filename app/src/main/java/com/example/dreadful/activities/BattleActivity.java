@@ -18,7 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.logics.MainMechanics;
+import com.example.dreadful.logics.BattleProcess;
 
 public class BattleActivity extends AppCompatActivity {
     private ConstraintLayout backgroundImage;
@@ -32,9 +32,9 @@ public class BattleActivity extends AppCompatActivity {
     private TextView yourStunText, enemyStunText;
     private LinearLayout yourPlayerLayout, enemyPlayerLayout;
 
-    private int selectedLevel;
+    private int selectedLevel, selectedMap;
 
-    private MainMechanics mainMechanics;
+    private BattleProcess battleProcess;
 
     public void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -71,13 +71,14 @@ public class BattleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_battle);
 
         selectedLevel = getIntent().getIntExtra("selectedLevel", 0);
+        selectedMap = getIntent().getIntExtra("selectedMap", 0);
 
         initViews();
-        mainMechanics = new MainMechanics(this, backgroundImage, yourName, enemyName,
+        battleProcess = new BattleProcess(this, backgroundImage, yourName, enemyName,
                 yourHealth, enemyHealth, yourHealthText, enemyHealthText, yourImage, enemyImage,
                 backButton, startButton, resetButton, promptButton, promptView, yourStunText,
                 enemyStunText, yourPlayerLayout, enemyPlayerLayout);
-        mainMechanics.startConfiguration(true);
+        battleProcess.startConfiguration(true);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -92,14 +93,14 @@ public class BattleActivity extends AppCompatActivity {
         yourPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.showCharacterDetails(0, BattleActivity.this);
+                battleProcess.showCharacterDetails(0, BattleActivity.this);
             }
         });
 
         enemyPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.showCharacterDetails(1, BattleActivity.this);
+                battleProcess.showCharacterDetails(1, BattleActivity.this);
             }
         });
 
@@ -115,14 +116,14 @@ public class BattleActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.editButton();
+                battleProcess.editButton();
             }
         });
 
         promptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.battleLogValidation(BattleActivity.this);
+                battleProcess.battleLogValidation(BattleActivity.this);
             }
         });
 

@@ -52,6 +52,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
     private LinearLayout progressLayout, lockLayout;
     private TextView requirementsText;
     private Level level;
+    private int selectedMap;
     private Random random;
 
     private Handler clockhandler, loadingHandler;
@@ -118,6 +119,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         viewMap.setOnItemClickListener(this);
         mapList.setAdapter(viewMap);
 
+        selectedMap = 0;
         mapImage.setImageResource(mapListArray.get(0).getImage());
         mapName.setText(mapListArray.get(0).getName());
         exploredBar.setProgress(mapListArray.get(0).getExplorePercentage());
@@ -163,7 +165,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
     }
 
     @Override
-    public void onItemClick(int status, int imageResId, String mapName, int explored, String requirements) {
+    public void onItemClick(int status, int mapSelected, int imageResId, String mapName, int explored, String requirements) {
         if (status == 0) {
             lockLayout.setVisibility(View.VISIBLE);
             progressLayout.setVisibility(View.GONE);
@@ -175,6 +177,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
             lockLayout.setVisibility(View.GONE);
             progressLayout.setVisibility(View.VISIBLE);
 
+            selectedMap = mapSelected;
             mapImage.setImageResource(imageResId);
             this.mapName.setText(mapName);
             exploredBar.setProgress(explored);
@@ -227,6 +230,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
                         public void run() {
                             Intent intent = new Intent(MapActivity.this, BattleActivity.class);
                             intent.putExtra("selectedLevel", selectedLevel);
+                            intent.putExtra("selectedMap", selectedMap);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
 

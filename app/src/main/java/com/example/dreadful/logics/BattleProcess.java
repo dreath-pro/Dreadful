@@ -1,10 +1,8 @@
 package com.example.dreadful.logics;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -22,8 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.MainActivity;
-import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
@@ -33,7 +29,7 @@ import com.example.dreadful.models.Prompt;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MainMechanics {
+public class BattleProcess {
     private Context context;
 
     private ConstraintLayout backgroundImage;
@@ -66,7 +62,7 @@ public class MainMechanics {
 
     private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false;
 
-    public MainMechanics(Context context, ConstraintLayout backgroundImage, TextView yourName,
+    public BattleProcess(Context context, ConstraintLayout backgroundImage, TextView yourName,
                          TextView enemyName, ProgressBar yourHealth, ProgressBar enemyHealth,
                          TextView yourHealthText, TextView enemyHealthText, ImageView yourImage,
                          ImageView enemyImage, Button backButton, Button startButton,

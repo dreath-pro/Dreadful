@@ -1,46 +1,24 @@
 package com.example.dreadful.activities;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
-import com.example.dreadful.adapters.ViewPrompt;
-import com.example.dreadful.adapters.ViewSkill;
-import com.example.dreadful.adapters.ViewStatus;
-import com.example.dreadful.logics.GameMechanics;
-import com.example.dreadful.logics.MainMechanics;
-import com.example.dreadful.logics.SetupCharacter;
-import com.example.dreadful.logics.SlowSmoothScroller;
-import com.example.dreadful.models.Player;
-import com.example.dreadful.models.Prompt;
-
-import java.util.ArrayList;
-import java.util.Random;
+import com.example.dreadful.logics.BattleProcess;
 
 public class TestActivity extends AppCompatActivity {
     private ConstraintLayout backgroundImage;
@@ -54,7 +32,7 @@ public class TestActivity extends AppCompatActivity {
     private TextView yourStunText, enemyStunText;
     private LinearLayout yourPlayerLayout, enemyPlayerLayout;
 
-    private MainMechanics mainMechanics;
+    private BattleProcess battleProcess;
 
     public void initViews() {
         yourName = findViewById(R.id.yourName);
@@ -91,11 +69,11 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         initViews();
-        mainMechanics = new MainMechanics(this, backgroundImage, yourName, enemyName,
+        battleProcess = new BattleProcess(this, backgroundImage, yourName, enemyName,
                 yourHealth, enemyHealth, yourHealthText, enemyHealthText, yourImage, enemyImage,
                 backButton, startButton, resetButton, promptButton, promptView, yourStunText,
                 enemyStunText, yourPlayerLayout, enemyPlayerLayout);
-        mainMechanics.startConfiguration(true);
+        battleProcess.startConfiguration(true);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -110,14 +88,14 @@ public class TestActivity extends AppCompatActivity {
         yourPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.showCharacterDetails(0, TestActivity.this);
+                battleProcess.showCharacterDetails(0, TestActivity.this);
             }
         });
 
         enemyPlayerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.showCharacterDetails(1, TestActivity.this);
+                battleProcess.showCharacterDetails(1, TestActivity.this);
             }
         });
 
@@ -133,21 +111,21 @@ public class TestActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.startConfiguration(true);
+                battleProcess.startConfiguration(true);
             }
         });
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.editButton();
+                battleProcess.editButton();
             }
         });
 
         promptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainMechanics.battleLogValidation(TestActivity.this);
+                battleProcess.battleLogValidation(TestActivity.this);
             }
         });
 

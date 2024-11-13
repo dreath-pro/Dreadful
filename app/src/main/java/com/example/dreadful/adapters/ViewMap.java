@@ -24,7 +24,7 @@ public class ViewMap extends RecyclerView.Adapter<ViewMap.MyViewHolder> {
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(int status, int imageResId, String mapName, int explored, String requirements);
+        void onItemClick(int status, int mapSelected, int imageResId, String mapName, int explored, String requirements);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -61,7 +61,7 @@ public class ViewMap extends RecyclerView.Adapter<ViewMap.MyViewHolder> {
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onItemClick(mapList.get(position).getStatus(), mapList.get(position).getImage(),
+                listener.onItemClick(mapList.get(position).getStatus(), position, mapList.get(position).getImage(),
                         mapList.get(position).getName(), mapList.get(position).getExplorePercentage(),
                         mapList.get(position).getRequirements());
             }
