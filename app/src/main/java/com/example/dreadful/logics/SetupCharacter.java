@@ -80,7 +80,7 @@ public class SetupCharacter {
         this.enemyPlayer = enemyPlayer;
     }
 
-    private void setComponents(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+    private void allMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
         players.clear();
         players.add(new Dreath(context, playerImage, prompt));
         players.add(new DreadProphet(context, playerImage, prompt));
@@ -92,6 +92,45 @@ public class SetupCharacter {
         players.add(new Michael(context, playerImage, prompt, opponentImage));
     }
 
+    private void mapMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,
+                             int selectedLevel, int selectedMap) {
+        players.clear();
+
+        switch (selectedMap) {
+            case 0:
+                //facility
+                players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
+                break;
+
+            case 1:
+                //Shadowgrove
+                players.add(new Michael(context, playerImage, prompt, opponentImage));
+                break;
+
+            case 2:
+                //Badlands
+                players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
+                break;
+
+            case 3:
+                //Ghost Town
+                players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
+                break;
+
+            case 4:
+                //Abyss
+                players.add(new Dreath(context, playerImage, prompt));
+                players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
+                players.add(new DreadProphet(context, playerImage, prompt));
+                break;
+
+            case 5:
+                //Celestial
+                players.add(new GodOfDeath(context, playerImage, prompt));
+                break;
+        }
+    }
+
     public Player returnYourCharacter() {
         return yourPlayer;
     }
@@ -100,10 +139,16 @@ public class SetupCharacter {
         return enemyPlayer;
     }
 
-    public void selectYourCharacter(boolean newViews) {
+    public void selectYourCharacter(boolean newViews, boolean isBattle) {
         yourImage.setScaleX(1);
 
-        setComponents(yourImage, enemyImage, yourHealthBar, yourName);
+        if (isBattle) {
+            players.clear();
+            players.add(new Carnant(context, yourImage, yourHealthBar, yourName, prompt));
+        } else {
+            allMonsters(yourImage, enemyImage, yourHealthBar, yourName);
+        }
+
         if (newViews) {
             firstPlayerSelected = random.nextInt(players.size());
         }
@@ -124,17 +169,25 @@ public class SetupCharacter {
         resizeImage.scale(yourImage, yourPlayer.getSize());
     }
 
-    public void selectEnemyCharacter(boolean newViews) {
+    public void selectEnemyCharacter(boolean newViews, int selectedLevel, int selectedMap, boolean isBattle) {
         enemyImage.setScaleX(1);
 
-        setComponents(enemyImage, yourImage, enemyHealthBar, enemyName);
+        if (isBattle) {
+            mapMonsters(enemyImage, yourImage, enemyHealthBar, enemyName, selectedLevel, selectedMap);
+        } else {
+            allMonsters(enemyImage, yourImage, enemyHealthBar, enemyName);
+        }
+
         if (newViews) {
             secondPlayerSelected = random.nextInt(players.size());
         }
-        if (firstPlayerSelected == secondPlayerSelected) {
-            do {
-                secondPlayerSelected = random.nextInt(players.size());
-            } while (firstPlayerSelected == secondPlayerSelected);
+        if(!isBattle)
+        {
+            if (firstPlayerSelected == secondPlayerSelected) {
+                do {
+                    secondPlayerSelected = random.nextInt(players.size());
+                } while (firstPlayerSelected == secondPlayerSelected);
+            }
         }
         enemyPlayer = players.get(secondPlayerSelected);
 

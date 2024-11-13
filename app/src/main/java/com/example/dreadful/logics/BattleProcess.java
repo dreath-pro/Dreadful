@@ -60,6 +60,7 @@ public class BattleProcess {
 
     private int firstPlayerSelected, secondPlayerSelected;
     private int selectedMap, selectedLevel;
+    private boolean isBattle = false;
 
     private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false;
 
@@ -94,6 +95,7 @@ public class BattleProcess {
     public void receiveData(int selectedLevel, int selectedMap) {
         this.selectedLevel = selectedLevel;
         this.selectedMap = selectedMap;
+        isBattle = true;
     }
 
     public void startConfiguration(boolean newViews) {
@@ -129,8 +131,8 @@ public class BattleProcess {
             setupCharacter.setSecondPlayerSelected(secondPlayerSelected);
         }
 
-        setupCharacter.selectYourCharacter(newViews);
-        setupCharacter.selectEnemyCharacter(newViews);
+        setupCharacter.selectYourCharacter(newViews, isBattle);
+        setupCharacter.selectEnemyCharacter(newViews, selectedLevel, selectedMap, isBattle);
 
         firstPlayerSelected = setupCharacter.getFirstPlayerSelected();
         secondPlayerSelected = setupCharacter.getSecondPlayerSelected();
