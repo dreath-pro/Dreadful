@@ -93,47 +93,116 @@ public class SetupCharacter {
     }
 
     private ArrayList<Integer> mapMonsters(ArrayList<Integer> background, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,
-                             int selectedLevel, int selectedMap) {
+                                           int selectedLevel, int selectedMap) {
         ArrayList<Integer> newBackground = background;
         players.clear();
 
         switch (selectedMap) {
             case 0:
                 //Facility
-                players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
+
+                switch (selectedLevel) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
+                        break;
+                }
+
                 break;
 
             case 1:
                 //Shadowgrove
-                players.add(new Michael(context, playerImage, prompt, opponentImage));
 
-                newBackground.clear();
-                newBackground.add(R.drawable.background_statue);
+                switch (selectedLevel) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        players.add(new Michael(context, playerImage, prompt, opponentImage));
+
+                        newBackground.clear();
+                        newBackground.add(R.drawable.background_statue);
+                        break;
+                }
+
                 break;
 
             case 2:
                 //Badlands
-                players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
+
+                switch (selectedLevel) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
+                        break;
+                }
+
                 break;
 
             case 3:
                 //Ghost Town
-                players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
-                players.add(new DreadProphet(context, playerImage, prompt));
 
-                newBackground.clear();
-                newBackground.add(R.drawable.background_cathedral);
+                switch (selectedLevel) {
+                    case 0:
+                    case 1:
+                    case 2:
+                        players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
+                        break;
+                    case 3:
+                        players.add(new DreadProphet(context, playerImage, prompt));
+
+                        newBackground.clear();
+                        newBackground.add(R.drawable.background_cathedral);
+                        break;
+                    case 4:
+                        players.add(new DreadProphet(context, playerImage, prompt));
+
+                        newBackground.clear();
+                        newBackground.add(R.drawable.background_cathedral);
+                        break;
+                }
+
                 break;
 
             case 4:
                 //Abyss
-                players.add(new Dreath(context, playerImage, prompt));
-                players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
+
+                switch (selectedLevel) {
+                    case 0:
+                    case 1:
+                    case 2:
+                        players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
+                        break;
+                    case 3:
+                        players.add(new Dreath(context, playerImage, prompt));
+                        break;
+                    case 4:
+                        players.add(new Dreath(context, playerImage, prompt));
+                        break;
+                }
+
                 break;
 
             case 5:
                 //Celestial
-                players.add(new GodOfDeath(context, playerImage, prompt));
+
+                switch (selectedLevel) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        players.add(new GodOfDeath(context, playerImage, prompt));
+                        break;
+                }
+
                 break;
         }
 
