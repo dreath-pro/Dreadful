@@ -40,7 +40,7 @@ public class SetupCharacter {
     private Prompt prompt;
     private NumberComma numberComma = new NumberComma();
 
-    private int[] backgroundList;
+    private ArrayList<Integer> backgroundList;
     private int selectedBackground;
     private ProgressBar yourHealthBar, enemyHealthBar;
 
@@ -49,7 +49,7 @@ public class SetupCharacter {
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
                           Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText,
-                          int[] backgroundList, int selectedBackground, ProgressBar yourHealthBar, ProgressBar enemyHealthBar, Prompt prompt) {
+                          ArrayList<Integer> backgroundList, int selectedBackground, ProgressBar yourHealthBar, ProgressBar enemyHealthBar, Prompt prompt) {
 
         this.context = context;
 
@@ -105,6 +105,8 @@ public class SetupCharacter {
             case 1:
                 //Shadowgrove
                 players.add(new Michael(context, playerImage, prompt, opponentImage));
+
+//                return R.drawable.background_statue;
                 break;
 
             case 2:
@@ -115,13 +117,15 @@ public class SetupCharacter {
             case 3:
                 //Ghost Town
                 players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
+                players.add(new DreadProphet(context, playerImage, prompt));
+
+//                return R.drawable.background_cathedral;
                 break;
 
             case 4:
                 //Abyss
                 players.add(new Dreath(context, playerImage, prompt));
                 players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
-                players.add(new DreadProphet(context, playerImage, prompt));
                 break;
 
             case 5:
@@ -169,7 +173,9 @@ public class SetupCharacter {
         resizeImage.scale(yourImage, yourPlayer.getSize());
     }
 
-    public void selectEnemyCharacter(boolean newViews, int selectedLevel, int selectedMap, boolean isBattle) {
+    public int selectEnemyCharacter(boolean newViews, int selectedLevel, int selectedMap, boolean isBattle) {
+        int background = R.drawable.background_dark_forest;
+
         enemyImage.setScaleX(1);
 
         if (isBattle) {
@@ -181,8 +187,7 @@ public class SetupCharacter {
         if (newViews) {
             secondPlayerSelected = random.nextInt(players.size());
         }
-        if(!isBattle)
-        {
+        if (!isBattle) {
             if (firstPlayerSelected == secondPlayerSelected) {
                 do {
                     secondPlayerSelected = random.nextInt(players.size());
@@ -206,6 +211,8 @@ public class SetupCharacter {
         }
 
         resizeImage.scale(enemyImage, enemyPlayer.getSize());
+
+        return background;
     }
 
     public int getFirstPlayerSelected() {

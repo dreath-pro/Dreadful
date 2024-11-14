@@ -47,9 +47,7 @@ public class BattleProcess {
     private GameMechanics gameMechanics;
     private SetupCharacter setupCharacter;
     private Random random = new Random();
-    private final int[] backgroundList = {R.drawable.background_cathedral, R.drawable.background_dark_forest,
-            R.drawable.background_graveyard, R.drawable.background_cave, R.drawable.background_statue,
-            R.drawable.background_hell};
+    private ArrayList<Integer> backgroundList = new ArrayList<>();
     private int selectedBackground = 0;
     private ViewStatus viewStatus;
     private ViewSkill viewSkill;
@@ -90,12 +88,43 @@ public class BattleProcess {
         this.enemyStunText = enemyStunText;
         this.yourPlayerLayout = yourPlayerLayout;
         this.enemyPlayerLayout = enemyPlayerLayout;
+
+
+        this.backgroundList.add(R.drawable.background_facility);
+        this.backgroundList.add(R.drawable.background_cathedral);
+        this.backgroundList.add(R.drawable.background_dark_forest);
+        this.backgroundList.add(R.drawable.background_graveyard);
+        this.backgroundList.add(R.drawable.background_cave);
+        this.backgroundList.add(R.drawable.background_statue);
+        this.backgroundList.add(R.drawable.background_hell);
     }
 
     public void receiveData(int selectedLevel, int selectedMap) {
         this.selectedLevel = selectedLevel;
         this.selectedMap = selectedMap;
         isBattle = true;
+
+        backgroundList.clear();
+        switch (selectedMap) {
+            case 0:
+                backgroundList.add(R.drawable.background_facility);
+                break;
+            case 1:
+                backgroundList.add(R.drawable.background_dark_forest);
+                break;
+            case 2:
+                backgroundList.add(R.drawable.map_badland);
+                break;
+            case 3:
+                backgroundList.add(R.drawable.background_graveyard);
+                break;
+            case 4:
+                backgroundList.add(R.drawable.background_hell);
+                break;
+            case 5:
+                backgroundList.add(R.drawable.map_celestial);
+                break;
+        }
     }
 
     public void startConfiguration(boolean newViews) {
@@ -109,12 +138,15 @@ public class BattleProcess {
         }
         prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
         newBattleMessage.add("Fate has led them to this pivotal moment of encounter.");
+        newBattleMessage.add("Destiny has drawn them to this defining moment of meeting.");
+        newBattleMessage.add("Their paths have converged, leading to this crucial encounter.");
+        newBattleMessage.add("By fate’s design, they stand face-to-face at this turning point.");
+        newBattleMessage.add("All roads have led them to this significant crossing.");
+        newBattleMessage.add("Their journey has culminated in this inevitable confrontation.");
+        newBattleMessage.add("The moment they were meant to meet has finally arrived.");
+        newBattleMessage.add("Providence has brought them to this fated clash.");
+        newBattleMessage.add("Their intertwined paths have led to this destined meeting.");
         prompt.selectRandomMessage(null, newBattleMessage, false);
-
-        if (newViews) {
-            selectedBackground = random.nextInt(backgroundList.length);
-        }
-        backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
 
         setupCharacter = new SetupCharacter(context,
                 yourName, yourHealth, yourHealthText, yourImage,
@@ -132,7 +164,17 @@ public class BattleProcess {
         }
 
         setupCharacter.selectYourCharacter(newViews, isBattle);
-        setupCharacter.selectEnemyCharacter(newViews, selectedLevel, selectedMap, isBattle);
+        if (!isBattle) {
+            setupCharacter.selectEnemyCharacter(newViews, selectedLevel, selectedMap, isBattle);
+        } else {
+            backgroundList.clear();
+            backgroundList.add(setupCharacter.selectEnemyCharacter(newViews, selectedLevel, selectedMap, isBattle));
+        }
+
+        if (newViews) {
+            selectedBackground = random.nextInt(backgroundList.size());
+        }
+        backgroundImage.setBackgroundResource(backgroundList.get(selectedBackground));
 
         firstPlayerSelected = setupCharacter.getFirstPlayerSelected();
         secondPlayerSelected = setupCharacter.getSecondPlayerSelected();
@@ -144,13 +186,17 @@ public class BattleProcess {
                 enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton);
     }
 
-    public void invisibleButtons(Boolean invisible) {
+    private void invisibleButtons(Boolean invisible) {
         if (invisible) {
             backButton.setVisibility(View.GONE);
-            resetButton.setVisibility(View.GONE);
+            if (!isBattle) {
+                resetButton.setVisibility(View.GONE);
+            }
         } else {
             backButton.setVisibility(View.VISIBLE);
-            resetButton.setVisibility(View.VISIBLE);
+            if (!isBattle) {
+                resetButton.setVisibility(View.VISIBLE);
+            }
         }
     }
 

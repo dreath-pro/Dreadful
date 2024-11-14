@@ -22,7 +22,7 @@ public class VoidReaper extends Player {
     private Random random = new Random();
     private ImageView yourImage;
     private ConstraintLayout backgroundImage;
-    private int[] backgroundList;
+    private ArrayList<Integer> backgroundList;
     private int selectedBackground;
     private ResizeImage resizeImage;
     private Prompt prompt;
@@ -31,7 +31,7 @@ public class VoidReaper extends Player {
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
 
-    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, int[] backgroundList, int selectedBackground, Prompt prompt) {
+    public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, ArrayList<Integer> backgroundList, int selectedBackground, Prompt prompt) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1, R.drawable.background_void_2},
@@ -274,7 +274,7 @@ public class VoidReaper extends Player {
 
         voidTime--;
         if (voidTime <= 0) {
-            backgroundImage.setBackgroundResource(backgroundList[selectedBackground]);
+            backgroundImage.setBackgroundResource(backgroundList.get(selectedBackground));
             yourImage.setImageResource(getImage());
             resizeImage.scale(yourImage, getSize());
             voidTime = 0;
