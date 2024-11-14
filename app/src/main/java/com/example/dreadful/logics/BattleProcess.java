@@ -165,10 +165,9 @@ public class BattleProcess {
 
         setupCharacter.selectYourCharacter(newViews, isBattle);
         if (!isBattle) {
-            setupCharacter.selectEnemyCharacter(newViews, selectedLevel, selectedMap, isBattle);
+            setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedMap, isBattle);
         } else {
-            backgroundList.clear();
-            backgroundList.add(setupCharacter.selectEnemyCharacter(newViews, selectedLevel, selectedMap, isBattle));
+            backgroundList = setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedMap, isBattle);
         }
 
         if (newViews) {

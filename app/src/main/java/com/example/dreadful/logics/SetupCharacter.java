@@ -92,13 +92,14 @@ public class SetupCharacter {
         players.add(new Michael(context, playerImage, prompt, opponentImage));
     }
 
-    private void mapMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,
+    private ArrayList<Integer> mapMonsters(ArrayList<Integer> background, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,
                              int selectedLevel, int selectedMap) {
+        ArrayList<Integer> newBackground = background;
         players.clear();
 
         switch (selectedMap) {
             case 0:
-                //facility
+                //Facility
                 players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
                 break;
 
@@ -106,7 +107,8 @@ public class SetupCharacter {
                 //Shadowgrove
                 players.add(new Michael(context, playerImage, prompt, opponentImage));
 
-//                return R.drawable.background_statue;
+                newBackground.clear();
+                newBackground.add(R.drawable.background_statue);
                 break;
 
             case 2:
@@ -119,7 +121,8 @@ public class SetupCharacter {
                 players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
                 players.add(new DreadProphet(context, playerImage, prompt));
 
-//                return R.drawable.background_cathedral;
+                newBackground.clear();
+                newBackground.add(R.drawable.background_cathedral);
                 break;
 
             case 4:
@@ -133,6 +136,8 @@ public class SetupCharacter {
                 players.add(new GodOfDeath(context, playerImage, prompt));
                 break;
         }
+
+        return newBackground;
     }
 
     public Player returnYourCharacter() {
@@ -173,13 +178,13 @@ public class SetupCharacter {
         resizeImage.scale(yourImage, yourPlayer.getSize());
     }
 
-    public int selectEnemyCharacter(boolean newViews, int selectedLevel, int selectedMap, boolean isBattle) {
-        int background = R.drawable.background_dark_forest;
+    public ArrayList<Integer> selectEnemyCharacter(ArrayList<Integer> background, boolean newViews, int selectedLevel, int selectedMap, boolean isBattle) {
+        ArrayList<Integer> newBackground = background;
 
         enemyImage.setScaleX(1);
 
         if (isBattle) {
-            mapMonsters(enemyImage, yourImage, enemyHealthBar, enemyName, selectedLevel, selectedMap);
+            newBackground = mapMonsters(newBackground, enemyImage, yourImage, enemyHealthBar, enemyName, selectedLevel, selectedMap);
         } else {
             allMonsters(enemyImage, yourImage, enemyHealthBar, enemyName);
         }
@@ -212,7 +217,7 @@ public class SetupCharacter {
 
         resizeImage.scale(enemyImage, enemyPlayer.getSize());
 
-        return background;
+        return newBackground;
     }
 
     public int getFirstPlayerSelected() {
