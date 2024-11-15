@@ -379,11 +379,6 @@ public class HellKnight extends Player {
         }
 
         if (newSkillCooldowns.get(4) > 0) {
-            newSkillCooldowns.set(4, newSkillCooldowns.get(4) - 1);
-            updateSkillCooldowns(newSkillCooldowns);
-        }
-
-        if (newSkillCooldowns.get(4) > 0) {
             newSkillCooldowns.set(4, 0);
         }
         if (newSkillCooldowns.get(5) > 0) {

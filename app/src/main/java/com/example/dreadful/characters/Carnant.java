@@ -363,10 +363,10 @@ public class Carnant extends Player {
             newSkillCooldowns = new ArrayList<>();
         }
 
-        if (newSkillCooldowns.get(4) > 0) {
-            newSkillCooldowns.set(4, newSkillCooldowns.get(4) - 1);
-            updateSkillCooldowns(newSkillCooldowns);
+        if (newSkillCooldowns.get(3) > 0) {
+            newSkillCooldowns.set(3, 0);
         }
+        updateSkillCooldowns(newSkillCooldowns);
 
         do {
             if (form == 0) {
