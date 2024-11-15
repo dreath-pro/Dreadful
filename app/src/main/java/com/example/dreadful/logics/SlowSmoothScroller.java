@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 
 public class SlowSmoothScroller extends LinearSmoothScroller {
+    private float speed = 8f;
 
     public SlowSmoothScroller(Context context) {
         super(context);
@@ -20,6 +21,10 @@ public class SlowSmoothScroller extends LinearSmoothScroller {
 
     @Override
     protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-        return super.calculateSpeedPerPixel(displayMetrics) * 8f;
+        return super.calculateSpeedPerPixel(displayMetrics) * speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 }

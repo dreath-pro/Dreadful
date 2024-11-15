@@ -28,6 +28,7 @@ import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BattleProcess {
     private Context context;
@@ -223,6 +224,7 @@ public class BattleProcess {
     private void showBattleLogs(LifecycleOwner lifecycleOwner) {
         if (!isBattleLogsDialogShowing) {
             isBattleLogsDialogShowing = true;
+            AtomicBoolean isFirstOpen = new AtomicBoolean(true);
 
             battleLogsDialog = new Dialog(context);
             battleLogsDialog.setContentView(R.layout.dialog_battle_log);
@@ -242,6 +244,7 @@ public class BattleProcess {
                 @Override
                 public void onClick(View v) {
                     SlowSmoothScroller smoothScroller = new SlowSmoothScroller(context); // Create custom scroller
+                    smoothScroller.setSpeed(1f);
                     smoothScroller.setTargetPosition(viewPrompt.getItemCount() - 1); // Set target position
                     statusLayoutManager.startSmoothScroll(smoothScroller); // Start smooth scroll
                 }
@@ -255,6 +258,10 @@ public class BattleProcess {
                             viewPrompt.notifyDataSetChanged();
                             if (autoScroll.isChecked()) {
                                 SlowSmoothScroller smoothScroller = new SlowSmoothScroller(context); // Create custom scroller
+                                if (isFirstOpen.get()) {
+                                    smoothScroller.setSpeed(1f);
+                                    isFirstOpen.set(false);
+                                }
                                 smoothScroller.setTargetPosition(viewPrompt.getItemCount() - 1); // Set target position
                                 statusLayoutManager.startSmoothScroll(smoothScroller); // Start smooth scroll
                             }
