@@ -97,6 +97,7 @@ public class BattleProcess {
         this.backgroundList.add(R.drawable.background_cave);
         this.backgroundList.add(R.drawable.background_statue);
         this.backgroundList.add(R.drawable.background_hell);
+        this.backgroundList.add(R.drawable.background_badlands);
     }
 
     public void receiveData(int selectedLevel, int selectedMap) {
@@ -113,7 +114,7 @@ public class BattleProcess {
                 backgroundList.add(R.drawable.background_dark_forest);
                 break;
             case 2:
-                backgroundList.add(R.drawable.map_badland);
+                backgroundList.add(R.drawable.background_badlands);
                 break;
             case 3:
                 backgroundList.add(R.drawable.background_graveyard);
