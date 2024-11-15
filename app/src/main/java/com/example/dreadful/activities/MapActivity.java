@@ -229,6 +229,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
                     loadingBar.setVisibility(View.GONE);
 
                     progressText.setText("Waiting for match.");
+//                    progressText.setText("Waiting for match. \uD83D\uDC40");
                     resultText.setText(level.getWarningMessage(selectedLevel));
 
                     loadingHandler.postDelayed(new Runnable() {
