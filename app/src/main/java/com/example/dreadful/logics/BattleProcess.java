@@ -150,6 +150,10 @@ public class BattleProcess {
         newBattleMessage.add("Their intertwined paths have led to this destined meeting.");
         prompt.selectRandomMessage(null, newBattleMessage, false);
 
+        if (newViews) {
+            selectedBackground = random.nextInt(backgroundList.size());
+        }
+
         setupCharacter = new SetupCharacter(context,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
@@ -167,13 +171,9 @@ public class BattleProcess {
 
         setupCharacter.selectYourCharacter(newViews, isBattle);
         if (!isBattle) {
-            setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedMap, isBattle);
+            setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedBackground, isBattle);
         } else {
             backgroundList = setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedMap, isBattle);
-        }
-
-        if (newViews) {
-            selectedBackground = random.nextInt(backgroundList.size());
         }
         backgroundImage.setBackgroundResource(backgroundList.get(selectedBackground));
 
