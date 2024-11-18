@@ -13,7 +13,7 @@ import com.example.dreadful.models.Prompt;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Flamethrower extends Player{
+public class Flamethrower extends Player {
     private Random random = new Random();
     private Prompt prompt;
     private Context context;
@@ -53,16 +53,16 @@ public class Flamethrower extends Player{
         // 3 - critical
         switch (level) {
             case 0:
-                events.add("");
+                events.add("The hazmat-clad figure barely flinches, a faint scorch mark glinting on his suit as he press forward with calculated steps.");
 
-                dialogues.add("");
+                dialogues.add("A scratch won't stop the burn.");
+                dialogues.add("Not enough to slow me down.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -70,16 +70,16 @@ public class Flamethrower extends Player{
 
                 break;
             case 1:
-                events.add("");
+                events.add("Smoke rises from a puncture in the hazmat suit, the hiss of escaping heat mixing with the roar of flames. " + getName() + " adjusts his grip, methodically tightening his hold on the weapon.");
 
-                dialogues.add("");
+                dialogues.add("Armor compromised, but irrelevant.");
+                dialogues.add("I'll endure. You won’t.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -87,16 +87,16 @@ public class Flamethrower extends Player{
 
                 break;
             case 2:
-                events.add("");
+                events.add(getName() + " stumbles slightly, a jagged tear revealing seared fabric underneath. His breathing grows heavy, the rasp of the mask amplifying his resolve. " + getName() + " ignites with a ferocious roar, drowning out all other sounds.");
 
-                dialogues.add("");
+                dialogues.add("Pain is a fleeting sensation.");
+                dialogues.add("This body is expendable; the mission is not.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -104,16 +104,16 @@ public class Flamethrower extends Player{
 
                 break;
             case 3:
-                events.add("");
+                events.add("Flames lick at the edges of the hazmat suit as it buckles under the strain. " + getName() + " stands amidst the inferno, a grim silhouette, the trigger pressed down for a desperate last barrage.");
 
-                dialogues.add("");
+                dialogues.add("Final ignition... make it count.");
+                dialogues.add("If I burn, you burn with me.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -127,32 +127,38 @@ public class Flamethrower extends Player{
         String result = receiveHitLogic(hitter, target);
         switch (result) {
             case "DODGE":
-                events.add("");
+                events.add(getName() + " shifts his weight effortlessly, the fiery arc of " + target.getName() + prompt.getApostrophe(target.getName()) + " attack carving through the air mere inches from his suit. His unblinking gaze remains fixed on his foe, unreadable behind the mask.");
+                events.add("As " + target.getName() + prompt.getApostrophe(target.getName()) + " attack barrels forward, " + getName() + " pivots with an unhurried elegance. A low hiss escapes the respirator, " + getName().toLowerCase() + " already trained on his opponent’s new position.");
+                events.add("The ground scorches where " + target.getName() + prompt.getApostrophe(target.getName()) + " strike lands, but " + getName() + " is already elsewhere, his boots leaving faint burn marks on the terrain as he maneuvers with practiced precision.");
 
-                dialogues.add("");
+                dialogues.add("You’re slower than expected.");
+                dialogues.add("This heat must be distracting you.");
+                dialogues.add("You won’t land a strike. Not in this lifetime.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
                 break;
             case "BLOCKED":
-                events.add("");
+                events.add(target.getName() + prompt.getApostrophe(target.getName()) + " strike crashes against " + getName() + prompt.getApostrophe(getName()) + " flamethrower nozzle, a spark of fire and force erupting from the collision. The hazmat-clad figure doesn’t flinch, his respirator hissing steadily, as though the effort was beneath notice.");
+                events.add("The clash of " + target.getName() + prompt.getApostrophe(target.getName()) + " attack and " + getName() + prompt.getApostrophe(getName()) + " reinforced gauntlet sends a shockwave through the air. Unmoved, " + getName() + " locks his stance, the weapon held firm like an extension of his cold, methodical will.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " arm absorbs the brunt of the attack, the hazmat suit smoldering but holding strong. Behind the mask, his unseen eyes remain locked on " + target.getName() + ", the cold precision of his stance a silent warning.");
 
-                dialogues.add("");
+                dialogues.add("Predictable.");
+                dialogues.add("Is that all?");
+                dialogues.add("Heat meets steel, and you still lose.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -203,16 +209,19 @@ public class Flamethrower extends Player{
         skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
-                events.add("");
+                events.add(getName() + " raises his weapon with mechanical precision, a sharp hiss preceding the release of a concentrated stream of fire. The flames arc through the air, ignoring " + target.getName() + prompt.getApostrophe(target.getName()) + " attempted evasions and defenses, licking at its body with relentless heat.");
+                events.add("The air ripples as " + getName() + " unleashes a jet of fire, the intensity undeniable. " + target.getName() + prompt.getApostrophe(target.getName()) + " defenses shimmer for a moment before yielding, the flames clinging to him like a vengeful specter, refusing to be extinguished.");
+                events.add(getName() + " doesn’t rush or hesitate; his trigger pull is deliberate, sending fire cascading toward " + target.getName() + ". The burning effect takes hold instantly, the flames lingering, gnawing at " + target.getName() + prompt.getApostrophe(target.getName()) + " resolve as " + getName() + " calmly steps forward.");
 
-                dialogues.add("");
+                dialogues.add("You can’t dodge heat.");
+                dialogues.add("It’s not personal; it’s physics.");
+                dialogues.add("You’ll burn, no matter where you stand.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -221,16 +230,19 @@ public class Flamethrower extends Player{
                 basicAttack(hitter, target);
                 break;
             case 1:
-                events.add("");
+                events.add(getName() + " plants his feet firmly, his hands steady on the weapon as a deep roar signals the ignition of an intense inferno. A torrent of flames erupts from the nozzle, larger and fiercer than before, enveloping " + target.getName() + " entirely. The fire clings like molten chains, devouring any chance of defense or evasion.");
+                events.add("The flames surge forward in a concentrated burst, the heat so intense it warps the air. " + target.getName() + prompt.getApostrophe(target.getName()) + " form is obscured by the blinding inferno, the burning effect doubling in ferocity, searing relentlessly into its flesh.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " posture remains unmoved, the roaring blaze reflecting off his mask. The doubled intensity of the flames is not an act of desperation but a calculated execution of overwhelming power. " + target.getName() + " has no choice but to endure or succumb.");
 
-                dialogues.add("");
+                dialogues.add("Let’s turn up the heat.");
+                dialogues.add("There’s no escaping this inferno.");
+                dialogues.add("Your defenses mean nothing. This ends in flames.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -239,16 +251,19 @@ public class Flamethrower extends Player{
                 skill1(hitter, target);
                 break;
             case 2:
-                events.add("");
+                events.add(getName() + " steps back calmly, his movements methodical as he switches out the gas canister. The faint hiss of compressed fuel fills the air, a chilling contrast to the roaring fire moments earlier. Meanwhile, " + target.getName() + ", stunned and immobilized, watches helplessly, the air heavy with impending doom.");
+                events.add("The flamethrower hisses as the new gas canister locks into place. " + getName() + prompt.getApostrophe(getName()) + " unhurried pace seems to mock his opponent, who remains frozen in place by the residual heat and suffocating aura of the attack.");
+                events.add("As the nozzle flickers with a fresh burst of fire, " + getName() + " tilts his head slightly, his stance as impassive as ever. The momentary pause is not a reprieve but a prelude to another onslaught.");
 
-                dialogues.add("");
+                dialogues.add("Out of breath? Allow me to reload.");
+                dialogues.add("Stay still. This won’t take long.");
+                dialogues.add("A brief pause… for your end.");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -283,15 +298,13 @@ public class Flamethrower extends Player{
         target.setDefense(0);
         target.setDodge(0);
 
-        if(gas <= 0)
-        {
+        if (gas <= 0) {
             gas = 0;
 
             setAttack(getAttack() / 2);
             target.getDamageOverTime().add(60);
             target.getDamageOverTimeValue().add(12);
-        }else
-        {
+        } else {
             setAttack(getMaxAttack());
             target.getDamageOverTime().add(120);
             target.getDamageOverTimeValue().add(12);
