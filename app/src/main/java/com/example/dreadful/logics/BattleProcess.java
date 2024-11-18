@@ -99,6 +99,7 @@ public class BattleProcess {
         this.backgroundList.add(R.drawable.background_statue);
         this.backgroundList.add(R.drawable.background_hell);
         this.backgroundList.add(R.drawable.background_badlands);
+        this.backgroundList.add(R.drawable.background_celestial);
     }
 
     public void receiveData(int selectedLevel, int selectedMap) {
@@ -124,7 +125,7 @@ public class BattleProcess {
                 backgroundList.add(R.drawable.background_hell);
                 break;
             case 5:
-                backgroundList.add(R.drawable.map_celestial);
+                backgroundList.add(R.drawable.background_celestial);
                 break;
         }
     }
