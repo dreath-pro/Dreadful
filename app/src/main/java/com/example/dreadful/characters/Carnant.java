@@ -306,6 +306,27 @@ public class Carnant extends Player {
         runTimeHeal();
         runTimeDamage();
 
+        if (form == 0) {
+            if (getHealth() <= 0) {
+                int toTransform = random.nextInt(2);
+
+                if (toTransform == 0) {
+                    setName("Carnant");
+                    yourName.setText(getName());
+                    yourImage.setImageResource(getTransformation()[0]);
+                    setImage(getTransformation()[0]);
+                    resizeImage.scale(yourImage, 155);
+                    bypassSetMaxHealth(8880);
+                    setHealth(getMaxHealth());
+                    setAttack(1800);
+                    setDefense(480);
+                    setDodge(0);
+                    yourHealthBar.setMax(getMaxHealth());
+                    form = 1;
+                }
+            }
+        }
+
         if (form == 1) {
             bypassSetHealth(getHealth() + heal);
             if (getHealth() > getMaxHealth()) {
