@@ -13,6 +13,7 @@ import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.characters.Carnant;
 import com.example.dreadful.characters.Dreath;
+import com.example.dreadful.characters.Flamethrower;
 import com.example.dreadful.characters.GodOfDeath;
 import com.example.dreadful.characters.HellKnight;
 import com.example.dreadful.characters.KumoNingyo;
@@ -90,6 +91,12 @@ public class SetupCharacter {
         players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
         players.add(new GodOfDeath(context, playerImage, prompt));
         players.add(new Michael(context, playerImage, prompt, opponentImage));
+//        players.add(new Flamethrower(context, playerImage, prompt));
+    }
+
+    private void startingMonster(ImageView playerImage) {
+        players.clear();
+        players.add(new Flamethrower(context, playerImage, prompt));
     }
 
     private ArrayList<Integer> mapMonsters(ArrayList<Integer> background, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,
@@ -221,8 +228,7 @@ public class SetupCharacter {
         yourImage.setScaleX(1);
 
         if (isBattle) {
-            players.clear();
-            players.add(new Carnant(context, yourImage, yourHealthBar, yourName, prompt));
+            startingMonster(yourImage);
         } else {
             allMonsters(yourImage, enemyImage, yourHealthBar, yourName);
         }

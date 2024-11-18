@@ -36,7 +36,7 @@ public class Carnant extends Player {
     public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, Prompt prompt) {
         super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
                 new int[]{R.drawable.character_carnant}, null,
-                2100, 180, 10, 40);
+                3000, 300, 10, 40);
 
         ArrayList<String> skillNames = new ArrayList<>();
         skillNames.add("Bat Slam");
