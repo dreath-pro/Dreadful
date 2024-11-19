@@ -285,7 +285,7 @@ public class BattleProcess {
         }
     }
 
-    public void showMonsterSelection() {
+    public void showMonsterSelection(int playerSelected) {
         if (!isMonsterSelectionShowing) {
             isMonsterSelectionShowing = true;
 
@@ -295,11 +295,11 @@ public class BattleProcess {
             RecyclerView monsterListView = monsterDialog.findViewById(R.id.monsterList);
 
             monsterList.clear();
-            monsterList = setupCharacter.returnMonsters(yourImage, enemyImage, yourHealth, yourName);
+            monsterList = setupCharacter.allMonsters(yourImage, enemyImage, yourHealth, yourName);
 
             LinearLayoutManager statusLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             monsterListView.setLayoutManager(statusLayoutManager);
-            viewMonster = new ViewMonster(context, monsterList, 0);
+            viewMonster = new ViewMonster(context, monsterList, secondPlayerSelected);
             monsterListView.setAdapter(viewMonster);
 
             monsterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

@@ -93,14 +93,14 @@ public class TestActivity extends AppCompatActivity {
         yourChangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                battleProcess.showMonsterSelection();
+                battleProcess.showMonsterSelection(0);
             }
         });
 
         enemyChangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                battleProcess.showMonsterSelection();
+                battleProcess.showMonsterSelection(1);
             }
         });
 

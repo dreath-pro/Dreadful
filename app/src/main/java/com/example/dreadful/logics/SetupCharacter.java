@@ -81,7 +81,7 @@ public class SetupCharacter {
         this.enemyPlayer = enemyPlayer;
     }
 
-    private void allMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+    public ArrayList<Player> allMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
         players.clear();
         players.add(new Dreath(context, playerImage, prompt));
         players.add(new DreadProphet(context, playerImage, prompt));
@@ -91,20 +91,7 @@ public class SetupCharacter {
         players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
         players.add(new GodOfDeath(context, playerImage, prompt));
         players.add(new Michael(context, playerImage, prompt, opponentImage));
-//        players.add(new Flamethrower(context, playerImage, prompt));
-    }
-
-    public ArrayList<Player> returnMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName)
-    {
-        players.clear();
-        players.add(new Dreath(context, playerImage, prompt));
-        players.add(new DreadProphet(context, playerImage, prompt));
-        players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
-        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
-        players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
-        players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
-        players.add(new GodOfDeath(context, playerImage, prompt));
-        players.add(new Michael(context, playerImage, prompt, opponentImage));
+        //players.add(new Flamethrower(context, playerImage, prompt));
 
         return players;
     }

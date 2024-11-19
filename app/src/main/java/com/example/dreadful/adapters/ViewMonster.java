@@ -43,14 +43,15 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
         holder.monsterImage.setImageResource(monsterList.get(position).getImage());
         holder.monsterName.setText(monsterList.get(position).getName());
 
-//        if (position == enemySelectedMonster) {
-//            ColorMatrix matrix = new ColorMatrix();
-//            matrix.setSaturation(0f);
-//
-//            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-//            holder.imageContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red));
-//            holder.imageContainer.getBackground().setColorFilter(filter);
-//        }
+        if (position == enemySelectedMonster) {
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+
+            holder.monsterImage.setColorFilter(filter);
+
+            holder.monsterImage.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+        }
     }
 
     @Override
@@ -59,13 +60,11 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        CardView imageContainer;
         ImageView monsterImage;
         TextView monsterName;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageContainer = itemView.findViewById(R.id.imageContainer);
             monsterImage = itemView.findViewById(R.id.monsterImage);
             monsterName = itemView.findViewById(R.id.monsterName);
         }
