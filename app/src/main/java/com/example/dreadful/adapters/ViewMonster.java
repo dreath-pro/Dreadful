@@ -21,12 +21,12 @@ import java.util.ArrayList;
 
 public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> {
     private Context context;
-    private ArrayList<Player> playerList;
+    private ArrayList<Player> monsterList;
     private int enemySelectedMonster;
 
-    public ViewMonster(Context context, ArrayList<Player> playerList, int enemySelectedMonster) {
+    public ViewMonster(Context context, ArrayList<Player> monsterList, int enemySelectedMonster) {
         this.context = context;
-        this.playerList = playerList;
+        this.monsterList = monsterList;
         this.enemySelectedMonster = enemySelectedMonster;
     }
 
@@ -40,22 +40,22 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewMonster.MyViewHolder holder, int position) {
-        holder.monsterImage.setImageResource(playerList.get(position).getImage());
-        holder.monsterName.setText(playerList.get(position).getName());
+        holder.monsterImage.setImageResource(monsterList.get(position).getImage());
+        holder.monsterName.setText(monsterList.get(position).getName());
 
-        if (position == enemySelectedMonster) {
-            ColorMatrix matrix = new ColorMatrix();
-            matrix.setSaturation(0f);
-
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            holder.imageContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red));
-            holder.imageContainer.getBackground().setColorFilter(filter);
-        }
+//        if (position == enemySelectedMonster) {
+//            ColorMatrix matrix = new ColorMatrix();
+//            matrix.setSaturation(0f);
+//
+//            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+//            holder.imageContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red));
+//            holder.imageContainer.getBackground().setColorFilter(filter);
+//        }
     }
 
     @Override
     public int getItemCount() {
-        return playerList.size();
+        return monsterList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

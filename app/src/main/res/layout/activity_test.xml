@@ -24,7 +24,7 @@
             android:id="@+id/yourPlayerLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="50dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -106,12 +106,27 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/yourImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/character_dreath" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/yourChangeButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_change"
+                    android:scaleType="fitXY"
+                    app:tint="@color/red" />
+
+                <ImageView
+                    android:id="@+id/yourImage"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/character_dreath" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -201,13 +216,28 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/enemyImage"
-                android:layout_width="210dp"
-                android:layout_height="210dp"
-                android:scaleType="fitXY"
-                android:scaleX="-1"
-                android:src="@drawable/character_dread_prophet" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/enemyChangeButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_change"
+                    android:scaleType="fitXY"
+                    app:tint="@color/red" />
+
+                <ImageView
+                    android:id="@+id/enemyImage"
+                    android:layout_width="210dp"
+                    android:layout_height="210dp"
+                    android:scaleType="fitXY"
+                    android:scaleX="-1"
+                    android:src="@drawable/character_dread_prophet" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

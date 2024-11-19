@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
+import com.example.dreadful.adapters.ViewMonster;
 import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
@@ -53,15 +54,18 @@ public class BattleProcess {
     private ViewStatus viewStatus;
     private ViewSkill viewSkill;
     private ViewPrompt viewPrompt;
+    private ViewMonster viewMonster;
 
     private Prompt prompt;
     private Dialog battleLogsDialog;
+    private ArrayList<Player> monsterList = new ArrayList<>();
 
     private int firstPlayerSelected, secondPlayerSelected;
     private int selectedMap, selectedLevel;
     private boolean isBattle = false;
 
-    private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false;
+    private boolean isCharacterDialogShowing = false, isBattleLogsDialogShowing = false,
+            isMonsterSelectionShowing = false;
 
     public BattleProcess(Context context, ConstraintLayout backgroundImage, TextView yourName,
                          TextView enemyName, ProgressBar yourHealth, ProgressBar enemyHealth,
@@ -278,6 +282,33 @@ public class BattleProcess {
                 }
             });
             battleLogsDialog.show();
+        }
+    }
+
+    public void showMonsterSelection() {
+        if (!isMonsterSelectionShowing) {
+            isMonsterSelectionShowing = true;
+
+            Dialog monsterDialog = new Dialog(context);
+            monsterDialog.setContentView(R.layout.dialog_monster_selection);
+
+            RecyclerView monsterListView = monsterDialog.findViewById(R.id.monsterList);
+
+            monsterList.clear();
+            monsterList = setupCharacter.returnMonsters(yourImage, enemyImage, yourHealth, yourName);
+
+            LinearLayoutManager statusLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+            monsterListView.setLayoutManager(statusLayoutManager);
+            viewMonster = new ViewMonster(context, monsterList, 0);
+            monsterListView.setAdapter(viewMonster);
+
+            monsterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    isMonsterSelectionShowing = false;
+                }
+            });
+            monsterDialog.show();
         }
     }
 

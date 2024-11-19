@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
@@ -28,6 +29,7 @@ public class TestActivity extends AppCompatActivity {
     private ImageView yourImage, enemyImage;
     private Button backButton, startButton, resetButton;
     private ImageView promptButton;
+    private ImageView yourChangeButton, enemyChangeButton;
     private TextView promptView;
     private TextView yourStunText, enemyStunText;
     private LinearLayout yourPlayerLayout, enemyPlayerLayout;
@@ -60,6 +62,9 @@ public class TestActivity extends AppCompatActivity {
 
         yourStunText = findViewById(R.id.yourStunText);
         enemyStunText = findViewById(R.id.enemyStunText);
+
+        yourChangeButton = findViewById(R.id.yourChangeButton);
+        enemyChangeButton = findViewById(R.id.enemyChangeButton);
     }
 
     @Override
@@ -82,6 +87,20 @@ public class TestActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        yourChangeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                battleProcess.showMonsterSelection();
+            }
+        });
+
+        enemyChangeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                battleProcess.showMonsterSelection();
             }
         });
 
