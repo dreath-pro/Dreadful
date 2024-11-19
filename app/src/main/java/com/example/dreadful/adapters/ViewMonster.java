@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -23,6 +24,16 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
     private Context context;
     private ArrayList<Player> monsterList;
     private int enemySelectedMonster;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public ViewMonster(Context context, ArrayList<Player> monsterList, int enemySelectedMonster) {
         this.context = context;
@@ -52,6 +63,17 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
 
             holder.monsterImage.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    if (holder.getAdapterPosition() != enemySelectedMonster) {
+                        listener.onItemClick(holder.getAdapterPosition());
+                    }
+                }
+            }
+        });
     }
 
     @Override

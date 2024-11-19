@@ -226,7 +226,7 @@ public class SetupCharacter {
         return enemyPlayer;
     }
 
-    public void selectYourCharacter(boolean newViews, boolean isBattle) {
+    public void selectYourCharacter(boolean newViews, boolean isBattle, boolean fromSelection, int selectedMonster) {
         yourImage.setScaleX(1);
 
         if (isBattle) {
@@ -236,7 +236,11 @@ public class SetupCharacter {
         }
 
         if (newViews) {
-            firstPlayerSelected = random.nextInt(players.size());
+            if (!fromSelection) {
+                firstPlayerSelected = random.nextInt(players.size());
+            } else {
+                firstPlayerSelected = selectedMonster;
+            }
         }
         yourPlayer = players.get(firstPlayerSelected);
 
@@ -255,7 +259,7 @@ public class SetupCharacter {
         resizeImage.scale(yourImage, yourPlayer.getSize());
     }
 
-    public ArrayList<Integer> selectEnemyCharacter(ArrayList<Integer> background, boolean newViews, int selectedLevel, int selectedMap, boolean isBattle) {
+    public ArrayList<Integer> selectEnemyCharacter(ArrayList<Integer> background, boolean newViews, int selectedLevel, int selectedMap, boolean isBattle, boolean fromSelection, int selectedMonster) {
         ArrayList<Integer> newBackground = background;
 
         enemyImage.setScaleX(1);
@@ -267,7 +271,11 @@ public class SetupCharacter {
         }
 
         if (newViews) {
-            secondPlayerSelected = random.nextInt(players.size());
+            if (!fromSelection) {
+                secondPlayerSelected = random.nextInt(players.size());
+            } else {
+                secondPlayerSelected = selectedMonster;
+            }
         }
         if (!isBattle) {
             if (firstPlayerSelected == secondPlayerSelected) {

@@ -40,6 +40,7 @@ public class BattleProcess {
     private TextView yourHealthText, enemyHealthText;
     private ImageView yourImage, enemyImage;
     private Button backButton, startButton, resetButton;
+    private ImageView yourChangeButton, enemyChangeButton;
     private ImageView promptButton;
     private TextView promptView;
     private TextView yourStunText, enemyStunText;
@@ -106,6 +107,47 @@ public class BattleProcess {
         this.backgroundList.add(R.drawable.background_celestial);
     }
 
+    public BattleProcess(Context context, ConstraintLayout backgroundImage, TextView yourName,
+                         TextView enemyName, ProgressBar yourHealth, ProgressBar enemyHealth,
+                         TextView yourHealthText, TextView enemyHealthText, ImageView yourImage,
+                         ImageView enemyImage, Button backButton, Button startButton,
+                         Button resetButton, ImageView promptButton, TextView promptView,
+                         TextView yourStunText, TextView enemyStunText, LinearLayout yourPlayerLayout,
+                         LinearLayout enemyPlayerLayout, ImageView yourChangeButton, ImageView enemyChangeButton) {
+        this.context = context;
+        this.backgroundImage = backgroundImage;
+        this.yourName = yourName;
+        this.enemyName = enemyName;
+        this.yourHealth = yourHealth;
+        this.enemyHealth = enemyHealth;
+        this.yourHealthText = yourHealthText;
+        this.enemyHealthText = enemyHealthText;
+        this.yourImage = yourImage;
+        this.enemyImage = enemyImage;
+        this.backButton = backButton;
+        this.startButton = startButton;
+        this.resetButton = resetButton;
+        this.promptButton = promptButton;
+        this.promptView = promptView;
+        this.yourStunText = yourStunText;
+        this.enemyStunText = enemyStunText;
+        this.yourPlayerLayout = yourPlayerLayout;
+        this.enemyPlayerLayout = enemyPlayerLayout;
+        this.yourChangeButton = yourChangeButton;
+        this.enemyChangeButton = enemyChangeButton;
+
+
+        this.backgroundList.add(R.drawable.background_facility);
+        this.backgroundList.add(R.drawable.background_cathedral);
+        this.backgroundList.add(R.drawable.background_dark_forest);
+        this.backgroundList.add(R.drawable.background_graveyard);
+        this.backgroundList.add(R.drawable.background_cave);
+        this.backgroundList.add(R.drawable.background_statue);
+        this.backgroundList.add(R.drawable.background_hell);
+        this.backgroundList.add(R.drawable.background_badlands);
+        this.backgroundList.add(R.drawable.background_celestial);
+    }
+
     public void receiveData(int selectedLevel, int selectedMap) {
         this.selectedLevel = selectedLevel;
         this.selectedMap = selectedMap;
@@ -134,7 +176,7 @@ public class BattleProcess {
         }
     }
 
-    public void startConfiguration(boolean newViews) {
+    public void startConfiguration(boolean newViews, boolean fromSelection, int yourSelectedMonster, int enemySelectedMonster) {
         promptView.setText("");
 
         prompt = new Prompt();
@@ -156,7 +198,9 @@ public class BattleProcess {
         prompt.selectRandomMessage(null, newBattleMessage, false);
 
         if (newViews) {
-            selectedBackground = random.nextInt(backgroundList.size());
+            if (!fromSelection) {
+                selectedBackground = random.nextInt(backgroundList.size());
+            }
         }
 
         setupCharacter = new SetupCharacter(context,
@@ -174,11 +218,11 @@ public class BattleProcess {
             setupCharacter.setSecondPlayerSelected(secondPlayerSelected);
         }
 
-        setupCharacter.selectYourCharacter(newViews, isBattle);
+        setupCharacter.selectYourCharacter(newViews, isBattle, fromSelection, yourSelectedMonster);
         if (!isBattle) {
-            setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedBackground, isBattle);
+            setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedBackground, isBattle, fromSelection, enemySelectedMonster);
         } else {
-            backgroundList = setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedMap, isBattle);
+            backgroundList = setupCharacter.selectEnemyCharacter(backgroundList, newViews, selectedLevel, selectedMap, isBattle, fromSelection, enemySelectedMonster);
         }
         backgroundImage.setBackgroundResource(backgroundList.get(selectedBackground));
 
@@ -197,11 +241,15 @@ public class BattleProcess {
             backButton.setVisibility(View.GONE);
             if (!isBattle) {
                 resetButton.setVisibility(View.GONE);
+                yourChangeButton.setVisibility(View.GONE);
+                enemyChangeButton.setVisibility(View.GONE);
             }
         } else {
             backButton.setVisibility(View.VISIBLE);
             if (!isBattle) {
                 resetButton.setVisibility(View.VISIBLE);
+                yourChangeButton.setVisibility(View.VISIBLE);
+                enemyChangeButton.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -215,7 +263,7 @@ public class BattleProcess {
             invisibleButtons(false);
             startButton.setText(context.getString(R.string.start_button));
             gameMechanics.stopBattleLoop();
-            startConfiguration(false);
+            startConfiguration(false, false, 0, 0);
         }
     }
 
@@ -297,10 +345,35 @@ public class BattleProcess {
             monsterList.clear();
             monsterList = setupCharacter.allMonsters(yourImage, enemyImage, yourHealth, yourName);
 
+            int enemyPlayerSelected;
+            if (playerSelected == 0) {
+                enemyPlayerSelected = secondPlayerSelected;
+            } else {
+                enemyPlayerSelected = firstPlayerSelected;
+            }
+
             LinearLayoutManager statusLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             monsterListView.setLayoutManager(statusLayoutManager);
-            viewMonster = new ViewMonster(context, monsterList, secondPlayerSelected);
+            viewMonster = new ViewMonster(context, monsterList, enemyPlayerSelected);
             monsterListView.setAdapter(viewMonster);
+
+            viewMonster.setOnItemClickListener(new ViewMonster.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    if (playerSelected == 0) {
+                        firstPlayerSelected = position;
+                        setupCharacter.setFirstPlayerSelected(firstPlayerSelected);
+                        yourPlayer = setupCharacter.returnYourCharacter();
+                    } else {
+                        secondPlayerSelected = position;
+                        setupCharacter.setSecondPlayerSelected(secondPlayerSelected);
+                        enemyPlayer = setupCharacter.returnEnemyCharacter();
+                    }
+
+                    startConfiguration(true, true, firstPlayerSelected, secondPlayerSelected);
+                    monsterDialog.dismiss();
+                }
+            });
 
             monsterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override

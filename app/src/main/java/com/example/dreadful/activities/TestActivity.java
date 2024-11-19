@@ -77,8 +77,8 @@ public class TestActivity extends AppCompatActivity {
         battleProcess = new BattleProcess(this, backgroundImage, yourName, enemyName,
                 yourHealth, enemyHealth, yourHealthText, enemyHealthText, yourImage, enemyImage,
                 backButton, startButton, resetButton, promptButton, promptView, yourStunText,
-                enemyStunText, yourPlayerLayout, enemyPlayerLayout);
-        battleProcess.startConfiguration(true);
+                enemyStunText, yourPlayerLayout, enemyPlayerLayout, yourChangeButton, enemyChangeButton);
+        battleProcess.startConfiguration(true, false, 0, 0);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -130,7 +130,7 @@ public class TestActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                battleProcess.startConfiguration(true);
+                battleProcess.startConfiguration(true, false, 0, 0);
             }
         });
 

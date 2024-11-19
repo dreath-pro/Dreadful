@@ -79,7 +79,7 @@ public class BattleActivity extends AppCompatActivity {
                 backButton, startButton, resetButton, promptButton, promptView, yourStunText,
                 enemyStunText, yourPlayerLayout, enemyPlayerLayout);
         battleProcess.receiveData(selectedLevel, selectedMap);
-        battleProcess.startConfiguration(true);
+        battleProcess.startConfiguration(true, false, 0, 0);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
