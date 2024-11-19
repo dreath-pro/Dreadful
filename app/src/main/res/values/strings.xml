@@ -22,6 +22,8 @@
     <string name="requirements">Requirements: Defeat the gun devil, i really believe you so strong dude!</string>
     <string name="search_result">A dangerous Abyss-level monster has been spotted. Please exercise caution.</string>
 
+    <string name="choose_monster">Select an aberrant creature.</string>
+
 
     <!--    button labels-->
     <string name="start_button">Start</string>

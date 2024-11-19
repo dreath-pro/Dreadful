@@ -32,21 +32,21 @@
             android:id="@+id/skullWarning"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:visibility="gone"
             android:layout_marginBottom="10dp"
+            android:scaleType="fitXY"
             android:src="@drawable/icon_skull_warning"
-            android:scaleType="fitXY"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/resultText"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:visibility="gone"
             android:text="@string/search_result"
             android:textAlignment="center"
             android:textColor="@color/yellow_orange"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
     </LinearLayout>
 
 </RelativeLayout>
