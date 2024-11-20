@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
+import com.example.dreadful.characters.Flamethrower;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.GameMechanics;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.logics.SetupCharacter;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     //immobilize, minimalist icon, dark horror theme, vibrant shading, red, crimson-red, dark-red, black
     //awakened monster triangle warning sign, minimalist icon, dark horror theme, vibrant shading, yellow-orange, black
     private Button classicButton, testButton, wikiButton, quitButton;
+    private MonsterDatabase monsterDatabase;
 
     private void initViews() {
         classicButton = findViewById(R.id.classicButton);
@@ -54,12 +57,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
+        monsterDatabase = new MonsterDatabase(this);
+
+        Player player = new Flamethrower(this);
+
+        if (!monsterDatabase.doesDataExist()) {
+            monsterDatabase.addMonster(player.getName());
+        }
 
         classicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -67,9 +77,13 @@ public class MainActivity extends AppCompatActivity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                if (monsterDatabase.getMonsterCount() <= 1) {
+                    Toast.makeText(MainActivity.this, "Hunt monster first!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -20,6 +20,11 @@ public class Flamethrower extends Player {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private int gas = 3, maxGas = 3;
 
+    public Flamethrower(Context context) {
+        super(context, null, "Flamethrower", R.drawable.character_flamethrower, "right", 140,
+                null, null, 3000, 320, 8, 20);
+    }
+
     public Flamethrower(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Flamethrower", R.drawable.character_flamethrower, "right", 140,
                 null, null, 3000, 320, 8, 20);
