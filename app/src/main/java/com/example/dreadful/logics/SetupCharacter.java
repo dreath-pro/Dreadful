@@ -85,10 +85,23 @@ public class SetupCharacter {
         players.clear();
         players.add(new Flamethrower(context, playerImage, prompt));
 
+        ArrayList<String> monsterNames = new ArrayList<>();
+        monsterNames.add(players.get(0).getName());
+        players = monsterListing(monsterNames, playerImage, opponentImage, playerHealthBar, playerName);
+
         return players;
     }
 
     public ArrayList<Player> allMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+        players.clear();
+        players = monsterListing(null, playerImage, opponentImage, playerHealthBar, playerName);
+
+        return players;
+    }
+
+    private ArrayList<Player> monsterListing(ArrayList<String> monsterList, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+        ArrayList<Player> finalPlayers = new ArrayList<>();
+
         players.clear();
         players.add(new Dreath(context, playerImage, prompt));
         players.add(new DreadProphet(context, playerImage, prompt));
@@ -98,9 +111,22 @@ public class SetupCharacter {
         players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
         players.add(new GodOfDeath(context, playerImage, prompt));
         players.add(new Michael(context, playerImage, prompt, opponentImage));
-        //players.add(new Flamethrower(context, playerImage, prompt));
 
-        return players;
+        if (monsterList != null) {
+            players.add(new Flamethrower(context, playerImage, prompt));
+
+            for (int i = 0; i <= monsterList.size() - 1; i++) {
+                for (int j = 0; j <= players.size() - 1; j++) {
+                    if (monsterList.get(i).equals(players.get(j).getName())) {
+                        finalPlayers.add(players.get(j));
+                    }
+                }
+            }
+        } else {
+            finalPlayers = players;
+        }
+
+        return finalPlayers;
     }
 
     private ArrayList<Integer> mapMonsters(ArrayList<Integer> background, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,

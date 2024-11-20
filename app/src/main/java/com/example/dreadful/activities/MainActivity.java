@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (monsterDatabase.getMonsterCount() <= 1) {
-                    Toast.makeText(MainActivity.this, "Hunt monster first!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Hunt at least one monster first!", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(MainActivity.this, TestActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -345,11 +345,9 @@ public class BattleProcess {
 
             monsterList.clear();
 
-            if(isBattle)
-            {
+            if (isBattle) {
                 monsterList = setupCharacter.yourMonsters(yourImage, enemyImage, yourHealth, yourName);
-            }else
-            {
+            } else {
                 monsterList = setupCharacter.allMonsters(yourImage, enemyImage, yourHealth, yourName);
             }
 
