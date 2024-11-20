@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (!monsterDatabase.doesDataExist()) {
             monsterDatabase.addMonster(player.getName());
-            monsterDatabase.addMonster("Dreath");
-            monsterDatabase.addMonster("Psycho Killer");
         }
 
         classicButton.setOnClickListener(new View.OnClickListener() {

@@ -266,7 +266,11 @@ public class SetupCharacter {
 
         if (newViews) {
             if (!fromSelection) {
-                firstPlayerSelected = random.nextInt(players.size());
+                if (isBattle) {
+                    firstPlayerSelected = 0;
+                } else {
+                    firstPlayerSelected = random.nextInt(players.size());
+                }
             } else {
                 firstPlayerSelected = selectedMonster;
             }
