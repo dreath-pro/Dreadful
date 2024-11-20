@@ -60,7 +60,6 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
             ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
             holder.monsterImage.setColorFilter(filter);
-
             holder.monsterImage.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
         }
 

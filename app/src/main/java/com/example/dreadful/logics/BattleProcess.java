@@ -74,7 +74,7 @@ public class BattleProcess {
                          ImageView enemyImage, Button backButton, Button startButton,
                          Button resetButton, ImageView promptButton, TextView promptView,
                          TextView yourStunText, TextView enemyStunText, LinearLayout yourPlayerLayout,
-                         LinearLayout enemyPlayerLayout) {
+                         LinearLayout enemyPlayerLayout, ImageView yourChangeButtonImageView) {
         this.context = context;
         this.backgroundImage = backgroundImage;
         this.yourName = yourName;
@@ -94,6 +94,7 @@ public class BattleProcess {
         this.enemyStunText = enemyStunText;
         this.yourPlayerLayout = yourPlayerLayout;
         this.enemyPlayerLayout = enemyPlayerLayout;
+        this.yourChangeButton = yourChangeButtonImageView;
 
 
         this.backgroundList.add(R.drawable.background_facility);
@@ -239,16 +240,16 @@ public class BattleProcess {
     private void invisibleButtons(Boolean invisible) {
         if (invisible) {
             backButton.setVisibility(View.GONE);
+            yourChangeButton.setVisibility(View.GONE);
             if (!isBattle) {
                 resetButton.setVisibility(View.GONE);
-                yourChangeButton.setVisibility(View.GONE);
                 enemyChangeButton.setVisibility(View.GONE);
             }
         } else {
             backButton.setVisibility(View.VISIBLE);
+            yourChangeButton.setVisibility(View.VISIBLE);
             if (!isBattle) {
                 resetButton.setVisibility(View.VISIBLE);
-                yourChangeButton.setVisibility(View.VISIBLE);
                 enemyChangeButton.setVisibility(View.VISIBLE);
             }
         }
@@ -333,7 +334,7 @@ public class BattleProcess {
         }
     }
 
-    public void showMonsterSelection(int playerSelected) {
+    public void showMonsterSelection(int playerSelected, boolean isBattle) {
         if (!isMonsterSelectionShowing) {
             isMonsterSelectionShowing = true;
 
@@ -343,7 +344,14 @@ public class BattleProcess {
             RecyclerView monsterListView = monsterDialog.findViewById(R.id.monsterList);
 
             monsterList.clear();
-            monsterList = setupCharacter.allMonsters(yourImage, enemyImage, yourHealth, yourName);
+
+            if(isBattle)
+            {
+                monsterList = setupCharacter.yourMonsters(yourImage, enemyImage, yourHealth, yourName);
+            }else
+            {
+                monsterList = setupCharacter.allMonsters(yourImage, enemyImage, yourHealth, yourName);
+            }
 
             int enemyPlayerSelected;
             if (playerSelected == 0) {

@@ -28,6 +28,7 @@ public class BattleActivity extends AppCompatActivity {
     private ImageView yourImage, enemyImage;
     private Button backButton, startButton, resetButton;
     private ImageView promptButton;
+    private ImageView yourChangeButton;
     private TextView promptView;
     private TextView yourStunText, enemyStunText;
     private LinearLayout yourPlayerLayout, enemyPlayerLayout;
@@ -62,6 +63,8 @@ public class BattleActivity extends AppCompatActivity {
 
         yourStunText = findViewById(R.id.yourStunText);
         enemyStunText = findViewById(R.id.enemyStunText);
+
+        yourChangeButton = findViewById(R.id.yourChangeButton);
     }
 
     @Override
@@ -77,7 +80,7 @@ public class BattleActivity extends AppCompatActivity {
         battleProcess = new BattleProcess(this, backgroundImage, yourName, enemyName,
                 yourHealth, enemyHealth, yourHealthText, enemyHealthText, yourImage, enemyImage,
                 backButton, startButton, resetButton, promptButton, promptView, yourStunText,
-                enemyStunText, yourPlayerLayout, enemyPlayerLayout);
+                enemyStunText, yourPlayerLayout, enemyPlayerLayout, yourChangeButton);
         battleProcess.receiveData(selectedLevel, selectedMap);
         battleProcess.startConfiguration(true, false, 0, 0);
 
@@ -88,6 +91,13 @@ public class BattleActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        yourChangeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                battleProcess.showMonsterSelection(0, true);
             }
         });
 

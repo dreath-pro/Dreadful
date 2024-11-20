@@ -81,6 +81,13 @@ public class SetupCharacter {
         this.enemyPlayer = enemyPlayer;
     }
 
+    public ArrayList<Player> yourMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+        players.clear();
+        players.add(new Flamethrower(context, playerImage, prompt));
+
+        return players;
+    }
+
     public ArrayList<Player> allMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
         players.clear();
         players.add(new Dreath(context, playerImage, prompt));
@@ -94,11 +101,6 @@ public class SetupCharacter {
         //players.add(new Flamethrower(context, playerImage, prompt));
 
         return players;
-    }
-
-    private void startingMonster(ImageView playerImage) {
-        players.clear();
-        players.add(new Flamethrower(context, playerImage, prompt));
     }
 
     private ArrayList<Integer> mapMonsters(ArrayList<Integer> background, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,
@@ -230,7 +232,7 @@ public class SetupCharacter {
         yourImage.setScaleX(1);
 
         if (isBattle) {
-            startingMonster(yourImage);
+            yourMonsters(yourImage, enemyImage, yourHealthBar, yourName);
         } else {
             allMonsters(yourImage, enemyImage, yourHealthBar, yourName);
         }
