@@ -24,6 +24,8 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
     private Context context;
     private ArrayList<Player> monsterList;
     private int enemySelectedMonster;
+    private boolean isBattle;
+    private Player enemyMonster;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -35,10 +37,12 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
         this.listener = listener;
     }
 
-    public ViewMonster(Context context, ArrayList<Player> monsterList, int enemySelectedMonster) {
+    public ViewMonster(Context context, ArrayList<Player> monsterList, int enemySelectedMonster, boolean isBattle, Player enemyMonster) {
         this.context = context;
         this.monsterList = monsterList;
         this.enemySelectedMonster = enemySelectedMonster;
+        this.isBattle = isBattle;
+        this.enemyMonster = enemyMonster;
     }
 
     @NonNull
@@ -54,21 +58,38 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
         holder.monsterImage.setImageResource(monsterList.get(position).getImage());
         holder.monsterName.setText(monsterList.get(position).getName());
 
-        if (position == enemySelectedMonster) {
-            ColorMatrix matrix = new ColorMatrix();
-            matrix.setSaturation(0);
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        if (!isBattle) {
+            if (position == enemySelectedMonster) {
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
-            holder.monsterImage.setColorFilter(filter);
-            holder.monsterImage.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+                holder.monsterImage.setColorFilter(filter);
+                holder.monsterImage.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+            }
+        } else {
+            if (monsterList.get(position).getName().equals(enemyMonster.getName())) {
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+
+                holder.monsterImage.setColorFilter(filter);
+                holder.monsterImage.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+            }
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    if (holder.getAdapterPosition() != enemySelectedMonster) {
-                        listener.onItemClick(holder.getAdapterPosition());
+                    if (!isBattle) {
+                        if (holder.getAdapterPosition() != enemySelectedMonster) {
+                            listener.onItemClick(holder.getAdapterPosition());
+                        }
+                    } else {
+                        if (!monsterList.get(holder.getAdapterPosition()).getName().equals(enemyMonster.getName())) {
+                            listener.onItemClick(holder.getAdapterPosition());
+                        }
                     }
                 }
             }

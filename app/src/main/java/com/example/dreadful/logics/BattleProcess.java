@@ -360,7 +360,7 @@ public class BattleProcess {
 
             LinearLayoutManager statusLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             monsterListView.setLayoutManager(statusLayoutManager);
-            viewMonster = new ViewMonster(context, monsterList, enemyPlayerSelected);
+            viewMonster = new ViewMonster(context, monsterList, enemyPlayerSelected, isBattle, enemyPlayer);
             monsterListView.setAdapter(viewMonster);
 
             viewMonster.setOnItemClickListener(new ViewMonster.OnItemClickListener() {

@@ -20,6 +20,7 @@ import com.example.dreadful.characters.KumoNingyo;
 import com.example.dreadful.characters.DreadProphet;
 import com.example.dreadful.characters.Michael;
 import com.example.dreadful.characters.VoidReaper;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -44,6 +45,7 @@ public class SetupCharacter {
     private ArrayList<Integer> backgroundList;
     private int selectedBackground;
     private ProgressBar yourHealthBar, enemyHealthBar;
+    private MonsterDatabase monsterDatabase;
 
     private int firstPlayerSelected, secondPlayerSelected;
 
@@ -79,14 +81,13 @@ public class SetupCharacter {
 
         this.yourPlayer = yourPlayer;
         this.enemyPlayer = enemyPlayer;
+
+        this.monsterDatabase = new MonsterDatabase(context);
     }
 
     public ArrayList<Player> yourMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
         players.clear();
-        players.add(new Flamethrower(context, playerImage, prompt));
-
-        ArrayList<String> monsterNames = new ArrayList<>();
-        monsterNames.add(players.get(0).getName());
+        ArrayList<String> monsterNames = monsterDatabase.selectAll();
         players = monsterListing(monsterNames, playerImage, opponentImage, playerHealthBar, playerName);
 
         return players;
