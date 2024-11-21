@@ -14,12 +14,14 @@ import com.example.dreadful.models.Prompt;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Jimhardcore extends Player{
+public class Jimhardcore extends Player {
     private Random random = new Random();
     private Prompt prompt;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private MonsterDatabase monsterDatabase;
+    private int ironBody = 0;
+    private int muscleCharge = 0;
 
     public Jimhardcore(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Jimhardcore", R.drawable.character_jimhardcore, "right", 150,
@@ -64,16 +66,16 @@ public class Jimhardcore extends Player{
         // 3 - critical
         switch (level) {
             case 0:
-                events.add("");
+                events.add(getName() + " grunts in mild pain, barely fazed.");
 
-                dialogues.add("");
+                dialogues.add("Heh, that tickles... I barely felt that!");
+                dialogues.add("Is that all you've got? Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -81,16 +83,16 @@ public class Jimhardcore extends Player{
 
                 break;
             case 1:
-                events.add("");
+                events.add(getName() + " stumbles back slightly but shakes it off with a grin.");
 
-                dialogues.add("");
+                dialogues.add("Nice try... but it’ll take more than that to bring me down!");
+                dialogues.add("I’m just getting started! Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -98,16 +100,16 @@ public class Jimhardcore extends Player{
 
                 break;
             case 2:
-                events.add("");
+                events.add(getName() + " stumbles from the impact, his face twisting in pain, but he stands tall.");
 
-                dialogues.add("");
+                dialogues.add("Grrr… that was a good hit! But you’ll have to do better!");
+                dialogues.add("I’m far from finished! Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -115,16 +117,16 @@ public class Jimhardcore extends Player{
 
                 break;
             case 3:
-                events.add("");
+                events.add(getName() + " collapses briefly to one knee, blood dripping from his mouth, but he laughs through the pain.");
 
-                dialogues.add("");
+                dialogues.add("Hah… you really think you’ve got me? I’ll show you what real strength is!");
+                dialogues.add("This only makes me stronger… Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -148,16 +150,16 @@ public class Jimhardcore extends Player{
         String result = receiveHitLogic(hitter, target);
         switch (result) {
             case "DODGE":
-                events.add("");
+                events.add(hitter.getName() + " swings or launches an attack, but " + getName() + " narrowly dodges, moving with surprising speed for his massive frame.");
 
-                dialogues.add("");
+                dialogues.add("Too slow, " + hitter.getName() + "! You'll have to do better than that!");
+                dialogues.add("I’m faster than I look, and you’re just getting warmed up! Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -165,16 +167,16 @@ public class Jimhardcore extends Player{
 
                 break;
             case "BLOCKED":
-                events.add("");
+                events.add(getName() + " strikes, but " + getName() + " braces himself and absorbs the impact with his iron gauntlet.");
 
-                dialogues.add("");
+                dialogues.add("Is that all you've got? My gauntlet’s made of stronger stuff!");
+                dialogues.add("Nice try, but it'll take more than that to break me! Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -197,6 +199,22 @@ public class Jimhardcore extends Player{
     public void receiveTimeEffect(Player hitter, Player target) {
         runTimeHeal();
         runTimeDamage();
+
+        ironBody--;
+        if (ironBody <= 0) {
+            ironBody = 0;
+
+            setAttack(getMaxAttack());
+            setDefense(getMaxDefense());
+        }
+
+        muscleCharge--;
+        if (muscleCharge <= 0) {
+            muscleCharge = 0;
+
+            setAttack(getMaxAttack());
+            setDefense(getMaxDefense());
+        }
     }
 
     public String useRandomAttack(Player hitter, Player target) {
@@ -229,8 +247,7 @@ public class Jimhardcore extends Player{
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -247,8 +264,7 @@ public class Jimhardcore extends Player{
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -265,8 +281,7 @@ public class Jimhardcore extends Player{
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -283,8 +298,7 @@ public class Jimhardcore extends Player{
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -301,8 +315,7 @@ public class Jimhardcore extends Player{
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -319,8 +332,7 @@ public class Jimhardcore extends Player{
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -358,27 +370,32 @@ public class Jimhardcore extends Player{
         setAttack(getMaxAttack());
     }
 
-    //enemy cannot dodge all incoming attacks
+    //increase the damage and defense
     private void skill3(Player hitter, Player target) {
-        target.setDodge(0);
-        setAttack(getAttack() + 5000);
-        target.receiveHit(hitter, target);
-        setAttack(getMaxAttack());
-        target.setDodge(target.getMaxDodge());
+        setAttack(getAttack() + 580);
+        setDefense(getDefense() + 180);
+
+        ironBody = 15;
     }
 
-    //heal and increase damage
+    //multiply the current damage and defense by 2
     private void skill4(Player hitter, Player target) {
-        setHealth(getHealth() + 10000);
-        setAttack(getAttack() + 11000);
-        target.receiveHit(hitter, target);
-        setAttack(getMaxAttack());
+        setAttack(getAttack() * 2);
+        setDefense(getDefense() * 2);
+
+        muscleCharge = 15;
     }
 
+    //pukes onto the enemy's face with a decent damage and two damage over time
     private void skill5(Player hitter, Player target) {
-        setHealth(getHealth() + 10000);
-        setAttack(getAttack() + 11000);
+        setAttack(getAttack() + 370);
         target.receiveHit(hitter, target);
         setAttack(getMaxAttack());
+
+        target.getDamageOverTime().add(280);
+        target.getDamageOverTimeValue().add(6);
+
+        target.getDamageOverTime().add(30);
+        target.getDamageOverTimeValue().add(21);
     }
 }
