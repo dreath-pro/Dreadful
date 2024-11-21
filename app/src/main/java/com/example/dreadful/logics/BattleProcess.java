@@ -24,7 +24,7 @@ import com.example.dreadful.adapters.ViewMonster;
 import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.adapters.ViewSkill;
 import com.example.dreadful.adapters.ViewStatus;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class BattleProcess {
     private TextView yourStunText, enemyStunText;
     private LinearLayout yourPlayerLayout, enemyPlayerLayout;
 
-    private Player yourPlayer, enemyPlayer;
+    private Monster yourMonster, enemyMonster;
     private GameMechanics gameMechanics;
     private SetupCharacter setupCharacter;
     private Random random = new Random();
@@ -59,7 +59,7 @@ public class BattleProcess {
 
     private Prompt prompt;
     private Dialog battleLogsDialog;
-    private ArrayList<Player> monsterList = new ArrayList<>();
+    private ArrayList<Monster> monsterList = new ArrayList<>();
 
     private int firstPlayerSelected, secondPlayerSelected;
     private int selectedMap, selectedLevel;
@@ -207,7 +207,7 @@ public class BattleProcess {
         setupCharacter = new SetupCharacter(context,
                 yourName, yourHealth, yourHealthText, yourImage,
                 enemyName, enemyHealth, enemyHealthText, enemyImage,
-                yourPlayer, enemyPlayer, backgroundImage, yourStunText,
+                yourMonster, enemyMonster, backgroundImage, yourStunText,
                 enemyStunText, backgroundList, selectedBackground,
                 yourHealth, enemyHealth, prompt);
 
@@ -230,11 +230,11 @@ public class BattleProcess {
         firstPlayerSelected = setupCharacter.getFirstPlayerSelected();
         secondPlayerSelected = setupCharacter.getSecondPlayerSelected();
 
-        yourPlayer = setupCharacter.returnYourCharacter();
-        enemyPlayer = setupCharacter.returnEnemyCharacter();
+        yourMonster = setupCharacter.returnYourCharacter();
+        enemyMonster = setupCharacter.returnEnemyCharacter();
 
         gameMechanics = new GameMechanics(context, yourHealth, yourHealthText, enemyHealth,
-                enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton, isBattle);
+                enemyHealthText, yourMonster, enemyMonster, promptView, yourStunText, enemyStunText, startButton, isBattle);
     }
 
     private void invisibleButtons(Boolean invisible) {
@@ -360,7 +360,7 @@ public class BattleProcess {
 
             LinearLayoutManager statusLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             monsterListView.setLayoutManager(statusLayoutManager);
-            viewMonster = new ViewMonster(context, monsterList, enemyPlayerSelected, isBattle, enemyPlayer);
+            viewMonster = new ViewMonster(context, monsterList, enemyPlayerSelected, isBattle, enemyMonster);
             monsterListView.setAdapter(viewMonster);
 
             viewMonster.setOnItemClickListener(new ViewMonster.OnItemClickListener() {
@@ -369,11 +369,11 @@ public class BattleProcess {
                     if (playerSelected == 0) {
                         firstPlayerSelected = position;
                         setupCharacter.setFirstPlayerSelected(firstPlayerSelected);
-                        yourPlayer = setupCharacter.returnYourCharacter();
+                        yourMonster = setupCharacter.returnYourCharacter();
                     } else {
                         secondPlayerSelected = position;
                         setupCharacter.setSecondPlayerSelected(secondPlayerSelected);
-                        enemyPlayer = setupCharacter.returnEnemyCharacter();
+                        enemyMonster = setupCharacter.returnEnemyCharacter();
                     }
 
                     startConfiguration(true, true, firstPlayerSelected, secondPlayerSelected);
@@ -403,31 +403,31 @@ public class BattleProcess {
             RecyclerView statusListView = characterDialog.findViewById(R.id.statusList);
             RecyclerView skillListView = characterDialog.findViewById(R.id.skillList);
 
-            Player player;
+            Monster monster;
             if (selectedPlayer == 0) {
-                player = yourPlayer;
+                monster = yourMonster;
             } else {
-                player = enemyPlayer;
+                monster = enemyMonster;
             }
 
-            playerName.setText(player.getName());
-            playerImage.setImageResource(player.getImage());
+            playerName.setText(monster.getName());
+            playerImage.setImageResource(monster.getImage());
 
-            if (player.getImageDirection().equals("left")) {
+            if (monster.getImageDirection().equals("left")) {
                 playerImage.setScaleX(-1);
             }
 
             LinearLayoutManager statusLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             statusListView.setLayoutManager(statusLayoutManager);
-            viewStatus = new ViewStatus(context, player);
+            viewStatus = new ViewStatus(context, monster);
             statusListView.setAdapter(viewStatus);
 
             LinearLayoutManager skillLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             skillListView.setLayoutManager(skillLayoutManager);
-            viewSkill = new ViewSkill(context, player);
+            viewSkill = new ViewSkill(context, monster);
             skillListView.setAdapter(viewSkill);
 
-            player.getStatusList().observe(lifecycleOwner, statusList -> {
+            monster.getStatusList().observe(lifecycleOwner, statusList -> {
                 // Delay the notifyDataSetChanged() call until the layout pass is complete
                 statusListView.post(() -> {
                     if (statusList != null) {
@@ -438,7 +438,7 @@ public class BattleProcess {
                 });
             });
 
-            player.getStatusValueList().observe(lifecycleOwner, statusValueList -> {
+            monster.getStatusValueList().observe(lifecycleOwner, statusValueList -> {
                 statusListView.post(() -> {
                     if (statusValueList != null) {
                         new Handler(Looper.getMainLooper()).post(() -> {
@@ -448,7 +448,7 @@ public class BattleProcess {
                 });
             });
 
-            player.getSkillNames().observe(lifecycleOwner, skillNamesList -> {
+            monster.getSkillNames().observe(lifecycleOwner, skillNamesList -> {
                 // Delay the notifyDataSetChanged() call until the layout pass is complete
                 skillListView.post(() -> {
                     if (skillNamesList != null) {
@@ -459,7 +459,7 @@ public class BattleProcess {
                 });
             });
 
-            player.getSkillCooldowns().observe(lifecycleOwner, skillCooldownsList -> {
+            monster.getSkillCooldowns().observe(lifecycleOwner, skillCooldownsList -> {
                 skillListView.post(() -> {
                     if (skillCooldownsList != null) {
                         new Handler(Looper.getMainLooper()).post(() -> {

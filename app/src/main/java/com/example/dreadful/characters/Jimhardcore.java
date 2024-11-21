@@ -7,14 +7,13 @@ import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.databases.MonsterDatabase;
-import com.example.dreadful.logics.NumberComma;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Jimhardcore extends Player {
+public class Jimhardcore extends Monster {
     private Random random = new Random();
     private Prompt prompt;
     private Context context;
@@ -146,7 +145,7 @@ public class Jimhardcore extends Player {
      * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
      */
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
@@ -196,7 +195,7 @@ public class Jimhardcore extends Player {
      * Override parent class' receiveTimeHp method so that his own unique receiveHit will still have effect
      * even if its direct attack
      */
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
         runTimeDamage();
 
@@ -217,7 +216,7 @@ public class Jimhardcore extends Player {
         }
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -354,13 +353,13 @@ public class Jimhardcore extends Player {
 
     //basic attack that has stun
     @Override
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
         enemy.setStun(2);
     }
 
     //enhance attack with damage over time effect (electric)
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         setAttack(getAttack() + 330);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
@@ -370,14 +369,14 @@ public class Jimhardcore extends Player {
     }
 
     //nothing special just a burst attack
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         setAttack(getAttack() + 1200);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
     }
 
     //increase the damage and defense
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         setAttack(getAttack() + 580);
         setDefense(getDefense() + 180);
 
@@ -385,7 +384,7 @@ public class Jimhardcore extends Player {
     }
 
     //multiply the current damage and defense by 2
-    private void skill4(Player you, Player enemy) {
+    private void skill4(Monster you, Monster enemy) {
         setAttack(getAttack() * 2);
         setDefense(getDefense() * 2);
 
@@ -393,7 +392,7 @@ public class Jimhardcore extends Player {
     }
 
     //pukes onto the enemy's face with a decent damage and two damage over time
-    private void skill5(Player you, Player enemy) {
+    private void skill5(Monster you, Monster enemy) {
         setAttack(getAttack() + 370);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());

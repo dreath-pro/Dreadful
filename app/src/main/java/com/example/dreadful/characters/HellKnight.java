@@ -6,20 +6,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.ResizeImage;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class HellKnight extends Player {
+public class HellKnight extends Monster {
     private Random random = new Random();
     private Animation shakeAnimation;
     private ImageView yourImage;
@@ -213,7 +211,7 @@ public class HellKnight extends Player {
      * if ember is active it will add extra shield that will reduce incoming damage and attacker's hit will
      * reflect back at them
      */
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge()) {
             if (form == 0) {
@@ -288,7 +286,7 @@ public class HellKnight extends Player {
         enemy.setAttack(enemy.getMaxAttack());
     }
 
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
 
         ArrayList<Integer> tempDot = new ArrayList<>();
@@ -372,7 +370,7 @@ public class HellKnight extends Player {
         }
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
         int skillIndex;
 
@@ -608,7 +606,7 @@ public class HellKnight extends Player {
     }
 
     //burst the target and applies burn that last for 7 turns
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         setAttack(4000);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
@@ -618,14 +616,14 @@ public class HellKnight extends Player {
     }
 
     //increase the defense and applies "enhanced armor" status
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         enhancedDefense = 21;
         setDefense(getDefense() + 350);
         receiveStatus(you, "Enhanced Armor", 1);
     }
 
     //receives a temporary flaming shield, and burns the target for 7 turns
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         ember = 15;
         receiveStatus(you, "Flame Shield", 1);
         flameShield += 25;
@@ -636,7 +634,7 @@ public class HellKnight extends Player {
 
     //transform into a dragon and increase the max health and heals yourself overtime at the same time
     //that lasts for 10 turns, your max health, defense will increase but your dodge will be reduced
-    private void skill4(Player you, Player enemy) {
+    private void skill4(Monster you, Monster enemy) {
         form = 1;
         yourImage.setImageResource(getTransformation()[0]);
         resizeImage.scale(yourImage, 200);
@@ -659,12 +657,12 @@ public class HellKnight extends Player {
 
 
     //simple basic attack in a dragon form
-    private void skill5(Player you, Player enemy) {
+    private void skill5(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
     }
 
     //burst the target and applies burn that last for 7 turns
-    private void skill6(Player you, Player enemy) {
+    private void skill6(Monster you, Monster enemy) {
         setAttack(2800);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
@@ -674,14 +672,14 @@ public class HellKnight extends Player {
     }
 
     //increase the defense and applies "enhanced scale" status
-    private void skill7(Player you, Player enemy) {
+    private void skill7(Monster you, Monster enemy) {
         enhancedDefense = 21;
         setDefense(getDefense() + 550);
         receiveStatus(you, "Enhanced Scale", 1);
     }
 
     //receives a temporary flaming shield, and burns the target for 7 turns
-    private void skill8(Player you, Player enemy) {
+    private void skill8(Monster you, Monster enemy) {
         ember = 15;
         receiveStatus(you, "Flame Shield", 1);
         flameShield += 40;
@@ -692,7 +690,7 @@ public class HellKnight extends Player {
 
     //transform into a human again and decrease the max health and heals yourself overtime
     //that lasts for 10 turns, your max health, defense will decrease and your enemy will be burst
-    private void skill9(Player you, Player enemy) {
+    private void skill9(Monster you, Monster enemy) {
         form = 0;
         yourImage.setImageResource(getImage());
         resizeImage.scale(yourImage, getSize());

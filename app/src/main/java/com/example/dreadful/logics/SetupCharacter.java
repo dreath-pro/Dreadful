@@ -1,7 +1,6 @@
 package com.example.dreadful.logics;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -9,19 +8,18 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
-import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.characters.Carnant;
 import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.Flamethrower;
 import com.example.dreadful.characters.GodOfDeath;
 import com.example.dreadful.characters.HellKnight;
+import com.example.dreadful.characters.Jimhardcore;
 import com.example.dreadful.characters.KumoNingyo;
 import com.example.dreadful.characters.DreadProphet;
 import com.example.dreadful.characters.Michael;
 import com.example.dreadful.characters.VoidReaper;
 import com.example.dreadful.databases.MonsterDatabase;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
@@ -35,8 +33,8 @@ public class SetupCharacter {
     private TextView yourStunText, enemyStunText;
     private ImageView yourImage, enemyImage;
     private ConstraintLayout backgroundImage;
-    private Player yourPlayer, enemyPlayer;
-    private ArrayList<Player> players = new ArrayList<>();
+    private Monster yourMonster, enemyMonster;
+    private ArrayList<Monster> monsters = new ArrayList<>();
     private Random random = new Random();
     private ResizeImage resizeImage;
     private Prompt prompt;
@@ -51,7 +49,7 @@ public class SetupCharacter {
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
-                          Player yourPlayer, Player enemyPlayer, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText,
+                          Monster yourMonster, Monster enemyMonster, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText,
                           ArrayList<Integer> backgroundList, int selectedBackground, ProgressBar yourHealthBar, ProgressBar enemyHealthBar, Prompt prompt) {
 
         this.context = context;
@@ -79,61 +77,62 @@ public class SetupCharacter {
 
         this.prompt = prompt;
 
-        this.yourPlayer = yourPlayer;
-        this.enemyPlayer = enemyPlayer;
+        this.yourMonster = yourMonster;
+        this.enemyMonster = enemyMonster;
 
         this.monsterDatabase = new MonsterDatabase(context);
     }
 
-    public ArrayList<Player> yourMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
-        players.clear();
+    public ArrayList<Monster> yourMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+        monsters.clear();
         ArrayList<String> monsterNames = monsterDatabase.selectAll();
-        players = monsterListing(monsterNames, playerImage, opponentImage, playerHealthBar, playerName);
+        monsters = monsterListing(monsterNames, playerImage, opponentImage, playerHealthBar, playerName);
 
-        return players;
+        return monsters;
     }
 
-    public ArrayList<Player> allMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
-        players.clear();
-        players = monsterListing(null, playerImage, opponentImage, playerHealthBar, playerName);
+    public ArrayList<Monster> allMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+        monsters.clear();
+        monsters = monsterListing(null, playerImage, opponentImage, playerHealthBar, playerName);
 
-        return players;
+        return monsters;
     }
 
-    private ArrayList<Player> monsterListing(ArrayList<String> monsterList, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
-        ArrayList<Player> finalPlayers = new ArrayList<>();
+    private ArrayList<Monster> monsterListing(ArrayList<String> monsterList, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+        ArrayList<Monster> finalMonsters = new ArrayList<>();
 
-        players.clear();
-        players.add(new Dreath(context, playerImage, prompt));
-        players.add(new DreadProphet(context, playerImage, prompt));
-        players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
-        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
-        players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
-        players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
-        players.add(new GodOfDeath(context, playerImage, prompt));
-        players.add(new Michael(context, playerImage, prompt, opponentImage));
+        monsters.clear();
+        monsters.add(new Dreath(context, playerImage, prompt));
+        monsters.add(new DreadProphet(context, playerImage, prompt));
+        monsters.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
+        monsters.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
+        monsters.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
+        monsters.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
+        monsters.add(new GodOfDeath(context, playerImage, prompt));
+        monsters.add(new Michael(context, playerImage, prompt, opponentImage));
+        monsters.add(new Jimhardcore(context, playerImage, prompt));
 
         if (monsterList != null) {
-            players.add(new Flamethrower(context, playerImage, prompt));
+            monsters.add(new Flamethrower(context, playerImage, prompt));
 
             for (int i = 0; i <= monsterList.size() - 1; i++) {
-                for (int j = 0; j <= players.size() - 1; j++) {
-                    if (monsterList.get(i).equals(players.get(j).getName())) {
-                        finalPlayers.add(players.get(j));
+                for (int j = 0; j <= monsters.size() - 1; j++) {
+                    if (monsterList.get(i).equals(monsters.get(j).getName())) {
+                        finalMonsters.add(monsters.get(j));
                     }
                 }
             }
         } else {
-            finalPlayers = players;
+            finalMonsters = monsters;
         }
 
-        return finalPlayers;
+        return finalMonsters;
     }
 
     private ArrayList<Integer> mapMonsters(ArrayList<Integer> background, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,
                                            int selectedLevel, int selectedMap) {
         ArrayList<Integer> newBackground = background;
-        players.clear();
+        monsters.clear();
 
         switch (selectedMap) {
             case 0:
@@ -143,9 +142,11 @@ public class SetupCharacter {
                     case 0:
                     case 1:
                     case 2:
+                        monsters.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
+                        break;
                     case 3:
                     case 4:
-                        players.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
+                        monsters.add(new Jimhardcore(context, playerImage, prompt));
                         break;
                 }
 
@@ -160,7 +161,7 @@ public class SetupCharacter {
                     case 2:
                     case 3:
                     case 4:
-                        players.add(new Michael(context, playerImage, prompt, opponentImage));
+                        monsters.add(new Michael(context, playerImage, prompt, opponentImage));
 
                         newBackground.clear();
                         newBackground.add(R.drawable.background_statue);
@@ -178,7 +179,7 @@ public class SetupCharacter {
                     case 2:
                     case 3:
                     case 4:
-                        players.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
+                        monsters.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
                         break;
                 }
 
@@ -191,16 +192,16 @@ public class SetupCharacter {
                     case 0:
                     case 1:
                     case 2:
-                        players.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
+                        monsters.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
                         break;
                     case 3:
-                        players.add(new DreadProphet(context, playerImage, prompt));
+                        monsters.add(new DreadProphet(context, playerImage, prompt));
 
                         newBackground.clear();
                         newBackground.add(R.drawable.background_cathedral);
                         break;
                     case 4:
-                        players.add(new DreadProphet(context, playerImage, prompt));
+                        monsters.add(new DreadProphet(context, playerImage, prompt));
 
                         newBackground.clear();
                         newBackground.add(R.drawable.background_cathedral);
@@ -216,13 +217,13 @@ public class SetupCharacter {
                     case 0:
                     case 1:
                     case 2:
-                        players.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
+                        monsters.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
                         break;
                     case 3:
-                        players.add(new Dreath(context, playerImage, prompt));
+                        monsters.add(new Dreath(context, playerImage, prompt));
                         break;
                     case 4:
-                        players.add(new Dreath(context, playerImage, prompt));
+                        monsters.add(new Dreath(context, playerImage, prompt));
                         break;
                 }
 
@@ -237,7 +238,7 @@ public class SetupCharacter {
                     case 2:
                     case 3:
                     case 4:
-                        players.add(new GodOfDeath(context, playerImage, prompt));
+                        monsters.add(new GodOfDeath(context, playerImage, prompt));
                         break;
                 }
 
@@ -247,12 +248,12 @@ public class SetupCharacter {
         return newBackground;
     }
 
-    public Player returnYourCharacter() {
-        return yourPlayer;
+    public Monster returnYourCharacter() {
+        return yourMonster;
     }
 
-    public Player returnEnemyCharacter() {
-        return enemyPlayer;
+    public Monster returnEnemyCharacter() {
+        return enemyMonster;
     }
 
     public void selectYourCharacter(boolean newViews, boolean isBattle, boolean fromSelection, int selectedMonster) {
@@ -269,27 +270,27 @@ public class SetupCharacter {
                 if (isBattle) {
                     firstPlayerSelected = 0;
                 } else {
-                    firstPlayerSelected = random.nextInt(players.size());
+                    firstPlayerSelected = random.nextInt(monsters.size());
                 }
             } else {
                 firstPlayerSelected = selectedMonster;
             }
         }
-        yourPlayer = players.get(firstPlayerSelected);
+        yourMonster = monsters.get(firstPlayerSelected);
 
-        yourName.setText(yourPlayer.getName());
-        yourHealthText.setText(numberComma.convertComma(yourPlayer.getHealth()));
-        yourHealth.setMax(yourPlayer.getHealth());
-        yourHealth.setProgress(yourPlayer.getHealth());
-        yourImage.setImageResource(yourPlayer.getImage());
+        yourName.setText(yourMonster.getName());
+        yourHealthText.setText(numberComma.convertComma(yourMonster.getHealth()));
+        yourHealth.setMax(yourMonster.getHealth());
+        yourHealth.setProgress(yourMonster.getHealth());
+        yourImage.setImageResource(yourMonster.getImage());
 
-        yourStunText.setText(yourPlayer.getStun() + "");
+        yourStunText.setText(yourMonster.getStun() + "");
 
-        if (yourPlayer.getImageDirection().equals("left")) {
+        if (yourMonster.getImageDirection().equals("left")) {
             yourImage.setScaleX(-1);
         }
 
-        resizeImage.scale(yourImage, yourPlayer.getSize());
+        resizeImage.scale(yourImage, yourMonster.getSize());
     }
 
     public ArrayList<Integer> selectEnemyCharacter(ArrayList<Integer> background, boolean newViews, int selectedLevel, int selectedMap, boolean isBattle, boolean fromSelection, int selectedMonster) {
@@ -305,7 +306,7 @@ public class SetupCharacter {
 
         if (newViews) {
             if (!fromSelection) {
-                secondPlayerSelected = random.nextInt(players.size());
+                secondPlayerSelected = random.nextInt(monsters.size());
             } else {
                 secondPlayerSelected = selectedMonster;
             }
@@ -313,27 +314,27 @@ public class SetupCharacter {
         if (!isBattle) {
             if (firstPlayerSelected == secondPlayerSelected) {
                 do {
-                    secondPlayerSelected = random.nextInt(players.size());
+                    secondPlayerSelected = random.nextInt(monsters.size());
                 } while (firstPlayerSelected == secondPlayerSelected);
             }
         }
-        enemyPlayer = players.get(secondPlayerSelected);
+        enemyMonster = monsters.get(secondPlayerSelected);
 
-        players.clear();
+        monsters.clear();
 
-        enemyName.setText(enemyPlayer.getName());
-        enemyHealthText.setText(numberComma.convertComma(enemyPlayer.getHealth()));
-        enemyHealth.setMax(enemyPlayer.getHealth());
-        enemyHealth.setProgress(enemyPlayer.getHealth());
-        enemyImage.setImageResource(enemyPlayer.getImage());
+        enemyName.setText(enemyMonster.getName());
+        enemyHealthText.setText(numberComma.convertComma(enemyMonster.getHealth()));
+        enemyHealth.setMax(enemyMonster.getHealth());
+        enemyHealth.setProgress(enemyMonster.getHealth());
+        enemyImage.setImageResource(enemyMonster.getImage());
 
-        enemyStunText.setText(enemyPlayer.getStun() + "");
+        enemyStunText.setText(enemyMonster.getStun() + "");
 
-        if (enemyPlayer.getImageDirection().equals("right")) {
+        if (enemyMonster.getImageDirection().equals("right")) {
             enemyImage.setScaleX(-1);
         }
 
-        resizeImage.scale(enemyImage, enemyPlayer.getSize());
+        resizeImage.scale(enemyImage, enemyMonster.getSize());
 
         return newBackground;
     }

@@ -1,35 +1,21 @@
 package com.example.dreadful.activities;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
-import com.example.dreadful.adapters.ViewSkill;
-import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.characters.Flamethrower;
 import com.example.dreadful.databases.MonsterDatabase;
-import com.example.dreadful.logics.GameMechanics;
-import com.example.dreadful.models.Player;
-import com.example.dreadful.logics.SetupCharacter;
-
-import java.util.Random;
+import com.example.dreadful.models.Monster;
 
 public class MainActivity extends AppCompatActivity {
     //person with spiky armor covered with dark liquid, hd detailed, dark cartoon 2d, horror theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
@@ -59,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         monsterDatabase = new MonsterDatabase(this);
 
-        Player player = new Flamethrower(this);
+        Monster monster = new Flamethrower(this);
 
         if (!monsterDatabase.doesDataExist()) {
-            monsterDatabase.addMonster(player.getName());
+            monsterDatabase.addMonster(monster.getName());
         }
 
         classicButton.setOnClickListener(new View.OnClickListener() {

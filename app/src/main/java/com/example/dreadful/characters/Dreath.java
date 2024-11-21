@@ -1,27 +1,20 @@
 package com.example.dreadful.characters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
-import com.example.dreadful.adapters.ViewPrompt;
 import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.NumberComma;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Dreath extends Player {
+public class Dreath extends Monster {
     private Random random = new Random();
     private Prompt prompt;
     private Context context;
@@ -165,7 +158,7 @@ public class Dreath extends Player {
      * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
      */
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
@@ -260,7 +253,7 @@ public class Dreath extends Player {
      * Override parent class' receiveTimeHp method so that his own unique receiveHit will still have effect
      * even if its direct attack
      */
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
         runTimeDamage();
 
@@ -286,7 +279,7 @@ public class Dreath extends Player {
         }
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -423,14 +416,14 @@ public class Dreath extends Player {
 
     //attack that will ignore defense
     @Override
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.setDefense(0);
         enemy.receiveHit(you, enemy);
         enemy.setDefense(enemy.getMaxDefense());
     }
 
     //prevent enemy from using all skills
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         ArrayList<Integer> newSkillCooldowns = enemy.getSkillCooldowns().getValue();
         if (newSkillCooldowns == null) {
             newSkillCooldowns = new ArrayList<>();
@@ -447,7 +440,7 @@ public class Dreath extends Player {
     }
 
     //enemy cannot dodge all incoming attacks
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         enemy.setDodge(0);
         setAttack(getAttack() + 5000);
 
@@ -458,14 +451,14 @@ public class Dreath extends Player {
     }
 
     //high burst
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         setAttack(getAttack() + 8870);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
     }
 
     //heal and increase damage
-    private void skill4(Player you, Player enemy) {
+    private void skill4(Monster you, Monster enemy) {
         setHealth(getHealth() + 10000);
         setAttack(getAttack() + 11000);
         enemy.receiveHit(you, enemy);

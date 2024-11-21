@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 
 import java.util.ArrayList;
 
@@ -22,11 +22,11 @@ public class ViewSkill extends RecyclerView.Adapter<ViewSkill.MyViewHolder> {
     private ArrayList<String> skillNames = new ArrayList<>();
     private ArrayList<Integer> skillCooldowns = new ArrayList<>();
 
-    public ViewSkill(Context context, Player player) {
+    public ViewSkill(Context context, Monster monster) {
         this.context = context;
 
         // Observe statusList LiveData
-        player.getSkillNames().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {
+        monster.getSkillNames().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> newSkillNamesList) {
                 skillNames = newSkillNamesList != null ? newSkillNamesList : new ArrayList<>();
@@ -35,7 +35,7 @@ public class ViewSkill extends RecyclerView.Adapter<ViewSkill.MyViewHolder> {
         });
 
         // Observe statusValueList LiveData
-        player.getSkillCooldowns().observe((LifecycleOwner) context, new Observer<ArrayList<Integer>>() {
+        monster.getSkillCooldowns().observe((LifecycleOwner) context, new Observer<ArrayList<Integer>>() {
             @Override
             public void onChanged(ArrayList<Integer> newSkillCooldownsList) {
                 skillCooldowns = newSkillCooldownsList != null ? newSkillCooldownsList : new ArrayList<>();

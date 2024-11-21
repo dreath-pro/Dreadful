@@ -8,10 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.dreadful.models.Player;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MonsterDatabase extends SQLiteOpenHelper {
     private static final String monster_table = "monster_table";

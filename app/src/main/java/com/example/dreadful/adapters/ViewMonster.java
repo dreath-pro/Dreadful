@@ -8,24 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 
 import java.util.ArrayList;
 
 public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> {
     private Context context;
-    private ArrayList<Player> monsterList;
+    private ArrayList<Monster> monsterList;
     private int enemySelectedMonster;
     private boolean isBattle;
-    private Player enemyMonster;
+    private Monster enemyMonster;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -37,7 +35,7 @@ public class ViewMonster extends RecyclerView.Adapter<ViewMonster.MyViewHolder> 
         this.listener = listener;
     }
 
-    public ViewMonster(Context context, ArrayList<Player> monsterList, int enemySelectedMonster, boolean isBattle, Player enemyMonster) {
+    public ViewMonster(Context context, ArrayList<Monster> monsterList, int enemySelectedMonster, boolean isBattle, Monster enemyMonster) {
         this.context = context;
         this.monsterList = monsterList;
         this.enemySelectedMonster = enemySelectedMonster;

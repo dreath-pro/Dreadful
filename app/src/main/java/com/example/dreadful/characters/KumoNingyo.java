@@ -1,24 +1,20 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.databases.MonsterDatabase;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class KumoNingyo extends Player {
+public class KumoNingyo extends Monster {
     private Random random = new Random();
     private ProgressBar yourHealthBar;
     private Prompt prompt;
@@ -154,7 +150,7 @@ public class KumoNingyo extends Player {
      * everytime an attacker hit, kumo ningyo will be mark with lost limb buff and healing effects
      * will increase significantly base on the lost limbs buff
      */
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
@@ -186,7 +182,7 @@ public class KumoNingyo extends Player {
         receiveStatus(you, "Lost Limbs", 1);
     }
 
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         ArrayList<String> newStatus = getStatusList().getValue();
         if (newStatus == null) {
             newStatus = new ArrayList<>();
@@ -244,7 +240,7 @@ public class KumoNingyo extends Player {
         }
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -368,14 +364,14 @@ public class KumoNingyo extends Player {
 
     //every attack has poison effect that last 10 turns
     @Override
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
         enemy.getDamageOverTime().add(poison);
         enemy.getDamageOverTimeValue().add(30);
     }
 
     //uses base damage 3 times and same poison effect
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         setAttack(getAttack() * 3);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
@@ -386,7 +382,7 @@ public class KumoNingyo extends Player {
 
     //recovers 800 health and multiply by the value of the lost limbs buff and bypasses the max health rewriting it
     //also removes the lost limbs buff, while also increasing the poison effect permanently
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         if (!hasStatus(you, "Lost Limbs", 1).isEmpty()) {
             int index = Integer.parseInt(hasStatus(you, "Lost Limbs", 1));
 
@@ -427,7 +423,7 @@ public class KumoNingyo extends Player {
     }
 
     //burst attack with poison and add 60% dodge for the hitter's next attack with the same poison effect
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         setAttack(4500);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
@@ -441,7 +437,7 @@ public class KumoNingyo extends Player {
     }
 
     //stuns the target
-    private void skill4(Player you, Player enemy) {
+    private void skill4(Monster you, Monster enemy) {
         enemy.setStun(4);
     }
 }

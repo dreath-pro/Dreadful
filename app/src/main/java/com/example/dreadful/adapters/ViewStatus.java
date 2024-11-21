@@ -12,7 +12,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.R;
 
 import java.util.ArrayList;
@@ -22,11 +22,11 @@ public class ViewStatus extends RecyclerView.Adapter<ViewStatus.MyViewHolder> {
     private ArrayList<String> statusList = new ArrayList<>();
     private ArrayList<Integer> statusValueList = new ArrayList<>();
 
-    public ViewStatus(Context context, Player player) {
+    public ViewStatus(Context context, Monster monster) {
         this.context = context;
 
         // Observe statusList LiveData
-        player.getStatusList().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {
+        monster.getStatusList().observe((LifecycleOwner) context, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> newStatusList) {
                 statusList = newStatusList != null ? newStatusList : new ArrayList<>();
@@ -35,7 +35,7 @@ public class ViewStatus extends RecyclerView.Adapter<ViewStatus.MyViewHolder> {
         });
 
         // Observe statusValueList LiveData
-        player.getStatusValueList().observe((LifecycleOwner) context, new Observer<ArrayList<Integer>>() {
+        monster.getStatusValueList().observe((LifecycleOwner) context, new Observer<ArrayList<Integer>>() {
             @Override
             public void onChanged(ArrayList<Integer> newStatusValueList) {
                 statusValueList = newStatusValueList != null ? newStatusValueList : new ArrayList<>();

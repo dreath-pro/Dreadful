@@ -1,23 +1,19 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.databases.MonsterDatabase;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GodOfDeath extends Player {
+public class GodOfDeath extends Monster {
     private Random random = new Random();
     private Prompt prompt;
     private int timeBeforeDeath = 0;
@@ -147,7 +143,7 @@ public class GodOfDeath extends Player {
         }
     }
 
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
@@ -197,7 +193,7 @@ public class GodOfDeath extends Player {
         }
     }
 
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
         runTimeDamage();
         
@@ -235,7 +231,7 @@ public class GodOfDeath extends Player {
         }
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -355,7 +351,7 @@ public class GodOfDeath extends Player {
 
     //basic attack with damage over time that last for 4 turns
     @Override
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.setDefense(0);
         enemy.receiveHit(you, enemy);
         enemy.setDefense(getMaxDefense());
@@ -365,7 +361,7 @@ public class GodOfDeath extends Player {
     }
 
     //resets the health to max and then reduce enemy health by 50% of it's max health
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         setHealth(getMaxHealth());
 
         double halfHealthDamage = ((double) 50 / 100) * enemy.getMaxHealth();
@@ -379,7 +375,7 @@ public class GodOfDeath extends Player {
     }
 
     //give the target time before death ranges from 6 to 10
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         isClockOn = true;
         timeBeforeDeath = random.nextInt(4) + 6;
 
@@ -387,7 +383,7 @@ public class GodOfDeath extends Player {
     }
 
     //same as basic attack but enhanced
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         enemy.setDefense(0);
         enemy.receiveHit(you, enemy);
         enemy.setDefense(getMaxDefense());

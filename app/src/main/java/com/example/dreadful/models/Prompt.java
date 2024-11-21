@@ -1,11 +1,7 @@
 package com.example.dreadful.models;
 
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
-import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -67,13 +63,13 @@ public class Prompt {
         }
     }
 
-    public void selectRandomMessage(Player selectedPlayer, ArrayList<String> messages, boolean isDialog) {
+    public void selectRandomMessage(Monster selectedMonster, ArrayList<String> messages, boolean isDialog) {
         ArrayList<String> newBattleMessage = getBattleMessage().getValue();
         if (newBattleMessage == null) {
             newBattleMessage = new ArrayList<>();
         }
         if (isDialog) {
-            newBattleMessage.add(selectedPlayer.getName() + ": " + messages.get(random.nextInt(messages.size())));
+            newBattleMessage.add(selectedMonster.getName() + ": " + messages.get(random.nextInt(messages.size())));
         } else {
             newBattleMessage.add(messages.get(random.nextInt(messages.size())));
         }

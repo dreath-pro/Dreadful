@@ -1,8 +1,6 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -10,16 +8,15 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.ResizeImage;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Carnant extends Player {
+public class Carnant extends Monster {
     private Random random = new Random();
     private ImageView yourImage;
     private ProgressBar yourHealthBar;
@@ -205,7 +202,7 @@ public class Carnant extends Player {
     /**
      * if he dies theres a 50/50 chance he will transform into a strong mutant, or will just die easily
      */
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
@@ -306,7 +303,7 @@ public class Carnant extends Player {
         }
     }
 
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
         runTimeDamage();
 
@@ -379,7 +376,7 @@ public class Carnant extends Player {
         }
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
         int skillIndex;
 
@@ -566,18 +563,18 @@ public class Carnant extends Player {
     }
 
     //simple attack with stun
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
         enemy.setStun(3);
     }
 
     //simple attack
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
     }
 
     //attack that will pierce through defense
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         enemy.setDefense(0);
         setAttack(getAttack() * 2);
 
@@ -588,7 +585,7 @@ public class Carnant extends Player {
     }
 
     //same effect with basic attack but with enhanced damage and follow up damage over time that last for 4 turns
-    private void skill4(Player you, Player enemy) {
+    private void skill4(Monster you, Monster enemy) {
         enemy.setDefense(0);
         setAttack(getAttack() * 4);
 
@@ -602,7 +599,7 @@ public class Carnant extends Player {
     }
 
     //simple heal over time that last for 4 turns while also applying venom that last for 4 turns
-    private void skill5(Player you, Player enemy) {
+    private void skill5(Monster you, Monster enemy) {
         getHealOverTime().add(heal * 2);
         getHealOverTimeValue().add(12);
 
@@ -611,7 +608,7 @@ public class Carnant extends Player {
     }
 
     //increase dodge while applying dissolve armor status and venom that last for 4 turns
-    private void skill6(Player you, Player enemy) {
+    private void skill6(Monster you, Monster enemy) {
         setDodge(getDodge() + 80);
         receiveStatus(you, "Dissolve Armor", 100);
 

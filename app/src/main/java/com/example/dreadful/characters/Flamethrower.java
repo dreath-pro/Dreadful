@@ -7,14 +7,13 @@ import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.databases.MonsterDatabase;
-import com.example.dreadful.logics.NumberComma;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Flamethrower extends Player {
+public class Flamethrower extends Monster {
     private Random random = new Random();
     private Prompt prompt;
     private Context context;
@@ -137,7 +136,7 @@ public class Flamethrower extends Player {
         }
     }
 
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
@@ -189,12 +188,12 @@ public class Flamethrower extends Player {
         }
     }
 
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
         runTimeDamage();
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -294,7 +293,7 @@ public class Flamethrower extends Player {
 
     //simple attack with burn effect that will ignore target defense and dodge
     @Override
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.setDefense(0);
         enemy.setDodge(0);
 
@@ -309,7 +308,7 @@ public class Flamethrower extends Player {
 
     //same as basic attack but doubles the damage and effect when gas reaches 0,
     //the effect will be divided by half until reloading
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         enemy.setDefense(0);
         enemy.setDodge(0);
 
@@ -334,7 +333,7 @@ public class Flamethrower extends Player {
     }
 
     //resets the gas and stuns enemy
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         gas = maxGas;
         enemy.setStun(2);
     }

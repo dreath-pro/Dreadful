@@ -1,22 +1,19 @@
 package com.example.dreadful.models;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dreadful.R;
-import com.example.dreadful.adapters.ViewPrompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Player {
+public abstract class Monster {
     private int id;
     private String name;
     private int image;
@@ -40,12 +37,12 @@ public abstract class Player {
 
     private Random random = new Random();
 
-    public Player() {
+    public Monster() {
 
     }
 
-    public Player(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
-                  int[] dimension, int health, int attack, int defense, int dodge) {
+    public Monster(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
+                   int[] dimension, int health, int attack, int defense, int dodge) {
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -65,8 +62,8 @@ public abstract class Player {
         this.stun = 0;
     }
 
-    public Player(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
-                  int[] transformation, int[] dimension, int health, int attack, int defense, int dodge, Prompt prompt) {
+    public Monster(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
+                   int[] transformation, int[] dimension, int health, int attack, int defense, int dodge, Prompt prompt) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -91,7 +88,7 @@ public abstract class Player {
 
     public abstract void defeatReward();
 
-    public void receiveStatus(Player target, String statusName, int statusValue) {
+    public void receiveStatus(Monster target, String statusName, int statusValue) {
         boolean withStatus = false;
         int statusIndex = 0;
 
@@ -128,7 +125,7 @@ public abstract class Player {
         }
     }
 
-    public String hasStatus(Player target, String statusName, int statusValue) {
+    public String hasStatus(Monster target, String statusName, int statusValue) {
         String hasStatus = "";
 
         ArrayList<String> newStatusList = target.statusList.getValue();
@@ -150,7 +147,7 @@ public abstract class Player {
         return hasStatus;
     }
 
-    protected String receiveHitLogic(Player enemy, Player you) {
+    protected String receiveHitLogic(Monster enemy, Monster you) {
         String result = ""; //DODGE, BLOCKED, 47% <-- damage percentage
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
@@ -174,7 +171,7 @@ public abstract class Player {
         return (int) damagePercentage;
     }
 
-    public abstract void receiveHit(Player enemy, Player you);
+    public abstract void receiveHit(Monster enemy, Monster you);
 
     protected void runTimeDamage() {
         ArrayList<Integer> tempDot = new ArrayList<>();
@@ -212,7 +209,7 @@ public abstract class Player {
         setHealOverTimeValue(tempHotValue);
     }
 
-    public abstract void receiveTimeEffect(Player enemy, Player you);
+    public abstract void receiveTimeEffect(Monster enemy, Monster you);
 
     protected void reduceCooldown(int skillIndex) {
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -243,9 +240,9 @@ public abstract class Player {
         updateSkillCooldowns(newSkillCooldowns);
     }
 
-    public abstract String useRandomAttack(Player you, Player enemy);
+    public abstract String useRandomAttack(Monster you, Monster enemy);
 
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
     }
 

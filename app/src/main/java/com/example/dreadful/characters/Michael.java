@@ -11,13 +11,13 @@ import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.databases.MonsterDatabase;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Michael extends Player{
+public class Michael extends Monster {
     private Random random = new Random();
     private Prompt prompt;
     private Context context;
@@ -178,7 +178,7 @@ public class Michael extends Player{
         }
     }
 
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         int originalDamage = enemy.getAttack();
         double percentage = shieldPercentage / 100;
         int reducedAttack = (int) (originalDamage * (1 - percentage));
@@ -219,7 +219,7 @@ public class Michael extends Player{
         enemy.setAttack(enemy.getMaxAttack());
     }
 
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
 
         shield--;
@@ -244,7 +244,7 @@ public class Michael extends Player{
         }
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -417,14 +417,14 @@ public class Michael extends Player{
 
     //attack that will ignore dodge
     @Override
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.setDodge(0);
         enemy.receiveHit(you, enemy);
         enemy.setDodge(enemy.getMaxDodge());
     }
 
     //cleanse all status and damage over time while damaging the enemy
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         ArrayList<String> newStatusList = getStatusList().getValue();
         if (newStatusList == null) {
             newStatusList = new ArrayList<>();
@@ -452,7 +452,7 @@ public class Michael extends Player{
     }
 
     //cleanse all enemy's status and heal over time and also stunning them
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         ArrayList<String> newStatusList = enemy.getStatusList().getValue();
         if (newStatusList == null) {
             newStatusList = new ArrayList<>();
@@ -476,7 +476,7 @@ public class Michael extends Player{
     }
 
     //provides a temporary shield and damaging enemy at the same time
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         shieldPercentage *= 2;
         shield = 5;
 
@@ -487,7 +487,7 @@ public class Michael extends Player{
     }
 
     //petrify enemy and reduce their health to ash and their dodge while ignoring their defense
-    private void skill4(Player you, Player enemy) {
+    private void skill4(Monster you, Monster enemy) {
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0f);
 
@@ -506,7 +506,7 @@ public class Michael extends Player{
     }
 
     //give enemy damage over time and hit them
-    private void skill5(Player you, Player enemy)
+    private void skill5(Monster you, Monster enemy)
     {
         enemy.receiveHit(you, enemy);
 

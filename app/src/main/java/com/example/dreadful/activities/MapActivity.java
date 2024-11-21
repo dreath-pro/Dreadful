@@ -20,19 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewMap;
-import com.example.dreadful.adapters.ViewSkill;
-import com.example.dreadful.adapters.ViewStatus;
 import com.example.dreadful.models.Level;
 import com.example.dreadful.models.Map;
-import com.example.dreadful.models.Player;
 
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

@@ -1,23 +1,19 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.databases.MonsterDatabase;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DreadProphet extends Player {
+public class DreadProphet extends Monster {
     private Random random = new Random();
     private Prompt prompt;
     private Context context;
@@ -168,7 +164,7 @@ public class DreadProphet extends Player {
      * everytime an attacker hits dread prophet, they will be mark with sin, and every attack it will add
      * 10 mark of sin
      */
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
@@ -188,7 +184,7 @@ public class DreadProphet extends Player {
      * the damage overtime received from the opponent will be convert into his own heal over time
      * the heal overtime he receive will be useless and be ignore, only damage over time is his way of healing
      */
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         ArrayList<Integer> tempDot = new ArrayList<>();
         ArrayList<Integer> tempDotValue = new ArrayList<>();
 
@@ -208,7 +204,7 @@ public class DreadProphet extends Player {
         runTimeHeal();
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -347,21 +343,21 @@ public class DreadProphet extends Player {
 
     //this attack is undodgeable but can be reduce by opponent's defense
     @Override
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.setDodge(0);
         enemy.receiveHit(you, enemy);
         enemy.setDodge(enemy.getMaxDodge());
     }
 
     //simple burst attack
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         setAttack(getAttack() + 8450);
         enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
     }
 
     //enemy healing will be reverse and convert to damage
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         int allHeal = 0;
         for (int i = 0; i <= enemy.getHealOverTime().size() - 1; i++) {
             allHeal += enemy.getHealOverTime().get(i);
@@ -378,7 +374,7 @@ public class DreadProphet extends Player {
 
     //retribution for sinner hitter/attacker, base on the value of the "mark of sin"
     //reduce percentage of attacker current health base on the value of mark of sin
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
 
         if (!hasStatus(enemy, "Mark of Sin", 50).isEmpty()) {
@@ -399,7 +395,7 @@ public class DreadProphet extends Player {
     }
 
     //heal over time for a short turn, base on the value of the "mark of sin"
-    private void skill4(Player you, Player enemy) {
+    private void skill4(Monster you, Monster enemy) {
         if (!hasStatus(enemy, "Mark of Sin", 50).isEmpty()) {
             ArrayList<Integer> newStatusValue = enemy.getStatusValueList().getValue();
             if (newStatusValue == null) {

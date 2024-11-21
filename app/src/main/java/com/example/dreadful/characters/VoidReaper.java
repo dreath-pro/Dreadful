@@ -1,25 +1,21 @@
 package com.example.dreadful.characters;
 
 import android.content.Context;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
-import com.example.dreadful.activities.TestActivity;
 import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.ResizeImage;
-import com.example.dreadful.models.Player;
+import com.example.dreadful.models.Monster;
 import com.example.dreadful.models.Prompt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class VoidReaper extends Player {
+public class VoidReaper extends Monster {
     private Random random = new Random();
     private ImageView yourImage;
     private ConstraintLayout backgroundImage;
@@ -184,7 +180,7 @@ public class VoidReaper extends Player {
      * if the attacker hits, the void reaper will be mark with time passed status by 1 and it will stack with
      * each hits
      */
-    public void receiveHit(Player enemy, Player you) {
+    public void receiveHit(Monster enemy, Monster you) {
         if (!hasStatus(enemy, "Fatigue", 1).isEmpty()) {
             enemy.setAttack(enemy.getAttack() - 250);
         }
@@ -257,7 +253,7 @@ public class VoidReaper extends Player {
         receiveStatus(you, "Time Passed", 1);
     }
 
-    public void receiveTimeEffect(Player enemy, Player you) {
+    public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
         runTimeDamage();
 
@@ -318,7 +314,7 @@ public class VoidReaper extends Player {
         }
     }
 
-    public String useRandomAttack(Player you, Player enemy) {
+    public String useRandomAttack(Monster you, Monster enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -541,7 +537,7 @@ public class VoidReaper extends Player {
         return skillName;
     }
 
-    private void reduceCoolDown(Player you, Player enemy) {
+    private void reduceCoolDown(Monster you, Monster enemy) {
         if (!hasStatus(enemy, "The Void", 1).isEmpty()) {
             ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
             if (newSkillCooldowns == null) {
@@ -572,13 +568,13 @@ public class VoidReaper extends Player {
 
     //if there is the void mark, the void reaper reduces his cooldown with each attack he deals
     @Override
-    public void basicAttack(Player you, Player enemy) {
+    public void basicAttack(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
         reduceCoolDown(you, enemy);
     }
 
     //stuns the enemy and burst them and applies "the void" status to the target
-    private void skill1(Player you, Player enemy) {
+    private void skill1(Monster you, Monster enemy) {
         backgroundImage.setBackgroundResource(getDimension()[1]);
         yourImage.setImageResource(getTransformation()[0]);
         resizeImage.scale(yourImage, 185);
@@ -593,7 +589,7 @@ public class VoidReaper extends Player {
 
     //the enemy will be teleported to a different dimension and void reaper will transform, after that
     //he will burst the target and resets all skill cooldown every attack
-    private void skill2(Player you, Player enemy) {
+    private void skill2(Monster you, Monster enemy) {
         backgroundImage.setBackgroundResource(getDimension()[0]);
         yourImage.setImageResource(getTransformation()[0]);
         resizeImage.scale(yourImage, 185);
@@ -608,7 +604,7 @@ public class VoidReaper extends Player {
     }
 
     //heals base on the time passed buff
-    private void skill3(Player you, Player enemy) {
+    private void skill3(Monster you, Monster enemy) {
         ArrayList<String> newStatus = getStatusList().getValue();
         if (newStatus == null) {
             newStatus = new ArrayList<>();
@@ -638,7 +634,7 @@ public class VoidReaper extends Player {
     }
 
     //attack target and deals damage based on the time passed buff
-    private void skill4(Player you, Player enemy) {
+    private void skill4(Monster you, Monster enemy) {
         ArrayList<String> newStatus = getStatusList().getValue();
         if (newStatus == null) {
             newStatus = new ArrayList<>();
@@ -674,7 +670,7 @@ public class VoidReaper extends Player {
     }
 
     //reduces enemies stats for 4 turns and applies "fatigue" status to the target
-    private void skill5(Player you, Player enemy) {
+    private void skill5(Monster you, Monster enemy) {
         fatigue = 12;
 
         receiveStatus(enemy, "Fatigue", 50);
@@ -690,7 +686,7 @@ public class VoidReaper extends Player {
     }
 
     //resets all the way back to the beginning of the battle and enemies cannot use skill at the start
-    private void skill6(Player you, Player enemy) {
+    private void skill6(Monster you, Monster enemy) {
         enemy.setHealth(enemy.getMaxHealth());
         enemy.setAttack(enemy.getMaxAttack());
         enemy.setDefense(enemy.getMaxDefense());
