@@ -47,6 +47,26 @@ public class MonsterDatabase extends SQLiteOpenHelper {
 //        db.setVersion(newVersion);
     }
 
+    public boolean doesSelectedDataExist(String monsterName) {
+        int count = 0;
+        String queryString = "SELECT * FROM " + monster_table + " WHERE " + monster_name + " = ?";
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] selectionArgs = {monsterName};
+
+        Cursor cursor = db.rawQuery(queryString, selectionArgs);
+
+        if (cursor.moveToFirst()) {
+            do {
+                count++;
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return count > 0;
+    }
+
     public boolean doesDataExist() {
         int count = 0;
         String queryString = "SELECT * FROM " + monster_table;

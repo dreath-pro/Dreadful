@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -30,6 +31,7 @@ public class VoidReaper extends Player {
     private int fatigue = 0;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
+    private MonsterDatabase monsterDatabase;
 
     public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, ArrayList<Integer> backgroundList, int selectedBackground, Prompt prompt) {
         super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
@@ -74,6 +76,7 @@ public class VoidReaper extends Player {
         this.backgroundImage = backgroundImage;
         this.backgroundList = backgroundList;
         this.selectedBackground = selectedBackground;
+        this.monsterDatabase = new MonsterDatabase(context);
     }
 
     public void damageExpression(int level) {
@@ -172,7 +175,9 @@ public class VoidReaper extends Player {
     }
 
     public void defeatReward() {
-
+        if (!monsterDatabase.doesSelectedDataExist(getName())) {
+            monsterDatabase.addMonster(getName());
+        }
     }
 
     /**

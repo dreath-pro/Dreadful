@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -29,6 +30,7 @@ public class Michael extends Player{
     private int petrification = 0;
     private int shield = 0;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
+    private MonsterDatabase monsterDatabase;
 
     public Michael(Context context, ImageView yourImage, Prompt prompt, ImageView enemyImage) {
         super(context, yourImage, "Michael", R.drawable.character_michael, "left", 180,
@@ -66,6 +68,7 @@ public class Michael extends Player{
         this.yourImage = yourImage;
         this.enemyImage = enemyImage;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.monsterDatabase = new MonsterDatabase(context);
     }
 
     public void damageExpression(int level) {
@@ -170,7 +173,9 @@ public class Michael extends Player{
     }
 
     public void defeatReward() {
-
+        if (!monsterDatabase.doesSelectedDataExist(getName())) {
+            monsterDatabase.addMonster(getName());
+        }
     }
 
     public void receiveHit(Player hitter, Player target) {

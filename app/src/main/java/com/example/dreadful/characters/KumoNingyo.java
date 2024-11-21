@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -26,6 +27,7 @@ public class KumoNingyo extends Player {
     private int limbTwitch = 6, maxLimbTwitch = 6;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
+    private MonsterDatabase monsterDatabase;
 
     public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
         super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 170,
@@ -58,6 +60,7 @@ public class KumoNingyo extends Player {
         this.prompt = prompt;
         this.context = context;
         this.yourHealthBar = yourHealthBar;
+        this.monsterDatabase = new MonsterDatabase(context);
     }
 
     public void damageExpression(int level) {
@@ -77,8 +80,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -96,8 +98,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -115,8 +116,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -134,8 +134,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -146,7 +145,9 @@ public class KumoNingyo extends Player {
     }
 
     public void defeatReward() {
-
+        if (!monsterDatabase.doesSelectedDataExist(getName())) {
+            monsterDatabase.addMonster(getName());
+        }
     }
 
     /**
@@ -167,8 +168,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -276,8 +276,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -296,8 +295,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -316,8 +314,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -336,8 +333,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -356,8 +352,7 @@ public class KumoNingyo extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }

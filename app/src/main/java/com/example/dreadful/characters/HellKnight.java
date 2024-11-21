@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -31,6 +32,7 @@ public class HellKnight extends Player {
     private int ember = 0;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
+    private MonsterDatabase monsterDatabase;
 
     public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
         super(context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
@@ -85,6 +87,7 @@ public class HellKnight extends Player {
         this.yourImage = yourImage;
         this.yourHealthBar = yourHealthBar;
         this.shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        this.monsterDatabase = new MonsterDatabase(context);
     }
 
     public void damageExpression(int level) {
@@ -205,7 +208,9 @@ public class HellKnight extends Player {
     }
 
     public void defeatReward() {
-
+        if (!monsterDatabase.doesSelectedDataExist(getName())) {
+            monsterDatabase.addMonster(getName());
+        }
     }
 
     /**

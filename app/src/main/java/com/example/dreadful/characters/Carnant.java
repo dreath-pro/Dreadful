@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.ResizeImage;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -32,6 +33,7 @@ public class Carnant extends Player {
     private int dissolve = 0;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
+    private MonsterDatabase monsterDatabase;
 
     public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, Prompt prompt) {
         super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
@@ -77,6 +79,8 @@ public class Carnant extends Player {
         this.yourHealthBar = yourHealthBar;
         this.yourName = yourName;
         this.resizeImage = new ResizeImage(context);
+
+        this.monsterDatabase = new MonsterDatabase(context);
     }
 
     public void damageExpression(int level) {
@@ -193,7 +197,9 @@ public class Carnant extends Player {
     }
 
     public void defeatReward() {
-
+        if (!monsterDatabase.doesSelectedDataExist(getName())) {
+            monsterDatabase.addMonster(getName());
+        }
     }
 
     /**

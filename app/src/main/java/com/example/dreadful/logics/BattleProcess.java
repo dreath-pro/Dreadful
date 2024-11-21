@@ -234,7 +234,7 @@ public class BattleProcess {
         enemyPlayer = setupCharacter.returnEnemyCharacter();
 
         gameMechanics = new GameMechanics(context, yourHealth, yourHealthText, enemyHealth,
-                enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton);
+                enemyHealthText, yourPlayer, enemyPlayer, promptView, yourStunText, enemyStunText, startButton, isBattle);
     }
 
     private void invisibleButtons(Boolean invisible) {

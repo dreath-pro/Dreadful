@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.activities.TestActivity;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
 
@@ -23,6 +24,7 @@ public class GodOfDeath extends Player {
     private boolean isClockOn = false;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
+    private MonsterDatabase monsterDatabase;
 
     public GodOfDeath(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
@@ -51,6 +53,7 @@ public class GodOfDeath extends Player {
 
         this.context = context;
         this.prompt = prompt;
+        this.monsterDatabase = new MonsterDatabase(context);
     }
 
     public void damageExpression(int level) {
@@ -139,7 +142,9 @@ public class GodOfDeath extends Player {
     }
 
     public void defeatReward() {
-
+        if (!monsterDatabase.doesSelectedDataExist(getName())) {
+            monsterDatabase.addMonster(getName());
+        }
     }
 
     public void receiveHit(Player hitter, Player target) {

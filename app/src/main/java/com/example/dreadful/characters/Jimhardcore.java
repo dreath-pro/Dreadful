@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
 
 import com.example.dreadful.R;
+import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.NumberComma;
 import com.example.dreadful.models.Player;
 import com.example.dreadful.models.Prompt;
@@ -18,7 +19,7 @@ public class Jimhardcore extends Player{
     private Prompt prompt;
     private Context context;
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
-    private NumberComma numberComma = new NumberComma();
+    private MonsterDatabase monsterDatabase;
 
     public Jimhardcore(Context context, ImageView yourImage, Prompt prompt) {
         super(context, yourImage, "Jimhardcore", R.drawable.character_jimhardcore, "right", 150,
@@ -53,6 +54,7 @@ public class Jimhardcore extends Player{
 
         this.prompt = prompt;
         this.context = context;
+        this.monsterDatabase = new MonsterDatabase(context);
     }
 
     public void damageExpression(int level) {
@@ -133,7 +135,9 @@ public class Jimhardcore extends Player{
     }
 
     public void defeatReward() {
-
+        if (!monsterDatabase.doesSelectedDataExist(getName())) {
+            monsterDatabase.addMonster(getName());
+        }
     }
 
     /**

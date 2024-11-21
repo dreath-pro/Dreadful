@@ -29,10 +29,11 @@ public class GameMechanics {
     private Random random = new Random();
 
     private NumberComma numberComma = new NumberComma();
+    private boolean isBattle;
 
     public GameMechanics(Context context, ProgressBar yourHealth, TextView yourHealthText, ProgressBar enemyHealth,
                          TextView enemyHealthText, Player yourPlayer, Player enemyPlayer, TextView promptView,
-                         TextView yourStunText, TextView enemyStunText, Button startButton) {
+                         TextView yourStunText, TextView enemyStunText, Button startButton, boolean isBattle) {
 
         this.context = context;
 
@@ -50,6 +51,7 @@ public class GameMechanics {
 
         this.yourStunText = yourStunText;
         this.enemyStunText = enemyStunText;
+        this.isBattle = isBattle;
     }
 
     private void receiveTimeEffect() {
@@ -97,6 +99,11 @@ public class GameMechanics {
                     startButton.performClick();
                 } else if (enemyPlayer.getHealth() <= 0) {
                     Toast.makeText(context, yourPlayer.getName() + " is victorious!", Toast.LENGTH_SHORT).show();
+
+                    if (isBattle) {
+                        enemyPlayer.defeatReward();
+                    }
+
                     startButton.performClick();
                 }
             }
