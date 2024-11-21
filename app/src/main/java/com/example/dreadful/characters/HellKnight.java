@@ -204,6 +204,10 @@ public class HellKnight extends Player {
         }
     }
 
+    public void defeatReward() {
+
+    }
+
     /**
      * if ember is active it will add extra shield that will reduce incoming damage and attacker's hit will
      * reflect back at them

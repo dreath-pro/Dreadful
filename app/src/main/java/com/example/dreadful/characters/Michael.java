@@ -169,6 +169,10 @@ public class Michael extends Player{
         }
     }
 
+    public void defeatReward() {
+
+    }
+
     public void receiveHit(Player hitter, Player target) {
         int originalDamage = hitter.getAttack();
         double percentage = shieldPercentage / 100;

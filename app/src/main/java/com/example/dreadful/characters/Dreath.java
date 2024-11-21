@@ -152,6 +152,10 @@ public class Dreath extends Player {
         }
     }
 
+    public void defeatReward() {
+
+    }
+
     /**
      * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense

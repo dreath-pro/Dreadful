@@ -155,6 +155,10 @@ public class DreadProphet extends Player {
         }
     }
 
+    public void defeatReward() {
+
+    }
+
     /**
      * everytime an attacker hits dread prophet, they will be mark with sin, and every attack it will add
      * 10 mark of sin

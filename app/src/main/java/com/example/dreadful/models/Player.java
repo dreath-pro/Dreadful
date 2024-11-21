@@ -89,6 +89,8 @@ public abstract class Player {
 
     public abstract void damageExpression(int level);
 
+    public abstract void defeatReward();
+
     public void receiveStatus(Player target, String statusName, int statusValue) {
         boolean withStatus = false;
         int statusIndex = 0;

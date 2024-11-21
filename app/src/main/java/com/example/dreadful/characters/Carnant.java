@@ -104,8 +104,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -131,8 +130,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -158,8 +156,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -185,8 +182,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -194,6 +190,10 @@ public class Carnant extends Player {
 
                 break;
         }
+    }
+
+    public void defeatReward() {
+
     }
 
     /**
@@ -229,8 +229,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -264,8 +263,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -419,8 +417,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -441,8 +438,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -463,8 +459,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -487,8 +482,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -509,8 +503,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -531,8 +524,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -553,8 +545,7 @@ public class Carnant extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }

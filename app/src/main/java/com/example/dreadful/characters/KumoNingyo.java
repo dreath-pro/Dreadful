@@ -145,6 +145,10 @@ public class KumoNingyo extends Player {
         }
     }
 
+    public void defeatReward() {
+
+    }
+
     /**
      * everytime an attacker hit, kumo ningyo will be mark with lost limb buff and healing effects
      * will increase significantly base on the lost limbs buff

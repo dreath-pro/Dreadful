@@ -128,6 +128,10 @@ public class Flamethrower extends Player {
         }
     }
 
+    public void defeatReward() {
+
+    }
+
     public void receiveHit(Player hitter, Player target) {
         String result = receiveHitLogic(hitter, target);
         switch (result) {
@@ -149,6 +153,7 @@ public class Flamethrower extends Player {
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
+
                 break;
             case "BLOCKED":
                 events.add(target.getName() + prompt.getApostrophe(target.getName()) + " strike crashes against " + getName() + prompt.getApostrophe(getName()) + " flamethrower nozzle, a spark of fire and force erupting from the collision. The hazmat-clad figure doesn’t flinch, his respirator hissing steadily, as though the effort was beneath notice.");

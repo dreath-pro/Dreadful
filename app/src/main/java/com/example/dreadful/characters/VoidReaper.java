@@ -171,6 +171,10 @@ public class VoidReaper extends Player {
         }
     }
 
+    public void defeatReward() {
+
+    }
+
     /**
      * if the attacker hits, the void reaper will be mark with time passed status by 1 and it will stack with
      * each hits

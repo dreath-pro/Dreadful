@@ -138,6 +138,10 @@ public class GodOfDeath extends Player {
         }
     }
 
+    public void defeatReward() {
+
+    }
+
     public void receiveHit(Player hitter, Player target) {
         String result = receiveHitLogic(hitter, target);
         switch (result) {
