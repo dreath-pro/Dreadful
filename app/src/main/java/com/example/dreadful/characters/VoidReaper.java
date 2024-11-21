@@ -184,15 +184,15 @@ public class VoidReaper extends Player {
      * if the attacker hits, the void reaper will be mark with time passed status by 1 and it will stack with
      * each hits
      */
-    public void receiveHit(Player hitter, Player target) {
-        if (!hasStatus(hitter, "Fatigue", 1).isEmpty()) {
-            hitter.setAttack(hitter.getAttack() - 250);
+    public void receiveHit(Player enemy, Player you) {
+        if (!hasStatus(enemy, "Fatigue", 1).isEmpty()) {
+            enemy.setAttack(enemy.getAttack() - 250);
         }
-        if (hasStatus(hitter, "Fatigue", 1).isEmpty()) {
-            hitter.setAttack(hitter.getMaxAttack());
+        if (hasStatus(enemy, "Fatigue", 1).isEmpty()) {
+            enemy.setAttack(enemy.getMaxAttack());
         }
 
-        String result = receiveHitLogic(hitter, target);
+        String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
                 events.add(getName() + " slithered out of harm’s way, its tentacles curling gracefully as it evaded the blow.");
@@ -254,10 +254,10 @@ public class VoidReaper extends Player {
                 break;
         }
 
-        receiveStatus(target, "Time Passed", 1);
+        receiveStatus(you, "Time Passed", 1);
     }
 
-    public void receiveTimeEffect(Player hitter, Player target) {
+    public void receiveTimeEffect(Player enemy, Player you) {
         runTimeHeal();
         runTimeDamage();
 
@@ -271,14 +271,14 @@ public class VoidReaper extends Player {
             newStatusValue = new ArrayList<>();
         }
 
-        ArrayList<String> hitterStatus = getStatusList().getValue();
-        if (hitterStatus == null) {
-            hitterStatus = new ArrayList<>();
+        ArrayList<String> enemyStatus = getStatusList().getValue();
+        if (enemyStatus == null) {
+            enemyStatus = new ArrayList<>();
         }
 
-        ArrayList<Integer> hitterStatusValue = getStatusValueList().getValue();
-        if (hitterStatusValue == null) {
-            hitterStatusValue = new ArrayList<>();
+        ArrayList<Integer> enemyStatusValue = getStatusValueList().getValue();
+        if (enemyStatusValue == null) {
+            enemyStatusValue = new ArrayList<>();
         }
 
         voidTime--;
@@ -288,8 +288,8 @@ public class VoidReaper extends Player {
             resizeImage.scale(yourImage, getSize());
             voidTime = 0;
 
-            if (!hasStatus(target, "Endless Void", 20).isEmpty()) {
-                int index = Integer.parseInt(hasStatus(target, "Endless Void", 20));
+            if (!hasStatus(you, "Endless Void", 20).isEmpty()) {
+                int index = Integer.parseInt(hasStatus(you, "Endless Void", 20));
                 newStatusValue.remove(index);
                 newStatus.remove(index);
 
@@ -302,23 +302,23 @@ public class VoidReaper extends Player {
         if (fatigue <= 0) {
             fatigue = 0;
 
-            if (!hasStatus(hitter, "Fatigue", 1).isEmpty()) {
-                int index = Integer.parseInt(hasStatus(hitter, "Fatigue", 1));
+            if (!hasStatus(enemy, "Fatigue", 1).isEmpty()) {
+                int index = Integer.parseInt(hasStatus(enemy, "Fatigue", 1));
 
-                hitter.setAttack(hitter.getMaxAttack());
-                hitter.setDodge(hitter.getMaxDodge());
-                hitter.setDefense(hitter.getMaxDefense());
+                enemy.setAttack(enemy.getMaxAttack());
+                enemy.setDodge(enemy.getMaxDodge());
+                enemy.setDefense(enemy.getMaxDefense());
 
-                hitterStatusValue.remove(index);
-                hitterStatus.remove(index);
+                enemyStatusValue.remove(index);
+                enemyStatus.remove(index);
 
-                hitter.updateStatusList(hitterStatus);
-                hitter.updateStatusValueList(hitterStatusValue);
+                enemy.updateStatusList(enemyStatus);
+                enemy.updateStatusValueList(enemyStatusValue);
             }
         }
     }
 
-    public String useRandomAttack(Player hitter, Player target) {
+    public String useRandomAttack(Player you, Player enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -365,15 +365,15 @@ public class VoidReaper extends Player {
                 }
                 dialogues.clear();
 
-                basicAttack(hitter, target);
+                basicAttack(you, enemy);
                 break;
             case 1:
-                events.add(getName() + " tensed, its violet energy condensing until, in a sudden explosion, the very air seemed to shatter. Time itself fractured, catching " + target.getName() + " off-guard as they froze in place, stunned by the sudden distortion.");
-                events.add("A low, reverberating hum grew from within " + getName() + ", culminating in a burst of fractured light that rippled outward. " + target.getName() + prompt.getApostrophe(target.getName()) + " movements halted, ensnared in the warped flow of time.");
-                events.add("With a sharp, guttural growl, " + getName() + " unleashed " + skillName + ". Waves of dark energy erupted from its form, splitting through space and freezing " + target.getName() + " in a suspended daze.");
-                events.add(getName() + prompt.getApostrophe(getName()) + " body pulsed with power, then burst into fragments of shadow that rippled through the battlefield. " + skillName + " around " + target.getName() + ", leaving them dazed and paralyzed.");
-                events.add("A violet flash engulfed the void, and as the echoes of " + skillName + " faded, " + target.getName() + " was left stunned, trapped in the shattered fragments of time.");
-                events.add(getName() + " unleashed a fierce pulse, its form expanding as time fractured around it. " + target.getName() + prompt.getApostrophe(target.getName()) + " body shuddered as they froze, their reality warped by the void’s sinister hold.");
+                events.add(getName() + " tensed, its violet energy condensing until, in a sudden explosion, the very air seemed to shatter. Time itself fractured, catching " + enemy.getName() + " off-guard as they froze in place, stunned by the sudden distortion.");
+                events.add("A low, reverberating hum grew from within " + getName() + ", culminating in a burst of fractured light that rippled outward. " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " movements halted, ensnared in the warped flow of time.");
+                events.add("With a sharp, guttural growl, " + getName() + " unleashed " + skillName + ". Waves of dark energy erupted from its form, splitting through space and freezing " + enemy.getName() + " in a suspended daze.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " body pulsed with power, then burst into fragments of shadow that rippled through the battlefield. " + skillName + " around " + enemy.getName() + ", leaving them dazed and paralyzed.");
+                events.add("A violet flash engulfed the void, and as the echoes of " + skillName + " faded, " + enemy.getName() + " was left stunned, trapped in the shattered fragments of time.");
+                events.add(getName() + " unleashed a fierce pulse, its form expanding as time fractured around it. " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " body shuddered as they froze, their reality warped by the void’s sinister hold.");
 
                 dialogues.add("Brrrraaakkk!");
                 dialogues.add("Ghhhrrrzzzh!");
@@ -393,15 +393,15 @@ public class VoidReaper extends Player {
                 }
                 dialogues.clear();
 
-                skill1(hitter, target);
+                skill1(you, enemy);
                 break;
             case 2:
-                events.add(getName() + prompt.getApostrophe(getName()) + " tentacles spread wide, and the void around them seemed to warp and twist. In an instant, the world vanished, replaced by a realm of endless darkness and swirling violet energy. " + target.getName() + " struggled as " + getName() + prompt.getApostrophe(getName()) + " form shifted, growing larger and more terrifying.");
-                events.add("Reality tore apart, and " + target.getName() + " found themselves surrounded by the shadowed expanse of " + getName() + prompt.getApostrophe(getName()) + " realm. With a low growl, " + getName() + " began to transform, his body now armored and crackling with dark energy. Each attack rippled through the air, his cooldown lessening as his relentless onslaught continued.");
-                events.add("The dimension shifted, pulling " + getName() + " and " + target.getName() + " into a swirling cosmos of shadow and violet. With a distorted howl, " + getName() + " morphed into a stronger, monstrous form, his scythe glowing with power. He lunged, unleashing a powerful burst of energy that rattled the dimension, striking with fierce precision.");
-                events.add(getName() + prompt.getApostrophe(getName()) + " laughter echoed as he dragged " + target.getName() + " into his realm, his form twisting and expanding with newfound power. The void pulsed as he unleashed a barrage of attacks, each one further reducing the delay between his skills.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " tentacles spread wide, and the void around them seemed to warp and twist. In an instant, the world vanished, replaced by a realm of endless darkness and swirling violet energy. " + enemy.getName() + " struggled as " + getName() + prompt.getApostrophe(getName()) + " form shifted, growing larger and more terrifying.");
+                events.add("Reality tore apart, and " + enemy.getName() + " found themselves surrounded by the shadowed expanse of " + getName() + prompt.getApostrophe(getName()) + " realm. With a low growl, " + getName() + " began to transform, his body now armored and crackling with dark energy. Each attack rippled through the air, his cooldown lessening as his relentless onslaught continued.");
+                events.add("The dimension shifted, pulling " + getName() + " and " + enemy.getName() + " into a swirling cosmos of shadow and violet. With a distorted howl, " + getName() + " morphed into a stronger, monstrous form, his scythe glowing with power. He lunged, unleashing a powerful burst of energy that rattled the dimension, striking with fierce precision.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " laughter echoed as he dragged " + enemy.getName() + " into his realm, his form twisting and expanding with newfound power. The void pulsed as he unleashed a barrage of attacks, each one further reducing the delay between his skills.");
                 events.add("With a chilling roar, " + getName() + " transported them both to his dominion. Violet shadows danced as he transformed, his aura darkening with increased power. Each blow struck with more ferocity than the last, an unstoppable cascade that reset his abilities with each powerful swing.");
-                events.add(target.getName() + " barely had a moment to react as " + getName() + prompt.getApostrophe(getName()) + " realm enveloped them. Transformed and pulsing with energy, " + getName() + " unleashed a deadly assault, each strike diminishing his cooldown with the relentless cadence of a nightmare.");
+                events.add(enemy.getName() + " barely had a moment to react as " + getName() + prompt.getApostrophe(getName()) + " realm enveloped them. Transformed and pulsing with energy, " + getName() + " unleashed a deadly assault, each strike diminishing his cooldown with the relentless cadence of a nightmare.");
 
                 dialogues.add("Hrrrrraaaaggh!");
                 dialogues.add("Grraahhhkk!");
@@ -421,7 +421,7 @@ public class VoidReaper extends Player {
                 }
                 dialogues.clear();
 
-                skill2(hitter, target);
+                skill2(you, enemy);
                 break;
             case 3:
                 events.add(getName() + " suddenly burst forward, its form a blur of violet shadows. As it dashed, the very fabric of time around it began to unravel, reversing the flow of moments and healing its wounds.");
@@ -449,15 +449,15 @@ public class VoidReaper extends Player {
                 }
                 dialogues.clear();
 
-                skill3(hitter, target);
+                skill3(you, enemy);
                 break;
             case 4:
-                events.add(getName() + " gathered energy, the air around its scythe crackling with dark power. With a swift motion, it swung the blade, creating a rift in space that surged toward " + target.getName() + ".");
+                events.add(getName() + " gathered energy, the air around its scythe crackling with dark power. With a swift motion, it swung the blade, creating a rift in space that surged toward " + enemy.getName() + ".");
                 events.add("As " + getName() + " unleashed " + skillName + ", a vortex of dark energy erupted from its scythe. The attack cleaved through the air, leaving a trail of distortion that threatened to consume everything in its path.");
-                events.add("With a growl that echoed through the void, " + getName() + " launched " + skillName + ". The blade sliced through reality, unleashing a wave of force that sought to tear apart " + target.getName() + ".");
+                events.add("With a growl that echoed through the void, " + getName() + " launched " + skillName + ". The blade sliced through reality, unleashing a wave of force that sought to tear apart " + enemy.getName() + ".");
                 events.add(getName() + prompt.getApostrophe(getName()) + " scythe shimmered with violet energy as it performed " + skillName + ", the very fabric of space warping around it. The attack surged forward, a relentless tide of dark power.");
-                events.add("The air thickened with tension as " + getName() + " prepared " + skillName + ". With a devastating arc of its blade, it unleashed the attack, a gravitational pull following in its wake, drawing " + target.getName() + " closer to the impending doom.");
-                events.add("With a fierce determination, " + getName() + " executed " + skillName + ". The slash unleashed a gravitational shockwave, warping the space around " + target.getName() + " and engulfing them in darkness.");
+                events.add("The air thickened with tension as " + getName() + " prepared " + skillName + ". With a devastating arc of its blade, it unleashed the attack, a gravitational pull following in its wake, drawing " + enemy.getName() + " closer to the impending doom.");
+                events.add("With a fierce determination, " + getName() + " executed " + skillName + ". The slash unleashed a gravitational shockwave, warping the space around " + enemy.getName() + " and engulfing them in darkness.");
 
                 dialogues.add("Ssssshhhhh!");
                 dialogues.add("Fffhrrrraaag!");
@@ -477,15 +477,15 @@ public class VoidReaper extends Player {
                 }
                 dialogues.clear();
 
-                skill4(hitter, target);
+                skill4(you, enemy);
                 break;
             case 5:
-                events.add("As " + getName() + " loomed closer, it unleashed the dark essence of " + skillName + ". Shadows coiled around " + target.getName() + ", sapping their energy and dulling their senses, leaving them vulnerable to the onslaught");
-                events.add("With a low, growling hum, " + getName() + " invoked " + skillName + ", dark tendrils swirling through the air and wrapping around " + target.getName() + ". Their strength waned, and they staggered under the weight of the encroaching darkness.");
-                events.add(getName() + prompt.getApostrophe(getName()) + " scythe glimmered ominously as it initiated " + skillName + ", draining " + target.getName() + prompt.getApostrophe(target.getName()) + " vitality. Each strike felt heavier, their reflexes slowed as shadows engulfed their form, making it harder to resist the coming assault.");
-                events.add("As " + target.getName() + " felt the effects of " + skillName + ", " + getName() + prompt.getApostrophe(getName()) + " presence became suffocating. The weight of the void pressed down on them, reducing their defense and dodging ability as the shadows seeped deeper.");
-                events.add(getName() + " advanced, eyes glinting with malevolence as it activated " + skillName + ". The air thickened with darkness, wrapping around " + target.getName() + " and dulling their attacks, making them feel sluggish and weak.");
-                events.add("With a chilling growl, " + getName() + " unleashed " + skillName + ", the void swirling around " + target.getName() + " and siphoning their strength. The shadows twisted, making each attempt to fight back feel futile and clumsy.");
+                events.add("As " + getName() + " loomed closer, it unleashed the dark essence of " + skillName + ". Shadows coiled around " + enemy.getName() + ", sapping their energy and dulling their senses, leaving them vulnerable to the onslaught");
+                events.add("With a low, growling hum, " + getName() + " invoked " + skillName + ", dark tendrils swirling through the air and wrapping around " + enemy.getName() + ". Their strength waned, and they staggered under the weight of the encroaching darkness.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " scythe glimmered ominously as it initiated " + skillName + ", draining " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " vitality. Each strike felt heavier, their reflexes slowed as shadows engulfed their form, making it harder to resist the coming assault.");
+                events.add("As " + enemy.getName() + " felt the effects of " + skillName + ", " + getName() + prompt.getApostrophe(getName()) + " presence became suffocating. The weight of the void pressed down on them, reducing their defense and dodging ability as the shadows seeped deeper.");
+                events.add(getName() + " advanced, eyes glinting with malevolence as it activated " + skillName + ". The air thickened with darkness, wrapping around " + enemy.getName() + " and dulling their attacks, making them feel sluggish and weak.");
+                events.add("With a chilling growl, " + getName() + " unleashed " + skillName + ", the void swirling around " + enemy.getName() + " and siphoning their strength. The shadows twisted, making each attempt to fight back feel futile and clumsy.");
 
                 dialogues.add("Grrrrrhhhhh!");
                 dialogues.add("Ffffssshhh!");
@@ -505,15 +505,15 @@ public class VoidReaper extends Player {
                 }
                 dialogues.clear();
 
-                skill5(hitter, target);
+                skill5(you, enemy);
                 break;
             case 6:
-                events.add(getName() + " raised its scythe, time rippling as it invoked " + skillName + ". Shadows coiled around, reversing moments as the two combatants were pulled back to the battle’s start, their injuries erased. But for " + target.getName() + ", each skill felt further out of reach, as though bound by the weight of time.");
-                events.add("With a chilling hum, " + getName() + prompt.getApostrophe(getName()) + " scythe tore through reality, and " + skillName + " triggered. The void swirled, pulling them both back to where it all began. " + target.getName() + " felt the oppressive weight of delayed powers, each skill more distant, shackled by lingering time.");
-                events.add(getName() + prompt.getApostrophe(getName()) + " form blurred as " + skillName + " unfolded, reversing injuries and pulling both fighters back to the start. Time reset for health but not for power; " + target.getName() + " felt the lock on their abilities tighten, skills now tangled in the web of lingering cooldowns.");
-                events.add("As " + getName() + " activated " + skillName + ", the battlefield twisted, yanking both back to their starting positions. Their health renewed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " skills were bound tighter, cooldowns extended by the void’s cold grip.");
-                events.add("With a dark gleam in its empty gaze, " + getName() + " enacted " + skillName + ". Shadows consumed the field, winding back time. Both returned to the beginning, unharmed, but " + target.getName() + prompt.getApostrophe(target.getName()) + " powers felt trapped, delayed by a spectral weight.");
-                events.add(getName() + " invoked " + skillName + ", the air shuddering as time rewound. Both regained their strength, but " + target.getName() + prompt.getApostrophe(target.getName()) + " power was slowed, abilities held back as if bound by spectral chains.");
+                events.add(getName() + " raised its scythe, time rippling as it invoked " + skillName + ". Shadows coiled around, reversing moments as the two combatants were pulled back to the battle’s start, their injuries erased. But for " + enemy.getName() + ", each skill felt further out of reach, as though bound by the weight of time.");
+                events.add("With a chilling hum, " + getName() + prompt.getApostrophe(getName()) + " scythe tore through reality, and " + skillName + " triggered. The void swirled, pulling them both back to where it all began. " + enemy.getName() + " felt the oppressive weight of delayed powers, each skill more distant, shackled by lingering time.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " form blurred as " + skillName + " unfolded, reversing injuries and pulling both fighters back to the start. Time reset for health but not for power; " + enemy.getName() + " felt the lock on their abilities tighten, skills now tangled in the web of lingering cooldowns.");
+                events.add("As " + getName() + " activated " + skillName + ", the battlefield twisted, yanking both back to their starting positions. Their health renewed, but " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " skills were bound tighter, cooldowns extended by the void’s cold grip.");
+                events.add("With a dark gleam in its empty gaze, " + getName() + " enacted " + skillName + ". Shadows consumed the field, winding back time. Both returned to the beginning, unharmed, but " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " powers felt trapped, delayed by a spectral weight.");
+                events.add(getName() + " invoked " + skillName + ", the air shuddering as time rewound. Both regained their strength, but " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " power was slowed, abilities held back as if bound by spectral chains.");
 
                 dialogues.add("Grraahh… ffsssshhh.");
                 dialogues.add("Rrrrhhhkk… gghrraaak!");
@@ -533,7 +533,7 @@ public class VoidReaper extends Player {
                 }
                 dialogues.clear();
 
-                skill6(hitter, target);
+                skill6(you, enemy);
                 break;
         }
 
@@ -541,8 +541,8 @@ public class VoidReaper extends Player {
         return skillName;
     }
 
-    private void reduceCoolDown(Player hitter, Player target) {
-        if (!hasStatus(hitter, "The Void", 1).isEmpty()) {
+    private void reduceCoolDown(Player you, Player enemy) {
+        if (!hasStatus(enemy, "The Void", 1).isEmpty()) {
             ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
             if (newSkillCooldowns == null) {
                 newSkillCooldowns = new ArrayList<>();
@@ -557,7 +557,7 @@ public class VoidReaper extends Player {
             }
         }
 
-        if (!hasStatus(target, "Endless Void", 20).isEmpty()) {
+        if (!hasStatus(you, "Endless Void", 20).isEmpty()) {
             ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
             if (newSkillCooldowns == null) {
                 newSkillCooldowns = new ArrayList<>();
@@ -572,43 +572,43 @@ public class VoidReaper extends Player {
 
     //if there is the void mark, the void reaper reduces his cooldown with each attack he deals
     @Override
-    public void basicAttack(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
-        reduceCoolDown(hitter, target);
+    public void basicAttack(Player you, Player enemy) {
+        enemy.receiveHit(you, enemy);
+        reduceCoolDown(you, enemy);
     }
 
     //stuns the enemy and burst them and applies "the void" status to the target
-    private void skill1(Player hitter, Player target) {
-        backgroundImage.setBackgroundResource(hitter.getDimension()[1]);
-        yourImage.setImageResource(hitter.getTransformation()[0]);
+    private void skill1(Player you, Player enemy) {
+        backgroundImage.setBackgroundResource(getDimension()[1]);
+        yourImage.setImageResource(getTransformation()[0]);
         resizeImage.scale(yourImage, 185);
         voidTime = 9;
 
-        hitter.setAttack(8500);
-        target.receiveHit(hitter, target);
-        hitter.setAttack(hitter.getMaxAttack());
-        receiveStatus(target, "The Void", 1);
-        target.setStun(3);
+        setAttack(8500);
+        enemy.receiveHit(you, enemy);
+        setAttack(getMaxAttack());
+        receiveStatus(enemy, "The Void", 1);
+        enemy.setStun(3);
     }
 
     //the enemy will be teleported to a different dimension and void reaper will transform, after that
     //he will burst the target and resets all skill cooldown every attack
-    private void skill2(Player hitter, Player target) {
-        backgroundImage.setBackgroundResource(hitter.getDimension()[0]);
-        yourImage.setImageResource(hitter.getTransformation()[0]);
+    private void skill2(Player you, Player enemy) {
+        backgroundImage.setBackgroundResource(getDimension()[0]);
+        yourImage.setImageResource(getTransformation()[0]);
         resizeImage.scale(yourImage, 185);
         voidTime = 9;
 
-        hitter.setAttack(12500);
-        target.receiveHit(hitter, target);
-        hitter.setAttack(hitter.getMaxAttack());
+        setAttack(12500);
+        enemy.receiveHit(you, enemy);
+        setAttack(getMaxAttack());
 
-        receiveStatus(hitter, "Endless Void", 20);
-        reduceCoolDown(hitter, target);
+        receiveStatus(you, "Endless Void", 20);
+        reduceCoolDown(you, enemy);
     }
 
     //heals base on the time passed buff
-    private void skill3(Player hitter, Player target) {
+    private void skill3(Player you, Player enemy) {
         ArrayList<String> newStatus = getStatusList().getValue();
         if (newStatus == null) {
             newStatus = new ArrayList<>();
@@ -619,8 +619,8 @@ public class VoidReaper extends Player {
             newStatusValue = new ArrayList<>();
         }
 
-        if (!hasStatus(hitter, "Time Passed", 1).isEmpty()) {
-            int index = Integer.parseInt(hasStatus(hitter, "Time Passed", 1));
+        if (!hasStatus(you, "Time Passed", 1).isEmpty()) {
+            int index = Integer.parseInt(hasStatus(you, "Time Passed", 1));
             int healthPortion = (int) (getMaxHealth() * 0.05);
 
             for (int i = 0; i <= newStatusValue.get(index) - 1; i++) {
@@ -638,7 +638,7 @@ public class VoidReaper extends Player {
     }
 
     //attack target and deals damage based on the time passed buff
-    private void skill4(Player hitter, Player target) {
+    private void skill4(Player you, Player enemy) {
         ArrayList<String> newStatus = getStatusList().getValue();
         if (newStatus == null) {
             newStatus = new ArrayList<>();
@@ -649,13 +649,13 @@ public class VoidReaper extends Player {
             newStatusValue = new ArrayList<>();
         }
 
-        if (!hasStatus(hitter, "Time Passed", 1).isEmpty()) {
-            int index = Integer.parseInt(hasStatus(hitter, "Time Passed", 1));
-            int damagePortion = (int) (target.getMaxHealth() * 0.05);
+        if (!hasStatus(you, "Time Passed", 1).isEmpty()) {
+            int index = Integer.parseInt(hasStatus(you, "Time Passed", 1));
+            int damagePortion = (int) (enemy.getMaxHealth() * 0.05);
 
             for (int i = 0; i <= newStatusValue.get(index) - 1; i++) {
                 setAttack((getAttack() + damagePortion));
-                target.receiveHit(hitter, target);
+                enemy.receiveHit(you, enemy);
                 setAttack(getMaxAttack());
             }
 
@@ -666,49 +666,49 @@ public class VoidReaper extends Player {
             updateStatusValueList(newStatusValue);
         } else {
             setAttack(getAttack() + 750);
-            target.receiveHit(hitter, target);
+            enemy.receiveHit(you, enemy);
             setAttack(getMaxAttack());
         }
 
-        reduceCoolDown(hitter, target);
+        reduceCoolDown(you, enemy);
     }
 
     //reduces enemies stats for 4 turns and applies "fatigue" status to the target
-    private void skill5(Player hitter, Player target) {
+    private void skill5(Player you, Player enemy) {
         fatigue = 12;
 
-        receiveStatus(target, "Fatigue", 50);
-        target.setAttack(target.getAttack() - 350);
-        target.setDodge(0);
-        target.setDefense(0);
+        receiveStatus(enemy, "Fatigue", 50);
+        enemy.setAttack(enemy.getAttack() - 350);
+        enemy.setDodge(0);
+        enemy.setDefense(0);
 
         setAttack(getAttack() + 3500);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
 
-        reduceCoolDown(hitter, target);
+        reduceCoolDown(you, enemy);
     }
 
     //resets all the way back to the beginning of the battle and enemies cannot use skill at the start
-    private void skill6(Player hitter, Player target) {
-        target.setHealth(target.getMaxHealth());
-        target.setAttack(target.getMaxAttack());
-        target.setDefense(target.getMaxDefense());
-        target.setDodge(target.getMaxDodge());
-        target.setStun(0);
-        target.setHealOverTime(new ArrayList<>());
-        target.setHealOverTimeValue(new ArrayList<>());
-        target.setDamageOverTime(new ArrayList<>());
-        target.setDamageOverTimeValue(new ArrayList<>());
+    private void skill6(Player you, Player enemy) {
+        enemy.setHealth(enemy.getMaxHealth());
+        enemy.setAttack(enemy.getMaxAttack());
+        enemy.setDefense(enemy.getMaxDefense());
+        enemy.setDodge(enemy.getMaxDodge());
+        enemy.setStun(0);
+        enemy.setHealOverTime(new ArrayList<>());
+        enemy.setHealOverTimeValue(new ArrayList<>());
+        enemy.setDamageOverTime(new ArrayList<>());
+        enemy.setDamageOverTimeValue(new ArrayList<>());
 
-        ArrayList<Integer> targetSkillCooldowns = target.getSkillCooldowns().getValue();
+        ArrayList<Integer> targetSkillCooldowns = enemy.getSkillCooldowns().getValue();
         if (targetSkillCooldowns == null) {
             targetSkillCooldowns = new ArrayList<>();
         }
 
         for (int i = 1; i <= targetSkillCooldowns.size() - 1; i++) {
             targetSkillCooldowns.set(i, targetSkillCooldowns.get(i) + 5);
-            target.updateMaxSkillCooldowns(targetSkillCooldowns);
+            enemy.updateMaxSkillCooldowns(targetSkillCooldowns);
         }
 
         setHealth(getMaxHealth());

@@ -168,8 +168,8 @@ public class DreadProphet extends Player {
      * everytime an attacker hits dread prophet, they will be mark with sin, and every attack it will add
      * 10 mark of sin
      */
-    public void receiveHit(Player hitter, Player target) {
-        String result = receiveHitLogic(hitter, target);
+    public void receiveHit(Player enemy, Player you) {
+        String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
             case "BLOCKED":
@@ -180,7 +180,7 @@ public class DreadProphet extends Player {
                 damageExpression(prompt.measureDamage(Integer.parseInt(result)));
                 break;
         }
-        receiveStatus(hitter, "Mark of Sin", 10);
+        receiveStatus(enemy, "Mark of Sin", 10);
     }
 
     /**
@@ -188,7 +188,7 @@ public class DreadProphet extends Player {
      * the damage overtime received from the opponent will be convert into his own heal over time
      * the heal overtime he receive will be useless and be ignore, only damage over time is his way of healing
      */
-    public void receiveTimeEffect(Player hitter, Player target) {
+    public void receiveTimeEffect(Player enemy, Player you) {
         ArrayList<Integer> tempDot = new ArrayList<>();
         ArrayList<Integer> tempDotValue = new ArrayList<>();
 
@@ -208,7 +208,7 @@ public class DreadProphet extends Player {
         runTimeHeal();
     }
 
-    public String useRandomAttack(Player hitter, Player target) {
+    public String useRandomAttack(Player you, Player enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -230,10 +230,10 @@ public class DreadProphet extends Player {
         skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
-                events.add("The " + getName() + " raiseth his skeletal hand, and between his fingers, a bolt of pure darkness doth streak toward " + target.getName() + ". The attack cannot be dodged, its path certain and unyielding. Though defenses may lessen its sting, it feels the cold embrace of the Abyss biting deep into their form.");
-                events.add("A tendril of shadow doth lash forth from the " + getName() + prompt.getApostrophe(getName()) + " outstretched arm, crackling with dark energy. The bolt flies straight, swift and sure, unhindered by " + target.getName() + prompt.getApostrophe(target.getName()) + " attempts to evade. The force of the Abyss itself bears down upon " + target.getName() + ", its touch inescapable, though dampened by their formidable defense.");
+                events.add("The " + getName() + " raiseth his skeletal hand, and between his fingers, a bolt of pure darkness doth streak toward " + enemy.getName() + ". The attack cannot be dodged, its path certain and unyielding. Though defenses may lessen its sting, it feels the cold embrace of the Abyss biting deep into their form.");
+                events.add("A tendril of shadow doth lash forth from the " + getName() + prompt.getApostrophe(getName()) + " outstretched arm, crackling with dark energy. The bolt flies straight, swift and sure, unhindered by " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " attempts to evade. The force of the Abyss itself bears down upon " + enemy.getName() + ", its touch inescapable, though dampened by their formidable defense.");
 
-                dialogues.add("Run if thou must, but the shadows shall always find thee, " + target.getName() + ".");
+                dialogues.add("Run if thou must, but the shadows shall always find thee, " + enemy.getName() + ".");
                 dialogues.add("Feel the weight of the Abyss, for no dodge shall save thee from thy fate!");
                 dialogues.add("Mine dark bolt dost seek thee, for none may escape judgment eternal.");
                 dialogues.add("Futile are thy escape, for the Abyss giveth no quarter to thee.");
@@ -249,11 +249,11 @@ public class DreadProphet extends Player {
                 }
                 dialogues.clear();
 
-                basicAttack(hitter, target);
+                basicAttack(you, enemy);
                 break;
             case 1:
-                events.add("The " + getName() + " lifts his skeletal arms to the heavens, channeling the malevolence of the Abyss. Shadows twist and converge around him as six dark bolts form, each crackling with sinister energy. In a blinding flash, the bolts are unleashed, striking " + target.getName() + " with the weight of accumulated sins, each impact a chilling reminder of their transgressions.");
-                events.add("With a voice that echoes like thunder, the " + getName() + " intones the words of the Abyss. Six dark tendrils erupt from his outstretched hands, each one a swift harbinger of doom. The air fills with a suffocating darkness as they dart toward " + target.getName() + ", each strike resonating with the fury of judgment, leaving a trail of despair in their wake.");
+                events.add("The " + getName() + " lifts his skeletal arms to the heavens, channeling the malevolence of the Abyss. Shadows twist and converge around him as six dark bolts form, each crackling with sinister energy. In a blinding flash, the bolts are unleashed, striking " + enemy.getName() + " with the weight of accumulated sins, each impact a chilling reminder of their transgressions.");
+                events.add("With a voice that echoes like thunder, the " + getName() + " intones the words of the Abyss. Six dark tendrils erupt from his outstretched hands, each one a swift harbinger of doom. The air fills with a suffocating darkness as they dart toward " + enemy.getName() + ", each strike resonating with the fury of judgment, leaving a trail of despair in their wake.");
 
                 dialogues.add("Behold the reckoning! " + skillName + " shall seal thy fate!");
                 dialogues.add("Thy sins multiply, and now they shall return to thee in force!");
@@ -271,11 +271,11 @@ public class DreadProphet extends Player {
                 }
                 dialogues.clear();
 
-                skill1(hitter, target);
+                skill1(you, enemy);
                 break;
             case 2:
-                events.add("The " + getName() + " raises his skeletal arms to the heavens, chanting a dark incantation that twists the very essence of prayer. As light begins to shimmer around " + target.getName() + ", the glow shifts, turning into a sinister dark aura that wraps around them. The energy that once sought to mend now gnaws at their vitality, converting hope into an unyielding torment.");
-                events.add("With a voice resonating from the depths of the Abyss, the " + getName() + " invokes the power of " + skillName + ". Shadows swirl around him, forming a sinister vortex as the healing energies intended for " + target.getName() + " are siphoned away, transforming into a creeping malaise. Each heartbeat brings renewed agony, as what was meant to restore now drags them deeper into despair.");
+                events.add("The " + getName() + " raises his skeletal arms to the heavens, chanting a dark incantation that twists the very essence of prayer. As light begins to shimmer around " + enemy.getName() + ", the glow shifts, turning into a sinister dark aura that wraps around them. The energy that once sought to mend now gnaws at their vitality, converting hope into an unyielding torment.");
+                events.add("With a voice resonating from the depths of the Abyss, the " + getName() + " invokes the power of " + skillName + ". Shadows swirl around him, forming a sinister vortex as the healing energies intended for " + enemy.getName() + " are siphoned away, transforming into a creeping malaise. Each heartbeat brings renewed agony, as what was meant to restore now drags them deeper into despair.");
 
                 dialogues.add("Thy feeble attempts to heal shall serve only to strengthen my wrath!");
                 dialogues.add("In the Abyss, the prayers of the unworthy turn to curses!");
@@ -293,7 +293,7 @@ public class DreadProphet extends Player {
                 }
                 dialogues.clear();
 
-                skill2(hitter, target);
+                skill2(you, enemy);
                 break;
             case 3:
                 events.add("The " + getName() + prompt.getApostrophe(getName()) + " hollow gaze fixeth upon thee, a chilling smile spreading across his bony visage. As he raises a skeletal hand, a dark sigil materializeth upon thy flesh, the Mark of Sin glimmering ominously. In that moment, a sense of dread envelopeth thee, and the Prophet’s voice echoes, promising that thy sins shall return with unrelenting force.");
@@ -315,7 +315,7 @@ public class DreadProphet extends Player {
                 }
                 dialogues.clear();
 
-                skill3(hitter, target);
+                skill3(you, enemy);
                 break;
             case 4:
                 events.add("With a skeletal hand raised high, the " + getName() + " calleth forth the lost souls of the Abyss. Their voices, twisted in eternal worship, rise as one in a harrowing chant, singing praises to their dark shepherd. The air thickens with the weight of their hymn, as the Mark of Sin upon the enemy shineth bright. The deeper their transgressions, the stronger the choir's fervor, healing the Prophet with each mournful verse.");
@@ -337,7 +337,7 @@ public class DreadProphet extends Player {
                 }
                 dialogues.clear();
 
-                skill4(hitter, target);
+                skill4(you, enemy);
                 break;
         }
 
@@ -347,66 +347,66 @@ public class DreadProphet extends Player {
 
     //this attack is undodgeable but can be reduce by opponent's defense
     @Override
-    public void basicAttack(Player hitter, Player target) {
-        target.setDodge(0);
-        target.receiveHit(hitter, target);
-        target.setDodge(target.getMaxDodge());
+    public void basicAttack(Player you, Player enemy) {
+        enemy.setDodge(0);
+        enemy.receiveHit(you, enemy);
+        enemy.setDodge(enemy.getMaxDodge());
     }
 
     //simple burst attack
-    private void skill1(Player hitter, Player target) {
+    private void skill1(Player you, Player enemy) {
         setAttack(getAttack() + 8450);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
     }
 
     //enemy healing will be reverse and convert to damage
-    private void skill2(Player hitter, Player target) {
+    private void skill2(Player you, Player enemy) {
         int allHeal = 0;
-        for (int i = 0; i <= target.getHealOverTime().size() - 1; i++) {
-            allHeal += target.getHealOverTime().get(i);
+        for (int i = 0; i <= enemy.getHealOverTime().size() - 1; i++) {
+            allHeal += enemy.getHealOverTime().get(i);
         }
 
-        target.getHealOverTime().clear();
-        target.getHealOverTimeValue().clear();
+        enemy.getHealOverTime().clear();
+        enemy.getHealOverTimeValue().clear();
 
-        target.getDamageOverTime().add(allHeal);
-        target.getDamageOverTime().add(450);
-        target.getDamageOverTimeValue().add(15);
-        target.getDamageOverTimeValue().add(15);
+        enemy.getDamageOverTime().add(allHeal);
+        enemy.getDamageOverTime().add(450);
+        enemy.getDamageOverTimeValue().add(15);
+        enemy.getDamageOverTimeValue().add(15);
     }
 
     //retribution for sinner hitter/attacker, base on the value of the "mark of sin"
     //reduce percentage of attacker current health base on the value of mark of sin
-    private void skill3(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
+    private void skill3(Player you, Player enemy) {
+        enemy.receiveHit(you, enemy);
 
-        if (!hasStatus(target, "Mark of Sin", 50).isEmpty()) {
-            ArrayList<Integer> newStatusValue = target.getStatusValueList().getValue();
+        if (!hasStatus(enemy, "Mark of Sin", 50).isEmpty()) {
+            ArrayList<Integer> newStatusValue = enemy.getStatusValueList().getValue();
             if (newStatusValue == null) {
                 newStatusValue = new ArrayList<>();
             }
 
-            int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
-            int maxHealth = target.getHealth();
+            int index = Integer.parseInt(hasStatus(enemy, "Mark of Sin", 50));
+            int maxHealth = enemy.getHealth();
             int percentage = newStatusValue.get(index);
             int damage = (maxHealth * percentage) / 100;
 
             setAttack(damage);
-            target.receiveHit(hitter, target);
+            enemy.receiveHit(you, enemy);
             setAttack(getMaxAttack());
         }
     }
 
     //heal over time for a short turn, base on the value of the "mark of sin"
-    private void skill4(Player hitter, Player target) {
-        if (!hasStatus(target, "Mark of Sin", 50).isEmpty()) {
-            ArrayList<Integer> newStatusValue = target.getStatusValueList().getValue();
+    private void skill4(Player you, Player enemy) {
+        if (!hasStatus(enemy, "Mark of Sin", 50).isEmpty()) {
+            ArrayList<Integer> newStatusValue = enemy.getStatusValueList().getValue();
             if (newStatusValue == null) {
                 newStatusValue = new ArrayList<>();
             }
 
-            int index = Integer.parseInt(hasStatus(target, "Mark of Sin", 50));
+            int index = Integer.parseInt(hasStatus(enemy, "Mark of Sin", 50));
             int maxHealth = 2100;
             int percentage = newStatusValue.get(index);
             int heal = (maxHealth * percentage) / 100;

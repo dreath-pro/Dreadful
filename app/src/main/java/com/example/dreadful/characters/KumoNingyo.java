@@ -154,8 +154,8 @@ public class KumoNingyo extends Player {
      * everytime an attacker hit, kumo ningyo will be mark with lost limb buff and healing effects
      * will increase significantly base on the lost limbs buff
      */
-    public void receiveHit(Player hitter, Player target) {
-        String result = receiveHitLogic(hitter, target);
+    public void receiveHit(Player enemy, Player you) {
+        String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
                 events.add("With an unnatural twist, " + getName() + prompt.getApostrophe(getName()) + " many limbs shift and contort, pulling her body just out of reach of the attack. Her head jerks to the side as she dodges, her glassy eyes unblinking and fixed on her attacker. The creaking of her limbs fills the air, punctuated by an unsettling silence as she glides back into position, completely untouched.");
@@ -183,10 +183,10 @@ public class KumoNingyo extends Player {
                 damageExpression(prompt.measureDamage(Integer.parseInt(result)));
                 break;
         }
-        receiveStatus(target, "Lost Limbs", 1);
+        receiveStatus(you, "Lost Limbs", 1);
     }
 
-    public void receiveTimeEffect(Player hitter, Player target) {
+    public void receiveTimeEffect(Player enemy, Player you) {
         ArrayList<String> newStatus = getStatusList().getValue();
         if (newStatus == null) {
             newStatus = new ArrayList<>();
@@ -201,8 +201,8 @@ public class KumoNingyo extends Player {
         if (limbTwitch <= 0) {
             limbTwitch = maxLimbTwitch;
 
-            if (!hasStatus(target, "Lost Limbs", 1).isEmpty()) {
-                int index = Integer.parseInt(hasStatus(target, "Lost Limbs", 1));
+            if (!hasStatus(you, "Lost Limbs", 1).isEmpty()) {
+                int index = Integer.parseInt(hasStatus(you, "Lost Limbs", 1));
                 bypassSetHealth(getHealth() + (1000 * newStatusValue.get(index)));
 
                 if (getHealth() > getMaxHealth()) {
@@ -233,8 +233,8 @@ public class KumoNingyo extends Player {
             setDodge(getMaxDodge());
             creepyStalkerTime = 0;
 
-            if (!hasStatus(target, "Creepy Stalker", 1).isEmpty()) {
-                int index = Integer.parseInt(hasStatus(target, "Creepy Stalker", 1));
+            if (!hasStatus(you, "Creepy Stalker", 1).isEmpty()) {
+                int index = Integer.parseInt(hasStatus(you, "Creepy Stalker", 1));
                 newStatusValue.remove(index);
                 newStatus.remove(index);
 
@@ -244,7 +244,7 @@ public class KumoNingyo extends Player {
         }
     }
 
-    public String useRandomAttack(Player hitter, Player target) {
+    public String useRandomAttack(Player you, Player enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -266,8 +266,8 @@ public class KumoNingyo extends Player {
         skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
-                events.add(getName() + " lunges forward, her limbs a blur as they dart towards " + target.getName() + ". With a swift and precise motion, she slashes through the air, her claws biting into " + target.getName() + ". A sickly green mist erupts from the wound, the poison sinking in and spreading like darkness itself. Her head tilts with a disquieting creak, eyes gleaming as she watches the venom take effect.");
-                events.add("In a fluid motion, " + getName() + " strikes, her claws gliding against " + target.getName() + prompt.getApostrophe(target.getName()) + " ethereal surface. The impact resonates with an unsettling crack as the toxic energy flows from her fingertips into her foe. The poison seeps into " + target.getName() + prompt.getApostrophe(target.getName()) + " essence, causing a momentary flicker in its dark form. " + getName() + " stands back, her limbs twitching in anticipation, reveling in the slow agony she has inflicted.");
+                events.add(getName() + " lunges forward, her limbs a blur as they dart towards " + enemy.getName() + ". With a swift and precise motion, she slashes through the air, her claws biting into " + enemy.getName() + ". A sickly green mist erupts from the wound, the poison sinking in and spreading like darkness itself. Her head tilts with a disquieting creak, eyes gleaming as she watches the venom take effect.");
+                events.add("In a fluid motion, " + getName() + " strikes, her claws gliding against " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " ethereal surface. The impact resonates with an unsettling crack as the toxic energy flows from her fingertips into her foe. The poison seeps into " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " essence, causing a momentary flicker in its dark form. " + getName() + " stands back, her limbs twitching in anticipation, reveling in the slow agony she has inflicted.");
 
                 dialogues.add("(Sccrrreeaaak... crrreeeak-click-click)");
                 dialogues.add("(Crrreeaaack... crack-click)");
@@ -282,11 +282,11 @@ public class KumoNingyo extends Player {
                 }
                 dialogues.clear();
 
-                basicAttack(hitter, target);
+                basicAttack(you, enemy);
                 break;
             case 1:
-                events.add("With a swift, fluid motion, " + getName() + " darts forward, her limbs extending in a dizzying flurry of strikes. Each of her three attacks lands with a sharp, echoing crack, sending out ripples of green poison that latch onto " + target.getName() + prompt.getApostrophe(target.getName()) + " form. She watches with an eerie stillness as the poison seeps in, her head tilting slightly, and a satisfied creak escaping her lips.");
-                events.add(getName() + " dances around " + target.getName() + ", her movements quick and unnervingly graceful. With three precise strikes, she tears into the enemy, leaving behind a trail of sickly green residue. As the poison begins to take effect, she pauses, her limbs quivering with anticipation. Her glassy eyes glint in the dim light as she absorbs the sight of her enemy faltering under the weight of the toxin.");
+                events.add("With a swift, fluid motion, " + getName() + " darts forward, her limbs extending in a dizzying flurry of strikes. Each of her three attacks lands with a sharp, echoing crack, sending out ripples of green poison that latch onto " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " form. She watches with an eerie stillness as the poison seeps in, her head tilting slightly, and a satisfied creak escaping her lips.");
+                events.add(getName() + " dances around " + enemy.getName() + ", her movements quick and unnervingly graceful. With three precise strikes, she tears into the enemy, leaving behind a trail of sickly green residue. As the poison begins to take effect, she pauses, her limbs quivering with anticipation. Her glassy eyes glint in the dim light as she absorbs the sight of her enemy faltering under the weight of the toxin.");
 
                 dialogues.add("(Creeeak... click-click... Sccrrreeeaaak)");
                 dialogues.add("(Crrick-crack... tap-tap-tap... Creeeak)");
@@ -301,7 +301,7 @@ public class KumoNingyo extends Player {
                 }
                 dialogues.clear();
 
-                skill1(hitter, target);
+                skill1(you, enemy);
                 break;
             case 2:
                 events.add(getName() + " pauses, her limbs trembling as dark energy envelops her. She channels the essence of her lost limbs, feeling her vitality surge beyond its former limits. A soft, unsettling creak echoes as her maximum health rewrites itself, each pulse of energy making her feel more powerful. The air around her thickens with a toxic green mist, signaling the enhancement of her poison. She tilts her head, a sinister smile forming as she embraces this newfound strength.");
@@ -320,11 +320,11 @@ public class KumoNingyo extends Player {
                 }
                 dialogues.clear();
 
-                skill2(hitter, target);
+                skill2(you, enemy);
                 break;
             case 3:
                 events.add("With a sudden and fluid motion, " + getName() + " calls upon the shadows around her, summoning a burst of poisonous energy that explodes outward. The air thickens with a noxious green mist, engulfing her target and causing them to stagger. As the poison seeps into their being, she feels a rush of exhilaration. Her form flickers and shimmers, granting her an impressive agility boost for a limited time. A sly grin forms on her face, knowing she can weave through attacks with newfound agility.");
-                events.add(getName() + " elegantly disappears into the shadows, leaving only a whisper of movement behind. As she releases \"" + skillName + "\", a cloud of poison bursts forth, catching " + target.getName() + " off guard. The green mist envelops her foe, causing them to falter. With her dodge increased, she stands ready, poised to evade the next attack, her eyes glinting with mischief as she prepares to dance through the chaos.");
+                events.add(getName() + " elegantly disappears into the shadows, leaving only a whisper of movement behind. As she releases \"" + skillName + "\", a cloud of poison bursts forth, catching " + enemy.getName() + " off guard. The green mist envelops her foe, causing them to falter. With her dodge increased, she stands ready, poised to evade the next attack, her eyes glinting with mischief as she prepares to dance through the chaos.");
 
                 dialogues.add("(Creeeak... sccrrreeeak... hissss)");
                 dialogues.add("(Creeeak... crack-click... hsssss...)");
@@ -339,11 +339,11 @@ public class KumoNingyo extends Player {
                 }
                 dialogues.clear();
 
-                skill3(hitter, target);
+                skill3(you, enemy);
                 break;
             case 4:
-                events.add(getName() + " gracefully weaves her hands in the air, summoning a silken thread that glistens in the dim light. With a swift flick, the spider web shoots forward, ensnaring " + target.getName() + " in its sticky embrace. As the web tightens around her foe, she watches with a twisted glee, savoring the moment as they struggle against the binding threads. The air crackles with tension, and her eerie laughter echoes as she revels in their helplessness.");
-                events.add("With a fluid motion, " + getName() + " casts \"" + skillName + "\", and the web unfurls like a nightmare, ensnaring " + target.getName() + " in its grasp. The strands shimmer with a malevolent sheen, immobilizing her opponent for a brief moment. As they thrash in vain against their bonds, she tilts her head with a sinister curiosity, her eyes gleaming with the thrill of the hunt, ready to strike while they remain incapacitated.");
+                events.add(getName() + " gracefully weaves her hands in the air, summoning a silken thread that glistens in the dim light. With a swift flick, the spider web shoots forward, ensnaring " + enemy.getName() + " in its sticky embrace. As the web tightens around her foe, she watches with a twisted glee, savoring the moment as they struggle against the binding threads. The air crackles with tension, and her eerie laughter echoes as she revels in their helplessness.");
+                events.add("With a fluid motion, " + getName() + " casts \"" + skillName + "\", and the web unfurls like a nightmare, ensnaring " + enemy.getName() + " in its grasp. The strands shimmer with a malevolent sheen, immobilizing her opponent for a brief moment. As they thrash in vain against their bonds, she tilts her head with a sinister curiosity, her eyes gleaming with the thrill of the hunt, ready to strike while they remain incapacitated.");
 
                 dialogues.add("(Creeeak... hisss... ssccrrreeeak)");
                 dialogues.add("(Creeeak... crick-crack... hsss...)");
@@ -358,7 +358,7 @@ public class KumoNingyo extends Player {
                 }
                 dialogues.clear();
 
-                skill4(hitter, target);
+                skill4(you, enemy);
                 break;
         }
 
@@ -368,27 +368,27 @@ public class KumoNingyo extends Player {
 
     //every attack has poison effect that last 10 turns
     @Override
-    public void basicAttack(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
-        target.getDamageOverTime().add(poison);
-        target.getDamageOverTimeValue().add(30);
+    public void basicAttack(Player you, Player enemy) {
+        enemy.receiveHit(you, enemy);
+        enemy.getDamageOverTime().add(poison);
+        enemy.getDamageOverTimeValue().add(30);
     }
 
     //uses base damage 3 times and same poison effect
-    private void skill1(Player hitter, Player target) {
+    private void skill1(Player you, Player enemy) {
         setAttack(getAttack() * 3);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
 
-        target.getDamageOverTime().add(poison * 3);
-        target.getDamageOverTimeValue().add(30 * 3);
+        enemy.getDamageOverTime().add(poison * 3);
+        enemy.getDamageOverTimeValue().add(30 * 3);
     }
 
     //recovers 800 health and multiply by the value of the lost limbs buff and bypasses the max health rewriting it
     //also removes the lost limbs buff, while also increasing the poison effect permanently
-    private void skill2(Player hitter, Player target) {
-        if (!hasStatus(hitter, "Lost Limbs", 1).isEmpty()) {
-            int index = Integer.parseInt(hasStatus(hitter, "Lost Limbs", 1));
+    private void skill2(Player you, Player enemy) {
+        if (!hasStatus(you, "Lost Limbs", 1).isEmpty()) {
+            int index = Integer.parseInt(hasStatus(you, "Lost Limbs", 1));
 
             ArrayList<String> newStatus = getStatusList().getValue();
             if (newStatus == null) {
@@ -427,21 +427,21 @@ public class KumoNingyo extends Player {
     }
 
     //burst attack with poison and add 60% dodge for the hitter's next attack with the same poison effect
-    private void skill3(Player hitter, Player target) {
-        hitter.setAttack(4500);
-        target.receiveHit(hitter, target);
-        hitter.setAttack(hitter.getMaxAttack());
+    private void skill3(Player you, Player enemy) {
+        setAttack(4500);
+        enemy.receiveHit(you, enemy);
+        setAttack(getMaxAttack());
 
-        target.getDamageOverTime().add(poison);
-        target.getDamageOverTimeValue().add(30);
+        enemy.getDamageOverTime().add(poison);
+        enemy.getDamageOverTimeValue().add(30);
 
         creepyStalkerTime = 5;
-        receiveStatus(hitter, "Creepy Stalker", 1);
+        receiveStatus(you, "Creepy Stalker", 1);
         setDodge(getDodge() + 60);
     }
 
     //stuns the target
-    private void skill4(Player hitter, Player target) {
-        target.setStun(4);
+    private void skill4(Player you, Player enemy) {
+        enemy.setStun(4);
     }
 }

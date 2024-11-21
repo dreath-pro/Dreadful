@@ -40,9 +40,9 @@ public class Jimhardcore extends Player {
         maxSkillCooldowns.add(0);
         maxSkillCooldowns.add(3);
         maxSkillCooldowns.add(3);
-        maxSkillCooldowns.add(5);
-        maxSkillCooldowns.add(6);
-        maxSkillCooldowns.add(3);
+        maxSkillCooldowns.add(7);
+        maxSkillCooldowns.add(7);
+        maxSkillCooldowns.add(4);
         updateMaxSkillCooldowns(maxSkillCooldowns);
 
         ArrayList<Integer> skillCooldowns = new ArrayList<>();
@@ -146,13 +146,13 @@ public class Jimhardcore extends Player {
      * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
      */
-    public void receiveHit(Player hitter, Player target) {
-        String result = receiveHitLogic(hitter, target);
+    public void receiveHit(Player enemy, Player you) {
+        String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
-                events.add(hitter.getName() + " swings or launches an attack, but " + getName() + " narrowly dodges, moving with surprising speed for his massive frame.");
+                events.add(enemy.getName() + " swings or launches an attack, but " + getName() + " narrowly dodges, moving with surprising speed for his massive frame.");
 
-                dialogues.add("Too slow, " + hitter.getName() + "! You'll have to do better than that!");
+                dialogues.add("Too slow, " + enemy.getName() + "! You'll have to do better than that!");
                 dialogues.add("I’m faster than I look, and you’re just getting warmed up! Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
@@ -167,7 +167,7 @@ public class Jimhardcore extends Player {
 
                 break;
             case "BLOCKED":
-                events.add(getName() + " strikes, but " + getName() + " braces himself and absorbs the impact with his iron gauntlet.");
+                events.add(enemy.getName() + " strikes, but " + getName() + " braces himself and absorbs the impact with his iron gauntlet.");
 
                 dialogues.add("Is that all you've got? My gauntlet’s made of stronger stuff!");
                 dialogues.add("Nice try, but it'll take more than that to break me! Muahahahah!");
@@ -196,7 +196,7 @@ public class Jimhardcore extends Player {
      * Override parent class' receiveTimeHp method so that his own unique receiveHit will still have effect
      * even if its direct attack
      */
-    public void receiveTimeEffect(Player hitter, Player target) {
+    public void receiveTimeEffect(Player enemy, Player you) {
         runTimeHeal();
         runTimeDamage();
 
@@ -217,7 +217,7 @@ public class Jimhardcore extends Player {
         }
     }
 
-    public String useRandomAttack(Player hitter, Player target) {
+    public String useRandomAttack(Player you, Player enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -239,9 +239,10 @@ public class Jimhardcore extends Player {
         skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
-                events.add("");
+                events.add(getName() + " channels electricity into his gauntlet and delivers a thunderous punch to " + enemy.getName() + ", sending shockwaves through the air.");
 
-                dialogues.add("");
+                dialogues.add("Feel the power of the storm, " + enemy.getName() + "!");
+                dialogues.add("And that’s just the beginning... enjoy the shock! Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -253,12 +254,13 @@ public class Jimhardcore extends Player {
                 }
                 dialogues.clear();
 
-                basicAttack(hitter, target);
+                basicAttack(you, enemy);
                 break;
             case 1:
-                events.add("");
+                events.add(getName() + " swings his electrified gauntlet, creating an arc of crackling lightning that lashes " + enemy.getName() + " and sends electrical currents coursing through it's body.");
 
-                dialogues.add("");
+                dialogues.add("Zap! Zap! How does it feel to be the lightning rod, " + enemy.getName() + "?");
+                dialogues.add("Oh, don’t worry—it’s just a little jolt! Or maybe a lot. Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -270,12 +272,13 @@ public class Jimhardcore extends Player {
                 }
                 dialogues.clear();
 
-                skill1(hitter, target);
+                skill1(you, enemy);
                 break;
             case 2:
-                events.add("");
+                events.add(getName() + " raises his iron gauntlet high and slams it down with explosive force, causing a concussive burst.");
 
-                dialogues.add("");
+                dialogues.add("BOOM! That’s how you make an impact!");
+                dialogues.add("Simple, effective, and devastating—just the way I like it. Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -287,12 +290,13 @@ public class Jimhardcore extends Player {
                 }
                 dialogues.clear();
 
-                skill2(hitter, target);
+                skill2(you, enemy);
                 break;
             case 3:
-                events.add("");
+                events.add(getName() + " slams his gauntlet into his chest, electricity crackling as his muscles tense and his body exudes raw power.");
 
-                dialogues.add("");
+                dialogues.add("Time to turn it up a notch! Feel the strength of iron and thunder!");
+                dialogues.add("Hit me, " + enemy.getName() + "—I dare you! Let’s see who breaks first. Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -304,12 +308,13 @@ public class Jimhardcore extends Player {
                 }
                 dialogues.clear();
 
-                skill3(hitter, target);
+                skill3(you, enemy);
                 break;
             case 4:
-                events.add("");
+                events.add(getName() + " flexes his massive muscles, veins bulging as his gauntlet surges with electricity.");
 
-                dialogues.add("");
+                dialogues.add("Feel the power of pure muscle! Doubled strength, doubled destruction!");
+                dialogues.add(enemy.getName() + ", you’re about to see what REAL power looks like! Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -321,12 +326,13 @@ public class Jimhardcore extends Player {
                 }
                 dialogues.clear();
 
-                skill4(hitter, target);
+                skill4(you, enemy);
                 break;
             case 5:
-                events.add("");
+                events.add(getName() + " hunches over dramatically, then sprays a torrent of acidic vomit onto " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " face, the sizzling sound of the corrosive liquid filling the air.");
 
-                dialogues.add("");
+                dialogues.add("Urgh... BLEEEGH! Enjoy the taste of defeat, " + enemy.getName() + "!");
+                dialogues.add("That’s what I call a gut reaction! Muahahahah!");
 
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.yellow_orange));
                 prompt.selectRandomMessage(this, events, false);
@@ -338,7 +344,7 @@ public class Jimhardcore extends Player {
                 }
                 dialogues.clear();
 
-                skill5(hitter, target);
+                skill5(you, enemy);
                 break;
         }
 
@@ -348,30 +354,30 @@ public class Jimhardcore extends Player {
 
     //basic attack that has stun
     @Override
-    public void basicAttack(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
-        target.setStun(2);
+    public void basicAttack(Player you, Player enemy) {
+        enemy.receiveHit(you, enemy);
+        enemy.setStun(2);
     }
 
     //enhance attack with damage over time effect (electric)
-    private void skill1(Player hitter, Player target) {
+    private void skill1(Player you, Player enemy) {
         setAttack(getAttack() + 330);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
 
-        target.getDamageOverTime().add(180);
-        target.getDamageOverTimeValue().add(9);
+        enemy.getDamageOverTime().add(180);
+        enemy.getDamageOverTimeValue().add(9);
     }
 
     //nothing special just a burst attack
-    private void skill2(Player hitter, Player target) {
+    private void skill2(Player you, Player enemy) {
         setAttack(getAttack() + 1200);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
     }
 
     //increase the damage and defense
-    private void skill3(Player hitter, Player target) {
+    private void skill3(Player you, Player enemy) {
         setAttack(getAttack() + 580);
         setDefense(getDefense() + 180);
 
@@ -379,7 +385,7 @@ public class Jimhardcore extends Player {
     }
 
     //multiply the current damage and defense by 2
-    private void skill4(Player hitter, Player target) {
+    private void skill4(Player you, Player enemy) {
         setAttack(getAttack() * 2);
         setDefense(getDefense() * 2);
 
@@ -387,15 +393,15 @@ public class Jimhardcore extends Player {
     }
 
     //pukes onto the enemy's face with a decent damage and two damage over time
-    private void skill5(Player hitter, Player target) {
+    private void skill5(Player you, Player enemy) {
         setAttack(getAttack() + 370);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
 
-        target.getDamageOverTime().add(280);
-        target.getDamageOverTimeValue().add(6);
+        enemy.getDamageOverTime().add(280);
+        enemy.getDamageOverTimeValue().add(6);
 
-        target.getDamageOverTime().add(30);
-        target.getDamageOverTimeValue().add(21);
+        enemy.getDamageOverTime().add(30);
+        enemy.getDamageOverTimeValue().add(21);
     }
 }

@@ -115,8 +115,7 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -142,8 +141,7 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -169,8 +167,7 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -196,8 +193,7 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -217,11 +213,11 @@ public class HellKnight extends Player {
      * if ember is active it will add extra shield that will reduce incoming damage and attacker's hit will
      * reflect back at them
      */
-    public void receiveHit(Player hitter, Player target) {
+    public void receiveHit(Player enemy, Player you) {
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge()) {
             if (form == 0) {
-                events.add(getName() + " sidesteps effortlessly, his flaming armor leaving a trail of sparks as he moves. His eyes burn with amusement, mocking " + hitter.getName() + prompt.getApostrophe(hitter.getName()) + " efforts.");
+                events.add(getName() + " sidesteps effortlessly, his flaming armor leaving a trail of sparks as he moves. His eyes burn with amusement, mocking " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " efforts.");
                 events.add("With a swift twist of his body, " + getName() + " evades the strike, the flames on his armor flaring momentarily, casting a hellish glow around him as he grins with fiery confidence.");
 
                 dialogues.add("Too slow!. You’ll need to be faster to even touch me.");
@@ -231,8 +227,7 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -243,27 +238,27 @@ public class HellKnight extends Player {
         }
 
         if (ember > 0) {
-            setAttack(hitter.getAttack());
-            hitter.receiveHit(target, hitter);
+            setAttack(enemy.getAttack());
+            enemy.receiveHit(you, enemy);
             setAttack(getMaxAttack());
 
-            int originalDamage = hitter.getAttack();
+            int originalDamage = enemy.getAttack();
             double percentage = flameShield / 100;
             int reducedAttack = (int) (originalDamage * (1 - percentage));
-            hitter.setAttack(reducedAttack);
+            enemy.setAttack(reducedAttack);
 
-            hitter.setAttack(hitter.getAttack() * (int) (1 - flameShield));
+            enemy.setAttack(enemy.getAttack() * (int) (1 - flameShield));
         }
 
-        if (hitter.getAttack() <= getDefense()) {
+        if (enemy.getAttack() <= getDefense()) {
             if (form == 0) {
-                events.add(getName() + " raises his flaming shield just in time, sparks flying as " + hitter.getName() + prompt.getApostrophe(hitter.getName()) + " attack crashes into it. The impact causes the flames on his armor to flare up, but " + getName() + " barely budges, standing firm.");
-                events.add("With a loud clang, " + getName() + prompt.getApostrophe(getName()) + " gauntlet meets " + hitter.getName() + prompt.getApostrophe(hitter.getName()) + " attack head-on. His flaming armor absorbs the blow, and he grins, eyes glowing brighter as the flames ripple across his spiked armor.");
+                events.add(getName() + " raises his flaming shield just in time, sparks flying as " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " attack crashes into it. The impact causes the flames on his armor to flare up, but " + getName() + " barely budges, standing firm.");
+                events.add("With a loud clang, " + getName() + prompt.getApostrophe(getName()) + " gauntlet meets " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " attack head-on. His flaming armor absorbs the blow, and he grins, eyes glowing brighter as the flames ripple across his spiked armor.");
 
                 dialogues.add("Hmph. That’s all you’ve got? I’ve faced worse in the pits of Hell.");
                 dialogues.add("You’re strong, but not strong enough to break me!");
             } else {
-                events.add(getName() + " brings up his massive, armored claw, blocking " + hitter.getName() + prompt.getApostrophe(hitter.getName()) + " strike with a sound like metal grinding against stone. His eyes glow fiercely as he lets out a low growl, flames erupting from his nostrils.");
+                events.add(getName() + " brings up his massive, armored claw, blocking " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " strike with a sound like metal grinding against stone. His eyes glow fiercely as he lets out a low growl, flames erupting from his nostrils.");
                 events.add("His massive tail swings up just in time, blocking the incoming blow. The force causes flames to burst from the cracks in his scales, but " + getName() + " stands his ground, letting out a booming roar that shakes the battlefield.");
 
                 dialogues.add("You think your strength can match the fury of a dragon?! Grrrrraahhh!");
@@ -274,27 +269,26 @@ public class HellKnight extends Player {
             prompt.selectRandomMessage(this, events, false);
             events.clear();
 
-            if(prompt.isTherePopup())
-            {
+            if (prompt.isTherePopup()) {
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                 prompt.selectRandomMessage(this, dialogues, true);
             }
             dialogues.clear();
 
         } else {
-            hitter.setAttack(hitter.getAttack() - getDefense());
+            enemy.setAttack(enemy.getAttack() - getDefense());
 
-            double damagePercentage = (double) hitter.getAttack() / getHealth() * 100;
+            double damagePercentage = (double) enemy.getAttack() / getHealth() * 100;
             damageExpression((int) damagePercentage);
 
-            setHealth(getHealth() - hitter.getAttack());
+            setHealth(getHealth() - enemy.getAttack());
             yourImage.startAnimation(shakeAnimation);
         }
 
-        hitter.setAttack(hitter.getMaxAttack());
+        enemy.setAttack(enemy.getMaxAttack());
     }
 
-    public void receiveTimeEffect(Player hitter, Player target) {
+    public void receiveTimeEffect(Player enemy, Player you) {
         runTimeHeal();
 
         ArrayList<Integer> tempDot = new ArrayList<>();
@@ -338,10 +332,10 @@ public class HellKnight extends Player {
         if (enhancedDefense <= 0) {
             enhancedDefense = 0;
 
-            if (!hasStatus(target, "Enhanced Armor", 1).isEmpty()) {
+            if (!hasStatus(you, "Enhanced Armor", 1).isEmpty()) {
                 setDefense(getMaxDefense());
 
-                int index = Integer.parseInt(hasStatus(target, "Enhanced Armor", 1));
+                int index = Integer.parseInt(hasStatus(you, "Enhanced Armor", 1));
                 newStatusValue.remove(index);
                 newStatus.remove(index);
 
@@ -349,10 +343,10 @@ public class HellKnight extends Player {
                 updateStatusValueList(newStatusValue);
             }
 
-            if (!hasStatus(target, "Enhanced Scale", 1).isEmpty()) {
+            if (!hasStatus(you, "Enhanced Scale", 1).isEmpty()) {
                 setDefense(getMaxDefense());
 
-                int index = Integer.parseInt(hasStatus(target, "Enhanced Scale", 1));
+                int index = Integer.parseInt(hasStatus(you, "Enhanced Scale", 1));
                 newStatusValue.remove(index);
                 newStatus.remove(index);
 
@@ -365,10 +359,10 @@ public class HellKnight extends Player {
         if (ember <= 0) {
             ember = 0;
 
-            if (!hasStatus(target, "Flame Shield", 1).isEmpty()) {
+            if (!hasStatus(you, "Flame Shield", 1).isEmpty()) {
                 flameShield = 0;
 
-                int index = Integer.parseInt(hasStatus(target, "Flame Shield", 1));
+                int index = Integer.parseInt(hasStatus(you, "Flame Shield", 1));
                 newStatusValue.remove(index);
                 newStatus.remove(index);
 
@@ -378,7 +372,7 @@ public class HellKnight extends Player {
         }
     }
 
-    public String useRandomAttack(Player hitter, Player target) {
+    public String useRandomAttack(Player you, Player enemy) {
         String skillName;
         int skillIndex;
 
@@ -416,8 +410,8 @@ public class HellKnight extends Player {
         switch (skillIndex) {
             //human form
             case 0:
-                events.add("With a swift motion, " + getName() + " swings his sword, igniting it with hellfire. The blade blazes bright, leaving a trail of flames as he strikes toward " + target.getName() + ", the air sizzling with heat.");
-                events.add("He steps forward, channeling the inferno through his weapon. As he brings the blade down, flames explode outward, creating a fiery arc aimed directly at " + target.getName() + ".");
+                events.add("With a swift motion, " + getName() + " swings his sword, igniting it with hellfire. The blade blazes bright, leaving a trail of flames as he strikes toward " + enemy.getName() + ", the air sizzling with heat.");
+                events.add("He steps forward, channeling the inferno through his weapon. As he brings the blade down, flames explode outward, creating a fiery arc aimed directly at " + enemy.getName() + ".");
 
                 dialogues.add("Feel the flames of my wrath!");
                 dialogues.add("Let this be a lesson in pain!");
@@ -426,18 +420,17 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                basicAttack(hitter, target);
+                basicAttack(you, enemy);
                 break;
             case 1:
-                events.add(getName() + " draws in a deep breath, his chest expanding as he channels the flames of the underworld. He exhales with a roar, unleashing a torrent of hellfire that engulfs " + target.getName() + " in a blazing wave.");
-                events.add("As the flames burst forth, they scorch the ground and wrap around " + target.getName() + ", burning it relentlessly. The heat radiates around them, and " + getName() + " stands firm, watching the fire do its work with a wicked smile.");
+                events.add(getName() + " draws in a deep breath, his chest expanding as he channels the flames of the underworld. He exhales with a roar, unleashing a torrent of hellfire that engulfs " + enemy.getName() + " in a blazing wave.");
+                events.add("As the flames burst forth, they scorch the ground and wrap around " + enemy.getName() + ", burning it relentlessly. The heat radiates around them, and " + getName() + " stands firm, watching the fire do its work with a wicked smile.");
 
                 dialogues.add("Prepare for the inferno!");
                 dialogues.add("Feel the heat of a thousand suns!");
@@ -446,14 +439,13 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill1(hitter, target);
+                skill1(you, enemy);
                 break;
             case 2:
                 events.add(getName() + " slams his gauntleted fists against his chest, and the flames on his armor blaze brighter. As he activates the skill, the heat radiates around him, creating an aura of fiery protection that envelops his form.");
@@ -466,18 +458,17 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill2(hitter, target);
+                skill2(you, enemy);
                 break;
             case 3:
                 events.add(getName() + " raises his arms, and flames envelop him, forming a shimmering, protective shield of fire. The heat radiates outward, causing the air to shimmer as he prepares to counter any incoming attacks.");
-                events.add("With the " + skillName + " activated, the shield crackles with energy, and tendrils of flame reach out toward " + target.getName() + ". As it gets too close, the shield bursts, igniting it with fiery tendrils that cause ongoing damage.");
+                events.add("With the " + skillName + " activated, the shield crackles with energy, and tendrils of flame reach out toward " + enemy.getName() + ". As it gets too close, the shield bursts, igniting it with fiery tendrils that cause ongoing damage.");
 
                 dialogues.add("You’ll find my flames are as protective as they are deadly!");
                 dialogues.add("Step closer, and you’ll taste the fire of my wrath!");
@@ -486,14 +477,13 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill3(hitter, target);
+                skill3(you, enemy);
                 break;
             case 4:
                 events.add("Flames swirl around " + getName() + ", intensifying as he begins to shift. His body expands, scales erupting from his armor, and with a thunderous roar, he transforms into a fearsome dragon, radiating immense power.");
@@ -506,20 +496,19 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill4(hitter, target);
+                skill4(you, enemy);
                 break;
 
             //dragon form
             case 5:
-                events.add(getName() + " raises his massive claw, engulfed in a fiery glow, and brings it crashing down toward " + target.getName() + ". The heat radiates, signaling the impending destruction.");
-                events.add("With a swift swipe, he unleashes the " + skillName + ", sending flames cascading in all directions. The intense heat envelops " + target.getName() + " as it feels the searing pain from the powerful attack, leaving it gasping in the aftermath.");
+                events.add(getName() + " raises his massive claw, engulfed in a fiery glow, and brings it crashing down toward " + enemy.getName() + ". The heat radiates, signaling the impending destruction.");
+                events.add("With a swift swipe, he unleashes the " + skillName + ", sending flames cascading in all directions. The intense heat envelops " + enemy.getName() + " as it feels the searing pain from the powerful attack, leaving it gasping in the aftermath.");
 
                 dialogues.add("Your fate is sealed in flames! RRRRRRHHHHH!");
                 dialogues.add("Embrace the flames of your demise! RRRRRRHHHHH!");
@@ -528,18 +517,17 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill5(hitter, target);
+                skill5(you, enemy);
                 break;
             case 6:
-                events.add(getName() + " inhales deeply, and flames build up within his massive form. With a thunderous roar, he releases a torrent of blazing fire, engulfing " + target.getName() + " entirely. The intense heat singes everything in its path, leaving it scorched and struggling to withstand the burning agony.");
-                events.add("As he unleashes the " + skillName + ", a wave of fire surges forward, scorching everything in its wake. " + target.getName() + " is caught within the inferno, the flames licking as it feels the searing burn intensify with each passing second.");
+                events.add(getName() + " inhales deeply, and flames build up within his massive form. With a thunderous roar, he releases a torrent of blazing fire, engulfing " + enemy.getName() + " entirely. The intense heat singes everything in its path, leaving it scorched and struggling to withstand the burning agony.");
+                events.add("As he unleashes the " + skillName + ", a wave of fire surges forward, scorching everything in its wake. " + enemy.getName() + " is caught within the inferno, the flames licking as it feels the searing burn intensify with each passing second.");
 
                 dialogues.add("Behold the fury of my flames! RRAAAAAHHHHH!");
                 dialogues.add("Let the flames consume you! Grrrhhhhh...");
@@ -548,14 +536,13 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill6(hitter, target);
+                skill6(you, enemy);
                 break;
             case 7:
                 events.add(getName() + " roars, his scales glowing with a deep, fiery hue as they harden into an impenetrable armor. Each scale radiates a fierce heat, creating a protective barrier that few could hope to penetrate.");
@@ -568,18 +555,17 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill7(hitter, target);
+                skill7(you, enemy);
                 break;
             case 8:
                 events.add("In dragon form, " + getName() + prompt.getApostrophe(getName()) + " shield roars to life, a fiery barrier surrounding his massive frame. The flames pulse in sync with his breath, growing hotter by the second. Any who come near are met with burning tendrils of fire that scorch them upon contact.");
-                events.add("The " + skillName + " wraps around " + getName() + " like a living flame, its searing heat both protecting him and causing " + target.getName() + " to shriek as its burned by the fiery force. The shield not only deflects its attacks but burns it with each strike.");
+                events.add("The " + skillName + " wraps around " + getName() + " like a living flame, its searing heat both protecting him and causing " + enemy.getName() + " to shriek as its burned by the fiery force. The shield not only deflects its attacks but burns it with each strike.");
 
                 dialogues.add("Feel the heat of my wrath, even as you strike! RRRAAAAAAHHHH!");
                 dialogues.add("Your fate is sealed—burn in the flames of my shield! Grrrrrrrrrhhh...");
@@ -588,18 +574,17 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill8(hitter, target);
+                skill8(you, enemy);
                 break;
             case 9:
-                events.add(getName() + prompt.getApostrophe(getName()) + " massive dragon form begins to shrink, his scales retracting, wings folding back, and his claws diminishing into his human form. As he transforms, his body heals from the battle's wounds, though his towering presence is now reduced. A violent burst of energy surges from him, striking " + target.getName() + " and sending it reeling as the remnants of his dragon power lash out.");
-                events.add("With a growl, " + getName() + prompt.getApostrophe(getName()) + " dragon body begins to dissipate, flames crackling as he shrinks back to his human size. As the transformation completes, a burst of searing energy erupts from him, knocking " + target.getName() + " back and igniting its body with flames. His armor, though less imposing, now burns with renewed rage, even as his health and defense decrease.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " massive dragon form begins to shrink, his scales retracting, wings folding back, and his claws diminishing into his human form. As he transforms, his body heals from the battle's wounds, though his towering presence is now reduced. A violent burst of energy surges from him, striking " + enemy.getName() + " and sending it reeling as the remnants of his dragon power lash out.");
+                events.add("With a growl, " + getName() + prompt.getApostrophe(getName()) + " dragon body begins to dissipate, flames crackling as he shrinks back to his human size. As the transformation completes, a burst of searing energy erupts from him, knocking " + enemy.getName() + " back and igniting its body with flames. His armor, though less imposing, now burns with renewed rage, even as his health and defense decrease.");
 
                 dialogues.add("I return, but my flames remain!");
                 dialogues.add("Human once more... but still, I burn with fury!");
@@ -608,14 +593,13 @@ public class HellKnight extends Player {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
                 dialogues.clear();
 
-                skill9(hitter, target);
+                skill9(you, enemy);
                 break;
         }
 
@@ -623,42 +607,36 @@ public class HellKnight extends Player {
         return skillName;
     }
 
-    //simple basic attack
-    @Override
-    public void basicAttack(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
-    }
-
     //burst the target and applies burn that last for 7 turns
-    private void skill1(Player hitter, Player target) {
-        hitter.setAttack(4000);
-        target.receiveHit(hitter, target);
-        hitter.setAttack(hitter.getMaxAttack());
+    private void skill1(Player you, Player enemy) {
+        setAttack(4000);
+        enemy.receiveHit(you, enemy);
+        setAttack(getMaxAttack());
 
-        target.getDamageOverTime().add(450);
-        target.getDamageOverTimeValue().add(21);
+        enemy.getDamageOverTime().add(450);
+        enemy.getDamageOverTimeValue().add(21);
     }
 
     //increase the defense and applies "enhanced armor" status
-    private void skill2(Player hitter, Player target) {
+    private void skill2(Player you, Player enemy) {
         enhancedDefense = 21;
         setDefense(getDefense() + 350);
-        receiveStatus(hitter, "Enhanced Armor", 1);
+        receiveStatus(you, "Enhanced Armor", 1);
     }
 
     //receives a temporary flaming shield, and burns the target for 7 turns
-    private void skill3(Player hitter, Player target) {
+    private void skill3(Player you, Player enemy) {
         ember = 15;
-        receiveStatus(hitter, "Flame Shield", 1);
+        receiveStatus(you, "Flame Shield", 1);
         flameShield += 25;
 
-        target.getDamageOverTime().add(450);
-        target.getDamageOverTimeValue().add(21);
+        enemy.getDamageOverTime().add(450);
+        enemy.getDamageOverTimeValue().add(21);
     }
 
     //transform into a dragon and increase the max health and heals yourself overtime at the same time
     //that lasts for 10 turns, your max health, defense will increase but your dodge will be reduced
-    private void skill4(Player hitter, Player target) {
+    private void skill4(Player you, Player enemy) {
         form = 1;
         yourImage.setImageResource(getTransformation()[0]);
         resizeImage.scale(yourImage, 200);
@@ -681,40 +659,40 @@ public class HellKnight extends Player {
 
 
     //simple basic attack in a dragon form
-    private void skill5(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
+    private void skill5(Player you, Player enemy) {
+        enemy.receiveHit(you, enemy);
     }
 
     //burst the target and applies burn that last for 7 turns
-    private void skill6(Player hitter, Player target) {
-        hitter.setAttack(2800);
-        target.receiveHit(hitter, target);
-        hitter.setAttack(hitter.getMaxAttack());
+    private void skill6(Player you, Player enemy) {
+        setAttack(2800);
+        enemy.receiveHit(you, enemy);
+        setAttack(getMaxAttack());
 
-        target.getDamageOverTime().add(280);
-        target.getDamageOverTimeValue().add(21);
+        enemy.getDamageOverTime().add(280);
+        enemy.getDamageOverTimeValue().add(21);
     }
 
     //increase the defense and applies "enhanced scale" status
-    private void skill7(Player hitter, Player target) {
+    private void skill7(Player you, Player enemy) {
         enhancedDefense = 21;
         setDefense(getDefense() + 550);
-        receiveStatus(hitter, "Enhanced Scale", 1);
+        receiveStatus(you, "Enhanced Scale", 1);
     }
 
     //receives a temporary flaming shield, and burns the target for 7 turns
-    private void skill8(Player hitter, Player target) {
+    private void skill8(Player you, Player enemy) {
         ember = 15;
-        receiveStatus(hitter, "Flame Shield", 1);
+        receiveStatus(you, "Flame Shield", 1);
         flameShield += 40;
 
-        target.getDamageOverTime().add(280);
-        target.getDamageOverTimeValue().add(21);
+        enemy.getDamageOverTime().add(280);
+        enemy.getDamageOverTimeValue().add(21);
     }
 
     //transform into a human again and decrease the max health and heals yourself overtime
     //that lasts for 10 turns, your max health, defense will decrease and your enemy will be burst
-    private void skill9(Player hitter, Player target) {
+    private void skill9(Player you, Player enemy) {
         form = 0;
         yourImage.setImageResource(getImage());
         resizeImage.scale(yourImage, getSize());
@@ -732,7 +710,7 @@ public class HellKnight extends Player {
         setHealth((int) reducedNewHealth);
 
         setAttack(10000);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
 
         getHealOverTime().add(400);

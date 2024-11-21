@@ -150,19 +150,19 @@ public abstract class Player {
         return hasStatus;
     }
 
-    protected String receiveHitLogic(Player hitter, Player target) {
+    protected String receiveHitLogic(Player enemy, Player you) {
         String result = ""; //DODGE, BLOCKED, 47% <-- damage percentage
         int antiDodge = random.nextInt(100) + 1;
         if (antiDodge <= getDodge())
             return "DODGE";
 
-        if (hitter.getAttack() <= getDefense()) {
+        if (enemy.getAttack() <= getDefense()) {
             result = "BLOCKED";
         } else {
-            hitter.setAttack(hitter.getAttack() - getDefense());
-            result = Integer.toString(getDamagePercentage(hitter.getAttack(), getHealth()));
-            setHealth(getHealth() - hitter.getAttack());
-            hitter.setAttack(hitter.getMaxAttack());
+            enemy.setAttack(enemy.getAttack() - getDefense());
+            result = Integer.toString(getDamagePercentage(enemy.getAttack(), getHealth()));
+            setHealth(getHealth() - enemy.getAttack());
+            enemy.setAttack(enemy.getMaxAttack());
             yourImage.startAnimation(shakeAnimation);
         }
 
@@ -174,7 +174,7 @@ public abstract class Player {
         return (int) damagePercentage;
     }
 
-    public abstract void receiveHit(Player hitter, Player target);
+    public abstract void receiveHit(Player enemy, Player you);
 
     protected void runTimeDamage() {
         ArrayList<Integer> tempDot = new ArrayList<>();
@@ -212,7 +212,7 @@ public abstract class Player {
         setHealOverTimeValue(tempHotValue);
     }
 
-    public abstract void receiveTimeEffect(Player hitter, Player target);
+    public abstract void receiveTimeEffect(Player enemy, Player you);
 
     protected void reduceCooldown(int skillIndex) {
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -243,10 +243,10 @@ public abstract class Player {
         updateSkillCooldowns(newSkillCooldowns);
     }
 
-    public abstract String useRandomAttack(Player hitter, Player target);
+    public abstract String useRandomAttack(Player you, Player enemy);
 
-    public void basicAttack(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
+    public void basicAttack(Player you, Player enemy) {
+        enemy.receiveHit(you, enemy);
     }
 
     public int getId() {

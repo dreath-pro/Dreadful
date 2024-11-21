@@ -165,8 +165,8 @@ public class Dreath extends Player {
      * the way he receive a hit, when his health drop 0, he will go to instant rage and increase his hp to 35k
      * and the opponent will receive a hit base on the rage value and can not be dodge and penetrates defense
      */
-    public void receiveHit(Player hitter, Player target) {
-        String result = receiveHitLogic(hitter, target);
+    public void receiveHit(Player enemy, Player you) {
+        String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
 
@@ -199,15 +199,15 @@ public class Dreath extends Player {
                 break;
         }
 
-        receiveStatus(target, "Rage", 10);
-        if (!hasStatus(target, "Rage", 50).isEmpty()) {
-            int index = Integer.parseInt(hasStatus(target, "Rage", 50));
+        receiveStatus(you, "Rage", 10);
+        if (!hasStatus(you, "Rage", 50).isEmpty()) {
+            int index = Integer.parseInt(hasStatus(you, "Rage", 50));
             ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
             if (newStatusValue == null) {
                 newStatusValue = new ArrayList<>();
             }
 
-            ArrayList<Integer> targetStatusValue = target.getStatusValueList().getValue();
+            ArrayList<Integer> targetStatusValue = you.getStatusValueList().getValue();
             if (targetStatusValue == null) {
                 targetStatusValue = new ArrayList<>();
             }
@@ -215,16 +215,16 @@ public class Dreath extends Player {
             if (getHealth() <= 0) {
                 setHealth(56780);
 
-                int damage = (hitter.getHealth() * targetStatusValue.get(index)) / 100;
+                int damage = (enemy.getHealth() * targetStatusValue.get(index)) / 100;
                 setAttack(damage);
 
-                hitter.setDefense(0);
-                hitter.setDodge(0);
+                enemy.setDefense(0);
+                enemy.setDodge(0);
 
-                hitter.receiveHit(hitter, target);
+                enemy.receiveHit(you, enemy);
 
-                hitter.setDodge(hitter.getMaxDodge());
-                hitter.setDefense(hitter.getMaxDefense());
+                enemy.setDodge(enemy.getMaxDodge());
+                enemy.setDefense(enemy.getMaxDefense());
                 setAttack(getMaxAttack());
                 newStatusValue.set(index, newStatusValue.get(index) - 50);
 
@@ -260,12 +260,12 @@ public class Dreath extends Player {
      * Override parent class' receiveTimeHp method so that his own unique receiveHit will still have effect
      * even if its direct attack
      */
-    public void receiveTimeEffect(Player hitter, Player target) {
+    public void receiveTimeEffect(Player enemy, Player you) {
         runTimeHeal();
         runTimeDamage();
 
-        if (!hasStatus(target, "Rage", 50).isEmpty()) {
-            int index = Integer.parseInt(hasStatus(target, "Rage", 50));
+        if (!hasStatus(you, "Rage", 50).isEmpty()) {
+            int index = Integer.parseInt(hasStatus(you, "Rage", 50));
             ArrayList<Integer> newStatusValue = getStatusValueList().getValue();
             if (newStatusValue == null) {
                 newStatusValue = new ArrayList<>();
@@ -274,11 +274,11 @@ public class Dreath extends Player {
             if (getHealth() <= 0) {
                 setHealth(35700);
                 setAttack(9000);
-                hitter.setDodge(0);
+                enemy.setDodge(0);
 
-                hitter.receiveHit(hitter, target);
+                enemy.receiveHit(you, enemy);
 
-                hitter.setDodge(hitter.getMaxDodge());
+                enemy.setDodge(enemy.getMaxDodge());
                 setAttack(getMaxAttack());
                 newStatusValue.set(index, newStatusValue.get(index) - 50);
                 updateStatusValueList(newStatusValue);
@@ -286,7 +286,7 @@ public class Dreath extends Player {
         }
     }
 
-    public String useRandomAttack(Player hitter, Player target) {
+    public String useRandomAttack(Player you, Player enemy) {
         String skillName;
 
         ArrayList<Integer> newSkillCooldowns = getSkillCooldowns().getValue();
@@ -308,9 +308,9 @@ public class Dreath extends Player {
         skillName = newSkillNames.get(skillIndex);
         switch (skillIndex) {
             case 0:
-                events.add(getName() + " uses his sharp sword to hack " + target.getName());
+                events.add(getName() + " uses his sharp sword to hack " + enemy.getName());
                 events.add(getName() + " swings his deadly sword.");
-                events.add(getName() + " attacks " + target.getName() + " with malice.");
+                events.add(getName() + " attacks " + enemy.getName() + " with malice.");
                 events.add(getName() + " quick slashes his sword.");
 
                 dialogues.add("Your fate was sealed the moment you crossed me!");
@@ -326,13 +326,13 @@ public class Dreath extends Player {
                 }
                 dialogues.clear();
 
-                basicAttack(hitter, target);
+                basicAttack(you, enemy);
                 break;
             case 1:
-                events.add(getName() + " tries to brutally dismember " + target.getName() + " alive.");
-                events.add(getName() + " tries to chop " + target.getName() + " to pieces.");
-                events.add(getName() + " does a violent amputation on " + target.getName() + ".");
-                events.add(getName() + " ruthlessly destroying " + target.getName() + prompt.getApostrophe(target.getName()));
+                events.add(getName() + " tries to brutally dismember " + enemy.getName() + " alive.");
+                events.add(getName() + " tries to chop " + enemy.getName() + " to pieces.");
+                events.add(getName() + " does a violent amputation on " + enemy.getName() + ".");
+                events.add(getName() + " ruthlessly destroying " + enemy.getName() + prompt.getApostrophe(enemy.getName()));
 
                 dialogues.add("With every strike, I carve your fate!");
 
@@ -347,12 +347,12 @@ public class Dreath extends Player {
                 }
                 dialogues.clear();
 
-                skill1(hitter, target);
+                skill1(you, enemy);
                 break;
             case 2:
                 events.add(getName() + " hacks his opponent with pure rage");
-                events.add(getName() + " stabbing " + target.getName() + " multiple times.");
-                events.add(getName() + " ruthlessly torturing " + target.getName() + ".");
+                events.add(getName() + " stabbing " + enemy.getName() + " multiple times.");
+                events.add(getName() + " ruthlessly torturing " + enemy.getName() + ".");
 
                 dialogues.add("Prepare to meet your end!");
 
@@ -367,13 +367,13 @@ public class Dreath extends Player {
                 }
                 dialogues.clear();
 
-                skill2(hitter, target);
+                skill2(you, enemy);
                 break;
             case 3:
-                events.add(getName() + " tries to gut " + target.getName() + ".");
-                events.add(getName() + " thirsty bloody attacks " + target.getName() + " from the insides.");
+                events.add(getName() + " tries to gut " + enemy.getName() + ".");
+                events.add(getName() + " thirsty bloody attacks " + enemy.getName() + " from the insides.");
                 events.add(getName() + prompt.getApostrophe(getName()) + "guts and gore attack.");
-                events.add(getName() + " tries to disembowel " + target.getName() + ".");
+                events.add(getName() + " tries to disembowel " + enemy.getName() + ".");
 
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
@@ -390,13 +390,13 @@ public class Dreath extends Player {
                 }
                 dialogues.clear();
 
-                skill3(hitter, target);
+                skill3(you, enemy);
                 break;
             case 4:
-                events.add(getName() + " tries to attack " + target.getName() + prompt.getApostrophe(target.getName()) + "organs and recovers his lost blood.");
-                events.add(getName() + " eviscerated " + target.getName() + " and devours internal organs to recover");
-                events.add(getName() + " tries to gut " + target.getName() + " with his sharp sword.");
-                events.add(getName() + " does a gory attack on " + target.getName() + prompt.getApostrophe(target.getName()) + " intestines.");
+                events.add(getName() + " tries to attack " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + "organs and recovers his lost blood.");
+                events.add(getName() + " eviscerated " + enemy.getName() + " and devours internal organs to recover");
+                events.add(getName() + " tries to gut " + enemy.getName() + " with his sharp sword.");
+                events.add(getName() + " does a gory attack on " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " intestines.");
 
                 dialogues.add("Prepare to meet your end!");
                 dialogues.add("Prepare for annihilation!");
@@ -413,7 +413,7 @@ public class Dreath extends Player {
                 }
                 dialogues.clear();
 
-                skill4(hitter, target);
+                skill4(you, enemy);
                 break;
         }
 
@@ -423,50 +423,52 @@ public class Dreath extends Player {
 
     //attack that will ignore defense
     @Override
-    public void basicAttack(Player hitter, Player target) {
-        target.setDefense(0);
-        target.receiveHit(hitter, target);
-        target.setDefense(target.getMaxDefense());
+    public void basicAttack(Player you, Player enemy) {
+        enemy.setDefense(0);
+        enemy.receiveHit(you, enemy);
+        enemy.setDefense(enemy.getMaxDefense());
     }
 
     //prevent enemy from using all skills
-    private void skill1(Player hitter, Player target) {
-        ArrayList<Integer> newSkillCooldowns = target.getSkillCooldowns().getValue();
+    private void skill1(Player you, Player enemy) {
+        ArrayList<Integer> newSkillCooldowns = enemy.getSkillCooldowns().getValue();
         if (newSkillCooldowns == null) {
             newSkillCooldowns = new ArrayList<>();
         }
 
         for (int i = 1; i <= newSkillCooldowns.size() - 1; i++) {
             newSkillCooldowns.set(i, newSkillCooldowns.get(i) + 5);
-            target.updateMaxSkillCooldowns(newSkillCooldowns);
+            enemy.updateMaxSkillCooldowns(newSkillCooldowns);
         }
 
         setAttack(getAttack() + 6500);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
     }
 
     //enemy cannot dodge all incoming attacks
-    private void skill2(Player hitter, Player target) {
-        target.setDodge(0);
+    private void skill2(Player you, Player enemy) {
+        enemy.setDodge(0);
         setAttack(getAttack() + 5000);
-        target.receiveHit(hitter, target);
+
+        enemy.receiveHit(you, enemy);
+
         setAttack(getMaxAttack());
-        target.setDodge(target.getMaxDodge());
+        enemy.setDodge(enemy.getMaxDodge());
     }
 
     //high burst
-    private void skill3(Player hitter, Player target) {
+    private void skill3(Player you, Player enemy) {
         setAttack(getAttack() + 8870);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
     }
 
     //heal and increase damage
-    private void skill4(Player hitter, Player target) {
+    private void skill4(Player you, Player enemy) {
         setHealth(getHealth() + 10000);
         setAttack(getAttack() + 11000);
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
         setAttack(getMaxAttack());
     }
 }

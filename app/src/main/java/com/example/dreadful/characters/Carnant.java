@@ -205,8 +205,8 @@ public class Carnant extends Player {
     /**
      * if he dies theres a 50/50 chance he will transform into a strong mutant, or will just die easily
      */
-    public void receiveHit(Player hitter, Player target) {
-        String result = receiveHitLogic(hitter, target);
+    public void receiveHit(Player enemy, Player you) {
+        String result = receiveHitLogic(enemy, you);
         switch (result) {
             case "DODGE":
                 if (form == 0) {
@@ -306,7 +306,7 @@ public class Carnant extends Player {
         }
     }
 
-    public void receiveTimeEffect(Player hitter, Player target) {
+    public void receiveTimeEffect(Player enemy, Player you) {
         runTimeHeal();
         runTimeDamage();
 
@@ -354,10 +354,10 @@ public class Carnant extends Player {
 
             dissolve--;
             if (dissolve <= 0) {
-                if (!hasStatus(target, "Dissolve Armor", 100).isEmpty()) {
+                if (!hasStatus(you, "Dissolve Armor", 100).isEmpty()) {
                     setDefense(getMaxDefense());
 
-                    int index = Integer.parseInt(hasStatus(target, "Dissolve Armor", 100));
+                    int index = Integer.parseInt(hasStatus(you, "Dissolve Armor", 100));
 
                     ArrayList<String> newStatus = getStatusList().getValue();
                     if (newStatus == null) {
@@ -379,7 +379,7 @@ public class Carnant extends Player {
         }
     }
 
-    public String useRandomAttack(Player hitter, Player target) {
+    public String useRandomAttack(Player you, Player enemy) {
         String skillName;
         int skillIndex;
 
@@ -411,7 +411,7 @@ public class Carnant extends Player {
         switch (skillIndex) {
             //human form
             case 0:
-                events.add(getName() + " lunged forward, gathering his strength as he prepared for the " + skillName + ". With a wild grin, he leaped into the air, ready to bring his full weight down on " + target.getName() + ".");
+                events.add(getName() + " lunged forward, gathering his strength as he prepared for the " + skillName + ". With a wild grin, he leaped into the air, ready to bring his full weight down on " + enemy.getName() + ".");
                 events.add("As he soared through the air, " + getName() + prompt.getApostrophe(getName()) + " laughter echoed ominously. He curled his body into a ball, crashing down with tremendous force, intent on obliterating everything in his path.");
                 events.add("The ground shook beneath him as " + getName() + " slammed down, his laughter rising above the chaos. Dust and debris flew as he landed, eyes wide with manic delight.");
 
@@ -429,12 +429,12 @@ public class Carnant extends Player {
                 }
                 dialogues.clear();
 
-                basicAttack(hitter, target);
+                basicAttack(you, enemy);
                 break;
             case 1:
                 events.add(getName() + " tightened his grip on his weapon, a wild glint in his eyes as he swung it back, gathering momentum for the strike. He was ready to unleash his fury.");
                 events.add("With a ferocious grin, " + getName() + " unleashed the " + skillName + ", his weapon cutting through the air with deadly precision. He felt the thrill of the impending impact.");
-                events.add("The force of the swing echoed through the battlefield as " + getName() + prompt.getApostrophe(getName()) + " weapon collided with " + target.getName() + ", sending shockwaves of pain rippling through his opponent. He laughed maniacally at the sight of " + target.getName() + " staggering back.");
+                events.add("The force of the swing echoed through the battlefield as " + getName() + prompt.getApostrophe(getName()) + " weapon collided with " + enemy.getName() + ", sending shockwaves of pain rippling through his opponent. He laughed maniacally at the sight of " + enemy.getName() + " staggering back.");
 
                 dialogues.add("Hahaha! Get ready for a world of hurt!");
                 dialogues.add("You will be added to my kill count.");
@@ -450,7 +450,7 @@ public class Carnant extends Player {
                 }
                 dialogues.clear();
 
-                skill1(hitter, target);
+                skill1(you, enemy);
                 break;
             case 2:
                 events.add(getName() + " kicks at maximum strength!");
@@ -471,14 +471,14 @@ public class Carnant extends Player {
                 }
                 dialogues.clear();
 
-                skill2(hitter, target);
+                skill2(you, enemy);
                 break;
 
             //mutant form
             case 3:
-                events.add(target.getName() + " is pierced by " + getName() + prompt.getApostrophe(getName()) + " tentacle.");
-                events.add(getName() + " used " + skillName + " to destroy " + target.getName() + " with raw strength.");
-                events.add(getName() + " quick pierce through " + target.getName() + prompt.getApostrophe(target.getName()) + " body.");
+                events.add(enemy.getName() + " is pierced by " + getName() + prompt.getApostrophe(getName()) + " tentacle.");
+                events.add(getName() + " used " + skillName + " to destroy " + enemy.getName() + " with raw strength.");
+                events.add(getName() + " quick pierce through " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " body.");
 
                 dialogues.add("I am your greatest kryptonite.");
                 dialogues.add("I am infinity, this fight is eternal!");
@@ -494,12 +494,12 @@ public class Carnant extends Player {
                 }
                 dialogues.clear();
 
-                skill3(hitter, target);
+                skill3(you, enemy);
                 break;
             case 4:
-                events.add(target.getName() + " is punctured by a deadly venom.");
-                events.add(getName() + " targeted and injected " + target.getName() + " with an aggressive venom.");
-                events.add(getName() + " injected venom into " + target.getName() + prompt.getApostrophe(target.getName()) + " body.");
+                events.add(enemy.getName() + " is punctured by a deadly venom.");
+                events.add(getName() + " targeted and injected " + enemy.getName() + " with an aggressive venom.");
+                events.add(getName() + " injected venom into " + enemy.getName() + prompt.getApostrophe(enemy.getName()) + " body.");
 
                 dialogues.add("You will slowly die by my venom!");
                 dialogues.add("Succumb into the afterlife.");
@@ -515,7 +515,7 @@ public class Carnant extends Player {
                 }
                 dialogues.clear();
 
-                skill4(hitter, target);
+                skill4(you, enemy);
                 break;
             case 5:
                 events.add(getName() + " ingested his own poison to recover his lost health.");
@@ -536,10 +536,10 @@ public class Carnant extends Player {
                 }
                 dialogues.clear();
 
-                skill5(hitter, target);
+                skill5(you, enemy);
                 break;
             case 6:
-                events.add(getName() + prompt.getApostrophe(getName()) + " body is dissolving making it hard for " + target.getName() + " to attack.");
+                events.add(getName() + prompt.getApostrophe(getName()) + " body is dissolving making it hard for " + enemy.getName() + " to attack.");
                 events.add(getName() + prompt.getApostrophe(getName()) + " cell is liquefied.");
                 events.add(getName() + " started to get deformed and agile from incoming attack.");
 
@@ -557,7 +557,7 @@ public class Carnant extends Player {
                 }
                 dialogues.clear();
 
-                skill6(hitter, target);
+                skill6(you, enemy);
                 break;
         }
 
@@ -565,63 +565,57 @@ public class Carnant extends Player {
         return skillName;
     }
 
-    //simple attack
-    @Override
-    public void basicAttack(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
-    }
-
     //simple attack with stun
-    private void skill1(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
-        target.setStun(3);
+    private void skill1(Player you, Player enemy) {
+        enemy.receiveHit(you, enemy);
+        enemy.setStun(3);
     }
 
     //simple attack
-    private void skill2(Player hitter, Player target) {
-        target.receiveHit(hitter, target);
+    private void skill2(Player you, Player enemy) {
+        enemy.receiveHit(you, enemy);
     }
 
     //attack that will pierce through defense
-    private void skill3(Player hitter, Player target) {
-        target.setDefense(0);
+    private void skill3(Player you, Player enemy) {
+        enemy.setDefense(0);
         setAttack(getAttack() * 2);
 
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
 
         setAttack(getMaxAttack());
-        target.setDefense(target.getMaxDefense());
+        enemy.setDefense(enemy.getMaxDefense());
     }
 
     //same effect with basic attack but with enhanced damage and follow up damage over time that last for 4 turns
-    private void skill4(Player hitter, Player target) {
-        target.setDefense(0);
+    private void skill4(Player you, Player enemy) {
+        enemy.setDefense(0);
         setAttack(getAttack() * 4);
 
-        target.receiveHit(hitter, target);
+        enemy.receiveHit(you, enemy);
 
         setAttack(getMaxAttack());
-        target.setDefense(target.getMaxDefense());
+        enemy.setDefense(enemy.getMaxDefense());
 
-        target.getDamageOverTime().add(venom);
-        target.getDamageOverTimeValue().add(12);
+        enemy.getDamageOverTime().add(venom);
+        enemy.getDamageOverTimeValue().add(12);
     }
 
     //simple heal over time that last for 4 turns while also applying venom that last for 4 turns
-    private void skill5(Player hitter, Player target) {
+    private void skill5(Player you, Player enemy) {
         getHealOverTime().add(heal * 2);
         getHealOverTimeValue().add(12);
 
-        target.getDamageOverTime().add(venom);
-        target.getDamageOverTimeValue().add(12);
+        enemy.getDamageOverTime().add(venom);
+        enemy.getDamageOverTimeValue().add(12);
     }
 
     //increase dodge while applying dissolve armor status and venom that last for 4 turns
-    private void skill6(Player hitter, Player target) {
+    private void skill6(Player you, Player enemy) {
         setDodge(getDodge() + 80);
-        receiveStatus(hitter, "Dissolve Armor", 100);
+        receiveStatus(you, "Dissolve Armor", 100);
 
-        target.getDamageOverTime().add(venom);
-        target.getDamageOverTimeValue().add(12);
+        enemy.getDamageOverTime().add(venom);
+        enemy.getDamageOverTimeValue().add(12);
     }
 }
