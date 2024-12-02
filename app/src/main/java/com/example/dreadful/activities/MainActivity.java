@@ -14,8 +14,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.dreadful.R;
 import com.example.dreadful.characters.Flamethrower;
+import com.example.dreadful.databases.MapDatabase;
 import com.example.dreadful.databases.MonsterDatabase;
+import com.example.dreadful.models.Map;
 import com.example.dreadful.models.Monster;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     //person with spiky armor covered with dark liquid, hd detailed, dark cartoon 2d, horror theme, white background, facing right, standing full view, red, black, dark-gray, crimson-red
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     //awakened monster triangle warning sign, minimalist icon, dark horror theme, vibrant shading, yellow-orange, black
     private Button classicButton, testButton, wikiButton, quitButton;
     private MonsterDatabase monsterDatabase;
+    private MapDatabase mapDatabase;
 
     private void initViews() {
         classicButton = findViewById(R.id.classicButton);
@@ -44,11 +49,25 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         monsterDatabase = new MonsterDatabase(this);
-
-        Monster monster = new Flamethrower(this);
+        mapDatabase = new MapDatabase(this);
 
         if (!monsterDatabase.doesDataExist()) {
+            Monster monster = new Flamethrower(this);
             monsterDatabase.addMonster(monster.getName());
+        }
+
+        if (!mapDatabase.doesDataExist()) {
+            ArrayList<Map> mapList = new ArrayList<>();
+            mapList.add(new Map("Facility", 1, 0, 0, null));
+            mapList.add(new Map("Shadowgrove", 1, 0, 0, null));
+            mapList.add(new Map("Badlands", 1, 0, 0, null));
+            mapList.add(new Map("Ghost Town", 0, 0, 0, null));
+            mapList.add(new Map("Abyss", 0, 0, 0, null));
+            mapList.add(new Map("Celestial", 0, 0, 0, null));
+
+            for (Map map : mapList) {
+                mapDatabase.addMap(map);
+            }
         }
 
         classicButton.setOnClickListener(new View.OnClickListener() {
