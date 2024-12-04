@@ -1,14 +1,15 @@
 package com.example.dreadful.models;
 
 public class Map {
-    private int id;
+    private int databaseId;
+    private String uniqueId;
     private String name;
     private int status; // 0 - locked, 1 - unlocked
     private int image;
     private int explorePercentage;
     private String requirements;
 
-    public Map(String name, int status, int image, int explorePercentage, String requirements) {
+    public Map(String uniqueId, String name, int status, int image, int explorePercentage, String requirements) {
         this.name = name;
         this.status = status;
         this.image = image;
@@ -16,8 +17,8 @@ public class Map {
         this.requirements = requirements;
     }
 
-    public Map(int id, String name, int status, int image, int explorePercentage, String requirements) {
-        this.id = id;
+    public Map(int databaseId, String uniqueId, String name, int status, int image, int explorePercentage, String requirements) {
+        this.databaseId = databaseId;
         this.name = name;
         this.status = status;
         this.image = image;
@@ -26,11 +27,19 @@ public class Map {
     }
 
     public int getId() {
-        return id;
+        return databaseId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.databaseId = id;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     public String getName() {

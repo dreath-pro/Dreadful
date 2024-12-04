@@ -48,6 +48,25 @@ public class MapDatabase extends SQLiteOpenHelper {
 //        db.setVersion(newVersion);
     }
 
+    public int mapCount() {
+        int count = 0;
+        String queryString = "SELECT * FROM " + map_table;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                count++;
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return count;
+    }
+
     public boolean doesDataExist() {
         int count = 0;
         String queryString = "SELECT * FROM " + map_table;
@@ -93,11 +112,12 @@ public class MapDatabase extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(0);
-                String name = cursor.getString(1);
-                int status = cursor.getInt(2);
-                int exploredPercentage = cursor.getInt(3);
+                String uniqueId = cursor.getString(1);
+                String name = cursor.getString(2);
+                int status = cursor.getInt(3);
+                int exploredPercentage = cursor.getInt(4);
 
-                allMap.add(new Map(id, name, status, 0, exploredPercentage, null));
+                allMap.add(new Map(id, uniqueId, name, status, 0, exploredPercentage, null));
             } while (cursor.moveToNext());
         }
 
@@ -108,14 +128,16 @@ public class MapDatabase extends SQLiteOpenHelper {
 
     public boolean deleteMap(Map map) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + map_table + " WHERE " + map_id + " = " + map.getId();
+        int deletedRows = db.delete(map_table, map_id + " = ?", new String[]{String.valueOf(map.getId())});
+        db.close();
+        return deletedRows > 0;
+    }
 
-        Cursor cursor = db.rawQuery(queryString, null);
-        if (cursor.moveToFirst()) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean deleteAllMap() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deletedRows = db.delete(map_table, null, null);
+        db.close();
+        return deletedRows > 0;
     }
 
     public boolean updateMap(Map map) {

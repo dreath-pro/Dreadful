@@ -16,6 +16,7 @@ import com.example.dreadful.R;
 import com.example.dreadful.characters.Flamethrower;
 import com.example.dreadful.databases.MapDatabase;
 import com.example.dreadful.databases.MonsterDatabase;
+import com.example.dreadful.logics.MapListGetter;
 import com.example.dreadful.models.Map;
 import com.example.dreadful.models.Monster;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Button classicButton, testButton, wikiButton, quitButton;
     private MonsterDatabase monsterDatabase;
     private MapDatabase mapDatabase;
+    private MapListGetter mapListGetter;
 
     private void initViews() {
         classicButton = findViewById(R.id.classicButton);
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         monsterDatabase = new MonsterDatabase(this);
         mapDatabase = new MapDatabase(this);
+        mapListGetter = new MapListGetter();
 
         if (!monsterDatabase.doesDataExist()) {
             Monster monster = new Flamethrower(this);
@@ -57,16 +60,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (!mapDatabase.doesDataExist()) {
-            ArrayList<Map> mapList = new ArrayList<>();
-            mapList.add(new Map("Facility", 1, 0, 0, null));
-            mapList.add(new Map("Shadowgrove", 1, 0, 0, null));
-            mapList.add(new Map("Badlands", 1, 0, 0, null));
-            mapList.add(new Map("Ghost Town", 0, 0, 0, null));
-            mapList.add(new Map("Abyss", 0, 0, 0, null));
-            mapList.add(new Map("Celestial", 0, 0, 0, null));
+            ArrayList<Map> mapList = new ArrayList<>(mapListGetter.getMap());
 
             for (Map map : mapList) {
                 mapDatabase.addMap(map);
+            }
+        } else {
+            if (mapDatabase.mapCount() != mapListGetter.getMap().size()) {
+                ArrayList<Map> databaseMap = new ArrayList<>(mapDatabase.selectAll());
+                ArrayList<Map> newMap = new ArrayList<>(mapListGetter.getMap());
+
+                for (Map thisNewMap : newMap) {
+                    boolean found = false;
+                    for (Map thisDatabaseMap : databaseMap) {
+
+                    }
+                }
             }
         }
 

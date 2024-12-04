@@ -106,37 +106,30 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
 
         mapListArray.addAll(mapDatabase.selectAll());
 
-        for(int i = 0; i <= mapListArray.size() - 1; i++)
-        {
-            if(mapListArray.get(i).getName().equals("Facility"))
-            {
+        for (int i = 0; i <= mapListArray.size() - 1; i++) {
+            if (mapListArray.get(i).getName().equals("Facility")) {
                 mapListArray.get(i).setImage(R.drawable.map_facility);
             }
 
-            if(mapListArray.get(i).getName().equals("Shadowgrove"))
-            {
+            if (mapListArray.get(i).getName().equals("Shadowgrove")) {
                 mapListArray.get(i).setImage(R.drawable.map_shadowgrove);
             }
 
-            if(mapListArray.get(i).getName().equals("Badlands"))
-            {
+            if (mapListArray.get(i).getName().equals("Badlands")) {
                 mapListArray.get(i).setImage(R.drawable.map_badland);
             }
 
-            if(mapListArray.get(i).getName().equals("Ghost Town"))
-            {
+            if (mapListArray.get(i).getName().equals("Ghost Town")) {
                 mapListArray.get(i).setImage(R.drawable.map_ghost_town);
                 mapListArray.get(i).setRequirements("Discover all the Shadowgrove monsters");
             }
 
-            if(mapListArray.get(i).getName().equals("Abyss"))
-            {
+            if (mapListArray.get(i).getName().equals("Abyss")) {
                 mapListArray.get(i).setImage(R.drawable.map_abyss);
                 mapListArray.get(i).setRequirements("Defeat the strongest aberrant in ghost town");
             }
 
-            if(mapListArray.get(i).getName().equals("Celestial"))
-            {
+            if (mapListArray.get(i).getName().equals("Celestial")) {
                 mapListArray.get(i).setImage(R.drawable.map_celestial);
                 mapListArray.get(i).setRequirements("Destroy the final aberrant in abyss");
             }
@@ -157,11 +150,9 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         huntButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mapListArray.get(selectedMap).getStatus() == 0)
-                {
+                if (mapListArray.get(selectedMap).getStatus() == 0) {
                     Toast.makeText(MapActivity.this, "Map is locked!", Toast.LENGTH_SHORT).show();
-                }else
-                {
+                } else {
                     showLoadingDialog();
                 }
             }
@@ -267,7 +258,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
                             Intent intent = new Intent(MapActivity.this, BattleActivity.class);
                             intent.putExtra("selectedLevel", selectedLevel);
                             intent.putExtra("selectedMap", selectedMap);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
 
                             loadingDialog.dismiss();
