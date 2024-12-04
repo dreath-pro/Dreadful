@@ -13,6 +13,7 @@ import com.example.dreadful.models.Map;
 import java.util.ArrayList;
 
 public class MapDatabase extends SQLiteOpenHelper {
+    private static final String map_unique_id = "unique_id";
     private static final String map_table = "map_table";
     private static final String map_id = "map_id";
     private static final String map_name = "map_name";
@@ -28,7 +29,7 @@ public class MapDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + map_table + " (" + map_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                map_name + " TEXT, " + map_status + " INTEGER, " + map_exploredPercentage + " INTEGER)";
+                map_unique_id + " TEXT, " + map_name + " TEXT, " + map_status + " INTEGER, " + map_exploredPercentage + " INTEGER)";
         db.execSQL(createTable);
     }
 
@@ -90,6 +91,7 @@ public class MapDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        contentValues.put(map_unique_id, map.getUniqueId());
         contentValues.put(map_name, map.getName());
         contentValues.put(map_status, map.getStatus());
         contentValues.put(map_exploredPercentage, map.getExplorePercentage());

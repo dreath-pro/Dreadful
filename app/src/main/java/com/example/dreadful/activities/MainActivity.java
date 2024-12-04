@@ -59,22 +59,52 @@ public class MainActivity extends AppCompatActivity {
             monsterDatabase.addMonster(monster.getName());
         }
 
+        // Check if there's no data in the database
         if (!mapDatabase.doesDataExist()) {
-            ArrayList<Map> mapList = new ArrayList<>(mapListGetter.getMap());
 
+            // First-time setup: populate the database with all maps from the source
+            ArrayList<Map> mapList = new ArrayList<>(mapListGetter.getMap());
             for (Map map : mapList) {
-                mapDatabase.addMap(map);
+                mapDatabase.addMap(map); // Add each map to the database
             }
         } else {
-            if (mapDatabase.mapCount() != mapListGetter.getMap().size()) {
-                ArrayList<Map> databaseMap = new ArrayList<>(mapDatabase.selectAll());
-                ArrayList<Map> newMap = new ArrayList<>(mapListGetter.getMap());
 
-                for (Map thisNewMap : newMap) {
+            // If data exists, check if there's a discrepancy in the number of maps
+            if (mapDatabase.mapCount() != mapListGetter.getMap().size()) {
+
+                // Get maps from both the database and the updated source
+                ArrayList<Map> databaseMap = new ArrayList<>(mapDatabase.selectAll());
+                ArrayList<Map> listMap = new ArrayList<>(mapListGetter.getMap());
+                ArrayList<Map> finalMap = new ArrayList<>();
+
+                // Iterate through the updated list of maps
+                for (Map thisListMap : listMap) {
                     boolean found = false;
+
+                    // Compare with existing maps in the database
                     for (Map thisDatabaseMap : databaseMap) {
 
+                        // Match maps by their unique identifier
+                        if (thisListMap.getUniqueId().equals(thisDatabaseMap.getUniqueId())) {
+
+                            // Merge attributes: retain database attributes in the updated map
+                            Map retainedMap = new Map(thisListMap.getUniqueId(), thisListMap.getName(), thisDatabaseMap.getStatus(), 0, thisDatabaseMap.getExplorePercentage(), null);
+                            finalMap.add(retainedMap);  // Add the updated map version
+                            found = true;
+                            break;
+                        }
                     }
+
+                    // If no match is found, it's a new map; add it to the final list
+                    if (!found) {
+                        finalMap.add(thisListMap);
+                    }
+                }
+
+                // Clear the database and replace it with the updated map list
+                mapDatabase.deleteAllMap();
+                for (Map map : finalMap) {
+                    mapDatabase.addMap(map); // Add the new or updated map to the database
                 }
             }
         }

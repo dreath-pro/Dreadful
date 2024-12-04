@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dreadful.R;
 import com.example.dreadful.adapters.ViewMap;
 import com.example.dreadful.databases.MapDatabase;
+import com.example.dreadful.logics.MapListGetter;
 import com.example.dreadful.models.Level;
 import com.example.dreadful.models.Map;
 
@@ -56,6 +57,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
 
     private boolean isLoadingDialogShowing = false;
     private MapDatabase mapDatabase;
+    private MapListGetter mapListGetter;
 
     private void initViews() {
         mapList = findViewById(R.id.mapList);
@@ -83,6 +85,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         level = new Level();
         random = new Random();
         mapDatabase = new MapDatabase(this);
+        mapListGetter = new MapListGetter();
 
         clockhandler = new Handler(Looper.getMainLooper());
         clockrunnable = new Runnable() {
@@ -107,32 +110,8 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         mapListArray.addAll(mapDatabase.selectAll());
 
         for (int i = 0; i <= mapListArray.size() - 1; i++) {
-            if (mapListArray.get(i).getName().equals("Facility")) {
-                mapListArray.get(i).setImage(R.drawable.map_facility);
-            }
-
-            if (mapListArray.get(i).getName().equals("Shadowgrove")) {
-                mapListArray.get(i).setImage(R.drawable.map_shadowgrove);
-            }
-
-            if (mapListArray.get(i).getName().equals("Badlands")) {
-                mapListArray.get(i).setImage(R.drawable.map_badland);
-            }
-
-            if (mapListArray.get(i).getName().equals("Ghost Town")) {
-                mapListArray.get(i).setImage(R.drawable.map_ghost_town);
-                mapListArray.get(i).setRequirements("Discover all the Shadowgrove monsters");
-            }
-
-            if (mapListArray.get(i).getName().equals("Abyss")) {
-                mapListArray.get(i).setImage(R.drawable.map_abyss);
-                mapListArray.get(i).setRequirements("Defeat the strongest aberrant in ghost town");
-            }
-
-            if (mapListArray.get(i).getName().equals("Celestial")) {
-                mapListArray.get(i).setImage(R.drawable.map_celestial);
-                mapListArray.get(i).setRequirements("Destroy the final aberrant in abyss");
-            }
+            mapListArray.get(i).setImage(mapListGetter.getMap().get(i).getImage());
+            mapListArray.get(i).setRequirements(mapListGetter.getMap().get(i).getRequirements());
         }
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
