@@ -85,7 +85,7 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         level = new Level();
         random = new Random();
         mapDatabase = new MapDatabase(this);
-        mapListGetter = new MapListGetter();
+        mapListGetter = new MapListGetter(this);
 
         clockhandler = new Handler(Looper.getMainLooper());
         clockrunnable = new Runnable() {
