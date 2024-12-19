@@ -29,8 +29,16 @@ public class VoidReaper extends Monster {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private MonsterDatabase monsterDatabase;
 
+    public VoidReaper(Context context)
+    {
+        super("010-VOID", context, null, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
+                new int[]{R.drawable.character_void_reaper_2},
+                new int[]{R.drawable.background_void_1, R.drawable.background_void_2},
+                60000, 1800, 500, 15);
+    }
+
     public VoidReaper(Context context, ImageView yourImage, ConstraintLayout backgroundImage, ArrayList<Integer> backgroundList, int selectedBackground, Prompt prompt) {
-        super(context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
+        super("010-VOID", context, yourImage, "Void Reaper", R.drawable.character_void_reaper, "left", 150,
                 new int[]{R.drawable.character_void_reaper_2},
                 new int[]{R.drawable.background_void_1, R.drawable.background_void_2},
                 60000, 1800, 500, 15);
@@ -172,7 +180,7 @@ public class VoidReaper extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 

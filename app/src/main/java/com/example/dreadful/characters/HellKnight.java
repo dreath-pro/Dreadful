@@ -32,8 +32,14 @@ public class HellKnight extends Monster {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private MonsterDatabase monsterDatabase;
 
+    public HellKnight(Context context) {
+        super("006-KNGT", context, null, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
+                new int[]{R.drawable.character_hell_knight_2}, null,
+                20000, 1000, 1000, 5);
+    }
+
     public HellKnight(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
-        super(context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
+        super("006-KNGT", context, yourImage, "Hell Knight", R.drawable.character_hell_knight, "right", 155,
                 new int[]{R.drawable.character_hell_knight_2}, null,
                 20000, 1000, 1000, 5);
 
@@ -203,7 +209,7 @@ public class HellKnight extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 

@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!monsterDatabase.doesDataExist()) {
             Monster monster = new Flamethrower(this);
-            monsterDatabase.addMonster(monster.getName());
+            monsterDatabase.addMonster(monster);
         }
 
         // Check if there's no data in the database

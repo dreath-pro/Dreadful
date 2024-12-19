@@ -22,12 +22,12 @@ public class Flamethrower extends Monster {
     private MonsterDatabase monsterDatabase;
 
     public Flamethrower(Context context) {
-        super(context, null, "Flamethrower", R.drawable.character_flamethrower, "right", 140,
+        super("004-FLME", context, null, "Flamethrower", R.drawable.character_flamethrower, "right", 140,
                 null, null, 3000, 320, 8, 20);
     }
 
     public Flamethrower(Context context, ImageView yourImage, Prompt prompt) {
-        super(context, yourImage, "Flamethrower", R.drawable.character_flamethrower, "right", 140,
+        super("004-FLME", context, yourImage, "Flamethrower", R.drawable.character_flamethrower, "right", 140,
                 null, null, 3000, 320, 8, 20);
 
         ArrayList<String> skillNames = new ArrayList<>();
@@ -132,7 +132,7 @@ public class Flamethrower extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 

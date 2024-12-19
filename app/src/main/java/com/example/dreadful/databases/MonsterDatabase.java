@@ -8,9 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.dreadful.models.Map;
+import com.example.dreadful.models.Monster;
+
 import java.util.ArrayList;
 
 public class MonsterDatabase extends SQLiteOpenHelper {
+    private static final String unique_id = "unique_id";
     private static final String monster_table = "monster_table";
     private static final String monster_id = "monster_id";
     private static final String monster_name = "monster_name";
@@ -24,7 +28,7 @@ public class MonsterDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + monster_table + " (" + monster_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                monster_name + " TEXT)";
+                unique_id + " TEXT, " + monster_name + " TEXT)";
         db.execSQL(createTable);
     }
 
@@ -44,11 +48,11 @@ public class MonsterDatabase extends SQLiteOpenHelper {
 //        db.setVersion(newVersion);
     }
 
-    public boolean doesSelectedDataExist(String monsterName) {
+    public boolean doesSelectedDataExist(String unique_id) {
         int count = 0;
-        String queryString = "SELECT * FROM " + monster_table + " WHERE " + monster_name + " = ?";
+        String queryString = "SELECT * FROM " + monster_table + " WHERE " + unique_id + " = ?";
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] selectionArgs = {monsterName};
+        String[] selectionArgs = {unique_id};
 
         Cursor cursor = db.rawQuery(queryString, selectionArgs);
 
@@ -102,11 +106,12 @@ public class MonsterDatabase extends SQLiteOpenHelper {
         return count;
     }
 
-    public boolean addMonster(String monster) {
+    public boolean addMonster(Monster monster) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(monster_name, monster);
+        contentValues.put(unique_id, monster.getUniqueId());
+        contentValues.put(monster_name, monster.getName());
 
         long insert = db.insert(monster_table, null, contentValues);
         if (insert == -1) {
@@ -126,8 +131,7 @@ public class MonsterDatabase extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(0);
-                String name = cursor.getString(1);
-
+                String name = cursor.getString(2);
                 allMonster.add(name);
             } while (cursor.moveToNext());
         }
@@ -135,5 +139,17 @@ public class MonsterDatabase extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return allMonster;
+    }
+
+    public boolean updateMap(Monster monster) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(monster_name, monster.getName());
+        String whereClause = unique_id + "=?";
+        String[] whereArgs = {String.valueOf(monster.getUniqueId())};
+        int result = db.update(monster_table, contentValues, whereClause, whereArgs);
+
+        return result > 0;
     }
 }

@@ -32,8 +32,14 @@ public class Carnant extends Monster {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private MonsterDatabase monsterDatabase;
 
+    public Carnant(Context context) {
+        super("001-CRNT", context, null, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
+                new int[]{R.drawable.character_carnant}, null,
+                3000, 300, 10, 40);
+    }
+
     public Carnant(Context context, ImageView yourImage, ProgressBar yourHealthBar, TextView yourName, Prompt prompt) {
-        super(context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
+        super("001-CRNT", context, yourImage, "Psycho Killer", R.drawable.character_psychopath, "left", 140,
                 new int[]{R.drawable.character_carnant}, null,
                 3000, 300, 10, 40);
 
@@ -195,7 +201,7 @@ public class Carnant extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 

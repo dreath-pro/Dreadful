@@ -22,8 +22,13 @@ public class Dreath extends Monster {
     private NumberComma numberComma = new NumberComma();
     private MonsterDatabase monsterDatabase;
 
+    public Dreath(Context context) {
+        super("003-DRTH", context, null, "Dreath", R.drawable.character_dreath, "left", 150,
+                null, null, 88070, 2580, 880, 0);
+    }
+
     public Dreath(Context context, ImageView yourImage, Prompt prompt) {
-        super(context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
+        super("003-DRTH", context, yourImage, "Dreath", R.drawable.character_dreath, "left", 150,
                 null, null, 88070, 2580, 880, 0);
 
         ArrayList<String> skillNames = new ArrayList<>();
@@ -73,8 +78,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -93,8 +97,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -115,8 +118,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -137,8 +139,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -150,7 +151,7 @@ public class Dreath extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 
@@ -176,8 +177,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -312,8 +312,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -333,8 +332,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -353,8 +351,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -376,8 +373,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -399,8 +395,7 @@ public class Dreath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }

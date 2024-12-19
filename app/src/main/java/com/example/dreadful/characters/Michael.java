@@ -32,8 +32,13 @@ public class Michael extends Monster {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private MonsterDatabase monsterDatabase;
 
+    public Michael(Context context) {
+        super("009-MCHL", context, null, "Michael", R.drawable.character_michael, "left", 180,
+                null, null, 20500, 1800, 58, 0);
+    }
+
     public Michael(Context context, ImageView yourImage, Prompt prompt, ImageView enemyImage) {
-        super(context, yourImage, "Michael", R.drawable.character_michael, "left", 180,
+        super("009-MCHL", context, yourImage, "Michael", R.drawable.character_michael, "left", 180,
                 null, null, 20500, 1800, 58, 0);
 
         ArrayList<String> skillNames = new ArrayList<>();
@@ -92,8 +97,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -115,8 +119,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -138,8 +141,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -161,8 +163,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -174,7 +175,7 @@ public class Michael extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 
@@ -199,8 +200,7 @@ public class Michael extends Monster {
             prompt.selectRandomMessage(this, events, false);
             events.clear();
 
-            if(prompt.isTherePopup())
-            {
+            if (prompt.isTherePopup()) {
                 prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                 prompt.selectRandomMessage(this, dialogues, true);
             }
@@ -223,17 +223,14 @@ public class Michael extends Monster {
         runTimeHeal();
 
         shield--;
-        if(shield <= 0)
-        {
+        if (shield <= 0) {
             shield = 0;
             shieldPercentage = maxShieldPercentage;
         }
 
-        if(isPetrifyActivated)
-        {
+        if (isPetrifyActivated) {
             petrification--;
-            if(petrification <= 0)
-            {
+            if (petrification <= 0) {
                 enemyImage.setColorFilter(null);
                 enemy.setHealth(enemyCurrentHealth);
                 enemyCurrentHealth = enemy.getHealth();
@@ -280,8 +277,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -304,8 +300,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -328,8 +323,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -352,8 +346,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -376,8 +369,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -400,8 +392,7 @@ public class Michael extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -506,8 +497,7 @@ public class Michael extends Monster {
     }
 
     //give enemy damage over time and hit them
-    private void skill5(Monster you, Monster enemy)
-    {
+    private void skill5(Monster you, Monster enemy) {
         enemy.receiveHit(you, enemy);
 
         enemy.getDamageOverTime().add(500);

@@ -20,8 +20,13 @@ public class DreadProphet extends Monster {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private MonsterDatabase monsterDatabase;
 
+    public DreadProphet(Context context) {
+        super("002-DRED", context, null, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
+                null, null, 120000, 2888, 0, 0);
+    }
+
     public DreadProphet(Context context, ImageView yourImage, Prompt prompt) {
-        super(context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
+        super("002-DRED", context, yourImage, "Dread Prophet", R.drawable.character_dread_prophet, "left", 210,
                 null, null, 120000, 2888, 0, 0);
 
         ArrayList<String> skillNames = new ArrayList<>();
@@ -74,8 +79,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -97,8 +101,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -120,8 +123,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -143,8 +145,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -156,7 +157,7 @@ public class DreadProphet extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 
@@ -238,8 +239,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -260,8 +260,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -282,8 +281,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -304,8 +302,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -326,8 +323,7 @@ public class DreadProphet extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.white));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }

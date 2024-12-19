@@ -22,8 +22,13 @@ public class Jimhardcore extends Monster {
     private int ironBody = 0;
     private int muscleCharge = 0;
 
+    public Jimhardcore(Context context) {
+        super("007-JHRD", context, null, "Jimhardcore", R.drawable.character_jimhardcore, "right", 150,
+                null, null, 8500, 470, 230, 34);
+    }
+
     public Jimhardcore(Context context, ImageView yourImage, Prompt prompt) {
-        super(context, yourImage, "Jimhardcore", R.drawable.character_jimhardcore, "right", 150,
+        super("007-JHRD", context, yourImage, "Jimhardcore", R.drawable.character_jimhardcore, "right", 150,
                 null, null, 8500, 470, 230, 34);
 
         ArrayList<String> skillNames = new ArrayList<>();
@@ -137,7 +142,7 @@ public class Jimhardcore extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 

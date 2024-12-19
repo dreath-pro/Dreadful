@@ -22,8 +22,13 @@ public class GodOfDeath extends Monster {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private MonsterDatabase monsterDatabase;
 
+    public GodOfDeath(Context context) {
+        super("005-GOD", context, null, "God of Death", R.drawable.character_god_of_death, "right", 210,
+                null, null, 500000, 8500, 50, 50);
+    }
+
     public GodOfDeath(Context context, ImageView yourImage, Prompt prompt) {
-        super(context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
+        super("005-GOD", context, yourImage, "God of Death", R.drawable.character_god_of_death, "right", 210,
                 null, null, 500000, 8500, 50, 50);
 
         ArrayList<String> skillNames = new ArrayList<>();
@@ -69,8 +74,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -88,8 +92,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -107,8 +110,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -126,8 +128,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -139,7 +140,7 @@ public class GodOfDeath extends Monster {
 
     public void defeatReward() {
         if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+            monsterDatabase.addMonster(this);
         }
     }
 
@@ -157,8 +158,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -176,8 +176,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -196,7 +195,7 @@ public class GodOfDeath extends Monster {
     public void receiveTimeEffect(Monster enemy, Monster you) {
         runTimeHeal();
         runTimeDamage();
-        
+
         if (isClockOn) {
             timeBeforeDeath--;
 
@@ -274,8 +273,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -294,8 +292,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -314,8 +311,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }
@@ -334,8 +330,7 @@ public class GodOfDeath extends Monster {
                 prompt.selectRandomMessage(this, events, false);
                 events.clear();
 
-                if(prompt.isTherePopup())
-                {
+                if (prompt.isTherePopup()) {
                     prompt.getMessageColor().add(ContextCompat.getColor(context, R.color.violet));
                     prompt.selectRandomMessage(this, dialogues, true);
                 }

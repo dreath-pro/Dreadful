@@ -25,8 +25,13 @@ public class KumoNingyo extends Monster {
     private ArrayList<String> events = new ArrayList<>(), dialogues = new ArrayList<>();
     private MonsterDatabase monsterDatabase;
 
+    public KumoNingyo(Context context) {
+        super("008-NGYO", context, null, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 170,
+                null, null, 7800, 180, 0, 20);
+    }
+
     public KumoNingyo(Context context, ImageView yourImage, ProgressBar yourHealthBar, Prompt prompt) {
-        super(context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 170,
+        super("008-NGYO", context, yourImage, "Kumo Ningyō", R.drawable.character_kumo_ningyo, "left", 170,
                 null, null, 7800, 180, 0, 20);
 
         ArrayList<String> skillNames = new ArrayList<>();
@@ -141,8 +146,8 @@ public class KumoNingyo extends Monster {
     }
 
     public void defeatReward() {
-        if (!monsterDatabase.doesSelectedDataExist(getName())) {
-            monsterDatabase.addMonster(getName());
+        if (!monsterDatabase.doesSelectedDataExist(getUniqueId())) {
+            monsterDatabase.addMonster(this);
         }
     }
 

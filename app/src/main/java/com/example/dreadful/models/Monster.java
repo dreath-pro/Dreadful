@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Monster {
-    private int id;
+    private int databaseId;
+    private String uniqueId;
     private String name;
     private int image;
     private String imageDirection;
@@ -41,8 +42,9 @@ public abstract class Monster {
 
     }
 
-    public Monster(Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
+    public Monster(String uniqueId, Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
                    int[] dimension, int health, int attack, int defense, int dodge) {
+        this.uniqueId = uniqueId;
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -62,9 +64,10 @@ public abstract class Monster {
         this.stun = 0;
     }
 
-    public Monster(int id, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
+    public Monster(int databaseId, String uniqueId, Context context, ImageView yourImage, String name, int image, String imageDirection, int size,
                    int[] transformation, int[] dimension, int health, int attack, int defense, int dodge, Prompt prompt) {
-        this.id = id;
+        this.databaseId = databaseId;
+        this.uniqueId = uniqueId;
         this.name = name;
         this.image = image;
         this.imageDirection = imageDirection;
@@ -246,12 +249,20 @@ public abstract class Monster {
         enemy.receiveHit(you, enemy);
     }
 
-    public int getId() {
-        return id;
+    public int getDatabaseId() {
+        return databaseId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDatabaseId(int databaseId) {
+        this.databaseId = databaseId;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     public String getName() {
