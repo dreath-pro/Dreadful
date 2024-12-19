@@ -110,8 +110,8 @@ public class MapActivity extends AppCompatActivity implements ViewMap.OnItemClic
         mapListArray.addAll(mapDatabase.selectAll());
 
         for (int i = 0; i <= mapListArray.size() - 1; i++) {
-            mapListArray.get(i).setImage(mapListGetter.getMap().get(i).getImage());
-            mapListArray.get(i).setRequirements(mapListGetter.getMap().get(i).getRequirements());
+            mapListArray.get(i).setImage(mapListGetter.getMapList().get(i).getImage());
+            mapListArray.get(i).setRequirements(mapListGetter.getMapList().get(i).getRequirements());
         }
 
         LinearLayoutManager statusLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

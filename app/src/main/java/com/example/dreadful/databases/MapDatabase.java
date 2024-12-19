@@ -130,7 +130,7 @@ public class MapDatabase extends SQLiteOpenHelper {
 
     public boolean deleteMap(Map map) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int deletedRows = db.delete(map_table, map_id + " = ?", new String[]{String.valueOf(map.getId())});
+        int deletedRows = db.delete(map_table, map_unique_id + " = ?", new String[]{String.valueOf(map.getUniqueId())});
         db.close();
         return deletedRows > 0;
     }
@@ -150,9 +150,9 @@ public class MapDatabase extends SQLiteOpenHelper {
         contentValues.put(map_status, map.getStatus());
         contentValues.put(map_exploredPercentage, map.getExplorePercentage());
 
-        String whereClause = map_id + "=?";
+        String whereClause = map_unique_id + "=?";
 
-        String[] whereArgs = {String.valueOf(map.getId())};
+        String[] whereArgs = {String.valueOf(map.getUniqueId())};
 
         int result = db.update(map_table, contentValues, whereClause, whereArgs);
 

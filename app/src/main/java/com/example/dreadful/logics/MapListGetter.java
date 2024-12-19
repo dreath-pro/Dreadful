@@ -34,8 +34,8 @@ public class MapListGetter {
         StringBuilder matchingIds = new StringBuilder();
         boolean isUnique = true;
 
-        for (int i = 0; i <= map.size(); i++) {
-            for (int j = 1; j <= map.size(); j++) {
+        for (int i = 0; i <= map.size() - 1; i++) {
+            for (int j = i + 1; j <= map.size() - 1; j++) {
                 if (map.get(i).getUniqueId().equals(map.get(j).getUniqueId())) {
                     isUnique = false;
                     matchingIds.append("\n").append(map.get(i).getName()).append(" and ").append(map.get(j).getName()).append(": ").append(map.get(i).getUniqueId()).append("\n");
@@ -46,12 +46,15 @@ public class MapListGetter {
         if (!isUnique) {
             Toast.makeText(context, "Non unique IDs:" + matchingIds, Toast.LENGTH_SHORT).show();
             Log.d("Non unique IDs:", matchingIds.toString());
+        }else
+        {
+            Toast.makeText(context, "Everything is unique", Toast.LENGTH_SHORT).show();
         }
 
         return isUnique;
     }
 
-    public ArrayList<Map> getMap() {
+    public ArrayList<Map> getMapList() {
         return map;
     }
 }

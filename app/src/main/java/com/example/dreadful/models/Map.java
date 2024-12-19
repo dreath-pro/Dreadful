@@ -10,6 +10,7 @@ public class Map {
     private String requirements;
 
     public Map(String uniqueId, String name, int status, int image, int explorePercentage, String requirements) {
+        this.uniqueId = uniqueId;
         this.name = name;
         this.status = status;
         this.image = image;
@@ -19,6 +20,7 @@ public class Map {
 
     public Map(int databaseId, String uniqueId, String name, int status, int image, int explorePercentage, String requirements) {
         this.databaseId = databaseId;
+        this.uniqueId = uniqueId;
         this.name = name;
         this.status = status;
         this.image = image;

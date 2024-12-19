@@ -61,25 +61,29 @@ public class MainActivity extends AppCompatActivity {
 
         // Check if there's no data in the database
         if (!mapDatabase.doesDataExist()) {
+            // First-time setup: populate the database with all maps from the source
+            ArrayList<Map> mapList = new ArrayList<>(mapListGetter.getMapList());
 
             if (mapListGetter.isIdUnique()) {
-                // First-time setup: populate the database with all maps from the source
-                ArrayList<Map> mapList = new ArrayList<>(mapListGetter.getMap());
                 for (Map map : mapList) {
                     mapDatabase.addMap(map); // Add each map to the database
                 }
             }
         } else {
+            // Get maps from both the database and the updated source
+            ArrayList<Map> listMap = new ArrayList<>(mapListGetter.getMapList());
+            ArrayList<Map> finalMap = new ArrayList<>();
+
+            for (Map map : listMap) {
+                mapDatabase.updateMap(map);
+            }
+
+            ArrayList<Map> databaseMap = new ArrayList<>(mapDatabase.selectAll());
 
             // If data exists, check if there's a discrepancy in the number of maps
-            if (mapDatabase.mapCount() != mapListGetter.getMap().size()) {
+            if (mapDatabase.mapCount() != mapListGetter.getMapList().size()) {
 
                 if (mapListGetter.isIdUnique()) {
-                    // Get maps from both the database and the updated source
-                    ArrayList<Map> databaseMap = new ArrayList<>(mapDatabase.selectAll());
-                    ArrayList<Map> listMap = new ArrayList<>(mapListGetter.getMap());
-                    ArrayList<Map> finalMap = new ArrayList<>();
-
                     // Iterate through the updated list of maps
                     for (Map thisListMap : listMap) {
                         boolean found = false;
