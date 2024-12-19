@@ -5,7 +5,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dreadful.R;
+import com.example.dreadful.characters.DreadProphet;
+import com.example.dreadful.characters.Flamethrower;
 import com.example.dreadful.models.Map;
+import com.example.dreadful.models.Monster;
 
 import java.util.ArrayList;
 
@@ -24,7 +27,8 @@ public class MapListGetter {
         maps.add(new Map("0004-GHT", "Ghost Town", 0, R.drawable.map_ghost_town, 0, "Discover all the " + shadowgroveName + " monsters"));
 
         String ghostTownName = maps.get(3).getName().toLowerCase(); // Get Ghost Town name
-        maps.add(new Map("0005-ABY", "Abyss", 0, R.drawable.map_abyss, 0, "Defeat the strongest aberrant in " + ghostTownName));
+        Monster monster = new DreadProphet(context);
+        maps.add(new Map("0005-ABY", "Abyss", 0, R.drawable.map_abyss, 0, "Defeat the strongest aberrant " + monster.getName() +" in " + ghostTownName));
 
         String abyssName = maps.get(4).getName().toLowerCase(); // Get Abyss name
         maps.add(new Map("0006-CLS", "Celestial", 0, R.drawable.map_celestial, 0, "Destroy the final aberrant in " + abyssName));

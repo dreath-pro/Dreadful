@@ -2,6 +2,7 @@ package com.example.dreadful.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,7 +14,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.dreadful.R;
+import com.example.dreadful.characters.Carnant;
+import com.example.dreadful.characters.DreadProphet;
+import com.example.dreadful.characters.Dreath;
 import com.example.dreadful.characters.Flamethrower;
+import com.example.dreadful.characters.GodOfDeath;
+import com.example.dreadful.characters.HellKnight;
+import com.example.dreadful.characters.Jimhardcore;
+import com.example.dreadful.characters.KumoNingyo;
+import com.example.dreadful.characters.Michael;
+import com.example.dreadful.characters.VoidReaper;
 import com.example.dreadful.databases.MapDatabase;
 import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.MapListGetter;
@@ -35,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private MonsterDatabase monsterDatabase;
     private MapDatabase mapDatabase;
     private MapListGetter mapListGetter;
+    private ArrayList<Monster> monsters = new ArrayList<>();
 
     private void initViews() {
         classicButton = findViewById(R.id.classicButton);
@@ -57,6 +68,37 @@ public class MainActivity extends AppCompatActivity {
         if (!monsterDatabase.doesDataExist()) {
             Monster monster = new Flamethrower(this);
             monsterDatabase.addMonster(monster);
+
+            monsters.clear();
+            monsters.add(new Dreath(this));
+            monsters.add(new DreadProphet(this));
+            monsters.add(new KumoNingyo(this));
+            monsters.add(new VoidReaper(this));
+            monsters.add(new HellKnight(this));
+            monsters.add(new Carnant(this));
+            monsters.add(new GodOfDeath(this));
+            monsters.add(new Michael(this));
+            monsters.add(new Jimhardcore(this));
+            monsters.add(new Flamethrower(this));
+
+            StringBuilder matchingIds = new StringBuilder();
+            boolean isUnique = true;
+
+            for (int i = 0; i <= monsters.size() - 1; i++) {
+                for (int j = i + 1; j <= monsters.size() - 1; j++) {
+                    if (monsters.get(i).getUniqueId().equals(monsters.get(j).getUniqueId())) {
+                        isUnique = false;
+                        matchingIds.append("\n").append(monsters.get(i).getName()).append(" and ").append(monsters.get(j).getName()).append(": ").append(monsters.get(i).getUniqueId()).append("\n");
+                    }
+                }
+            }
+
+            if (!isUnique) {
+                Toast.makeText(this, "Non unique IDs:" + matchingIds, Toast.LENGTH_SHORT).show();
+                Log.d("Non unique IDs:", matchingIds.toString());
+            } else {
+                Toast.makeText(this, "Everything is unique", Toast.LENGTH_SHORT).show();
+            }
         }
 
         // Check if there's no data in the database
