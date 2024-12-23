@@ -88,16 +88,14 @@ public class SetupCharacter {
     }
 
     public ArrayList<Monster> yourMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
-        monsters.clear();
         ArrayList<Monster> monsterNames = monsterDatabase.selectAll();
-        monsters = monsterListing(monsterNames, playerImage, opponentImage, playerHealthBar, playerName);
-
+        monsterListing(monsterNames, playerImage, opponentImage, playerHealthBar, playerName);
         return monsters;
     }
 
     public ArrayList<Monster> allMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
         monsters.clear();
-        monsters = monsterListing(null, playerImage, opponentImage, playerHealthBar, playerName);
+        monsterListing(null, playerImage, opponentImage, playerHealthBar, playerName);
 
         return monsters;
     }
@@ -118,35 +116,36 @@ public class SetupCharacter {
         return monsters;
     }
 
-    private ArrayList<Monster> monsterListing(ArrayList<Monster> monsterList, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
-        ArrayList<Monster> finalMonsters = new ArrayList<>();
+    private void monsterListing(ArrayList<Monster> monsterList, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+        ArrayList<Monster> monstersSource = new ArrayList<>();
 
-        monsters.clear();
-        monsters.add(new Dreath(context, playerImage, prompt));
-        monsters.add(new DreadProphet(context, playerImage, prompt));
-        monsters.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
-        monsters.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
-        monsters.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
-        monsters.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
-        monsters.add(new GodOfDeath(context, playerImage, prompt));
-        monsters.add(new Michael(context, playerImage, prompt, opponentImage));
-        monsters.add(new Jimhardcore(context, playerImage, prompt));
+        monstersSource.add(new Dreath(context, playerImage, prompt));
+        monstersSource.add(new DreadProphet(context, playerImage, prompt));
+        monstersSource.add(new KumoNingyo(context, playerImage, playerHealthBar, prompt));
+        monstersSource.add(new VoidReaper(context, playerImage, backgroundImage, backgroundList, selectedBackground, prompt));
+        monstersSource.add(new HellKnight(context, playerImage, playerHealthBar, prompt));
+        monstersSource.add(new Carnant(context, playerImage, playerHealthBar, playerName, prompt));
+        monstersSource.add(new GodOfDeath(context, playerImage, prompt));
+        monstersSource.add(new Michael(context, playerImage, prompt, opponentImage));
+        monstersSource.add(new Jimhardcore(context, playerImage, prompt));
 
         if (monsterList != null) {
-            monsters.add(new Flamethrower(context, playerImage, prompt));
+            monstersSource.add(new Flamethrower(context, playerImage, prompt));
+        }
 
-            for (int i = 0; i <= monsterList.size() - 1; i++) {
-                for (int j = 0; j <= monsters.size() - 1; j++) {
-                    if (monsterList.get(i).equals(monsters.get(j).getName())) {
-                        finalMonsters.add(monsters.get(j));
+        monsters.clear();
+        if (monsterList != null) {
+            for (Monster databaseMonster : monsterList) {
+                for (Monster sourceMonster : monstersSource) {
+
+                    if (databaseMonster.getUniqueId().equals(sourceMonster.getUniqueId())) {
+                        monsters.add(sourceMonster);
                     }
                 }
             }
         } else {
-            finalMonsters = monsters;
+            monsters.addAll(monstersSource);
         }
-
-        return finalMonsters;
     }
 
     private ArrayList<Integer> mapMonsters(ArrayList<Integer> background, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName,
