@@ -104,36 +104,6 @@ public class MainActivity extends AppCompatActivity {
             for (Monster monster : sourceMonsters) {
                 monsterDatabase.updateMonster(monster);
             }
-
-//            ArrayList<Monster> databaseMonster = new ArrayList<>(monsterDatabase.selectAll());
-//
-//            if (isMonsterUniqueId(setupCharacter.getMonsterListing())) {
-//                // Iterate through the updated list of maps
-//                for (Monster thisListMonster : setupCharacter.getMonsterListing()) {
-//                    boolean found = false;
-//
-//                    // Compare with existing monster in the database
-//                    for (Monster thisDatabaseMonster : databaseMonster) {
-//
-//                        // Match monster by their unique identifier
-//                        if (thisListMonster.getUniqueId().equals(thisDatabaseMonster.getUniqueId())) {
-//                            found = true;
-//                            break;
-//                        }
-//                    }
-//
-//                    // If no match is found, it's a new monster; add it to the final list
-//                    if (!found) {
-//                        finalMonster.add(thisListMonster);
-//                    }
-//                }
-//
-//                // Clear the database and replace it with the updated monster list
-//                monsterDatabase.deleteAllMonster();
-//                for (Monster monster : finalMonster) {
-//                    monsterDatabase.addMonster(monster); // Add the new or updated monster to the database
-//                }
-//            }
         }
 
         // Check if there's no data in the database
