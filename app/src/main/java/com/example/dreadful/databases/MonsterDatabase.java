@@ -22,13 +22,14 @@ public class MonsterDatabase extends SQLiteOpenHelper {
     private static final String monster_id = "monster_id";
     private static final String monster_name = "monster_name";
 
-    private SetupCharacter setupCharacter = new SetupCharacter();
+    private SetupCharacter setupCharacter;
 
     private static final int DATABASE_VERSION = 1;
 
     public MonsterDatabase(@Nullable Context context) {
         super(context, "monster.db", null, DATABASE_VERSION);
         this.context = context;
+        setupCharacter = new SetupCharacter(context);
     }
 
     @Override
@@ -166,7 +167,7 @@ public class MonsterDatabase extends SQLiteOpenHelper {
     }
 
     private Monster getMonsterFromSource(String unique_id) {
-        Monster finalMonster = null;
+        Monster finalMonster = new Flamethrower(context);
         ArrayList<Monster> monsters = setupCharacter.getMonsterListing();
 
         for (Monster monster : monsters) {

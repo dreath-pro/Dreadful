@@ -47,8 +47,8 @@ public class SetupCharacter {
 
     private int firstPlayerSelected, secondPlayerSelected;
 
-    public SetupCharacter() {
-
+    public SetupCharacter(Context context) {
+        this.context = context;
     }
 
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,

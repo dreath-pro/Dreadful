@@ -47,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private MapDatabase mapDatabase;
     private MapListGetter mapListGetter;
     private ArrayList<Monster> sourceMonsters = new ArrayList<>();
-    private SetupCharacter setupCharacter = new SetupCharacter();
+    private SetupCharacter setupCharacter;
 
     private void initViews() {
+        setupCharacter = new SetupCharacter(this);
         classicButton = findViewById(R.id.classicButton);
         testButton = findViewById(R.id.testButton);
         wikiButton = findViewById(R.id.wikiButton);
