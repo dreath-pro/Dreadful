@@ -47,6 +47,10 @@ public class SetupCharacter {
 
     private int firstPlayerSelected, secondPlayerSelected;
 
+    public SetupCharacter() {
+
+    }
+
     public SetupCharacter(Context context, TextView yourName, ProgressBar yourHealth, TextView yourHealthText, ImageView yourImage,
                           TextView enemyName, ProgressBar enemyHealth, TextView enemyHealthText, ImageView enemyImage,
                           Monster yourMonster, Monster enemyMonster, ConstraintLayout backgroundImage, TextView yourStunText, TextView enemyStunText,
@@ -85,7 +89,7 @@ public class SetupCharacter {
 
     public ArrayList<Monster> yourMonsters(ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
         monsters.clear();
-        ArrayList<String> monsterNames = monsterDatabase.selectAll();
+        ArrayList<Monster> monsterNames = monsterDatabase.selectAll();
         monsters = monsterListing(monsterNames, playerImage, opponentImage, playerHealthBar, playerName);
 
         return monsters;
@@ -98,7 +102,23 @@ public class SetupCharacter {
         return monsters;
     }
 
-    private ArrayList<Monster> monsterListing(ArrayList<String> monsterList, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
+    public ArrayList<Monster> getMonsterListing() {
+        monsters.clear();
+        monsters.add(new Dreath(context));
+        monsters.add(new DreadProphet(context));
+        monsters.add(new KumoNingyo(context));
+        monsters.add(new VoidReaper(context));
+        monsters.add(new HellKnight(context));
+        monsters.add(new Carnant(context));
+        monsters.add(new GodOfDeath(context));
+        monsters.add(new Michael(context));
+        monsters.add(new Jimhardcore(context));
+        monsters.add(new Flamethrower(context));
+
+        return monsters;
+    }
+
+    private ArrayList<Monster> monsterListing(ArrayList<Monster> monsterList, ImageView playerImage, ImageView opponentImage, ProgressBar playerHealthBar, TextView playerName) {
         ArrayList<Monster> finalMonsters = new ArrayList<>();
 
         monsters.clear();

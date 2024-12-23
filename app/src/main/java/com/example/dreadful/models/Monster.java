@@ -38,10 +38,6 @@ public abstract class Monster {
 
     private Random random = new Random();
 
-    public Monster() {
-
-    }
-
     public Monster(String uniqueId, Context context, ImageView yourImage, String name, int image, String imageDirection, int size, int[] transformation,
                    int[] dimension, int health, int attack, int defense, int dodge) {
         this.uniqueId = uniqueId;

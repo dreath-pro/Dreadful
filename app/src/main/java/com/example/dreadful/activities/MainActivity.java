@@ -27,6 +27,7 @@ import com.example.dreadful.characters.VoidReaper;
 import com.example.dreadful.databases.MapDatabase;
 import com.example.dreadful.databases.MonsterDatabase;
 import com.example.dreadful.logics.MapListGetter;
+import com.example.dreadful.logics.SetupCharacter;
 import com.example.dreadful.models.Map;
 import com.example.dreadful.models.Monster;
 
@@ -45,13 +46,37 @@ public class MainActivity extends AppCompatActivity {
     private MonsterDatabase monsterDatabase;
     private MapDatabase mapDatabase;
     private MapListGetter mapListGetter;
-    private ArrayList<Monster> monsters = new ArrayList<>();
+    private ArrayList<Monster> sourceMonsters = new ArrayList<>();
+    private SetupCharacter setupCharacter = new SetupCharacter();
 
     private void initViews() {
         classicButton = findViewById(R.id.classicButton);
         testButton = findViewById(R.id.testButton);
         wikiButton = findViewById(R.id.wikiButton);
         quitButton = findViewById(R.id.quitButton);
+    }
+
+    private boolean isMonsterUniqueId(ArrayList<Monster> monsterList) {
+        StringBuilder matchingIds = new StringBuilder();
+        boolean isUnique = true;
+
+        for (int i = 0; i <= monsterList.size() - 1; i++) {
+            for (int j = i + 1; j <= monsterList.size() - 1; j++) {
+                if (monsterList.get(i).getUniqueId().equals(monsterList.get(j).getUniqueId())) {
+                    isUnique = false;
+                    matchingIds.append("\n").append(monsterList.get(i).getName()).append(" and ").append(monsterList.get(j).getName()).append(": ").append(monsterList.get(i).getUniqueId()).append("\n");
+                }
+            }
+        }
+
+        if (!isUnique) {
+            Toast.makeText(this, "Non unique IDs:" + matchingIds, Toast.LENGTH_SHORT).show();
+            Log.d("Non unique IDs:", matchingIds.toString());
+        } else {
+            Toast.makeText(this, "Everything is unique", Toast.LENGTH_SHORT).show();
+        }
+
+        return isUnique;
     }
 
     @Override
@@ -65,39 +90,53 @@ public class MainActivity extends AppCompatActivity {
         mapDatabase = new MapDatabase(this);
         mapListGetter = new MapListGetter(this);
 
+        sourceMonsters.clear();
+        sourceMonsters.addAll(setupCharacter.getMonsterListing());
+
         if (!monsterDatabase.doesDataExist()) {
             Monster monster = new Flamethrower(this);
             monsterDatabase.addMonster(monster);
 
-            monsters.clear();
-            monsters.add(new Dreath(this));
-            monsters.add(new DreadProphet(this));
-            monsters.add(new KumoNingyo(this));
-            monsters.add(new VoidReaper(this));
-            monsters.add(new HellKnight(this));
-            monsters.add(new Carnant(this));
-            monsters.add(new GodOfDeath(this));
-            monsters.add(new Michael(this));
-            monsters.add(new Jimhardcore(this));
-            monsters.add(new Flamethrower(this));
+            isMonsterUniqueId(sourceMonsters);
+        } else {
+            ArrayList<Monster> finalMonster = new ArrayList<>();
 
-            StringBuilder matchingIds = new StringBuilder();
-            boolean isUnique = true;
-
-            for (int i = 0; i <= monsters.size() - 1; i++) {
-                for (int j = i + 1; j <= monsters.size() - 1; j++) {
-                    if (monsters.get(i).getUniqueId().equals(monsters.get(j).getUniqueId())) {
-                        isUnique = false;
-                        matchingIds.append("\n").append(monsters.get(i).getName()).append(" and ").append(monsters.get(j).getName()).append(": ").append(monsters.get(i).getUniqueId()).append("\n");
-                    }
-                }
+            //automatically updates the monster names if there is changes
+            for (Monster monster : sourceMonsters) {
+                monsterDatabase.updateMonster(monster);
             }
 
-            if (!isUnique) {
-                Toast.makeText(this, "Non unique IDs:" + matchingIds, Toast.LENGTH_SHORT).show();
-                Log.d("Non unique IDs:", matchingIds.toString());
-            } else {
-                Toast.makeText(this, "Everything is unique", Toast.LENGTH_SHORT).show();
+            ArrayList<Monster> databaseMonster = new ArrayList<>(monsterDatabase.selectAll());
+
+            // If data exists, check if there's a discrepancy in the number of monster
+            if (monsterDatabase.monsterCount() != setupCharacter.getMonsterListing().size()) {
+                if (isMonsterUniqueId(setupCharacter.getMonsterListing())) {
+                    // Iterate through the updated list of maps
+                    for (Monster thisListMonster : setupCharacter.getMonsterListing()) {
+                        boolean found = false;
+
+                        // Compare with existing monster in the database
+                        for (Monster thisDatabaseMonster : databaseMonster) {
+
+                            // Match monster by their unique identifier
+                            if (thisListMonster.getUniqueId().equals(thisDatabaseMonster.getUniqueId())) {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        // If no match is found, it's a new monster; add it to the final list
+                        if (!found) {
+                            finalMonster.add(thisListMonster);
+                        }
+                    }
+
+                    // Clear the database and replace it with the updated monster list
+                    monsterDatabase.deleteAllMonster();
+                    for (Monster monster : finalMonster) {
+                        monsterDatabase.addMonster(monster); // Add the new or updated monster to the database
+                    }
+                }
             }
         }
 
@@ -116,10 +155,12 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<Map> listMap = new ArrayList<>(mapListGetter.getMapList());
             ArrayList<Map> finalMap = new ArrayList<>();
 
+            //updates the map name automatically if there is changes
             for (Map map : listMap) {
                 mapDatabase.updateMap(map);
             }
 
+            //this is the updated maps earlier and store in the variables to be use
             ArrayList<Map> databaseMap = new ArrayList<>(mapDatabase.selectAll());
 
             // If data exists, check if there's a discrepancy in the number of maps
@@ -171,7 +212,8 @@ public class MainActivity extends AppCompatActivity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (monsterDatabase.getMonsterCount() <= 2) {
+//                if (monsterDatabase.getMonsterCount() <= 2) {
+                if (monsterDatabase.getMonsterCount() <= 0) {
                     Toast.makeText(MainActivity.this, "Hunt at least two monster first!", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(MainActivity.this, TestActivity.class);

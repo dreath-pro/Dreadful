@@ -8,21 +8,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.dreadful.characters.Flamethrower;
+import com.example.dreadful.logics.SetupCharacter;
 import com.example.dreadful.models.Map;
 import com.example.dreadful.models.Monster;
 
 import java.util.ArrayList;
 
 public class MonsterDatabase extends SQLiteOpenHelper {
+    private Context context;
     private static final String unique_id = "unique_id";
     private static final String monster_table = "monster_table";
     private static final String monster_id = "monster_id";
     private static final String monster_name = "monster_name";
 
+    private SetupCharacter setupCharacter = new SetupCharacter();
+
     private static final int DATABASE_VERSION = 1;
 
     public MonsterDatabase(@Nullable Context context) {
         super(context, "monster.db", null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -46,6 +52,25 @@ public class MonsterDatabase extends SQLiteOpenHelper {
 //                break;
 //        }
 //        db.setVersion(newVersion);
+    }
+
+    public int monsterCount() {
+        int count = 0;
+        String queryString = "SELECT * FROM " + monster_table;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                count++;
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return count;
     }
 
     public boolean doesSelectedDataExist(String unique_id) {
@@ -121,8 +146,8 @@ public class MonsterDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<String> selectAll() {
-        ArrayList<String> allMonster = new ArrayList<>();
+    public ArrayList<Monster> selectAll() {
+        ArrayList<Monster> allMonster = new ArrayList<>();
         String queryString = "SELECT * FROM " + monster_table;
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -130,9 +155,8 @@ public class MonsterDatabase extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int id = cursor.getInt(0);
-                String name = cursor.getString(2);
-                allMonster.add(name);
+                String uniqueId = cursor.getString(1);
+                allMonster.add(getMonsterFromSource(uniqueId));
             } while (cursor.moveToNext());
         }
 
@@ -141,7 +165,34 @@ public class MonsterDatabase extends SQLiteOpenHelper {
         return allMonster;
     }
 
-    public boolean updateMap(Monster monster) {
+    private Monster getMonsterFromSource(String unique_id) {
+        Monster finalMonster = null;
+        ArrayList<Monster> monsters = setupCharacter.getMonsterListing();
+
+        for (Monster monster : monsters) {
+            if (unique_id.equals(monster.getUniqueId())) {
+                finalMonster = monster;
+            }
+        }
+
+        return finalMonster;
+    }
+
+    public boolean deleteMonster(Monster monster) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deletedRows = db.delete(monster_table, unique_id + " = ?", new String[]{String.valueOf(monster.getUniqueId())});
+        db.close();
+        return deletedRows > 0;
+    }
+
+    public boolean deleteAllMonster() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deletedRows = db.delete(monster_table, null, null);
+        db.close();
+        return deletedRows > 0;
+    }
+
+    public boolean updateMonster(Monster monster) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
