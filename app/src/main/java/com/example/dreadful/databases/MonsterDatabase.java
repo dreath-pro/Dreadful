@@ -74,11 +74,11 @@ public class MonsterDatabase extends SQLiteOpenHelper {
         return count;
     }
 
-    public boolean doesSelectedDataExist(String unique_id) {
+    public boolean doesSelectedDataExist(String uniqueId) {
         int count = 0;
         String queryString = "SELECT * FROM " + monster_table + " WHERE " + unique_id + " = ?";
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] selectionArgs = {unique_id};
+        String[] selectionArgs = {uniqueId};
 
         Cursor cursor = db.rawQuery(queryString, selectionArgs);
 

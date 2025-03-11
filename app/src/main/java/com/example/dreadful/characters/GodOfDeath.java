@@ -139,7 +139,7 @@ public class GodOfDeath extends Monster {
     }
 
     public void defeatReward() {
-        if (!monsterDatabase.doesSelectedDataExist(getName())) {
+        if (!monsterDatabase.doesSelectedDataExist(getUniqueId())) {
             monsterDatabase.addMonster(this);
         }
     }
